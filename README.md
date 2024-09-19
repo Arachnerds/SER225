@@ -12,5 +12,3 @@ Changes to content in the `docs` folder will not show up on the website unless t
 **Callandra Ruiter**: Programmer<br>
 **Eric May**: Programmer<br>
 **Ryan Slattery**: Programmer<br>
-
-TEST
