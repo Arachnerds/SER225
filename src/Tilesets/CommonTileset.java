@@ -262,6 +262,78 @@ public class CommonTileset extends Tileset {
 
         mapTiles.add(leftStairsTopTile);
 
+        // Left Window
+        Frame leftWindowFrame = new FrameBuilder(getSubImage(4, 2))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder leftWindowTile = new MapTileBuilder(leftWindowFrame);
+
+        mapTiles.add(leftWindowTile);
+
+        // Window Pane
+        Frame windowPaneFrame = new FrameBuilder(getSubImage(4, 3))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder windowPaneTile = new MapTileBuilder(windowPaneFrame);
+
+        mapTiles.add(windowPaneTile);
+
+        // Window Pane Bar
+        Frame windowPaneBarFrame = new FrameBuilder(getSubImage(4, 4))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder windowPaneBarTile = new MapTileBuilder(windowPaneBarFrame);
+
+        mapTiles.add(windowPaneBarTile);
+
+        // Right Window
+        Frame rightWindowFrame = new FrameBuilder(getSubImage(4, 5))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder rightWindowTile = new MapTileBuilder(rightWindowFrame);
+
+        mapTiles.add(rightWindowTile);
+
+        // Left Basement Brick
+        Frame leftBasementBrickFrame = new FrameBuilder(getSubImage(5, 0))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder leftBasementBrickTile = new MapTileBuilder(leftBasementBrickFrame);
+
+        mapTiles.add(leftBasementBrickTile);
+
+        // Middle Basement Brick 1
+        Frame middleBasementBrickFrame1 = new FrameBuilder(getSubImage(5, 1))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder middleBasementBrickTile1 = new MapTileBuilder(middleBasementBrickFrame1);
+
+        mapTiles.add(middleBasementBrickTile1);
+
+        // Middle Basement Brick 2
+        Frame middleBasementBrickFrame2 = new FrameBuilder(getSubImage(5, 2))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder middleBasementBrickTile2 = new MapTileBuilder(middleBasementBrickFrame2);
+
+        mapTiles.add(middleBasementBrickTile2);
+
+        // Right Basement Brick
+        Frame rightBasementBrickFrame = new FrameBuilder(getSubImage(5, 3))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder rightBasementBrickTile = new MapTileBuilder(rightBasementBrickFrame);
+
+        mapTiles.add(rightBasementBrickTile);
+
         return mapTiles;
     }
 }
