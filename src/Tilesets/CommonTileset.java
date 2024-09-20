@@ -394,8 +394,7 @@ public class CommonTileset extends Tileset {
                 .withBounds(0, 8, 16, 4)
                 .build();
 
-        MapTileBuilder middleBasementBrickMiddleShelfTile1 = new MapTileBuilder(middleBasementBrickMiddleShelfFrame1)
-                .withTileType(TileType.JUMP_THROUGH_PLATFORM);
+        MapTileBuilder middleBasementBrickMiddleShelfTile1 = new MapTileBuilder(middleBasementBrickMiddleShelfFrame1);
 
         mapTiles.add(middleBasementBrickMiddleShelfTile1);
 
@@ -405,8 +404,7 @@ public class CommonTileset extends Tileset {
                 .withBounds(0, 8, 16, 4)
                 .build();
 
-        MapTileBuilder middleBasementBrickLeftShelfTile1 = new MapTileBuilder(middleBasementBrickLeftShelfFrame1)
-                .withTileType(TileType.JUMP_THROUGH_PLATFORM);
+        MapTileBuilder middleBasementBrickLeftShelfTile1 = new MapTileBuilder(middleBasementBrickLeftShelfFrame1);
 
         mapTiles.add(middleBasementBrickLeftShelfTile1);
 
@@ -416,8 +414,7 @@ public class CommonTileset extends Tileset {
                 .withBounds(0, 8, 16, 4)
                 .build();
 
-        MapTileBuilder middleBasementBrickRightShelfTile1 = new MapTileBuilder(middleBasementBrickRightShelfFrame1)
-                .withTileType(TileType.JUMP_THROUGH_PLATFORM);
+        MapTileBuilder middleBasementBrickRightShelfTile1 = new MapTileBuilder(middleBasementBrickRightShelfFrame1);
 
         mapTiles.add(middleBasementBrickRightShelfTile1);
 
@@ -427,8 +424,7 @@ public class CommonTileset extends Tileset {
                 .withBounds(0, 8, 16, 4)
                 .build();
 
-        MapTileBuilder middleBasementBrickMiddleShelfTile2 = new MapTileBuilder(middleBasementBrickMiddleShelfFrame2)
-                .withTileType(TileType.JUMP_THROUGH_PLATFORM);
+        MapTileBuilder middleBasementBrickMiddleShelfTile2 = new MapTileBuilder(middleBasementBrickMiddleShelfFrame2);
 
         mapTiles.add(middleBasementBrickMiddleShelfTile2);
 
@@ -438,8 +434,7 @@ public class CommonTileset extends Tileset {
                 .withBounds(0, 8, 16, 4)
                 .build();
 
-        MapTileBuilder middleBasementBrickLeftShelfTile2 = new MapTileBuilder(middleBasementBrickLeftShelfFrame2)
-                .withTileType(TileType.JUMP_THROUGH_PLATFORM);
+        MapTileBuilder middleBasementBrickLeftShelfTile2 = new MapTileBuilder(middleBasementBrickLeftShelfFrame2);
 
         mapTiles.add(middleBasementBrickLeftShelfTile2);
 
@@ -449,8 +444,7 @@ public class CommonTileset extends Tileset {
                 .withBounds(0, 8, 16, 4)
                 .build();
 
-        MapTileBuilder middleBasementBrickRightShelfTile2 = new MapTileBuilder(middleBasementBrickRightShelfFrame2)
-                .withTileType(TileType.JUMP_THROUGH_PLATFORM);
+        MapTileBuilder middleBasementBrickRightShelfTile2 = new MapTileBuilder(middleBasementBrickRightShelfFrame2);
 
         mapTiles.add(middleBasementBrickRightShelfTile2);
 
@@ -546,6 +540,160 @@ public class CommonTileset extends Tileset {
                 .withTileType(TileType.NOT_PASSABLE);
 
         mapTiles.add(middleBasementFloorTile2Barrier);
+
+        // FILLER1
+        Frame filler1Frame = new FrameBuilder(getSubImage(9, 0))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder filler1Tile = new MapTileBuilder(filler1Frame)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(filler1Tile);
+
+        // FILLER2
+        Frame filler2Frame = new FrameBuilder(getSubImage(9, 1))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder filler2Tile = new MapTileBuilder(filler2Frame)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(filler2Tile);
+
+        // Stair Wood
+        Frame stairWoodFrame = new FrameBuilder(getSubImage(10, 0))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder stairWoodTile = new MapTileBuilder(stairWoodFrame)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(stairWoodTile);
+
+        // FILLER3
+        Frame filler3Frame = new FrameBuilder(getSubImage(9, 2))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder filler3Tile = new MapTileBuilder(filler3Frame)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(filler3Tile);
+
+        // FILLER4
+        Frame filler4Frame = new FrameBuilder(getSubImage(9, 3))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder filler4Tile = new MapTileBuilder(filler4Frame)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(filler4Tile);
+
+        // FILLER5
+        Frame filler5Frame = new FrameBuilder(getSubImage(9, 4))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder filler5Tile = new MapTileBuilder(filler5Frame)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(filler5Tile);
+
+        // FILLER6
+        Frame filler6Frame = new FrameBuilder(getSubImage(9, 5))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder filler6Tile = new MapTileBuilder(filler6Frame)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(filler6Tile);
+
+        // FILLER7
+        Frame filler7Frame = new FrameBuilder(getSubImage(10, 1))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder filler7Tile = new MapTileBuilder(filler7Frame)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(filler7Tile);
+
+        // FILLER8
+        Frame filler8Frame = new FrameBuilder(getSubImage(10, 2))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder filler8Tile = new MapTileBuilder(filler8Frame)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(filler8Tile);
+
+        // FILLER9
+        Frame filler9Frame = new FrameBuilder(getSubImage(10, 3))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder filler9Tile = new MapTileBuilder(filler9Frame)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(filler9Tile);
+
+        // FILLER10
+        Frame filler10Frame = new FrameBuilder(getSubImage(10, 4))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder filler10Tile = new MapTileBuilder(filler10Frame);
+
+        mapTiles.add(filler10Tile);
+
+        // FILLER11
+        Frame filler11Frame = new FrameBuilder(getSubImage(10, 5))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder filler11Tile = new MapTileBuilder(filler11Frame);
+
+        mapTiles.add(filler11Tile);
+
+        // FILLER12
+        Frame filler12Frame = new FrameBuilder(getSubImage(11, 0))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder filler12Tile = new MapTileBuilder(filler12Frame);
+
+        mapTiles.add(filler12Tile);
+
+        // FILLER13
+        Frame filler13Frame = new FrameBuilder(getSubImage(11, 1))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder filler13Tile = new MapTileBuilder(filler13Frame);
+
+        mapTiles.add(filler13Tile);
+
+        // FILLER14
+        Frame filler14Frame = new FrameBuilder(getSubImage(3, 5))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder filler14Tile = new MapTileBuilder(filler14Frame);
+
+        mapTiles.add(filler14Tile);
+
+        // FILLER15
+        Frame filler15Frame = new FrameBuilder(getSubImage(11, 2))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder filler15Tile = new MapTileBuilder(filler15Frame);
+
+        mapTiles.add(filler15Tile);
 
         return mapTiles;
     }
