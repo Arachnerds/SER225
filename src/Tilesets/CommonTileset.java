@@ -948,15 +948,167 @@ public class CommonTileset extends Tileset {
 
         mapTiles.add(box43Tile);
 
-        // Box 44
-        Frame box44Frame = new FrameBuilder(getSubImage(16, 4))
+        /**
+         * 
+         * 
+         * END BOX SECTION
+         * 
+         * 
+         */
+
+        // Dark Wall 1
+        Frame darkWall1Frame = new FrameBuilder(getSubImage(11, 3))
                 .withScale(tileScale)
                 .build();
 
-        MapTileBuilder box44Tile = new MapTileBuilder(box44Frame)
-                .withTileType(TileType.NOT_PASSABLE);
+        MapTileBuilder darkWall1Tile = new MapTileBuilder(darkWall1Frame);
 
-        mapTiles.add(box44Tile);
+        mapTiles.add(darkWall1Tile);
+
+        // Dark Wall 2
+        Frame darkWall2Frame = new FrameBuilder(getSubImage(11, 4))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder darkWall2Tile = new MapTileBuilder(darkWall2Frame);
+
+        mapTiles.add(darkWall2Tile);
+
+
+        // Dark Base 1
+        Frame darkBase1Frame = new FrameBuilder(getSubImage(11, 5))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder darkBase1Tile = new MapTileBuilder(darkBase1Frame);
+
+        mapTiles.add(darkBase1Tile);
+
+        // Dark Base 2
+        Frame darkBase2Frame = new FrameBuilder(getSubImage(12, 4))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder darkBase2Tile = new MapTileBuilder(darkBase2Frame);
+
+        mapTiles.add(darkBase2Tile);
+
+        // Dark Pillar 1
+        Frame darkPillar1Frame = new FrameBuilder(getSubImage(12, 5))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder darkPillar1Tile = new MapTileBuilder(darkPillar1Frame);
+
+        mapTiles.add(darkPillar1Tile);
+
+        // Dark Pillar 2
+        Frame darkPillar2Frame = new FrameBuilder(getSubImage(13, 4))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder darkPillar2Tile = new MapTileBuilder(darkPillar2Frame);
+
+        mapTiles.add(darkPillar2Tile);
+
+        // Dark Wall Pillar 1
+        Frame darkWallPillar1Frame = new FrameBuilder(getSubImage(13, 5))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder darkWallPillar1Tile = new MapTileBuilder(darkWallPillar1Frame);
+
+        mapTiles.add(darkWallPillar1Tile);
+
+        // Dark Wall Pillar 2
+        Frame darkWallPillar2Frame = new FrameBuilder(getSubImage(14, 4))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder darkWallPillar2Tile = new MapTileBuilder(darkWallPillar2Frame);
+
+        mapTiles.add(darkWallPillar2Tile);
+
+        // Dark Shelf Middle 1
+        Frame darkShelfMiddle1Frame = new FrameBuilder(getSubImage(14, 5))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder darkShelfMiddle1Tile = new MapTileBuilder(darkShelfMiddle1Frame);
+
+        mapTiles.add(darkShelfMiddle1Tile);
+
+        // Dark Shelf Left 1
+        Frame darkShelfLeft1Frame = new FrameBuilder(getSubImage(15, 4))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder darkShelfLeft1Tile = new MapTileBuilder(darkShelfLeft1Frame);
+
+        mapTiles.add(darkShelfLeft1Tile);
+
+        // Dark Shelf Right 1
+        Frame darkShelfRight1Frame = new FrameBuilder(getSubImage(15, 5))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder darkShelfRight1Tile1 = new MapTileBuilder(darkShelfRight1Frame);
+
+        mapTiles.add(darkShelfRight1Tile1);
+
+        // Dark Shelf Middle 2
+        Frame darkShelfMiddle2Frame = new FrameBuilder(getSubImage(16, 0))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder darkShelfMiddle2Tile = new MapTileBuilder(darkShelfMiddle2Frame);
+
+        mapTiles.add(darkShelfMiddle2Tile);
+
+        // Dark Shelf Left 2
+        Frame darkShelfLeft2Frame = new FrameBuilder(getSubImage(16, 1))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder darkShelfLeft2Tile = new MapTileBuilder(darkShelfLeft2Frame);
+
+        mapTiles.add(darkShelfLeft2Tile);
+
+        // Dark Shelf Right 2
+        Frame darkShelfRight2Frame = new FrameBuilder(getSubImage(16, 2))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder darkShelfRight2Tile = new MapTileBuilder(darkShelfRight2Frame);
+
+        mapTiles.add(darkShelfRight2Tile);
+
+        // Lighter Wall
+        Frame ligherWallFrame = new FrameBuilder(getSubImage(16, 3))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder ligherWallTile = new MapTileBuilder(ligherWallFrame);
+
+        mapTiles.add(ligherWallTile);
+
+        // Dark Stair 1
+        Frame darkStair1Frame = new FrameBuilder(getSubImage(16, 4))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder darkStair1Tile = new MapTileBuilder(darkStair1Frame);
+
+        mapTiles.add(darkStair1Tile);
+
+        // Dark Stair 2
+        Frame darkStair2Frame = new FrameBuilder(getSubImage(16, 5))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder darkStair2Tile = new MapTileBuilder(darkStair2Frame);
+
+        mapTiles.add(darkStair2Tile);
 
         return mapTiles;
     }
