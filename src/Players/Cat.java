@@ -179,6 +179,21 @@ public class Cat extends Player {
                             .withBounds(8, 9, 8, 9)
                             .build()
             });
+
+            put("CLIMB_RIGHT", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(5, 1))
+                            .withScale(3)
+                            .withBounds(8, 12, 8, 6)
+                            .build()
+            });
+
+            put("CLIMB_LEFT", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(5, 1))
+                            .withScale(3)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(8, 12, 8, 6)
+                            .build()
+            });
         }};
     }
 }

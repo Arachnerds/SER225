@@ -43,6 +43,7 @@ public abstract class Player extends GameObject {
     protected Key MOVE_LEFT_KEY = Key.LEFT;
     protected Key MOVE_RIGHT_KEY = Key.RIGHT;
     protected Key CROUCH_KEY = Key.DOWN;
+    protected Key CLIMB_KEY = Key.C;
 
     // flags
     protected boolean isInvincible = false; // if true, player cannot be hurt by enemies (good for testing)
@@ -116,6 +117,9 @@ public abstract class Player extends GameObject {
             case JUMPING:
                 playerJumping();
                 break;
+            case CLIMBING:
+                playerClimbing();
+                break;
         }
     }
 
@@ -135,6 +139,10 @@ public abstract class Player extends GameObject {
         // if crouch key is pressed, player enters CROUCHING state
         else if (Keyboard.isKeyDown(CROUCH_KEY)) {
             playerState = PlayerState.CROUCHING;
+        }
+
+        else if (Keyboard.isKeyDown(CLIMB_KEY)) {
+            playerState = PlayerState.CLIMBING;
         }
     }
 
@@ -229,6 +237,20 @@ public abstract class Player extends GameObject {
         }
     }
 
+    // player CROUCHING state logic
+    protected void playerClimbing() {
+        // if crouch key is released, player enters STANDING state
+        if (Keyboard.isKeyUp(CLIMB_KEY)) {
+            playerState = PlayerState.STANDING;
+        }
+
+        // if jump key is pressed, player enters JUMPING state
+        if (Keyboard.isKeyDown(JUMP_KEY) && !keyLocker.isKeyLocked(JUMP_KEY)) {
+            keyLocker.lockKey(JUMP_KEY);
+            playerState = PlayerState.JUMPING;
+        }
+    }
+
     // while player is in air, this is called, and will increase momentumY by a set amount until player reaches terminal velocity
     protected void increaseMomentum() {
         momentumY += momentumYIncrease;
@@ -273,6 +295,10 @@ public abstract class Player extends GameObject {
             } else {
                 this.currentAnimationName = facingDirection == Direction.RIGHT ? "FALL_RIGHT" : "FALL_LEFT";
             }
+        }
+        else if (playerState == PlayerState.CLIMBING) {
+            // sets animation to a CROUCH animation based on which way player is facing
+            this.currentAnimationName = facingDirection == Direction.RIGHT ? "CLIMB_RIGHT" : "CLIMB_LEFT";
         }
     }
 
