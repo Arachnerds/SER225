@@ -541,25 +541,27 @@ public class CommonTileset extends Tileset {
 
         mapTiles.add(middleBasementFloorTile2Barrier);
 
-        // FILLER1
-        Frame filler1Frame = new FrameBuilder(getSubImage(9, 0))
+        // Floor Stair Bottom
+        Frame floorStairBottomFrame = new FrameBuilder(getSubImage(9, 0))
                 .withScale(tileScale)
+                .withBounds(0, 5, 16, 16)
                 .build();
 
-        MapTileBuilder filler1Tile = new MapTileBuilder(filler1Frame)
+        MapTileBuilder floorStairBottomTile = new MapTileBuilder(floorStairBottomFrame)
                 .withTileType(TileType.NOT_PASSABLE);
 
-        mapTiles.add(filler1Tile);
+        mapTiles.add(floorStairBottomTile);
 
-        // FILLER2
-        Frame filler2Frame = new FrameBuilder(getSubImage(9, 1))
+        // Stair Top
+        Frame stairTopFrame = new FrameBuilder(getSubImage(9, 1))
                 .withScale(tileScale)
+                .withBounds(0, 5, 16, 16)
                 .build();
 
-        MapTileBuilder filler2Tile = new MapTileBuilder(filler2Frame)
+        MapTileBuilder stairTopTile = new MapTileBuilder(stairTopFrame)
                 .withTileType(TileType.NOT_PASSABLE);
 
-        mapTiles.add(filler2Tile);
+        mapTiles.add(stairTopTile);
 
         // Stair Wood
         Frame stairWoodFrame = new FrameBuilder(getSubImage(10, 0))
@@ -571,129 +573,133 @@ public class CommonTileset extends Tileset {
 
         mapTiles.add(stairWoodTile);
 
-        // FILLER3
-        Frame filler3Frame = new FrameBuilder(getSubImage(9, 2))
+        // Stair Underhang 1
+        Frame stairUnderhangFrame1 = new FrameBuilder(getSubImage(9, 2))
                 .withScale(tileScale)
                 .build();
 
-        MapTileBuilder filler3Tile = new MapTileBuilder(filler3Frame)
+        MapTileBuilder stairUnderhangTile1 = new MapTileBuilder(stairUnderhangFrame1)
                 .withTileType(TileType.NOT_PASSABLE);
 
-        mapTiles.add(filler3Tile);
+        mapTiles.add(stairUnderhangTile1);
 
-        // FILLER4
-        Frame filler4Frame = new FrameBuilder(getSubImage(9, 3))
+        // Wall Stair Bottom
+        Frame wallStairBottomFrame = new FrameBuilder(getSubImage(9, 3))
                 .withScale(tileScale)
+                .withBounds(0, 5, 16, 16)
                 .build();
 
-        MapTileBuilder filler4Tile = new MapTileBuilder(filler4Frame)
+        MapTileBuilder wallStairBottomTile = new MapTileBuilder(wallStairBottomFrame)
                 .withTileType(TileType.NOT_PASSABLE);
 
-        mapTiles.add(filler4Tile);
+        mapTiles.add(wallStairBottomTile);
 
-        // FILLER5
-        Frame filler5Frame = new FrameBuilder(getSubImage(9, 4))
+        // Stair Underhang 2
+        Frame stairUnderhangFrame2 = new FrameBuilder(getSubImage(9, 4))
                 .withScale(tileScale)
                 .build();
 
-        MapTileBuilder filler5Tile = new MapTileBuilder(filler5Frame)
+        MapTileBuilder stairUnderhangTile2 = new MapTileBuilder(stairUnderhangFrame2)
                 .withTileType(TileType.NOT_PASSABLE);
 
-        mapTiles.add(filler5Tile);
+        mapTiles.add(stairUnderhangTile2);
 
-        // FILLER6
-        Frame filler6Frame = new FrameBuilder(getSubImage(9, 5))
+        // Window Stair Top
+        Frame windowStairTopFrame = new FrameBuilder(getSubImage(9, 5))
                 .withScale(tileScale)
+                .withBounds(0, 5, 16, 16)
                 .build();
 
-        MapTileBuilder filler6Tile = new MapTileBuilder(filler6Frame)
+        MapTileBuilder windowStairTopTile = new MapTileBuilder(windowStairTopFrame)
                 .withTileType(TileType.NOT_PASSABLE);
 
-        mapTiles.add(filler6Tile);
+        mapTiles.add(windowStairTopTile);
 
-        // FILLER7
-        Frame filler7Frame = new FrameBuilder(getSubImage(10, 1))
+        // Wall with Shelf Stair Bottom
+        Frame wallShelfStairBottomFrame = new FrameBuilder(getSubImage(10, 1))
                 .withScale(tileScale)
+                .withBounds(0, 5, 16, 16)
                 .build();
 
-        MapTileBuilder filler7Tile = new MapTileBuilder(filler7Frame)
+        MapTileBuilder wallShelfStairBottomTile = new MapTileBuilder(wallShelfStairBottomFrame)
                 .withTileType(TileType.NOT_PASSABLE);
 
-        mapTiles.add(filler7Tile);
+        mapTiles.add(wallShelfStairBottomTile);
 
-        // FILLER8
-        Frame filler8Frame = new FrameBuilder(getSubImage(10, 2))
+        // Stair with Shelf Underhang 1
+        Frame stairShelfUnderhangFrame1 = new FrameBuilder(getSubImage(10, 2))
                 .withScale(tileScale)
                 .build();
 
-        MapTileBuilder filler8Tile = new MapTileBuilder(filler8Frame)
+        MapTileBuilder stairShelfUnderhangTile1 = new MapTileBuilder(stairShelfUnderhangFrame1)
                 .withTileType(TileType.NOT_PASSABLE);
 
-        mapTiles.add(filler8Tile);
+        mapTiles.add(stairShelfUnderhangTile1);
 
-        // FILLER9
-        Frame filler9Frame = new FrameBuilder(getSubImage(10, 3))
+        // Window Stair Bottom
+        Frame windowStairBottomFrame = new FrameBuilder(getSubImage(10, 3))
                 .withScale(tileScale)
+                .withBounds(0, 5, 16, 16)
                 .build();
 
-        MapTileBuilder filler9Tile = new MapTileBuilder(filler9Frame)
+        MapTileBuilder windowStairBottomTile = new MapTileBuilder(windowStairBottomFrame)
                 .withTileType(TileType.NOT_PASSABLE);
 
-        mapTiles.add(filler9Tile);
+        mapTiles.add(windowStairBottomTile);
 
-        // FILLER10
-        Frame filler10Frame = new FrameBuilder(getSubImage(10, 4))
+        // Cellar Opening Upper Slope
+        Frame cellarOpeningUpperSlopeFrame = new FrameBuilder(getSubImage(10, 4))
                 .withScale(tileScale)
                 .build();
 
-        MapTileBuilder filler10Tile = new MapTileBuilder(filler10Frame);
+        MapTileBuilder cellarOpeningUpperSlopeTile = new MapTileBuilder(cellarOpeningUpperSlopeFrame);
 
-        mapTiles.add(filler10Tile);
+        mapTiles.add(cellarOpeningUpperSlopeTile);
 
-        // FILLER11
-        Frame filler11Frame = new FrameBuilder(getSubImage(10, 5))
+        // Cellar Opening Lower Slope
+        Frame cellarOpeningLowerSlopeFrame = new FrameBuilder(getSubImage(10, 5))
                 .withScale(tileScale)
                 .build();
 
-        MapTileBuilder filler11Tile = new MapTileBuilder(filler11Frame);
+        MapTileBuilder cellarOpeningLowerSlopeTile = new MapTileBuilder(cellarOpeningLowerSlopeFrame);
 
-        mapTiles.add(filler11Tile);
+        mapTiles.add(cellarOpeningLowerSlopeTile);
 
-        // FILLER12
-        Frame filler12Frame = new FrameBuilder(getSubImage(11, 0))
+        // Cellar Opening Brick
+        Frame cellarOpeningBrickFrame = new FrameBuilder(getSubImage(11, 0))
                 .withScale(tileScale)
                 .build();
 
-        MapTileBuilder filler12Tile = new MapTileBuilder(filler12Frame);
+        MapTileBuilder cellarOpeningBrickTile = new MapTileBuilder(cellarOpeningBrickFrame);
 
-        mapTiles.add(filler12Tile);
+        mapTiles.add(cellarOpeningBrickTile);
 
-        // FILLER13
-        Frame filler13Frame = new FrameBuilder(getSubImage(11, 1))
+        // Cellar Door Lower
+        Frame cellarDoorLowerFrame = new FrameBuilder(getSubImage(11, 1))
                 .withScale(tileScale)
                 .build();
 
-        MapTileBuilder filler13Tile = new MapTileBuilder(filler13Frame);
+        MapTileBuilder cellarDoorLowerTile = new MapTileBuilder(cellarDoorLowerFrame);
 
-        mapTiles.add(filler13Tile);
+        mapTiles.add(cellarDoorLowerTile);
 
-        // FILLER14
-        Frame filler14Frame = new FrameBuilder(getSubImage(3, 5))
+        // Cellar Door Upper
+        Frame cellarDoorUpperFrame = new FrameBuilder(getSubImage(3, 5))
                 .withScale(tileScale)
                 .build();
 
-        MapTileBuilder filler14Tile = new MapTileBuilder(filler14Frame);
+        MapTileBuilder cellarDoorUpperTile = new MapTileBuilder(cellarDoorUpperFrame);
 
-        mapTiles.add(filler14Tile);
+        mapTiles.add(cellarDoorUpperTile);
 
-        // FILLER15
-        Frame filler15Frame = new FrameBuilder(getSubImage(11, 2))
+        // Cellar Door Filler
+        Frame cellarDoorFillerFrame = new FrameBuilder(getSubImage(11, 2))
                 .withScale(tileScale)
                 .build();
 
-        MapTileBuilder filler15Tile = new MapTileBuilder(filler15Frame);
+        MapTileBuilder cellarDoorFillerTile = new MapTileBuilder(cellarDoorFillerFrame);
 
-        mapTiles.add(filler15Tile);
+        mapTiles.add(cellarDoorFillerTile);
 
         return mapTiles;
     }
