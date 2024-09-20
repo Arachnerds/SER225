@@ -8,6 +8,6 @@ public class Basement extends Map {
 
     public Basement() {
         super("basement.txt", new CommonTileset());
-        this.playerStartPosition = new Point (1, 11);
+        this.playerStartPosition = new Point (2, 11);
     }
 }
