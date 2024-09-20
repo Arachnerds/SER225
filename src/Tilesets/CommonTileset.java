@@ -701,6 +701,263 @@ public class CommonTileset extends Tileset {
 
         mapTiles.add(cellarDoorFillerTile);
 
+        /**
+         * 
+         * 
+         * SECTION FOR CLIMBING BOX IN BASEMENT
+         * 
+         * 
+         */
+
+        // Box 00
+        Frame box00Frame = new FrameBuilder(getSubImage(12, 0))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder box00Tile = new MapTileBuilder(box00Frame)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(box00Tile);
+
+        // Box 01
+        Frame box01Frame = new FrameBuilder(getSubImage(12, 1))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder box01Tile = new MapTileBuilder(box01Frame)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(box01Tile);
+
+        // Box 02
+        Frame box02Frame = new FrameBuilder(getSubImage(12, 2))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder box02Tile = new MapTileBuilder(box02Frame)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(box02Tile);
+
+        // Box 03
+        Frame box03Frame = new FrameBuilder(getSubImage(12, 3))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder box03Tile = new MapTileBuilder(box03Frame)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(box03Tile);
+
+        // Box 04
+        Frame box04Frame = new FrameBuilder(getSubImage(12, 4))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder box04Tile = new MapTileBuilder(box04Frame)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(box04Tile);
+
+        // Box 10
+        Frame box10Frame = new FrameBuilder(getSubImage(13, 0))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder box10Tile = new MapTileBuilder(box10Frame)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(box10Tile);
+
+        // Box 11
+        Frame box11Frame = new FrameBuilder(getSubImage(13, 1))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder box11Tile = new MapTileBuilder(box11Frame)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(box11Tile);
+
+        // Box 12
+        Frame box12Frame = new FrameBuilder(getSubImage(13, 2))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder box12Tile = new MapTileBuilder(box12Frame)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(box12Tile);
+
+        // Box 13
+        Frame box13Frame = new FrameBuilder(getSubImage(13, 3))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder box13Tile = new MapTileBuilder(box13Frame)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(box13Tile);
+
+        // Box 14
+        Frame box14Frame = new FrameBuilder(getSubImage(13, 4))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder box14Tile = new MapTileBuilder(box14Frame)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(box14Tile);
+
+        // Box 20
+        Frame box20Frame = new FrameBuilder(getSubImage(14, 0))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder box20Tile = new MapTileBuilder(box20Frame)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(box20Tile);
+
+        // Box 21
+        Frame box21Frame = new FrameBuilder(getSubImage(14, 1))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder box21Tile = new MapTileBuilder(box21Frame);
+
+        mapTiles.add(box21Tile);
+
+        // Box 22
+        Frame box22Frame = new FrameBuilder(getSubImage(14, 2))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder box22Tile = new MapTileBuilder(box22Frame)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(box22Tile);
+
+        // Box 23
+        Frame box23Frame = new FrameBuilder(getSubImage(14, 3))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder box23Tile = new MapTileBuilder(box23Frame)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(box23Tile);
+
+        // Box 24
+        Frame box24Frame = new FrameBuilder(getSubImage(14, 4))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder box24Tile = new MapTileBuilder(box24Frame)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(box24Tile);
+
+        // Box 30
+        Frame box30Frame = new FrameBuilder(getSubImage(15, 0))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder box30Tile = new MapTileBuilder(box30Frame)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(box30Tile);
+
+        // Box 31
+        Frame box31Frame = new FrameBuilder(getSubImage(15, 1))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder box31Tile = new MapTileBuilder(box31Frame)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(box31Tile);
+
+        // Box 32
+        Frame box32Frame = new FrameBuilder(getSubImage(15, 2))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder box32Tile = new MapTileBuilder(box32Frame)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(box32Tile);
+
+        // Box 33
+        Frame box33Frame = new FrameBuilder(getSubImage(15, 3))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder box33Tile = new MapTileBuilder(box33Frame)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(box33Tile);
+
+        // Box 34
+        Frame box34Frame = new FrameBuilder(getSubImage(15, 4))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder box34Tile = new MapTileBuilder(box34Frame)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(box34Tile);
+
+        // Box 40
+        Frame box40Frame = new FrameBuilder(getSubImage(16, 0))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder box40Tile = new MapTileBuilder(box40Frame)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(box40Tile);
+
+        // Box 41
+        Frame box41Frame = new FrameBuilder(getSubImage(16, 1))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder box41Tile = new MapTileBuilder(box41Frame)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(box41Tile);
+
+        // Box 42
+        Frame box42Frame = new FrameBuilder(getSubImage(16, 2))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder box42Tile = new MapTileBuilder(box42Frame)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(box42Tile);
+
+        // Box 43
+        Frame box43Frame = new FrameBuilder(getSubImage(16, 3))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder box43Tile = new MapTileBuilder(box43Frame)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(box43Tile);
+
+        // Box 44
+        Frame box44Frame = new FrameBuilder(getSubImage(16, 4))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder box44Tile = new MapTileBuilder(box44Frame)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(box44Tile);
+
         return mapTiles;
     }
 }
