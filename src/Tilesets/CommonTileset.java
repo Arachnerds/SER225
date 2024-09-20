@@ -522,7 +522,7 @@ public class CommonTileset extends Tileset {
         mapTiles.add(middleBasementFloorPillarTile2);
 
         // Middle Basement Brick 2 (BARRIER)
-        Frame middleBasementBrickFrame2Barrier = new FrameBuilder(getSubImage(5, 2))
+        Frame middleBasementBrickFrame2Barrier = new FrameBuilder(getSubImage(11, 4))
                 .withScale(tileScale)
                 .build();
 
@@ -532,7 +532,7 @@ public class CommonTileset extends Tileset {
         mapTiles.add(middleBasementBrickTile2Barrier);
 
         // Middle Basement Floor 2 (BARRIER)
-        Frame middleBasementFloorFrame2Barrier = new FrameBuilder(getSubImage(8, 2))
+        Frame middleBasementFloorFrame2Barrier = new FrameBuilder(getSubImage(12, 4))
                 .withScale(tileScale)
                 .build();
 
@@ -555,7 +555,6 @@ public class CommonTileset extends Tileset {
         // Stair Top
         Frame stairTopFrame = new FrameBuilder(getSubImage(9, 1))
                 .withScale(tileScale)
-                .withBounds(0, 5, 16, 16)
                 .build();
 
         MapTileBuilder stairTopTile = new MapTileBuilder(stairTopFrame)
@@ -1016,7 +1015,8 @@ public class CommonTileset extends Tileset {
                 .withScale(tileScale)
                 .build();
 
-        MapTileBuilder darkWallPillar1Tile = new MapTileBuilder(darkWallPillar1Frame);
+        MapTileBuilder darkWallPillar1Tile = new MapTileBuilder(darkWallPillar1Frame)
+                .withTileType(TileType.PASSABLE);
 
         mapTiles.add(darkWallPillar1Tile);
 
@@ -1025,7 +1025,9 @@ public class CommonTileset extends Tileset {
                 .withScale(tileScale)
                 .build();
 
-        MapTileBuilder darkWallPillar2Tile = new MapTileBuilder(darkWallPillar2Frame);
+        MapTileBuilder darkWallPillar2Tile = new MapTileBuilder(darkWallPillar2Frame)
+                .withTileType(TileType.PASSABLE);
+
 
         mapTiles.add(darkWallPillar2Tile);
 
@@ -1097,7 +1099,8 @@ public class CommonTileset extends Tileset {
                 .withScale(tileScale)
                 .build();
 
-        MapTileBuilder darkStair1Tile = new MapTileBuilder(darkStair1Frame);
+        MapTileBuilder darkStair1Tile = new MapTileBuilder(darkStair1Frame)
+                .withTileType(TileType.NOT_PASSABLE);
 
         mapTiles.add(darkStair1Tile);
 
@@ -1106,7 +1109,8 @@ public class CommonTileset extends Tileset {
                 .withScale(tileScale)
                 .build();
 
-        MapTileBuilder darkStair2Tile = new MapTileBuilder(darkStair2Frame);
+        MapTileBuilder darkStair2Tile = new MapTileBuilder(darkStair2Frame)
+                .withTileType(TileType.NOT_PASSABLE);
 
         mapTiles.add(darkStair2Tile);
 
