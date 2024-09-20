@@ -391,58 +391,70 @@ public class CommonTileset extends Tileset {
         // Middle Basement Brick Middle Shelf 1
         Frame middleBasementBrickMiddleShelfFrame1 = new FrameBuilder(getSubImage(6, 4))
                 .withScale(tileScale)
+                .withBounds(0, 8, 16, 4)
                 .build();
 
-        MapTileBuilder middleBasementBrickMiddleShelfTile1 = new MapTileBuilder(middleBasementBrickMiddleShelfFrame1);
+        MapTileBuilder middleBasementBrickMiddleShelfTile1 = new MapTileBuilder(middleBasementBrickMiddleShelfFrame1)
+                .withTileType(TileType.JUMP_THROUGH_PLATFORM);
 
         mapTiles.add(middleBasementBrickMiddleShelfTile1);
 
         // Middle Basement Brick Left Shelf 1
         Frame middleBasementBrickLeftShelfFrame1 = new FrameBuilder(getSubImage(6, 5))
                 .withScale(tileScale)
+                .withBounds(0, 8, 16, 4)
                 .build();
 
-        MapTileBuilder middleBasementBrickLeftShelfTile1 = new MapTileBuilder(middleBasementBrickLeftShelfFrame1);
+        MapTileBuilder middleBasementBrickLeftShelfTile1 = new MapTileBuilder(middleBasementBrickLeftShelfFrame1)
+                .withTileType(TileType.JUMP_THROUGH_PLATFORM);
 
         mapTiles.add(middleBasementBrickLeftShelfTile1);
 
         // Middle Basement Brick Right Shelf 1
         Frame middleBasementBrickRightShelfFrame1 = new FrameBuilder(getSubImage(7, 0))
                 .withScale(tileScale)
+                .withBounds(0, 8, 16, 4)
                 .build();
 
-        MapTileBuilder middleBasementBrickRightShelfTile1 = new MapTileBuilder(middleBasementBrickRightShelfFrame1);
+        MapTileBuilder middleBasementBrickRightShelfTile1 = new MapTileBuilder(middleBasementBrickRightShelfFrame1)
+                .withTileType(TileType.JUMP_THROUGH_PLATFORM);
 
         mapTiles.add(middleBasementBrickRightShelfTile1);
 
         // Middle Basement Brick Middle Shelf 2
         Frame middleBasementBrickMiddleShelfFrame2 = new FrameBuilder(getSubImage(7, 1))
                 .withScale(tileScale)
+                .withBounds(0, 8, 16, 4)
                 .build();
 
-        MapTileBuilder middleBasementBrickMiddleShelfTile2 = new MapTileBuilder(middleBasementBrickMiddleShelfFrame2);
+        MapTileBuilder middleBasementBrickMiddleShelfTile2 = new MapTileBuilder(middleBasementBrickMiddleShelfFrame2)
+                .withTileType(TileType.JUMP_THROUGH_PLATFORM);
 
         mapTiles.add(middleBasementBrickMiddleShelfTile2);
 
         // Middle Basement Brick Left Shelf 2
         Frame middleBasementBrickLeftShelfFrame2 = new FrameBuilder(getSubImage(7, 2))
                 .withScale(tileScale)
+                .withBounds(0, 8, 16, 4)
                 .build();
 
-        MapTileBuilder middleBasementBrickLeftShelfTile2 = new MapTileBuilder(middleBasementBrickLeftShelfFrame2);
+        MapTileBuilder middleBasementBrickLeftShelfTile2 = new MapTileBuilder(middleBasementBrickLeftShelfFrame2)
+                .withTileType(TileType.JUMP_THROUGH_PLATFORM);
 
         mapTiles.add(middleBasementBrickLeftShelfTile2);
 
         // Middle Basement Brick Right Shelf 2
         Frame middleBasementBrickRightShelfFrame2 = new FrameBuilder(getSubImage(7, 3))
                 .withScale(tileScale)
+                .withBounds(0, 8, 16, 4)
                 .build();
 
-        MapTileBuilder middleBasementBrickRightShelfTile2 = new MapTileBuilder(middleBasementBrickRightShelfFrame2);
+        MapTileBuilder middleBasementBrickRightShelfTile2 = new MapTileBuilder(middleBasementBrickRightShelfFrame2)
+                .withTileType(TileType.JUMP_THROUGH_PLATFORM);
 
         mapTiles.add(middleBasementBrickRightShelfTile2);
 
-         // Wooden Planks
+        // Wooden Planks
         Frame woodenPlanksFrame = new FrameBuilder(getSubImage(7, 4))
                 .withScale(tileScale)
                 .build();
@@ -451,6 +463,89 @@ public class CommonTileset extends Tileset {
                 .withTileType(TileType.NOT_PASSABLE);
 
         mapTiles.add(woodenPlanksTile);
+
+        // Grass Blades
+        Frame grassBladesFrame = new FrameBuilder(getSubImage(7, 5))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder grassBladesTile = new MapTileBuilder(grassBladesFrame);
+
+        mapTiles.add(grassBladesTile);
+
+        // Left Basement Floor
+        Frame leftBasementFloorFrame = new FrameBuilder(getSubImage(8, 0))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder leftBasementFloorTile = new MapTileBuilder(leftBasementFloorFrame);
+
+        mapTiles.add(leftBasementFloorTile);
+
+        // Middle Basement Floor 1
+        Frame middleBasementFloorFrame1 = new FrameBuilder(getSubImage(8, 1))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder middleBasementFloorTile1 = new MapTileBuilder(middleBasementFloorFrame1);
+
+        mapTiles.add(middleBasementFloorTile1);
+
+        // Middle Basement Floor 2
+        Frame middleBasementFloorFrame2 = new FrameBuilder(getSubImage(8, 2))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder middleBasementFloorTile2 = new MapTileBuilder(middleBasementFloorFrame2);
+
+        mapTiles.add(middleBasementFloorTile2);
+
+        // Right Basement Floor
+        Frame rightBasementFloorFrame = new FrameBuilder(getSubImage(8, 3))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder rightBasementFloorTile = new MapTileBuilder(rightBasementFloorFrame);
+
+        mapTiles.add(rightBasementFloorTile);
+
+        // Middle Basement Floor Pillar 1
+        Frame middleBasementFloorPillarFrame1 = new FrameBuilder(getSubImage(8, 4))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder middleBasementFloorPillarTile1 = new MapTileBuilder(middleBasementFloorPillarFrame1);
+
+        mapTiles.add(middleBasementFloorPillarTile1);
+
+        // Middle Basement Brick Pillar 2
+        Frame middleBasementFloorPillarFrame2 = new FrameBuilder(getSubImage(8, 5))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder middleBasementFloorPillarTile2 = new MapTileBuilder(middleBasementFloorPillarFrame2);
+
+        mapTiles.add(middleBasementFloorPillarTile2);
+
+        // Middle Basement Brick 2 (BARRIER)
+        Frame middleBasementBrickFrame2Barrier = new FrameBuilder(getSubImage(5, 2))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder middleBasementBrickTile2Barrier = new MapTileBuilder(middleBasementBrickFrame2Barrier)
+                .withTileType(TileType.NOT_PASSABLE);
+        
+        mapTiles.add(middleBasementBrickTile2Barrier);
+
+        // Middle Basement Floor 2 (BARRIER)
+        Frame middleBasementFloorFrame2Barrier = new FrameBuilder(getSubImage(8, 2))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder middleBasementFloorTile2Barrier = new MapTileBuilder(middleBasementFloorFrame2Barrier)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(middleBasementFloorTile2Barrier);
 
         return mapTiles;
     }
