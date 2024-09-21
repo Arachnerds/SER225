@@ -714,7 +714,7 @@ public class CommonTileset extends Tileset {
                 .build();
 
         MapTileBuilder box00Tile = new MapTileBuilder(box00Frame)
-                .withTileType(TileType.NOT_PASSABLE);
+                .withTileType(TileType.CLIMBABLE);
 
         mapTiles.add(box00Tile);
 
@@ -724,7 +724,7 @@ public class CommonTileset extends Tileset {
                 .build();
 
         MapTileBuilder box01Tile = new MapTileBuilder(box01Frame)
-                .withTileType(TileType.NOT_PASSABLE);
+                .withTileType(TileType.CLIMBABLE);
 
         mapTiles.add(box01Tile);
 
@@ -734,7 +734,7 @@ public class CommonTileset extends Tileset {
                 .build();
 
         MapTileBuilder box02Tile = new MapTileBuilder(box02Frame)
-                .withTileType(TileType.NOT_PASSABLE);
+                .withTileType(TileType.CLIMBABLE);
 
         mapTiles.add(box02Tile);
 
@@ -744,7 +744,7 @@ public class CommonTileset extends Tileset {
                 .build();
 
         MapTileBuilder box03Tile = new MapTileBuilder(box03Frame)
-                .withTileType(TileType.NOT_PASSABLE);
+                .withTileType(TileType.CLIMBABLE);
 
         mapTiles.add(box03Tile);
 
@@ -754,7 +754,7 @@ public class CommonTileset extends Tileset {
                 .build();
 
         MapTileBuilder box04Tile = new MapTileBuilder(box04Frame)
-                .withTileType(TileType.NOT_PASSABLE);
+                .withTileType(TileType.CLIMBABLE);
 
         mapTiles.add(box04Tile);
 
@@ -764,7 +764,7 @@ public class CommonTileset extends Tileset {
                 .build();
 
         MapTileBuilder box10Tile = new MapTileBuilder(box10Frame)
-                .withTileType(TileType.NOT_PASSABLE);
+                .withTileType(TileType.CLIMBABLE);
 
         mapTiles.add(box10Tile);
 
@@ -774,7 +774,7 @@ public class CommonTileset extends Tileset {
                 .build();
 
         MapTileBuilder box11Tile = new MapTileBuilder(box11Frame)
-                .withTileType(TileType.NOT_PASSABLE);
+                .withTileType(TileType.CLIMBABLE);
 
         mapTiles.add(box11Tile);
 
@@ -784,7 +784,7 @@ public class CommonTileset extends Tileset {
                 .build();
 
         MapTileBuilder box12Tile = new MapTileBuilder(box12Frame)
-                .withTileType(TileType.NOT_PASSABLE);
+                .withTileType(TileType.CLIMBABLE);
 
         mapTiles.add(box12Tile);
 
@@ -794,7 +794,7 @@ public class CommonTileset extends Tileset {
                 .build();
 
         MapTileBuilder box13Tile = new MapTileBuilder(box13Frame)
-                .withTileType(TileType.NOT_PASSABLE);
+                .withTileType(TileType.CLIMBABLE);
 
         mapTiles.add(box13Tile);
 
@@ -803,8 +803,7 @@ public class CommonTileset extends Tileset {
                 .withScale(tileScale)
                 .build();
 
-        MapTileBuilder box14Tile = new MapTileBuilder(box14Frame)
-                .withTileType(TileType.NOT_PASSABLE);
+        MapTileBuilder box14Tile = new MapTileBuilder(box14Frame);
 
         mapTiles.add(box14Tile);
 
@@ -814,7 +813,7 @@ public class CommonTileset extends Tileset {
                 .build();
 
         MapTileBuilder box20Tile = new MapTileBuilder(box20Frame)
-                .withTileType(TileType.NOT_PASSABLE);
+                .withTileType(TileType.CLIMBABLE);
 
         mapTiles.add(box20Tile);
 
@@ -823,7 +822,8 @@ public class CommonTileset extends Tileset {
                 .withScale(tileScale)
                 .build();
 
-        MapTileBuilder box21Tile = new MapTileBuilder(box21Frame);
+        MapTileBuilder box21Tile = new MapTileBuilder(box21Frame)
+                .withTileType(TileType.CLIMBABLE);
 
         mapTiles.add(box21Tile);
 
@@ -833,7 +833,7 @@ public class CommonTileset extends Tileset {
                 .build();
 
         MapTileBuilder box22Tile = new MapTileBuilder(box22Frame)
-                .withTileType(TileType.NOT_PASSABLE);
+                .withTileType(TileType.CLIMBABLE);
 
         mapTiles.add(box22Tile);
 
@@ -843,7 +843,7 @@ public class CommonTileset extends Tileset {
                 .build();
 
         MapTileBuilder box23Tile = new MapTileBuilder(box23Frame)
-                .withTileType(TileType.NOT_PASSABLE);
+                .withTileType(TileType.CLIMBABLE);
 
         mapTiles.add(box23Tile);
 
@@ -852,8 +852,7 @@ public class CommonTileset extends Tileset {
                 .withScale(tileScale)
                 .build();
 
-        MapTileBuilder box24Tile = new MapTileBuilder(box24Frame)
-                .withTileType(TileType.NOT_PASSABLE);
+        MapTileBuilder box24Tile = new MapTileBuilder(box24Frame);
 
         mapTiles.add(box24Tile);
 
@@ -863,7 +862,7 @@ public class CommonTileset extends Tileset {
                 .build();
 
         MapTileBuilder box30Tile = new MapTileBuilder(box30Frame)
-                .withTileType(TileType.NOT_PASSABLE);
+                .withTileType(TileType.CLIMBABLE);
 
         mapTiles.add(box30Tile);
 
@@ -873,7 +872,7 @@ public class CommonTileset extends Tileset {
                 .build();
 
         MapTileBuilder box31Tile = new MapTileBuilder(box31Frame)
-                .withTileType(TileType.NOT_PASSABLE);
+                .withTileType(TileType.CLIMBABLE);
 
         mapTiles.add(box31Tile);
 
@@ -883,7 +882,7 @@ public class CommonTileset extends Tileset {
                 .build();
 
         MapTileBuilder box32Tile = new MapTileBuilder(box32Frame)
-                .withTileType(TileType.NOT_PASSABLE);
+                .withTileType(TileType.CLIMBABLE);
 
         mapTiles.add(box32Tile);
 
@@ -893,7 +892,7 @@ public class CommonTileset extends Tileset {
                 .build();
 
         MapTileBuilder box33Tile = new MapTileBuilder(box33Frame)
-                .withTileType(TileType.NOT_PASSABLE);
+                .withTileType(TileType.CLIMBABLE);
 
         mapTiles.add(box33Tile);
 
@@ -902,8 +901,7 @@ public class CommonTileset extends Tileset {
                 .withScale(tileScale)
                 .build();
 
-        MapTileBuilder box34Tile = new MapTileBuilder(box34Frame)
-                .withTileType(TileType.NOT_PASSABLE);
+        MapTileBuilder box34Tile = new MapTileBuilder(box34Frame);
 
         mapTiles.add(box34Tile);
 
@@ -913,7 +911,7 @@ public class CommonTileset extends Tileset {
                 .build();
 
         MapTileBuilder box40Tile = new MapTileBuilder(box40Frame)
-                .withTileType(TileType.NOT_PASSABLE);
+                .withTileType(TileType.CLIMBABLE);
 
         mapTiles.add(box40Tile);
 
@@ -923,7 +921,7 @@ public class CommonTileset extends Tileset {
                 .build();
 
         MapTileBuilder box41Tile = new MapTileBuilder(box41Frame)
-                .withTileType(TileType.NOT_PASSABLE);
+                .withTileType(TileType.CLIMBABLE);
 
         mapTiles.add(box41Tile);
 
@@ -933,7 +931,7 @@ public class CommonTileset extends Tileset {
                 .build();
 
         MapTileBuilder box42Tile = new MapTileBuilder(box42Frame)
-                .withTileType(TileType.NOT_PASSABLE);
+                .withTileType(TileType.CLIMBABLE);
 
         mapTiles.add(box42Tile);
 
@@ -943,7 +941,7 @@ public class CommonTileset extends Tileset {
                 .build();
 
         MapTileBuilder box43Tile = new MapTileBuilder(box43Frame)
-                .withTileType(TileType.NOT_PASSABLE);
+                .withTileType(TileType.CLIMBABLE);
 
         mapTiles.add(box43Tile);
 
