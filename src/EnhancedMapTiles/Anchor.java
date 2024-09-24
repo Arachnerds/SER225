@@ -15,8 +15,6 @@ import java.util.HashMap;
 public class Anchor extends EnhancedMapTile{
     public Anchor(Point location) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("AnchorBox.png"), 16, 16), TileType.PASSABLE);
-       //this.setBounds(new Rectangle(this.x, this.y,1000,1000 ));
-       // this.setCurrentAnimationFrameIndex(currentFrameIndex);
     }
 
     @Override
@@ -29,6 +27,7 @@ public class Anchor extends EnhancedMapTile{
             //player.move may be helpful later
             if(Keyboard.isKeyDown(Key.E)){
                 this.setCurrentAnimationName("Webbed");
+                player.moveXHandleCollision(30);
             }
         }
         else{
