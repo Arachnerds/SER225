@@ -88,10 +88,10 @@ public class RoachEnemy extends Enemy {
         // if bug has collided into something while walking forward,
         // it turns around (changes facing direction)
         if (hasCollided) {
-            /**if(entityCollidedWith instanceof Player){
+            /**if(entityCollidedWith instanceof Player){ <- I think the it registers player without hitting them
                 System.out.println("hit player");
             }*/
-            //System.out.println("bug collision");
+            //System.out.println("bug collision"); 
             
             if (direction == Direction.RIGHT) {
                 facingDirection = Direction.LEFT;
