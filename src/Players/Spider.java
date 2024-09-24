@@ -15,7 +15,7 @@ import java.util.HashMap;
 public class Spider extends Player {
 
     public Spider(float x, float y) {
-        super(new SpriteSheet(ImageLoader.load("SpiderSprite.png"), 854, 854), x, y, "STAND_RIGHT");
+        super(new SpriteSheet(ImageLoader.load("SpiderSprite.png"), 850, 563), x, y, "STAND_RIGHT");
         this.setScale(.1f);
         gravity = .5f;
         terminalVelocityY = 6f;
@@ -168,29 +168,29 @@ public class Spider extends Player {
 
             put("SWIM_STAND_RIGHT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(6, 0))
-                            .withScale(3)
+                            .withScale(.1f)
                             .withBounds(8, 9, 8, 9)
                             .build()
             });
 
             put("SWIM_STAND_LEFT", new Frame[] {
-                    new FrameBuilder(spriteSheet.getSprite(6, 0))
-                            .withScale(3)
+                    new FrameBuilder(spriteSheet.getSprite(0, 0))
+                            .withScale(.1f)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(8, 9, 8, 9)
                             .build()
             });
 
             put("CLIMB_RIGHT", new Frame[] {
-                    new FrameBuilder(spriteSheet.getSprite(5, 1))
-                            .withScale(3)
+                    new FrameBuilder(spriteSheet.getSprite(0, 0))
+                            .withScale(.1f)
                             .withBounds(8, 12, 8, 6)
                             .build()
             });
 
             put("CLIMB_LEFT", new Frame[] {
-                    new FrameBuilder(spriteSheet.getSprite(5, 1))
-                            .withScale(3)
+                    new FrameBuilder(spriteSheet.getSprite(0, 0))
+                            .withScale(.1f)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(8, 12, 8, 6)
                             .build()

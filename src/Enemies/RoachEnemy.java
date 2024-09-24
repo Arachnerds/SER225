@@ -1,9 +1,11 @@
 package Enemies;
 
 import Builders.FrameBuilder;
+import Engine.GraphicsHandler;
 import Engine.ImageLoader;
 import GameObject.Frame;
 import GameObject.ImageEffect;
+import GameObject.Sprite;
 import GameObject.SpriteSheet;
 import Level.Enemy;
 import Level.MapEntity;
@@ -12,6 +14,7 @@ import Utils.AirGroundState;
 import Utils.Direction;
 import Utils.Point;
 
+import java.awt.Color;
 import java.util.HashMap;
 
 // This class is for the black bug enemy
@@ -28,7 +31,8 @@ public class RoachEnemy extends Enemy {
 
     public RoachEnemy(Point location, Direction facingDirection) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("RoachSpriteDraft1.png"), 1185, 411), "WALK_LEFT");
-        this.setScale(10f);
+        this.setScale(.1f);
+        this.setBounds(currentFrame);
         this.startFacingDirection = facingDirection;
         startPoint = location;
         this.initialize();
@@ -74,6 +78,8 @@ public class RoachEnemy extends Enemy {
         moveYHandleCollision(moveAmountY);
         moveXHandleCollision(moveAmountX);
 
+        //this.drawBounds(graphicsHandler, Color.RED);
+
         super.update(player);
     }
 
@@ -82,6 +88,11 @@ public class RoachEnemy extends Enemy {
         // if bug has collided into something while walking forward,
         // it turns around (changes facing direction)
         if (hasCollided) {
+            /**if(entityCollidedWith instanceof Player){
+                System.out.println("hit player");
+            }*/
+            //System.out.println("bug collision");
+            
             if (direction == Direction.RIGHT) {
                 facingDirection = Direction.LEFT;
                 currentAnimationName = "WALK_LEFT";
@@ -110,8 +121,8 @@ public class RoachEnemy extends Enemy {
         return new HashMap<String, Frame[]>() {{
             put("WALK_LEFT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
-                            .withScale(0.1f)
-                            .withBounds(6, 6, 12, 7)
+                            .withScale(.1f)
+                            .withBounds(1, 1, 24, 15)
                             .build(),
                     /**new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
                             .withScale(2)
@@ -121,9 +132,9 @@ public class RoachEnemy extends Enemy {
 
             put("WALK_RIGHT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
-                            .withScale(0.1f)
+                            .withScale(.1f)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(6, 6, 12, 7)
+                            .withBounds(1, 1, 24, 15)
                             .build(),
                     /**new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
                             .withScale(2)

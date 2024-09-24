@@ -11,7 +11,7 @@ import Utils.Direction;
 
 import java.util.ArrayList;
 
-//import Enemies.BugEnemy;
+import Enemies.BugEnemy;
 //import Enemies.DinosaurEnemy;
 import Enemies.FlyEnemy;
 import Enemies.RoachEnemy;
@@ -36,6 +36,9 @@ public class Basement extends Map {
 
         RoachEnemy roachEnemy = new RoachEnemy(getMapTile(5, 14).getLocation().subtractY(5), Direction.RIGHT);
         enemies.add(roachEnemy);
+        /** 
+        BugEnemy bugEnemy = new BugEnemy(getMapTile(5, 14).getLocation().subtractY(5), Direction.RIGHT);
+        enemies.add(bugEnemy);*/
 
         return enemies;
     }
