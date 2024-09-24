@@ -23,9 +23,11 @@ public class Camera extends Rectangle {
     private int leftoverSpaceX, leftoverSpaceY;
 
     // current map entities that are to be included in this frame's update/draw cycle
+    // enemies, enhanced map tiles, NPCs, and projectiles
     private ArrayList<Enemy> activeEnemies = new ArrayList<>();
     private ArrayList<EnhancedMapTile> activeEnhancedMapTiles = new ArrayList<>();
     private ArrayList<NPC> activeNPCs = new ArrayList<>();
+    private ArrayList<Projectile> activeProjectiles = new ArrayList<>();
 
     // determines how many tiles off screen an entity can be before it will be deemed inactive and not included in the update/draw cycles until it comes back in range
     private final int UPDATE_OFF_SCREEN_RANGE = 4;
@@ -61,10 +63,12 @@ public class Camera extends Rectangle {
 
     // update map entities currently a part of the update/draw cycle
     // active entities are calculated each frame using the loadActiveEntity methods below
+    // updates the map with the current active map entities
     public void updateMapEntities(Player player) {
         activeEnemies = loadActiveEnemies();
         activeEnhancedMapTiles = loadActiveEnhancedMapTiles();
         activeNPCs = loadActiveNPCs();
+        activeProjectiles = loadActiveProjectiles();
 
         for (Enemy enemy : activeEnemies) {
             enemy.update(player);
@@ -77,6 +81,11 @@ public class Camera extends Rectangle {
         for (NPC npc : activeNPCs) {
             npc.update(player);
         }
+
+        for (Projectile projectile : activeProjectiles) {
+            projectile.update();
+        }
+        
     }
 
     // determine which enemies are active (exist and are within range of the camera)
@@ -97,6 +106,26 @@ public class Camera extends Rectangle {
             }
         }
         return activeEnemies;
+    }
+
+    // determine which projectiles are active (exist and are within range of the camera)
+    private ArrayList<Projectile> loadActiveProjectiles() {
+        ArrayList<Projectile> activeProjectiles = new ArrayList<>();
+        for (int i = map.getProjectiles().size() - 1; i >= 0; i--) {
+            Projectile projectile = map.getProjectiles().get(i);
+
+            if (isMapEntityActive(projectile)) {
+                activeProjectiles.add(projectile);
+                if (projectile.mapEntityStatus == MapEntityStatus.INACTIVE) {
+                    projectile.setMapEntityStatus(MapEntityStatus.ACTIVE);
+                }
+            } else if (projectile.getMapEntityStatus() == MapEntityStatus.ACTIVE) {
+                projectile.setMapEntityStatus(MapEntityStatus.INACTIVE);
+            } else if (projectile.getMapEntityStatus() == MapEntityStatus.REMOVED) {
+                map.getProjectiles().remove(i);
+            }
+        }
+        return activeProjectiles;
     }
 
     // determine which enhanced map tiles are active (exist and are within range of the camera)
@@ -188,6 +217,11 @@ public class Camera extends Rectangle {
                 npc.draw(graphicsHandler);
             }
         }
+        for (Projectile projectile : activeProjectiles) {
+            if (containsDraw(projectile)) {
+                projectile.draw(graphicsHandler);
+            }
+        }
     }
 
     // checks if a game object's position falls within the camera's current radius
@@ -215,6 +249,10 @@ public class Camera extends Rectangle {
 
     public ArrayList<NPC> getActiveNPCs() {
         return activeNPCs;
+    }
+
+    public ArrayList<Projectile> getActiveProjectiles() {
+        return activeProjectiles;
     }
 
     // gets end bound X position of the camera (start position is always 0)

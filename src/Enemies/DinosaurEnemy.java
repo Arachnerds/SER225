@@ -25,6 +25,7 @@ public class DinosaurEnemy extends Enemy {
     protected Point endLocation;
 
     protected float movementSpeed = 1f;
+    private float originalMovementSpeed = movementSpeed;
     private Direction startFacingDirection;
     protected Direction facingDirection;
     protected AirGroundState airGroundState;
@@ -162,6 +163,18 @@ public class DinosaurEnemy extends Enemy {
                 currentAnimationName = "WALK_RIGHT";
             }
         }
+    }
+
+    // Getter method to return movement speed of dinosaur
+    @Override
+    public float getOriginalMovementSpeed() {
+        return originalMovementSpeed;
+    }
+
+    // Setter method to set temporary movement speed of dinosaur
+    @Override
+    public void setMovementSpeed(float movementSpeed) {
+        this.movementSpeed = movementSpeed;
     }
 
     @Override
