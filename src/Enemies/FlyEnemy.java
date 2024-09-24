@@ -18,10 +18,10 @@ import java.util.HashMap;
 // enemy behaves like a Mario goomba -- walks forward until it hits a solid map tile, and then turns around
 // if it ends up in the air from walking off a cliff, it will fall down until it hits the ground again, and then will continue walking
 public class FlyEnemy extends Enemy{
-    
 
     private float gravity = 0f;
     private float movementSpeed = .5f;
+    private float originalMovementSpeed = movementSpeed;
     private Direction startFacingDirection;
     private Direction facingDirection;
     private AirGroundState airGroundState;
@@ -78,6 +78,18 @@ public class FlyEnemy extends Enemy{
         moveXHandleCollision(moveAmountX);
         
         super.update(player);
+    }
+
+    // Getter method to return movement speed of dinosaur
+    @Override
+    public float getOriginalMovementSpeed() {
+        return originalMovementSpeed;
+    }
+
+    // Setter method to set temporary movement speed of dinosaur
+    @Override
+    public void setMovementSpeed(float movementSpeed) {
+        this.movementSpeed = movementSpeed;
     }
 
     @Override
