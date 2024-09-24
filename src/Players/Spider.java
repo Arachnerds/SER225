@@ -15,7 +15,7 @@ import java.util.HashMap;
 public class Spider extends Player {
 
     public Spider(float x, float y) {
-        super(new SpriteSheet(ImageLoader.load("SpiderSprite.png"), 850, 563), x, y, "STAND_RIGHT");
+        super(new SpriteSheet(ImageLoader.load("SpiderSpriteDraft1.png"), 850, 563), x, y, "STAND_RIGHT");
         this.setScale(.1f);
         gravity = .5f;
         terminalVelocityY = 6f;
