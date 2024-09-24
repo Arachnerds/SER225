@@ -55,6 +55,7 @@ public abstract class Map {
     protected ArrayList<Enemy> enemies;
     protected ArrayList<EnhancedMapTile> enhancedMapTiles;
     protected ArrayList<NPC> npcs;
+    protected ArrayList<Projectile> projectiles;
 
     // if set to false, camera will not move as player moves
     protected boolean adjustCamera = true;
@@ -76,7 +77,7 @@ public abstract class Map {
     }
 
     // sets up map by reading in the map file to create the tile map
-    // loads in enemies, enhanced map tiles, and npcs
+    // loads in enemies, enhanced map tiles, ncps, adn projectiles
     // and instantiates a Camera
     public void setupMap() {
         this.animatedMapTiles = new ArrayList<>();
@@ -96,6 +97,11 @@ public abstract class Map {
         this.npcs = loadNPCs();
         for (NPC npc: this.npcs) {
             npc.setMap(this);
+        }
+
+        this.projectiles = loadProjectiles();
+        for (Projectile projectile : this.projectiles) {
+            projectile.setMap(this);
         }
 
         this.camera = new Camera(0, 0, tileset.getScaledSpriteWidth(), tileset.getScaledSpriteHeight(), this);
@@ -262,6 +268,11 @@ public abstract class Map {
         return new ArrayList<>();
     }
 
+    // list of projectiles defined to be a part of the map, should be overridden in a subclass
+    protected ArrayList<Projectile> loadProjectiles() {
+        return new ArrayList<>();
+    }
+
     // list of enhanced map tiles defined to be a part of the map, should be overridden in a subclass
     protected ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
         return new ArrayList<>();
@@ -284,6 +295,10 @@ public abstract class Map {
     }
     public ArrayList<NPC> getNPCs() {
         return npcs;
+    }
+
+    public ArrayList<Projectile> getProjectiles() {
+        return projectiles;
     }
 
     public ArrayList<MapTile> getAnimatedMapTiles() {
@@ -309,6 +324,12 @@ public abstract class Map {
     public void addEnemy(Enemy enemy) {
         enemy.setMap(this);
         this.enemies.add(enemy);
+    }
+
+    // add an projectile to the map's list of projectiles
+    public void addProjectile(Projectile projectile) {
+        projectile.setMap(this);
+        this.projectiles.add(projectile);
     }
 
     // add an enhanced map tile to the map's list of enhanced map tiles

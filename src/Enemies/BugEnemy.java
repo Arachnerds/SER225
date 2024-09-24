@@ -21,6 +21,7 @@ public class BugEnemy extends Enemy {
 
     private float gravity = .5f;
     private float movementSpeed = .5f;
+    private float originalMovementSpeed = movementSpeed;
     private Direction startFacingDirection;
     private Direction facingDirection;
     private AirGroundState airGroundState;
@@ -93,6 +94,18 @@ public class BugEnemy extends Enemy {
                 airGroundState = AirGroundState.AIR;
             }
         }
+    }
+
+    // Getter method to return movement speed of bug
+    @Override
+    public float getOriginalMovementSpeed() {
+        return originalMovementSpeed;
+    }
+
+    // Setter method to set temporary movement speed of bug
+    @Override
+    public void setMovementSpeed(float movementSpeed) {
+        this.movementSpeed = movementSpeed;
     }
 
     @Override

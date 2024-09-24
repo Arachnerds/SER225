@@ -18,6 +18,7 @@ import java.util.HashMap;
 // it will disappear early if it collides with a solid map tile
 public class Fireball extends Enemy {
     private float movementSpeed;
+    private float originalMovementSpeed = movementSpeed;
     private int existenceFrames;
 
     public Fireball(Point location, float movementSpeed, int existenceFrames) {
@@ -57,6 +58,18 @@ public class Fireball extends Enemy {
         // if fireball touches player, it disappears
         super.touchedPlayer(player);
         this.mapEntityStatus = MapEntityStatus.REMOVED;
+    }
+
+    // Getter method to return set movement speed of fireball
+    @Override
+    public float getOriginalMovementSpeed() {
+        return originalMovementSpeed;
+    }
+
+    // Setter method to set movement speed of fireball
+    @Override
+    public void setMovementSpeed(float movementSpeed) {
+        this.movementSpeed = movementSpeed;
     }
 
     @Override
