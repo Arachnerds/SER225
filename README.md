@@ -1,4 +1,4 @@
-# Weaver's Revenge
+# Weaver's Wrath
 
 ## Documentation
 This project includes a GitHub pages website in the `docs` folder where the documentation resides.<br>

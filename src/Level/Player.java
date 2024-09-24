@@ -7,6 +7,8 @@ import GameObject.GameObject;
 import GameObject.SpriteSheet;
 import Utils.AirGroundState;
 import Utils.Direction;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import java.util.ArrayList;
 
@@ -42,11 +44,14 @@ public abstract class Player extends GameObject {
     protected Key JUMP_KEY = Key.SPACE;
     protected Key MOVE_LEFT_KEY = Key.A;
     protected Key MOVE_RIGHT_KEY = Key.D;
-    protected Key CROUCH_KEY = Key.DOWN; 
+    protected Key CROUCH_KEY = Key.S;
+    protected Key CLIMB_KEY = Key.C;
     protected Key SHOOT_KEY = Key.Q;
 
     // flags
     protected boolean isInvincible = false; // if true, player cannot be hurt by enemies (good for testing)
+    protected Timer exitClimbTimer = new Timer();
+    protected boolean climbTimerStarted = false;
 
     public Player(SpriteSheet spriteSheet, float x, float y, String startingAnimationName) {
         super(spriteSheet, x, y, startingAnimationName);
@@ -117,6 +122,9 @@ public abstract class Player extends GameObject {
             case JUMPING:
                 playerJumping();
                 break;
+            case CLIMBING:
+                playerClimbing();
+                break;
         }
     }
 
@@ -137,7 +145,22 @@ public abstract class Player extends GameObject {
         else if (Keyboard.isKeyDown(CROUCH_KEY)) {
             playerState = PlayerState.CROUCHING;
         }
+
+        else if (Keyboard.isKeyDown(CLIMB_KEY)) {
+            int playerX = Math.round(getBounds().getX1());
+            int playerY = Math.round(getBounds().getY1()) + Math.round(getBounds().getHeight() / 2f);
+    
+            MapTile leftTile = map.getTileByPosition(playerX - 1, playerY);
+    
+            MapTile rightTile = map.getTileByPosition(playerX + Math.round(getBounds().getWidth()), playerY);
+    
+            if ((leftTile != null && leftTile.getTileType() == TileType.CLIMBABLE) ||
+                (rightTile != null && rightTile.getTileType() == TileType.CLIMBABLE)) {
+                playerState = PlayerState.CLIMBING;
+            }
+        }
     }
+
 
     // player WALKING state logic
     protected void playerWalking() {
@@ -229,6 +252,50 @@ public abstract class Player extends GameObject {
             playerState = PlayerState.STANDING;
         }
     }
+    
+    protected void playerClimbing() {
+        int playerX = Math.round(getBounds().getX1());
+        int playerY = Math.round(getBounds().getY1()) + Math.round(getBounds().getHeight() / 2f);
+        
+        MapTile leftTile = map.getTileByPosition(playerX - 1, playerY);
+        MapTile rightTile = map.getTileByPosition(playerX + Math.round(getBounds().getWidth()), playerY);
+        boolean isNextToClimbable = (leftTile != null && leftTile.getTileType() == TileType.CLIMBABLE) ||
+                                    (rightTile != null && rightTile.getTileType() == TileType.CLIMBABLE);
+        
+        if (Keyboard.isKeyUp(CLIMB_KEY)) {
+            playerState = PlayerState.STANDING;
+            return;
+        }
+    
+        if (Keyboard.isKeyDown(Key.W)) {
+            moveAmountY -= walkSpeed;
+    
+            if (facingDirection == Direction.LEFT) {
+                moveAmountX -= walkSpeed;
+            } else if (facingDirection == Direction.RIGHT) {
+                moveAmountX += walkSpeed;
+            }
+        }
+    
+        if (isNextToClimbable) {
+            if (climbTimerStarted) {
+                climbTimerStarted = false;
+                exitClimbTimer.cancel();
+                exitClimbTimer = new Timer();
+            }
+        } else if (!climbTimerStarted) {
+            climbTimerStarted = true;
+            exitClimbTimer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    if (!isNextToClimbable) {
+                        playerState = PlayerState.STANDING;
+                    }
+                    climbTimerStarted = false;
+                }
+            }, 200);
+        }
+    }    
 
     // while player is in air, this is called, and will increase momentumY by a set amount until player reaches terminal velocity
     protected void increaseMomentum() {
@@ -274,6 +341,10 @@ public abstract class Player extends GameObject {
             } else {
                 this.currentAnimationName = facingDirection == Direction.RIGHT ? "FALL_RIGHT" : "FALL_LEFT";
             }
+        }
+        else if (playerState == PlayerState.CLIMBING) {
+            // sets animation to a CROUCH animation based on which way player is facing
+            this.currentAnimationName = facingDirection == Direction.RIGHT ? "CLIMB_RIGHT" : "CLIMB_LEFT";
         }
     }
 
