@@ -28,7 +28,7 @@ public class Spider extends Player {
         this.setScale(.1f);
         gravity = .5f;
         terminalVelocityY = 6f;
-        jumpHeight = 14.5f;
+        jumpHeight = 10.5f;
         jumpDegrade = .5f;
         walkSpeed = 2.3f;
         momentumYIncrease = .5f;
