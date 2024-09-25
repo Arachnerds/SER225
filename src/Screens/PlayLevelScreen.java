@@ -8,7 +8,7 @@ import Level.Map;
 import Level.Player;
 import Level.PlayerListener;
 import Maps.Basement;
-import Players.Cat;
+import Players.Spider;
 import Utils.Point;
 
 // This class is for when the platformer game is actually being played
@@ -31,7 +31,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         this.map = new Basement();
 
         // setup player
-        this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+        this.player = new Spider(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
         this.player.setMap(map);
         this.player.addListener(this);
 

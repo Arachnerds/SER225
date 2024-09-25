@@ -1,6 +1,7 @@
 package Enemies;
 
 import Builders.FrameBuilder;
+import Engine.GraphicsHandler;
 import Engine.ImageLoader;
 import GameObject.Frame;
 import GameObject.ImageEffect;
@@ -12,6 +13,7 @@ import Utils.AirGroundState;
 import Utils.Direction;
 import Utils.Point;
 
+import java.awt.Color;
 import java.util.HashMap;
 
 // This class is for the custom fly enemy
@@ -126,7 +128,7 @@ public class FlyEnemy extends Enemy{
             put("WALK_LEFT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
                             .withScale(.1f)
-                            .withBounds(6, 6, 12, 7)
+                            .withBounds(50, 6, 650, 450)
                             .build(),
                     /**new FrameBuilder(spriteSheet.getSprite(0, 1), 8)
                             .withScale(2)
@@ -138,7 +140,7 @@ public class FlyEnemy extends Enemy{
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
                             .withScale(.1f)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(6, 6, 12, 7)
+                            .withBounds(50, 6, 650, 450)
                             .build(),
                     /**new FrameBuilder(spriteSheet.getSprite(0, 1), 8)
                             .withScale(2)
@@ -148,4 +150,9 @@ public class FlyEnemy extends Enemy{
             });
         }};
     }
+
+       /**public void draw(GraphicsHandler graphicsHandler) {
+        super.draw(graphicsHandler);
+        drawBounds(graphicsHandler, new Color(255, 0, 0, 100));
+    }*/
 }

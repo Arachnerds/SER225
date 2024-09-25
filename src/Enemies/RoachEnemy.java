@@ -101,10 +101,10 @@ public class RoachEnemy extends Enemy {
         // if bug has collided into something while walking forward,
         // it turns around (changes facing direction)
         if (hasCollided) {
-            /**if(entityCollidedWith instanceof Player){ <- I think the it registers player without hitting them
+            /**if(entityCollidedWith instanceof Player){
                 System.out.println("hit player");
             }*/
-            //System.out.println("bug collision"); 
+            //System.out.println("bug collision");
             
             if (direction == Direction.RIGHT) {
                 facingDirection = Direction.LEFT;
@@ -135,7 +135,7 @@ public class RoachEnemy extends Enemy {
             put("WALK_LEFT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
                             .withScale(.1f)
-                            .withBounds(1, 1, 24, 15)
+                            .withBounds(150, 1, 750, 350)
                             .build(),
                     /**new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
                             .withScale(2)
@@ -147,7 +147,7 @@ public class RoachEnemy extends Enemy {
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
                             .withScale(.1f)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(1, 1, 24, 15)
+                            .withBounds(150, 1,750, 350)
                             .build(),
                     /**new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
                             .withScale(2)
@@ -157,4 +157,9 @@ public class RoachEnemy extends Enemy {
             });
         }};
     }
+
+    /**public void draw(GraphicsHandler graphicsHandler) {
+        super.draw(graphicsHandler);
+        drawBounds(graphicsHandler, new Color(255, 0, 0, 100));
+    }*/
 }
