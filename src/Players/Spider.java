@@ -1,7 +1,6 @@
 package Players;
 
 import Builders.FrameBuilder;
-import Engine.GraphicsHandler;
 import Engine.ImageLoader;
 import Engine.Keyboard;
 import GameObject.Frame;
@@ -12,7 +11,6 @@ import Projectiles.Web;
 import Utils.Direction;
 import Utils.Point;
 
-import java.awt.Color;
 import java.util.HashMap;
 
 // This is the class for the Spider player character
