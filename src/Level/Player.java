@@ -293,7 +293,7 @@ public abstract class Player extends GameObject {
                     }
                     climbTimerStarted = false;
                 }
-            }, 400);
+            },200);
         }
     }    
 
