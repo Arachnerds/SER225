@@ -14,7 +14,7 @@ import java.awt.*;
 public class CreditsScreen extends Screen {
     protected ScreenCoordinator screenCoordinator;
     protected Map background;
-    protected Sprite titleScreen = new Sprite(ImageLoader.load("creditsScreen.png"), -10, 0);
+    protected Sprite titleScreen = new Sprite(ImageLoader.load("creditsScreen.png"), 0, 0);
     protected KeyLocker keyLocker = new KeyLocker();
     protected SpriteFont creditsLabel;
     protected SpriteFont brooksLabel;

@@ -18,7 +18,7 @@ public class MenuScreen extends Screen {
     protected SpriteFont playGame;
     protected SpriteFont credits;
     protected Map background;
-    protected Sprite titleScreen = new Sprite(ImageLoader.load("titleScreen.png"), -10, 0);
+    protected Sprite titleScreen = new Sprite(ImageLoader.load("titleScreen.png"), 0, 0);
     protected int keyPressTimer;
     protected KeyLocker keyLocker = new KeyLocker();
 
