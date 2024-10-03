@@ -13,8 +13,13 @@ import Utils.Point;
 import java.util.HashMap;
 
 public class Anchor extends EnhancedMapTile{
+
+private double radius;
+private double theta;
+
     public Anchor(Point location) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("AnchorBox.png"), 16, 16), TileType.PASSABLE);
+        radius = 0;
     }
 
     @Override
@@ -23,11 +28,41 @@ public class Anchor extends EnhancedMapTile{
         
         if (intersects(player)) {
             this.setCurrentAnimationName("inRange");
-            //player.completeLevel();
-            //player.move may be helpful later
+
             if(Keyboard.isKeyDown(Key.E)){
                 this.setCurrentAnimationName("Webbed");
-                player.moveXHandleCollision(30);
+                //player.moveXHandleCollision(30);
+                if(radius == 0){
+                    //PRETTY SURE THAT IS AN EXTRA SQRT - but it might be helpful to keep the movement from being too extreme
+                   //radius = Math.sqrt(Math.hypot(player.getX()-this.getX(), player.getY()-this.getY()));
+                   
+                   //radius = Math.hypot(player.getX()-this.getX(), player.getY()-this.getY());
+                   radius = Math.sqrt(this.distToAnchor(player.getX(), player.getY()));
+                   //radius = this.distToAnchor(player.getX(), player.getY());
+                }
+
+                //May need some logic here to handle negative cases (ie left/right of anchor)
+                //Right now its only handling left to right motion
+                
+                //If player is left of the anchor
+                if(this.getX() > player.getX()){
+                   theta = Math.atan(((this.getY()-player.getY())/(this.getX()-player.getX()))%(2*Math.PI));
+                }
+                else{ //If player is right of the anchor
+                    //theta = Math.atan(((this.getY()-player.getY())/(this.getX()-player.getX()))%(2*Math.PI));
+                }
+
+                
+                ////System.out.println(radius);
+                ////System.out.println(theta);
+            System.out.println(radius/(this.getX()-player.getX())%(2*Math.PI));
+
+               //x = rcos(theta), y = rsin(theta)
+                player.moveXHandleCollision((float)(radius*Math.cos(theta)));
+                player.moveYHandleCollision((float)(radius*Math.sin(theta)));
+            }
+            else{
+                radius = 0;
             }
         }
         else{
@@ -61,21 +96,12 @@ public class Anchor extends EnhancedMapTile{
                         .build(),
             });
 
-/*             put("DEFAULT", new Frame[] {
-                new FrameBuilder(spriteSheet.getSprite(0, 0), 40)
-                        .withScale(3)
-                        .withBounds(1, 1, 50, 50)
-                        .build(),
-                new FrameBuilder(spriteSheet.getSprite(0, 1), 40)
-                        .withScale(3)
-                        .withBounds(1, 1, 50, 50)
-                        .build(),
-                new FrameBuilder(spriteSheet.getSprite(0, 2), 40)
-                        .withScale(3)
-                        .withBounds(1, 1, 50, 50)
-                        .build()
-            }); */
+
         }};
+    }
+
+    public float distToAnchor(float x, float y){
+        return (float)(Math.hypot(x-this.getX(), y-this.getY()));
     }
 
 }
