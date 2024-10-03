@@ -77,7 +77,6 @@ public class JumpPoint extends EnhancedMapTile {
                 this.setCurrentAnimationName("Webbed");
                 player.moveX(this.xDist(player.getX()));
                 player.moveY(this.xDist(player.getY()));
-                System.out.println(hitboxX + " " + hitboxY + " " + hitboxWidth + " " + hitboxHeight);
             }
 
         }  
