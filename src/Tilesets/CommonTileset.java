@@ -1112,6 +1112,16 @@ public class CommonTileset extends Tileset {
 
         mapTiles.add(darkStair2Tile);
 
+        // House Side
+        Frame houseSideFrame = new FrameBuilder(getSubImage(0, 6))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder houseSideTile = new MapTileBuilder(houseSideFrame)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(houseSideTile);
+
         return mapTiles;
     }
 }

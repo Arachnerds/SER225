@@ -1,6 +1,7 @@
 package Engine;
 
 import GameObject.Rectangle;
+import GameObject.Sprite;
 import SpriteFont.SpriteFont;
 import Utils.Colors;
 
@@ -22,13 +23,14 @@ public class GamePanel extends JPanel {
 	private SpriteFont pauseLabel;
 	private KeyLocker keyLocker = new KeyLocker();
 	private final Key pauseKey = Key.P;
+	private final Key pauseKeyAlt = Key.ESC;  // ESC key for pausing	
 	private Thread gameLoopProcess;
-
 	private Key showFPSKey = Key.G;
 	private SpriteFont fpsDisplayLabel;
 	private boolean showFPS = false;
 	private int currentFPS;
 	private boolean doPaint;
+	protected Sprite pauseScreen = new Sprite(ImageLoader.load("creditsScreen.png"), 0, 0);
 
 	// The JPanel and various important class instances are setup here
 	public GamePanel() {
@@ -42,9 +44,9 @@ public class GamePanel extends JPanel {
 
 		screenManager = new ScreenManager();
 
-		pauseLabel = new SpriteFont("PAUSE", 365, 280, "Arial", 24, Color.white);
-		pauseLabel.setOutlineColor(Color.black);
-		pauseLabel.setOutlineThickness(2.0f);
+		pauseLabel = new SpriteFont("Paused", 338, 100, "Times New Roman", 45, Color.white);
+        pauseLabel.setOutlineColor(Color.black);
+        pauseLabel.setOutlineThickness(3);
 
 		fpsDisplayLabel = new SpriteFont("FPS", 4, 3, "Arial", 12, Color.black);
 
@@ -90,15 +92,15 @@ public class GamePanel extends JPanel {
 	}
 
 	private void updatePauseState() {
-		if (Keyboard.isKeyDown(pauseKey) && !keyLocker.isKeyLocked(pauseKey)) {
+		if ((Keyboard.isKeyDown(pauseKey) || Keyboard.isKeyDown(pauseKeyAlt)) && !keyLocker.isKeyLocked(pauseKey)) {
 			isGamePaused = !isGamePaused;
 			keyLocker.lockKey(pauseKey);
 		}
-
-		if (Keyboard.isKeyUp(pauseKey)) {
+	
+		if (Keyboard.isKeyUp(pauseKey) && Keyboard.isKeyUp(pauseKeyAlt)) {
 			keyLocker.unlockKey(pauseKey);
 		}
-	}
+	}	
 
 	private void updateShowFPSState() {
 		if (Keyboard.isKeyDown(showFPSKey) && !keyLocker.isKeyLocked(showFPSKey)) {
@@ -118,8 +120,8 @@ public class GamePanel extends JPanel {
 
 		// if game is paused, draw pause gfx over Screen gfx
 		if (isGamePaused) {
-			pauseLabel.draw(graphicsHandler);
-			graphicsHandler.drawFilledRectangle(0, 0, ScreenManager.getScreenWidth(), ScreenManager.getScreenHeight(), new Color(0, 0, 0, 100));
+			pauseScreen.draw(graphicsHandler);
+			pauseLabel.draw(graphicsHandler);	
 		}
 
 		if (showFPS) {
