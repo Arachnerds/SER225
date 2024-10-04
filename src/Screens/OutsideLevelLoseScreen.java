@@ -6,25 +6,25 @@ import SpriteFont.SpriteFont;
 
 import java.awt.*;
 
-public class LevelLoseScreen extends Screen {
-    protected PlayLevelScreen playLevelScreen;
-    protected int currentMenuItemHovered = 0; // Current menu item being "hovered" over
+// This class is for the level lose screen for outside levels
+public class OutsideLevelLoseScreen extends Screen {
+    protected PlayOutsideLevelScreen playOutsideLevelScreen;
+    protected int currentMenuItemHovered = 0;
     protected int menuItemSelected = -1;
     protected SpriteFont retryOption;
     protected SpriteFont quitOption;
-    protected SpriteFont deathMessage; // New SpriteFont for "You Died"
+    protected SpriteFont deathMessage;
     protected Sprite background = new Sprite(ImageLoader.load("creditsScreenBlank.png"), 0, 0);
     protected int keyPressTimer;
     protected KeyLocker keyLocker = new KeyLocker();
 
-    public LevelLoseScreen(PlayLevelScreen playLevelScreen) {
-        this.playLevelScreen = playLevelScreen;
+    public OutsideLevelLoseScreen(PlayOutsideLevelScreen playLevelScreen) {
+        this.playOutsideLevelScreen = playLevelScreen;
         initialize();
     }
 
     @Override
     public void initialize() {
-        // Set the x positions to align with the MenuScreen
         retryOption = new SpriteFont("RETRY", 0, 325, "Times New Roman", 35, Color.white);
         retryOption.setOutlineColor(Color.black);
         retryOption.setOutlineThickness(3);
@@ -33,7 +33,6 @@ public class LevelLoseScreen extends Screen {
         quitOption.setOutlineColor(Color.black);
         quitOption.setOutlineThickness(3);
 
-        // Initialize the "You Died" message
         deathMessage = new SpriteFont("You Died", 0, 200, "Times New Roman", 50, Color.white);
         deathMessage.setOutlineColor(Color.black);
         deathMessage.setOutlineThickness(3);
@@ -45,7 +44,6 @@ public class LevelLoseScreen extends Screen {
 
     @Override
     public void update() {
-        // Navigate through the menu
         if ((Keyboard.isKeyDown(Key.RIGHT) || Keyboard.isKeyDown(Key.D)) && keyPressTimer == 0 && currentMenuItemHovered == 0) {
             keyPressTimer = 14;
             currentMenuItemHovered++;
@@ -83,9 +81,9 @@ public class LevelLoseScreen extends Screen {
         if (!keyLocker.isKeyLocked(Key.SPACE) && Keyboard.isKeyDown(Key.SPACE)) {
             menuItemSelected = currentMenuItemHovered;
             if (menuItemSelected == 0) {
-                playLevelScreen.resetLevel(); // Retry the level
+                playOutsideLevelScreen.resetLevel(); // Retry the level
             } else if (menuItemSelected == 1) {
-                playLevelScreen.goBackToMenu(); // Go back to the main menu
+                playOutsideLevelScreen.goBackToMenu(); // Go back to the main menu
             }
         }
     }

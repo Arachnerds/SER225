@@ -10,7 +10,6 @@ import Level.EnhancedMapTile;
 import Level.Player;
 import Level.TileType;
 import Utils.Point;
-import java.security.KeyStore;
 import java.util.HashMap;
 
 public class Anchor extends EnhancedMapTile{
