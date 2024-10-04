@@ -20,7 +20,7 @@ public class PuzzleSwitch extends EnhancedMapTile{
 
 
     public PuzzleSwitch(SwitchesPuzzle puzzle, Point location, int switchNumber){
-        //This 5 times switch number just spaces them out in a nice line. Will need to be removed later
+        //This 80 times switch number just spaces them out in a nice line. Will need to be removed later
         super(location.x + 80*switchNumber, location.y, new SpriteSheet(ImageLoader.load("SwitchBox.png"), 16, 16), TileType.PASSABLE);
         this.switchNumber = switchNumber;
         this.puzzle = puzzle;
@@ -31,10 +31,10 @@ public class PuzzleSwitch extends EnhancedMapTile{
 
     public void flip(){
         if(this.isOn()){
-            this.setCurrentAnimationName("OFF");
+            this.setCurrentAnimationName("DEFAULT");
         }
         else{
-            this.setCurrentAnimationName("DEFAULT");
+            this.setCurrentAnimationName("ON");
         }
     }
     
@@ -73,7 +73,7 @@ public class PuzzleSwitch extends EnhancedMapTile{
     }
 
     public boolean isOn(){
-        return this.getCurrentAnimationName().equals("DEFAULT");
+        return this.getCurrentAnimationName().equals("ON");
     }
 
     //A testing method that displays the hitbox
