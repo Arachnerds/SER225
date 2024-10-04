@@ -10,59 +10,95 @@ import Level.EnhancedMapTile;
 import Level.Player;
 import Level.TileType;
 import Utils.Point;
+import java.security.KeyStore;
 import java.util.HashMap;
 
 public class Anchor extends EnhancedMapTile{
 
 private double radius;
-private double theta;
+private Double theta;
+private int moveTimer;
 
     public Anchor(Point location) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("AnchorBox.png"), 16, 16), TileType.PASSABLE);
         radius = 0;
+        moveTimer = 0;
     }
 
     @Override
     public void update(Player player) {
         super.update(player);
         
+        //Test key - L prints location
+        if(Keyboard.isKeyDown(Key.L)){
+            System.out.println("x: "+ player.getX() + " " + "y: "+ player.getY());
+        }
+
+
         if (intersects(player)) {
             this.setCurrentAnimationName("inRange");
 
             if(Keyboard.isKeyDown(Key.E)){
                 this.setCurrentAnimationName("Webbed");
+                //NEED TO SET GRAVITY TO ZERO FOR THE PLAYER
+
                 //player.moveXHandleCollision(30);
                 if(radius == 0){
-                    //PRETTY SURE THAT IS AN EXTRA SQRT - but it might be helpful to keep the movement from being too extreme
-                   //radius = Math.sqrt(Math.hypot(player.getX()-this.getX(), player.getY()-this.getY()));
-                   
-                   //radius = Math.hypot(player.getX()-this.getX(), player.getY()-this.getY());
-                   radius = Math.sqrt(this.distToAnchor(player.getX(), player.getY()));
-                   //radius = this.distToAnchor(player.getX(), player.getY());
+                   radius = this.distToAnchor(player.getX(), player.getY());
                 }
 
+                if(moveTimer == 0){
+                    moveTimer = 20;
+                }
+                //Just do the theta calculation ONCE, then increment theta
+                if(theta == null) {
+                    theta = Math.atan(((this.getY()-player.getY())/(this.getX()-player.getX()))%(2*Math.PI));
+                }
+                //Theta is in radians. Incrementing it by about a degree each time
+                if(moveTimer>1){
+                    moveTimer--;
+                }
+                else{
+                    theta = (theta + 0.002)%(2*Math.PI);
+                    float xMagnitude = ((float)(radius*Math.cos(theta)));
+                
+                   // float yMagnitude = (float)(radius*Math.sin(theta));
+
+                    player.moveX(xMagnitude);
+                   // player.moveY(yMagnitude);
+                    moveTimer = 20;
+                }
+                
+                
+                //Moving too fast. I think I need a timer to slow it
+
+               // player.setX()+player.getX());
+               // player.setY(((float)(radius*Math.sin(theta)))+player.getY());
+                
                 //May need some logic here to handle negative cases (ie left/right of anchor)
                 //Right now its only handling left to right motion
                 
                 //If player is left of the anchor
-                if(this.getX() > player.getX()){
-                   theta = Math.atan(((this.getY()-player.getY())/(this.getX()-player.getX()))%(2*Math.PI));
+                /* if(this.getX() > player.getX()){
+                   //theta = Math.atan(((this.getY()-player.getY())/(this.getX()-player.getX()))%(2*Math.PI));
                 }
                 else{ //If player is right of the anchor
                     //theta = Math.atan(((this.getY()-player.getY())/(this.getX()-player.getX()))%(2*Math.PI));
-                }
+                } */
 
                 
-                ////System.out.println(radius);
-                ////System.out.println(theta);
-            System.out.println(radius/(this.getX()-player.getX())%(2*Math.PI));
+                System.out.println(radius);
+                //System.out.println(theta);
+                //System.out.println(radius/(this.getX()-player.getX())%(2*Math.PI));
 
                //x = rcos(theta), y = rsin(theta)
-                player.moveXHandleCollision((float)(radius*Math.cos(theta)));
-                player.moveYHandleCollision((float)(radius*Math.sin(theta)));
+               //Set location instead of moving
+                /* player.moveXHandleCollision((float)(radius*Math.cos(theta)*.1));
+                player.moveYHandleCollision((float)(radius*Math.sin(theta)*.1)); */
             }
             else{
                 radius = 0;
+                theta = null;
             }
         }
         else{
