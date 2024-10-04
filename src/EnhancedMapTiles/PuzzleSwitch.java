@@ -24,9 +24,9 @@ public class PuzzleSwitch extends EnhancedMapTile{
         super(location.x + 80*switchNumber, location.y, new SpriteSheet(ImageLoader.load("SwitchBox.png"), 16, 16), TileType.PASSABLE);
         this.switchNumber = switchNumber;
         this.puzzle = puzzle;
-        /* if(switchNumber == 2 || switchNumber == 4){
-            this.setCurrentAnimationName("OFF");
-        } */
+        if(switchNumber == 1 || switchNumber == 3){
+            this.setCurrentAnimationName("ON");
+        }
     }
 
     public void flip(){
