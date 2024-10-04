@@ -17,7 +17,7 @@ public class LevelClearedScreen extends Screen {
 
     @Override
     public void initialize() {
-        winMessage = new SpriteFont("Level Cleared", 320, 239, "Arial", 30, Color.white);
+        winMessage = new SpriteFont("Level Complete", 0, 0, "Times New Roman", 35, Color.white);
     }
 
     @Override
@@ -28,6 +28,8 @@ public class LevelClearedScreen extends Screen {
     public void draw(GraphicsHandler graphicsHandler) {
         // paint entire screen black and dislpay level cleared text
         graphicsHandler.drawFilledRectangle(0, 0, ScreenManager.getScreenWidth(), ScreenManager.getScreenHeight(), Color.black);
+        winMessage.centerTextX(ScreenManager.getScreenWidth(), graphicsHandler.getGraphics());
+        winMessage.centerTextY(ScreenManager.getScreenHeight(), graphicsHandler.getGraphics());
         winMessage.draw(graphicsHandler);
     }
 }
