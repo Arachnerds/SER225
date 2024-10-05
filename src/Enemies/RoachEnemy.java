@@ -6,6 +6,7 @@ import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
 import Level.Enemy;
+import Level.EnemyState;
 import Level.MapEntity;
 import Level.Player;
 import Utils.AirGroundState;
@@ -28,7 +29,7 @@ public class RoachEnemy extends Enemy {
     private Point startPoint;
 
     public RoachEnemy(Point location, Direction facingDirection) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("RoachSpriteDraft1.png"), 1185, 411), "WALK_LEFT");
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("RoachSpriteDraft1.png"), 1185, 411), "WALK_LEFT", 2);
         this.setScale(.1f);
         this.setBounds(currentFrame);
         this.startFacingDirection = facingDirection;
@@ -52,6 +53,23 @@ public class RoachEnemy extends Enemy {
     public void update(Player player) {
         float moveAmountX = 0;
         float moveAmountY = 0;
+
+        if (this.enemyState == EnemyState.DEAD) {
+            
+            if (!hasBeenKilled) {
+                hasBeenKilled = true;
+                this.setY(this.y + this.getHeight()/4);
+            }
+            
+            if (this.facingDirection == Direction.LEFT) {
+                this.currentAnimationName = "DEAD_LEFT";
+            } else {
+                this.currentAnimationName = "DEAD_RIGHT";
+            }
+
+            super.update(player);
+            return;
+        } 
 
         // add gravity (if in air, this will cause bug to fall)
         moveAmountY += gravity;
@@ -151,6 +169,33 @@ public class RoachEnemy extends Enemy {
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(6, 6, 12, 7)
                             .build()*/
+            });
+
+            put("DEAD_LEFT", new Frame[] {
+                new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
+                        .withScale(.1f)
+                        .withImageEffect(ImageEffect.FLIP_VERTICAL)
+                        .withBounds(150, 1,750, 350)
+                        .build(),
+                /**new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
+                        .withScale(2)
+                        .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                        .withBounds(6, 6, 12, 7)
+                        .build()*/
+            });
+
+            put("DEAD_RIGHT", new Frame[] {
+                new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
+                        .withScale(.1f)
+                        .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                        .withImageEffect(ImageEffect.FLIP_VERTICAL)
+                        .withBounds(150, 1,750, 350)
+                        .build(),
+                /**new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
+                        .withScale(2)
+                        .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                        .withBounds(6, 6, 12, 7)
+                        .build()*/
             });
         }};
     }

@@ -54,9 +54,9 @@ public class Cat extends Player {
 
         Web web;
         if (facingDirection.equals(Direction.RIGHT)) {
-            web = new Web(new Point(webX, webY), webVelocity, 50, 150, "WebRight.png");
+            web = new Web(new Point(webX, webY), webVelocity, 0, 50, 150, "WebRight.png");
         } else {
-            web = new Web(new Point(webX, webY), webVelocity, 50, 150, "WebLeft.png");
+            web = new Web(new Point(webX, webY), webVelocity, 0, 50, 150, "WebLeft.png");
         }
 
         // add fireball enemy to the map for it to spawn in the level

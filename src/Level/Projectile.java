@@ -12,13 +12,15 @@ import Utils.Point;
 public class Projectile extends MapEntity {
 
     // Movement speed and existence frames instance variables
-    protected float movementSpeed;
+    protected float movementSpeedX;
+    protected float movementSpeedY;
     protected int existenceFrames;
 
     // Contructor to create projetile object with set movement speed and existence frames
-    public Projectile(Point location, float movementSpeed, int existenceFrames, String spritePath) {
+    public Projectile(Point location, float movementSpeedX, float movementSpeedY, int existenceFrames, String spritePath) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load(spritePath), 7, 9), "DEFAULT");
-        this.movementSpeed = movementSpeed;
+        this.movementSpeedX = movementSpeedX;
+        this.movementSpeedY = movementSpeedY;
         this.existenceFrames = existenceFrames;
         initialize();
     }
@@ -29,7 +31,8 @@ public class Projectile extends MapEntity {
         if (existenceFrames <= 0) {
             this.mapEntityStatus = MapEntityStatus.REMOVED;
         } else {
-            moveXHandleCollision(movementSpeed);
+            moveXHandleCollision(movementSpeedX);
+            moveYHandleCollision(movementSpeedY);
             super.update();
             existenceFrames--;
         }
@@ -38,6 +41,14 @@ public class Projectile extends MapEntity {
     // Method to remove projectile when collides with solid tile
     @Override
     public void onEndCollisionCheckX(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
+        if (hasCollided) {
+            this.mapEntityStatus = MapEntityStatus.REMOVED;
+        }
+    }
+
+    // Method to remove projectile when collides with solid tile
+    @Override
+    public void onEndCollisionCheckY(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
         if (hasCollided) {
             this.mapEntityStatus = MapEntityStatus.REMOVED;
         }

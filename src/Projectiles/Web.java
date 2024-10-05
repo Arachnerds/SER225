@@ -10,8 +10,8 @@ public class Web extends Projectile {
     private int webTime;
 
     // Create the web using location, move speed, sprite, web time, and projectile existance time
-    public Web(Point location, float movementSpeed, int existenceFrames, int webTime, String spritePath) {
-        super(location, movementSpeed, existenceFrames, spritePath);
+    public Web(Point location, float movementSpeedX, float movementSpeedY, int existenceFrames, int webTime, String spritePath) {
+        super(location, movementSpeedX, movementSpeedY, existenceFrames, spritePath);
         this.webTime = webTime;
     }
 

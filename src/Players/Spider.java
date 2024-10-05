@@ -52,9 +52,9 @@ public class Spider extends Player {
 
         Web web;
         if (facingDirection.equals(Direction.RIGHT)) {
-            web = new Web(new Point(webX, webY), webVelocity, 50, 150, "WebRight.png");
+            web = new Web(new Point(webX, webY), webVelocity, 0, 60, 200, "WebRight.png");
         } else {
-            web = new Web(new Point(webX, webY), webVelocity, 50, 150, "WebLeft.png");
+            web = new Web(new Point(webX, webY), webVelocity, 0, 60, 200, "WebLeft.png");
         }
 
         // add fireball enemy to the map for it to spawn in the level

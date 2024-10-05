@@ -52,6 +52,7 @@ public abstract class Player extends GameObject {
     protected boolean isInvincible = false; // if true, player cannot be hurt by enemies (good for testing)
     protected Timer exitClimbTimer = new Timer();
     protected boolean climbTimerStarted = false;
+    protected boolean hitEnemy = false;
 
     public Player(SpriteSheet spriteSheet, float x, float y, String startingAnimationName) {
         super(spriteSheet, x, y, startingAnimationName);
@@ -207,14 +208,18 @@ public abstract class Player extends GameObject {
     // player JUMPING state logic
     protected void playerJumping() {
         // if last frame player was on ground and this frame player is still on ground, the jump needs to be setup
-        if (previousAirGroundState == AirGroundState.GROUND && airGroundState == AirGroundState.GROUND) {
+        if ((previousAirGroundState == AirGroundState.GROUND && airGroundState == AirGroundState.GROUND) || (airGroundState == AirGroundState.AIR && hitEnemy)) {
 
             // sets animation to a JUMP animation based on which way player is facing
             currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";
 
             // player is set to be in air and then player is sent into the air
+            if (hitEnemy) {
+                jumpForce = (jumpHeight/3) * 2;
+            } else {
+                jumpForce = jumpHeight;
+            }
             airGroundState = AirGroundState.AIR;
-            jumpForce = jumpHeight;
             if (jumpForce > 0) {
                 moveAmountY -= jumpForce;
                 jumpForce -= jumpDegrade;
@@ -251,6 +256,8 @@ public abstract class Player extends GameObject {
         else if (previousAirGroundState == AirGroundState.AIR && airGroundState == AirGroundState.GROUND) {
             playerState = PlayerState.STANDING;
         }
+
+        hitEnemy = false;
     }
     
     protected void playerClimbing() {
@@ -381,6 +388,10 @@ public abstract class Player extends GameObject {
                 levelState = LevelState.PLAYER_DEAD;
             }
         }
+    }
+
+    public void setIfPlayerHasAttacked(Enemy enemy) {
+        enemy.hasBeenAttacked = false;
     }
 
     // other entities can call this to tell the player they beat a level
