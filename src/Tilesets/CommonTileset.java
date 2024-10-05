@@ -1322,6 +1322,96 @@ public class CommonTileset extends Tileset {
 
         mapTiles.add(windowAlt6T);
 
+        // Garden Wood
+        Frame gardenWood = new FrameBuilder(getSubImage(2, 6))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder gardenWoodT = new MapTileBuilder(gardenWood)
+                .withTileType(TileType.CLIMBABLE);
+
+        mapTiles.add(gardenWoodT);
+
+        // Tomato Top
+        Frame tomatoTopTL = new FrameBuilder(getSubImage(2, 7))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder tomatoTopTLT = new MapTileBuilder(tomatoTopTL)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(tomatoTopTLT);
+
+        // Tomato Top
+        Frame tomatoTopTR = new FrameBuilder(getSubImage(2, 8))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder tomatoTopTRT = new MapTileBuilder(tomatoTopTR)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(tomatoTopTRT);
+
+        // Tomato Top
+        Frame tomatoTopBL = new FrameBuilder(getSubImage(2, 9))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder tomatoTopBLT = new MapTileBuilder(tomatoTopBL)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(tomatoTopBLT);
+
+        // Tomato Top
+        Frame tomatoTopBR = new FrameBuilder(getSubImage(2, 10))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder tomatoTopBRT = new MapTileBuilder(tomatoTopBR)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(tomatoTopBRT);
+
+        // Tomato Top
+        Frame tomatoBottomTL = new FrameBuilder(getSubImage(3, 7))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder tomatoBottomTLT = new MapTileBuilder(tomatoBottomTL)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(tomatoBottomTLT);
+
+        // Tomato Top
+        Frame tomatoBottomTR = new FrameBuilder(getSubImage(3, 8))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder tomatoBottomTRT = new MapTileBuilder(tomatoBottomTR)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(tomatoBottomTRT);
+
+        // Tomato Top
+        Frame tomatoBottomBL = new FrameBuilder(getSubImage(3, 9))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder tomatoBottomBLT = new MapTileBuilder(tomatoBottomBL)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(tomatoBottomBLT);
+
+        // Tomato Top
+        Frame tomatoBottomBR = new FrameBuilder(getSubImage(3, 10))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder tomatoBottomBRT = new MapTileBuilder(tomatoBottomBR)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(tomatoBottomBRT);
+
         return mapTiles;
     }
 }
