@@ -1,140 +1,238 @@
 package Engine;
 
 import GameObject.Rectangle;
+import GameObject.Sprite;
 import SpriteFont.SpriteFont;
 import Utils.Colors;
 
 import javax.swing.*;
 import java.awt.*;
 
-/*
- * This is where the game loop process and render back buffer is setup
- */
 public class GamePanel extends JPanel {
-	// loads Screens on to the JPanel
-	// each screen has its own update and draw methods defined to handle a "section" of the game.
-	private ScreenManager screenManager;
+    private ScreenManager screenManager;
+    private GraphicsHandler graphicsHandler;
 
-	// used to draw graphics to the panel
-	private GraphicsHandler graphicsHandler;
+    private boolean isGamePaused = false;
 
-	private boolean isGamePaused = false;
-	private SpriteFont pauseLabel;
-	private KeyLocker keyLocker = new KeyLocker();
-	private final Key pauseKey = Key.P;
-	private Thread gameLoopProcess;
+    private SpriteFont pauseLabel;
+    private SpriteFont controlsLabel;
+    private SpriteFont quitLabel;
 
-	private Key showFPSKey = Key.G;
-	private SpriteFont fpsDisplayLabel;
-	private boolean showFPS = false;
-	private int currentFPS;
-	private boolean doPaint;
+    private SpriteFont controlsTitleLabel;
+    private SpriteFont quitConfirmationLabel;
+    private SpriteFont yesLabel;
+    private SpriteFont noLabel;
+    private SpriteFont quitWarningLabel;
 
-	// The JPanel and various important class instances are setup here
-	public GamePanel() {
-		super();
-		this.setDoubleBuffered(true);
+    private KeyLocker keyLocker = new KeyLocker();
+    private final Key pauseKey = Key.P;
+    private final Key pauseKeyAlt = Key.ESC;
+    private Thread gameLoopProcess;
+    private Key showFPSKey = Key.G;
+    private SpriteFont fpsDisplayLabel;
+    private boolean showFPS = false;
+    private int currentFPS;
+    private boolean doPaint;
+    protected Sprite pauseScreen = new Sprite(ImageLoader.load("creditsScreenBlank.png"), 0, 0);
 
-		// attaches Keyboard class's keyListener to this JPanel
-		this.addKeyListener(Keyboard.getKeyListener());
+    private int currentMenuItemHovered = 0;
+    private int currentQuitOptionHovered = 1;
+    private boolean isQuitConfirmationVisible = false;
+    private boolean isControlsVisible = false;
 
-		graphicsHandler = new GraphicsHandler();
+    public GamePanel() {
+        super();
+        this.setDoubleBuffered(true);
+        this.addKeyListener(Keyboard.getKeyListener());
+        graphicsHandler = new GraphicsHandler();
+        screenManager = new ScreenManager();
+        pauseLabel = new SpriteFont("Paused", 0, 100, "Times New Roman", 45, Color.white);
+        pauseLabel.setOutlineColor(Color.black);
+        pauseLabel.setOutlineThickness(3);
+        controlsLabel = new SpriteFont("Controls", 0, 250, "Times New Roman", 35, Color.white);
+        controlsLabel.setOutlineColor(Color.black);
+        controlsLabel.setOutlineThickness(3);
+        quitLabel = new SpriteFont("Quit", 0, 300, "Times New Roman", 35, Color.white);
+        quitLabel.setOutlineColor(Color.black);
+        quitLabel.setOutlineThickness(3);
+        quitConfirmationLabel = new SpriteFont("Are you sure you want to quit?", 0, 225, "Times New Roman", 35, Color.white);
+        quitConfirmationLabel.setOutlineColor(Color.black);
+        quitConfirmationLabel.setOutlineThickness(3);
+        yesLabel = new SpriteFont("Yes", 0, 325, "Times New Roman", 35, Color.white);
+        yesLabel.setOutlineColor(Color.black);
+        yesLabel.setOutlineThickness(3);
+        noLabel = new SpriteFont("No", 0, 325, "Times New Roman", 35, Color.white);
+        noLabel.setOutlineColor(Color.black);
+        noLabel.setOutlineThickness(3);
+        quitWarningLabel = new SpriteFont("(Progress will not be saved)", 0, 275, "Times New Roman", 20, Color.white);
+        quitWarningLabel.setOutlineColor(Color.black);
+        quitWarningLabel.setOutlineThickness(2);
+        fpsDisplayLabel = new SpriteFont("FPS", 4, 3, "Arial", 12, Color.black);
+        currentFPS = Config.TARGET_FPS;
+        GameLoop gameLoop = new GameLoop(this);
+        gameLoopProcess = new Thread(gameLoop.getGameLoopProcess());
+    }
 
-		screenManager = new ScreenManager();
+    public void setupGame() {
+        setBackground(Colors.CORNFLOWER_BLUE);
+        screenManager.initialize(new Rectangle(getX(), getY(), getWidth(), getHeight()));
+    }
 
-		pauseLabel = new SpriteFont("PAUSE", 365, 280, "Arial", 24, Color.white);
-		pauseLabel.setOutlineColor(Color.black);
-		pauseLabel.setOutlineThickness(2.0f);
+    public void startGame() {
+        gameLoopProcess.start();
+    }
 
-		fpsDisplayLabel = new SpriteFont("FPS", 4, 3, "Arial", 12, Color.black);
+    public ScreenManager getScreenManager() {
+        return screenManager;
+    }
 
-		currentFPS = Config.TARGET_FPS;
+    public void setCurrentFPS(int currentFPS) {
+        this.currentFPS = currentFPS;
+    }
 
-		// this game loop code will run in a separate thread from the rest of the program
-		// will continually update the game's logic and repaint the game's graphics
-		GameLoop gameLoop = new GameLoop(this);
-		gameLoopProcess = new Thread(gameLoop.getGameLoopProcess());
-	}
+    public void setDoPaint(boolean doPaint) {
+        this.doPaint = doPaint;
+    }
 
-	// this is called later after instantiation, and will initialize screenManager
-	// this had to be done outside of the constructor because it needed to know the JPanel's width and height, which aren't available in the constructor
-	public void setupGame() {
-		setBackground(Colors.CORNFLOWER_BLUE);
-		screenManager.initialize(new Rectangle(getX(), getY(), getWidth(), getHeight()));
-	}
+    public void update() {
+        updatePauseState();
+        updateShowFPSState();
+        if (!isGamePaused) {
+            screenManager.update();
+        } else {
+            updateMenuNavigation();
+        }
+    }
 
-	// this starts the timer (the game loop is started here)
-	public void startGame() {
-		gameLoopProcess.start();
-	}
+    private void updatePauseState() {
+        if ((Keyboard.isKeyDown(pauseKey) || Keyboard.isKeyDown(pauseKeyAlt)) && !keyLocker.isKeyLocked(pauseKey)) {
+            isGamePaused = !isGamePaused;
+            if (isGamePaused) {
+                currentMenuItemHovered = 0;
+                currentQuitOptionHovered = 1;
+                isQuitConfirmationVisible = false;
+                isControlsVisible = false;
+            }
+            keyLocker.lockKey(pauseKey);
+        }
+        if (Keyboard.isKeyUp(pauseKey) && Keyboard.isKeyUp(pauseKeyAlt)) {
+            keyLocker.unlockKey(pauseKey);
+        }
+    }
 
-	public ScreenManager getScreenManager() {
-		return screenManager;
-	}
+    private void updateShowFPSState() {
+        if (Keyboard.isKeyDown(showFPSKey) && !keyLocker.isKeyLocked(showFPSKey)) {
+            showFPS = !showFPS;
+            keyLocker.lockKey(showFPSKey);
+        }
+        if (Keyboard.isKeyUp(showFPSKey)) {
+            keyLocker.unlockKey(showFPSKey);
+        }
+        fpsDisplayLabel.setText("FPS: " + currentFPS);
+    }
 
-	public void setCurrentFPS(int currentFPS) {
-		this.currentFPS = currentFPS;
-	}
+    private void updateMenuNavigation() {
+        if (!isQuitConfirmationVisible) {
+            if ((Keyboard.isKeyDown(Key.DOWN) || Keyboard.isKeyDown(Key.S)) && currentMenuItemHovered < 1) {
+                currentMenuItemHovered++;
+            } else if ((Keyboard.isKeyDown(Key.UP) || Keyboard.isKeyDown(Key.W)) && currentMenuItemHovered > 0) {
+                currentMenuItemHovered--;
+            }
+            controlsLabel.setColor(currentMenuItemHovered == 0 ? Color.red : Color.white);
+            quitLabel.setColor(currentMenuItemHovered == 1 ? Color.red : Color.white);
+            if (Keyboard.isKeyDown(Key.SPACE) && !keyLocker.isKeyLocked(Key.SPACE)) {
+                if (currentMenuItemHovered == 0) {
+                    isControlsVisible = !isControlsVisible;
+                } else if (currentMenuItemHovered == 1) {
+                    isQuitConfirmationVisible = true;
+                }
+                keyLocker.lockKey(Key.SPACE);
+            }
+        } else {
+            if ((Keyboard.isKeyDown(Key.RIGHT) || Keyboard.isKeyDown(Key.D)) && currentQuitOptionHovered < 1) {
+                currentQuitOptionHovered++;
+            } else if ((Keyboard.isKeyDown(Key.LEFT) || Keyboard.isKeyDown(Key.A)) && currentQuitOptionHovered > 0) {
+                currentQuitOptionHovered--;
+            }
+            yesLabel.setColor(currentQuitOptionHovered == 0 ? Color.red : Color.white);
+            noLabel.setColor(currentQuitOptionHovered == 1 ? Color.red : Color.white);
+            if (Keyboard.isKeyDown(Key.SPACE) && !keyLocker.isKeyLocked(Key.SPACE)) {
+                if (currentQuitOptionHovered == 0) {
+                    System.exit(0);
+                } else if (currentQuitOptionHovered == 1) {
+                    isQuitConfirmationVisible = false;
+                }
+                keyLocker.lockKey(Key.SPACE);
+            }
+        }
+        if (Keyboard.isKeyUp(Key.SPACE)) {
+            keyLocker.unlockKey(Key.SPACE);
+        }
+    }
 
-	public void setDoPaint(boolean doPaint) {
-		this.doPaint = doPaint;
-	}
+    public void draw() {
+        screenManager.draw(graphicsHandler);
+        Graphics2D g2d = graphicsHandler.getGraphics();
+        pauseLabel.centerTextX(getWidth(), g2d);
+        controlsLabel.centerTextX(getWidth(), g2d);
+        quitLabel.centerTextX(getWidth(), g2d); 
+        quitConfirmationLabel.centerTextX(getWidth(), g2d);
+        yesLabel.centerTextX(getWidth(), g2d);
+        noLabel.centerTextX(getWidth(), g2d);
+        quitWarningLabel.centerTextX(getWidth(), g2d);
+        if (isGamePaused) {
+            pauseScreen.draw(graphicsHandler);
+            if (!isQuitConfirmationVisible && !isControlsVisible) {
+                pauseLabel.draw(graphicsHandler);
+                controlsLabel.draw(graphicsHandler);
+                quitLabel.draw(graphicsHandler);
+            } else if (isControlsVisible) {
+                SpriteFont backLabel = new SpriteFont("Back", 25, 25, "Times New Roman", 30, Color.red);
+                backLabel.setOutlineColor(Color.black);
+                backLabel.setOutlineThickness(2);
+                backLabel.draw(graphicsHandler);
+                controlsTitleLabel = new SpriteFont("Controls", 0, 100, "Times New Roman", 45, Color.white);
+                controlsTitleLabel.setOutlineColor(Color.black);
+                controlsTitleLabel.setOutlineThickness(3);
+                controlsTitleLabel.centerTextX(getWidth(), g2d);
+                controlsTitleLabel.draw(graphicsHandler);
+                String[] controlInstructions = {
+                    "A/Left Arrow - Move Left",
+                    "D/Right Arrow - Move Right",
+                    "S/Down Arrow - Crouch",
+                    "W/Up Arrow - Climb",
+                    "Space - Jump",
+                    "C - Activate Climbing Mode",
+                    "Q - Shoot Projectile",
+                    "E - Interact With Anchor Points"
+                };
+                for (int i = 0; i < controlInstructions.length; i++) {
+                    SpriteFont instructionsLabel = new SpriteFont(controlInstructions[i], 0, 175 + (i * 40), "Times New Roman", 30, Color.white);
+                    instructionsLabel.setOutlineColor(Color.black);
+                    instructionsLabel.setOutlineThickness(2);
+                    instructionsLabel.centerTextX(getWidth(), g2d);
+                    instructionsLabel.draw(graphicsHandler);
+                }
+            } else {
+                quitConfirmationLabel.draw(graphicsHandler);
+                quitWarningLabel.draw(graphicsHandler);
+                yesLabel.centerTextX(ScreenManager.getScreenWidth() - 100, graphicsHandler.getGraphics());
+                noLabel.centerTextX(ScreenManager.getScreenWidth() + 100, graphicsHandler.getGraphics());
+                yesLabel.draw(graphicsHandler);
+                noLabel.draw(graphicsHandler);
+            }
+        }
+        if (showFPS) {
+            fpsDisplayLabel.draw(graphicsHandler);
+        }
+    }
 
-	public void update() {
-		updatePauseState();
-		updateShowFPSState();
-
-		if (!isGamePaused) {
-			screenManager.update();
-		}
-	}
-
-	private void updatePauseState() {
-		if (Keyboard.isKeyDown(pauseKey) && !keyLocker.isKeyLocked(pauseKey)) {
-			isGamePaused = !isGamePaused;
-			keyLocker.lockKey(pauseKey);
-		}
-
-		if (Keyboard.isKeyUp(pauseKey)) {
-			keyLocker.unlockKey(pauseKey);
-		}
-	}
-
-	private void updateShowFPSState() {
-		if (Keyboard.isKeyDown(showFPSKey) && !keyLocker.isKeyLocked(showFPSKey)) {
-			showFPS = !showFPS;
-			keyLocker.lockKey(showFPSKey);
-		}
-
-		if (Keyboard.isKeyUp(showFPSKey)) {
-			keyLocker.unlockKey(showFPSKey);
-		}
-
-		fpsDisplayLabel.setText("FPS: " + currentFPS);
-	}
-
-	public void draw() {
-		screenManager.draw(graphicsHandler);
-
-		// if game is paused, draw pause gfx over Screen gfx
-		if (isGamePaused) {
-			pauseLabel.draw(graphicsHandler);
-			graphicsHandler.drawFilledRectangle(0, 0, ScreenManager.getScreenWidth(), ScreenManager.getScreenHeight(), new Color(0, 0, 0, 100));
-		}
-
-		if (showFPS) {
-			fpsDisplayLabel.draw(graphicsHandler);
-		}
-	}
-
-	@Override
-	protected void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		if (doPaint) {
-			// every repaint call will schedule this method to be called
-			// when called, it will setup the graphics handler and then call this class's draw method
-			graphicsHandler.setGraphics((Graphics2D) g);
-			draw();
-		}
-	}
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        if (doPaint) {
+            graphicsHandler.setGraphics((Graphics2D) g);
+            draw();
+        }
+    }
 }

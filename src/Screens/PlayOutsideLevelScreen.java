@@ -7,35 +7,35 @@ import Game.ScreenCoordinator;
 import Level.Map;
 import Level.Player;
 import Level.PlayerListener;
-import Maps.Basement;
+import Maps.Outside;
 import Players.Spider;
 
 // This class is for when the platformer game is actually being played
-public class PlayLevelScreen extends Screen implements PlayerListener {
+public class PlayOutsideLevelScreen extends Screen implements PlayerListener {
     protected ScreenCoordinator screenCoordinator;
     protected Map map;
     protected Player player;
     protected PlayLevelScreenState playLevelScreenState;
     protected int screenTimer;
-    protected LevelClearedScreen levelClearedScreen;
-    protected LevelLoseScreen levelLoseScreen;
+    protected OutsideLevelClearedScreen outsideLevelClearedScreen;
+    protected OutsideLevelLoseScreen outsideLevelLoseScreen;
     protected boolean levelCompletedStateChangeStart;
 
-    public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
+    public PlayOutsideLevelScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
     }
 
     public void initialize() {
         // define/setup map
-        this.map = new Basement();
+        this.map = new Outside();
 
         // setup player
         this.player = new Spider(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
         this.player.setMap(map);
         this.player.addListener(this);
 
-        levelClearedScreen = new LevelClearedScreen();
-        levelLoseScreen = new LevelLoseScreen(this);
+        outsideLevelClearedScreen = new OutsideLevelClearedScreen();
+        outsideLevelLoseScreen = new OutsideLevelLoseScreen(this);
 
         this.playLevelScreenState = PlayLevelScreenState.RUNNING;
     }
@@ -54,16 +54,16 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                     screenTimer = 130;
                     levelCompletedStateChangeStart = false;
                 } else {
-                    levelClearedScreen.update();
+                    outsideLevelClearedScreen.update();
                     screenTimer--;
                     if (screenTimer == 0) {
-                        goBackToMenu();
+                        resetLevel(); // Change here to restart the level
                     }
                 }
                 break;
             // wait on level lose screen to make a decision (either resets level or sends player back to main menu)
             case LEVEL_LOSE:
-                levelLoseScreen.update();
+                outsideLevelLoseScreen.update();
                 break;
         }
     }
@@ -76,10 +76,10 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                 player.draw(graphicsHandler);
                 break;
             case LEVEL_COMPLETED:
-                levelClearedScreen.draw(graphicsHandler);
+                outsideLevelClearedScreen.draw(graphicsHandler);
                 break;
             case LEVEL_LOSE:
-                levelLoseScreen.draw(graphicsHandler);
+                outsideLevelLoseScreen.draw(graphicsHandler);
                 break;
         }
     }
@@ -104,7 +104,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     }
 
     public void resetLevel() {
-        initialize();
+        initialize(); // Re-initialize the level
     }
 
     public void goBackToMenu() {
