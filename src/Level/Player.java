@@ -5,6 +5,7 @@ import Engine.KeyLocker;
 import Engine.Keyboard;
 import GameObject.GameObject;
 import GameObject.SpriteSheet;
+import Projectiles.Raindrop;
 import Utils.AirGroundState;
 import Utils.Direction;
 import java.util.Timer;
@@ -384,7 +385,7 @@ public abstract class Player extends GameObject {
     public void hurtPlayer(MapEntity mapEntity) {
         if (!isInvincible) {
             // if map entity is an enemy, kill player on touch
-            if (mapEntity instanceof Enemy) {
+            if (mapEntity instanceof Enemy || mapEntity instanceof Raindrop) {
                 levelState = LevelState.PLAYER_DEAD;
             }
         }

@@ -83,7 +83,7 @@ public class Camera extends Rectangle {
         }
 
         for (Projectile projectile : activeProjectiles) {
-            projectile.update();
+            projectile.update(player);
         }
         
     }

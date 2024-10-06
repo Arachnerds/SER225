@@ -1,10 +1,6 @@
 package Level;
 
-import java.util.HashMap;
-
-import Builders.FrameBuilder;
 import Engine.ImageLoader;
-import GameObject.Frame;
 import GameObject.SpriteSheet;
 import Utils.Direction;
 import Utils.Point;
@@ -15,26 +11,39 @@ public class Projectile extends MapEntity {
     protected float movementSpeedX;
     protected float movementSpeedY;
     protected int existenceFrames;
+    private boolean doesExpire;
 
     // Contructor to create projetile object with set movement speed and existence frames
-    public Projectile(Point location, float movementSpeedX, float movementSpeedY, int existenceFrames, String spritePath) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load(spritePath), 7, 9), "DEFAULT");
+    public Projectile(Point location, float movementSpeedX, float movementSpeedY, int existenceFrames, String spritePath, int spriteWidth, int spriteHeight) {
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load(spritePath), spriteWidth, spriteHeight), "DEFAULT");
         this.movementSpeedX = movementSpeedX;
         this.movementSpeedY = movementSpeedY;
         this.existenceFrames = existenceFrames;
+
+        if (existenceFrames == 0) {
+            doesExpire = false;
+        } else {
+            doesExpire = true;
+        }
+
         initialize();
     }
 
     // Updates the projectile for the existence time of the object
-    @Override
-    public void update() {
-        if (existenceFrames <= 0) {
-            this.mapEntityStatus = MapEntityStatus.REMOVED;
+    public void update(Player player) {
+        if (doesExpire) {
+            if (existenceFrames <= 0) {
+                this.mapEntityStatus = MapEntityStatus.REMOVED;
+            } else {
+                moveXHandleCollision(movementSpeedX);
+                moveYHandleCollision(movementSpeedY);
+                super.update();
+                existenceFrames--;
+            }
         } else {
             moveXHandleCollision(movementSpeedX);
             moveYHandleCollision(movementSpeedY);
             super.update();
-            existenceFrames--;
         }
     }
 
@@ -57,18 +66,5 @@ public class Projectile extends MapEntity {
     // Method to remove projectile when touches enemy
     public void touchedEnemy(Enemy enemy) {
         this.mapEntityStatus = MapEntityStatus.REMOVED;
-    }
-
-    // Loads projectile animations from sprite sheet
-    @Override
-    public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
-        return new HashMap<String, Frame[]>() {{
-            put("DEFAULT", new Frame[]{
-                    new FrameBuilder(spriteSheet.getSprite(0, 0))
-                            .withScale(3)
-                            .withBounds(1, 1, 5, 5)
-                            .build()
-            });
-        }};
     }
 }

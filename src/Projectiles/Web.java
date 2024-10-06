@@ -1,7 +1,11 @@
 package Projectiles;
 
+import Builders.FrameBuilder;
+import GameObject.Frame;
+import GameObject.SpriteSheet;
 import Level.*;
 import Utils.Point;
+import java.util.HashMap;
 
 // Create a web that represents a projectile
 public class Web extends Projectile {
@@ -10,8 +14,8 @@ public class Web extends Projectile {
     private int webTime;
 
     // Create the web using location, move speed, sprite, web time, and projectile existance time
-    public Web(Point location, float movementSpeedX, float movementSpeedY, int existenceFrames, int webTime, String spritePath) {
-        super(location, movementSpeedX, movementSpeedY, existenceFrames, spritePath);
+    public Web(Point location, float movementSpeedX, float movementSpeedY, int existenceFrames, int webTime, String spritePath, int spriteWidth, int spriteHeight) {
+        super(location, movementSpeedX, movementSpeedY, existenceFrames, spritePath, spriteWidth, spriteHeight);
         this.webTime = webTime;
     }
 
@@ -26,5 +30,18 @@ public class Web extends Projectile {
     // Method to freeze the enemy that intersected with the web
     private void freezeEnemy(Enemy enemy) {
         enemy.freeze(webTime);
+    }
+
+    // Loads projectile animations from sprite sheet
+    @Override
+    public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
+        return new HashMap<String, Frame[]>() {{
+            put("DEFAULT", new Frame[]{
+                    new FrameBuilder(spriteSheet.getSprite(0, 0))
+                            .withScale(3)
+                            .withBounds(1, 1, 5, 5) //5 ,5 
+                            .build()
+            });
+        }};
     }
 }
