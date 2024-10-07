@@ -7,10 +7,9 @@ import GameObject.GameObject;
 import GameObject.SpriteSheet;
 import Utils.AirGroundState;
 import Utils.Direction;
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import java.util.ArrayList;
 
 public abstract class Player extends GameObject {
     // values that affect player movement
@@ -465,6 +464,10 @@ public abstract class Player extends GameObject {
 
     public void addListener(PlayerListener listener) {
         listeners.add(listener);
+    }
+
+    public void setGravity(float g){
+        this.gravity = g;
     }
 
     // Uncomment this to have game draw player's bounds to make it easier to visualize
