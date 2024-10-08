@@ -8,10 +8,9 @@ import GameObject.SpriteSheet;
 import Projectiles.Raindrop;
 import Utils.AirGroundState;
 import Utils.Direction;
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import java.util.ArrayList;
 
 public abstract class Player extends GameObject {
     // values that affect player movement
@@ -48,6 +47,11 @@ public abstract class Player extends GameObject {
     protected Key CROUCH_KEY = Key.S;
     protected Key CLIMB_KEY = Key.C;
     protected Key SHOOT_KEY = Key.Q;
+
+    //Alternate keys to allow arrow key movement
+    protected Key MOVE_LEFT_ALT_KEY = Key.LEFT;
+    protected Key MOVE_RIGHT_ALT_KEY = Key.RIGHT;
+    protected Key CROUCH_ALT_KEY = Key.DOWN;
 
     // flags
     protected boolean isInvincible = false; // if true, player cannot be hurt by enemies (good for testing)
@@ -133,7 +137,7 @@ public abstract class Player extends GameObject {
     // player STANDING state logic
     protected void playerStanding() {
         // if walk left or walk right key is pressed, player enters WALKING state
-        if (Keyboard.isKeyDown(MOVE_LEFT_KEY) || Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
+        if (Keyboard.isKeyDown(MOVE_LEFT_KEY) || Keyboard.isKeyDown(MOVE_RIGHT_KEY)||Keyboard.isKeyDown(MOVE_LEFT_ALT_KEY) || Keyboard.isKeyDown(MOVE_RIGHT_ALT_KEY)) {
             playerState = PlayerState.WALKING;
         }
 
@@ -144,7 +148,7 @@ public abstract class Player extends GameObject {
         }
 
         // if crouch key is pressed, player enters CROUCHING state
-        else if (Keyboard.isKeyDown(CROUCH_KEY)) {
+        else if (Keyboard.isKeyDown(CROUCH_KEY)||Keyboard.isKeyDown(CROUCH_ALT_KEY)) {
             playerState = PlayerState.CROUCHING;
         }
 
@@ -167,16 +171,16 @@ public abstract class Player extends GameObject {
     // player WALKING state logic
     protected void playerWalking() {
         // if walk left key is pressed, move player to the left
-        if (Keyboard.isKeyDown(MOVE_LEFT_KEY)) {
+        if (Keyboard.isKeyDown(MOVE_LEFT_KEY)||Keyboard.isKeyDown(MOVE_LEFT_ALT_KEY)) {
             moveAmountX -= walkSpeed;
             facingDirection = Direction.LEFT;
         }
 
         // if walk right key is pressed, move player to the right
-        else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
+        else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY)||Keyboard.isKeyDown(MOVE_RIGHT_ALT_KEY)) {
             moveAmountX += walkSpeed;
             facingDirection = Direction.RIGHT;
-        } else if (Keyboard.isKeyUp(MOVE_LEFT_KEY) && Keyboard.isKeyUp(MOVE_RIGHT_KEY)) {
+        } else if ((Keyboard.isKeyUp(MOVE_LEFT_KEY) && Keyboard.isKeyUp(MOVE_RIGHT_KEY))||(Keyboard.isKeyUp(MOVE_LEFT_ALT_KEY) && Keyboard.isKeyUp(MOVE_RIGHT_ALT_KEY))) {
             playerState = PlayerState.STANDING;
         }
 
@@ -187,7 +191,7 @@ public abstract class Player extends GameObject {
         }
 
         // if crouch key is pressed,
-        else if (Keyboard.isKeyDown(CROUCH_KEY)) {
+        else if (Keyboard.isKeyDown(CROUCH_KEY)||Keyboard.isKeyDown(CROUCH_ALT_KEY)) {
             playerState = PlayerState.CROUCHING;
         }
     }
@@ -195,7 +199,7 @@ public abstract class Player extends GameObject {
     // player CROUCHING state logic
     protected void playerCrouching() {
         // if crouch key is released, player enters STANDING state
-        if (Keyboard.isKeyUp(CROUCH_KEY)) {
+        if (Keyboard.isKeyUp(CROUCH_KEY)&&Keyboard.isKeyUp(CROUCH_ALT_KEY)) {
             playerState = PlayerState.STANDING;
         }
 
@@ -241,9 +245,9 @@ public abstract class Player extends GameObject {
             }
 
             // allows you to move left and right while in the air
-            if (Keyboard.isKeyDown(MOVE_LEFT_KEY)) {
+            if (Keyboard.isKeyDown(MOVE_LEFT_KEY)||Keyboard.isKeyDown(MOVE_LEFT_ALT_KEY)) {
                 moveAmountX -= walkSpeed;
-            } else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
+            } else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY)||Keyboard.isKeyDown(MOVE_RIGHT_ALT_KEY)) {
                 moveAmountX += walkSpeed;
             }
 
@@ -275,7 +279,7 @@ public abstract class Player extends GameObject {
             return;
         }
     
-        if (Keyboard.isKeyDown(Key.W)) {
+        if (Keyboard.isKeyDown(Key.W)||Keyboard.isKeyDown(Key.UP)) {
             moveAmountY -= walkSpeed;
     
             if (facingDirection == Direction.LEFT) {
@@ -477,6 +481,10 @@ public abstract class Player extends GameObject {
 
     public void addListener(PlayerListener listener) {
         listeners.add(listener);
+    }
+
+    public void setGravity(float g){
+        this.gravity = g;
     }
 
     // Uncomment this to have game draw player's bounds to make it easier to visualize
