@@ -55,12 +55,6 @@ public class Basement extends Map {
         Anchor testAnchor = new Anchor(getMapTile(20, 10).getLocation());
         enhancedMapTiles.add(testAnchor);
 
-        SwitchesPuzzle puzzle = new SwitchesPuzzle(getMapTile(40, 13).getLocation());
-        enhancedMapTiles.add(puzzle.getS1());
-        enhancedMapTiles.add(puzzle.getS2());
-        enhancedMapTiles.add(puzzle.getS3());
-        enhancedMapTiles.add(puzzle.getS4());
-
         return enhancedMapTiles;
     }
 }

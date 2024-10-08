@@ -104,7 +104,7 @@ public class CommonTileset extends Tileset {
                 .build();
 
         MapTileBuilder treeTrunkTile = new MapTileBuilder(treeTrunkFrame)
-                .withTileType(TileType.NOT_PASSABLE);
+                .withTileType(TileType.PASSABLE);
 
         mapTiles.add(treeTrunkTile);
 
@@ -114,7 +114,7 @@ public class CommonTileset extends Tileset {
                 .build();
 
         MapTileBuilder treeTopLeavesTile = new MapTileBuilder(treeTopLeavesFrame)
-                .withTileType(TileType.NOT_PASSABLE);
+                .withTileType(TileType.PASSABLE);
 
         mapTiles.add(treeTopLeavesTile);
 
@@ -1411,6 +1411,16 @@ public class CommonTileset extends Tileset {
                 .withTileType(TileType.PASSABLE);
 
         mapTiles.add(tomatoBottomBRT);
+
+        // Bark Inside
+        Frame barkInside = new FrameBuilder(getSubImage(3, 6))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder barkInsideT = new MapTileBuilder(barkInside)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(barkInsideT);
 
         return mapTiles;
     }
