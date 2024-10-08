@@ -1,9 +1,9 @@
 package EnhancedMapTiles;
 
 import Builders.FrameBuilder;
-import Engine.GraphicsHandler;
 import Engine.ImageLoader;
 import Engine.Key;
+import Engine.KeyLocker;
 import Engine.Keyboard;
 import GameObject.Frame;
 import GameObject.SpriteSheet;
@@ -11,30 +11,37 @@ import Level.EnhancedMapTile;
 import Level.Player;
 import Level.TileType;
 import Utils.Point;
-import java.awt.Color;
 import java.util.HashMap;
 
 public class PuzzleSwitch extends EnhancedMapTile{
+
     private int switchNumber;
     private SwitchesPuzzle puzzle;
+    private String correctLocation;
+    private Key key;
+    protected KeyLocker keyLocker = new KeyLocker();
 
-
-    public PuzzleSwitch(SwitchesPuzzle puzzle, Point location, int switchNumber){
+    public PuzzleSwitch(SwitchesPuzzle puzzle, Point location, int switchNumber, String correctLocation, Key key){
         //This 80 times switch number just spaces them out in a nice line. Will need to be removed later
         super(location.x + 80*switchNumber, location.y, new SpriteSheet(ImageLoader.load("SwitchBox.png"), 16, 16), TileType.PASSABLE);
         this.switchNumber = switchNumber;
         this.puzzle = puzzle;
-        if(switchNumber == 1 || switchNumber == 3){
-            this.setCurrentAnimationName("ON");
+        this.currentAnimationName = "DEFAULT";
+        this.key = key;
+        if (correctLocation.equals("UP")) {
+            this.correctLocation = "DEFAULT";
+        } else {
+            this.correctLocation = "DOWN";
         }
     }
 
     public void flip(){
-        if(this.isOn()){
-            this.setCurrentAnimationName("DEFAULT");
-        }
-        else{
-            this.setCurrentAnimationName("ON");
+        if (this.currentAnimationName.equals("DEFAULT")) {
+            this.currentAnimationName = "DOWN";
+            System.out.println("DOWN");
+        } else {
+            this.currentAnimationName = "DEFAULT";   
+            System.out.println("DEFAULT");  
         }
     }
     
@@ -46,11 +53,17 @@ public class PuzzleSwitch extends EnhancedMapTile{
     public void update(Player player) {
         super.update(player);
 
-        if (intersects(player) && Keyboard.isKeyDown(Key.K)) {
+        if (intersects(player) && Keyboard.isKeyDown(key) && !keyLocker.isKeyLocked(key)) {
+            keyLocker.lockKey(key);
             puzzle.respond(this);
-        }    
+        }
+
+        if (Keyboard.isKeyUp(key) && keyLocker.isKeyLocked(key)) {
+            keyLocker.unlockKey(key); 
+        }
     }
 
+    
 
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
@@ -62,8 +75,7 @@ public class PuzzleSwitch extends EnhancedMapTile{
                         .build(),
             });
                       
-            put("ON", new Frame[] {
-                
+            put("DOWN", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 1), 40)
                         .withScale(3)
                         .withBounds(1, 1, 14, 14)
@@ -73,15 +85,15 @@ public class PuzzleSwitch extends EnhancedMapTile{
     }
 
     public boolean isOn(){
-        return this.getCurrentAnimationName().equals("ON");
+        return this.correctLocation.equals(this.currentAnimationName);
     }
 
     //A testing method that displays the hitbox
-    @Override
+    /*@Override
     public void draw(GraphicsHandler graphicsHandler) {
         super.draw(graphicsHandler);
         drawBounds(graphicsHandler, new Color(255, 0, 0, 100));
-    }
+    }*/
 
     
 }
