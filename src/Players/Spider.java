@@ -41,10 +41,10 @@ public class Spider extends Player {
 
         if (facingDirection == Direction.RIGHT) {
             webX = Math.round(this.getX()) + (getWidth()/2);
-            webVelocity = 5f;
+            webVelocity = 5.5f;
         } else {
             webX = Math.round(this.getX());
-            webVelocity = -5f;
+            webVelocity = -5.5f;
         }
 
         // define where web will spawn on the map (y location) relative to spider's location
@@ -52,9 +52,9 @@ public class Spider extends Player {
 
         Web web;
         if (facingDirection.equals(Direction.RIGHT)) {
-            web = new Web(new Point(webX, webY), webVelocity, 0, 60, 200, "WebRight.png", 7, 9);
+            web = new Web(new Point(webX, webY), webVelocity, 0, 60, 120, "WebRight.png", 7, 9);
         } else {
-            web = new Web(new Point(webX, webY), webVelocity, 0, 60, 200, "WebLeft.png", 7, 9);
+            web = new Web(new Point(webX, webY), webVelocity, 0, 60, 120, "WebLeft.png", 7, 9);
         }
 
         // add fireball enemy to the map for it to spawn in the level
