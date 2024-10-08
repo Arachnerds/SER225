@@ -7,6 +7,7 @@ import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
 import Level.Enemy;
 import Level.EnemyState;
+import Level.Map;
 import Level.MapEntity;
 import Level.Player;
 import Utils.AirGroundState;
@@ -27,13 +28,15 @@ public class FlyEnemy extends Enemy{
     private Direction facingDirection;
     private AirGroundState airGroundState;
     private Point startPoint;
+    private Map map;
 
-    public FlyEnemy(Point location, Direction facingDirection) {
+    public FlyEnemy(Point location, Direction facingDirection, Map map) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("FlySpriteDraft1.png"), 757, 539), "WALK_LEFT", 1);
         this.setScale(0.1f);
         this.startFacingDirection = facingDirection;
         startPoint = location;
         this.initialize();
+        this.map = map;
     }
 
     @Override
@@ -74,9 +77,9 @@ public class FlyEnemy extends Enemy{
         moveAmountY += gravity;
         
         //check if movement bounds have been reached -> turn around
-        if(player.getLocation().x >= (startPoint.x+7)){
+        if (this.getLocation().x >= (startPoint.x + 3*map.getMapTile(1, 1).getX())){
             facingDirection = Direction.LEFT;
-        } else if(player.getLocation().x<=(startPoint.x-7)){
+        } else if(this.getLocation().x<=(startPoint.x - 3*map.getMapTile(1, 1).getX())){
             facingDirection = Direction.RIGHT;
         }
 
