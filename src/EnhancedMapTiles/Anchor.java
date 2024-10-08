@@ -4,11 +4,13 @@ import Builders.FrameBuilder;
 import Engine.ImageLoader;
 import Engine.Key;
 import Engine.Keyboard;
+import Game.Game;
 import GameObject.Frame;
 import GameObject.SpriteSheet;
 import Level.EnhancedMapTile;
 import Level.Player;
 import Level.TileType;
+import Players.Spider;
 import Utils.Point;
 import java.security.KeyStore;
 import java.util.HashMap;
@@ -40,37 +42,33 @@ private int moveTimer;
 
             if(Keyboard.isKeyDown(Key.E)){
                 this.setCurrentAnimationName("Webbed");
-                //NEED TO SET GRAVITY TO ZERO FOR THE PLAYER
-
-                //player.moveXHandleCollision(30);
+                //Turning off gravity while swinging
+                player.setGravity(0f);
                 if(radius == 0){
                    radius = this.distToAnchor(player.getX(), player.getY());
                 }
 
                 if(moveTimer == 0){
-                    moveTimer = 20;
+                    moveTimer = 10;
                 }
                 //Just do the theta calculation ONCE, then increment theta
                 if(theta == null) {
                     theta = Math.atan(((this.getY()-player.getY())/(this.getX()-player.getX()))%(2*Math.PI));
                 }
-                //Theta is in radians. Incrementing it by about a degree each time
+                
                 if(moveTimer>1){
                     moveTimer--;
                 }
                 else{
+                    //Theta is in radians. Incrementing it by about a degree each time
                     theta = (theta + 0.002)%(2*Math.PI);
-                    float xMagnitude = ((float)(radius*Math.cos(theta)));
+                    float dx = ((float)(radius*Math.cos(theta)));
+                    float dy = -((float)(radius*Math.sin(theta)));
                 
-                   // float yMagnitude = (float)(radius*Math.sin(theta));
-
-                    player.moveX(xMagnitude);
-                   // player.moveY(yMagnitude);
-                    moveTimer = 20;
+                    player.moveXHandleCollision(dx);
+                    player.moveYHandleCollision(dy);
+                    moveTimer = 10;
                 }
-                
-                
-                //Moving too fast. I think I need a timer to slow it
 
                // player.setX()+player.getX());
                // player.setY(((float)(radius*Math.sin(theta)))+player.getY());
@@ -99,10 +97,12 @@ private int moveTimer;
             else{
                 radius = 0;
                 theta = null;
+                player.setGravity(.5f);
             }
         }
         else{
             this.setCurrentAnimationName("DEFAULT");
+            player.setGravity(.5f);
         }
     }
 
