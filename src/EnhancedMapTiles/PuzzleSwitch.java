@@ -28,20 +28,14 @@ public class PuzzleSwitch extends EnhancedMapTile{
         this.puzzle = puzzle;
         this.currentAnimationName = "DEFAULT";
         this.key = key;
-        if (correctLocation.equals("UP")) {
-            this.correctLocation = "DEFAULT";
-        } else {
-            this.correctLocation = "DOWN";
-        }
+        this.correctLocation = correctLocation;
     }
 
     public void flip(){
         if (this.currentAnimationName.equals("DEFAULT")) {
-            this.currentAnimationName = "DOWN";
-            System.out.println("DOWN");
+            this.currentAnimationName = "SWITCHED";
         } else {
             this.currentAnimationName = "DEFAULT";   
-            System.out.println("DEFAULT");  
         }
     }
     
@@ -75,7 +69,7 @@ public class PuzzleSwitch extends EnhancedMapTile{
                         .build(),
             });
                       
-            put("DOWN", new Frame[] {
+            put("SWITCHED", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 1), 40)
                         .withScale(3)
                         .withBounds(1, 1, 14, 14)

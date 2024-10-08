@@ -10,10 +10,10 @@ public class SwitchesPuzzle {
     PuzzleSwitch s4;
 
     public SwitchesPuzzle(Point l){
-        s1 = new PuzzleSwitch(this,l,1, "UP", Key.ONE);
-        s2 = new PuzzleSwitch(this,l,2, "DOWN", Key.TWO);
-        s3 = new PuzzleSwitch(this,l,3, "UP", Key.THREE);
-        s4 = new PuzzleSwitch(this,l,4, "UP", Key.FOUR);
+        s1 = new PuzzleSwitch(this,l,1, "SWITCHED", Key.ONE);
+        s2 = new PuzzleSwitch(this,l,2, "DEFAULT", Key.TWO);
+        s3 = new PuzzleSwitch(this,l,3, "SWITCHED", Key.THREE);
+        s4 = new PuzzleSwitch(this,l,4, "SWITCHED", Key.FOUR);
     }
 
     public void respond(PuzzleSwitch s) {
