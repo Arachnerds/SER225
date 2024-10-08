@@ -5,7 +5,8 @@ import Engine.GraphicsHandler;
 import Engine.Screen;
 import Screens.CreditsScreen;
 import Screens.MenuScreen;
-import Screens.PlayLevelScreen;
+import Screens.PlayBasementLevelScreen;
+import Screens.PlayOutsideLevelScreen;
 
 /*
  * Based on the current game state, this class determines which Screen should be shown
@@ -44,8 +45,11 @@ public class ScreenCoordinator extends Screen {
 					case MENU:
 						currentScreen = new MenuScreen(this);
 						break;
-					case LEVEL:
-						currentScreen = new PlayLevelScreen(this);
+					case BASEMENT_LEVEL:
+						currentScreen = new PlayBasementLevelScreen(this);
+						break;
+					case OUTSIDE_LEVEL:
+						currentScreen = new PlayOutsideLevelScreen(this);
 						break;
 					case CREDITS:
 						currentScreen = new CreditsScreen(this);

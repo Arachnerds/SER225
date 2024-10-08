@@ -6,6 +6,7 @@ import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
 import Level.Enemy;
+import Level.EnemyState;
 import Level.MapEntity;
 import Level.Player;
 import Utils.AirGroundState;
@@ -28,7 +29,7 @@ public class FlyEnemy extends Enemy{
     private Point startPoint;
 
     public FlyEnemy(Point location, Direction facingDirection) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("FlySpriteDraft1.png"), 757, 539), "WALK_LEFT");
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("FlySpriteDraft1.png"), 757, 539), "WALK_LEFT", 1);
         this.setScale(0.1f);
         this.startFacingDirection = facingDirection;
         startPoint = location;
@@ -52,9 +53,25 @@ public class FlyEnemy extends Enemy{
         float moveAmountX = 0;
         float moveAmountY = 0;
 
+        if (this.enemyState == EnemyState.DEAD) {
+            
+            if (!hasBeenKilled) {
+                hasBeenKilled = true;
+                this.setY(this.y + this.getHeight()/4);
+            }
+            
+            if (this.facingDirection == Direction.LEFT) {
+                this.currentAnimationName = "DEAD_LEFT";
+            } else {
+                this.currentAnimationName = "DEAD_RIGHT";
+            }
+
+            super.update(player);
+            return;
+        }
+
         // add gravity (if in air, this will cause bug to fall)
         moveAmountY += gravity;
-
         
         //check if movement bounds have been reached -> turn around
         if(player.getLocation().x >= (startPoint.x+7)){
@@ -71,7 +88,6 @@ public class FlyEnemy extends Enemy{
                 moveAmountX -= movementSpeed;
             }
         }
-    
 
         // move bug
         moveYHandleCollision(moveAmountY);
@@ -145,6 +161,30 @@ public class FlyEnemy extends Enemy{
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(6, 6, 12, 7)
                             .build()**/
+            });
+
+            put("DEAD_LEFT", new Frame[] {
+                new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
+                        .withScale(.1f)
+                        .withBounds(50, 6, 650, 450)
+                        .build(),
+                /**new FrameBuilder(spriteSheet.getSprite(0, 1), 8)
+                        .withScale(2)
+                        .withBounds(6, 6, 12, 7)
+                        .build()*/
+            });
+
+            put("DEAD_RIGHT", new Frame[] {
+                new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
+                        .withScale(.1f)
+                        .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                        .withImageEffect(ImageEffect.FLIP_VERTICAL)
+                        .withBounds(50, 6, 650, 450)
+                        .build(),
+                /**new FrameBuilder(spriteSheet.getSprite(0, 1), 8)
+                        .withScale(2)
+                        .withBounds(6, 6, 12, 7)
+                        .build()*/
             });
         }};
     }

@@ -28,28 +28,33 @@ public class MenuScreen extends Screen {
 
     @Override
     public void initialize() {
-        playGame = new SpriteFont("START", 200, 450, "Times New Roman", 35, new Color(0, 0, 0));
+        // Initialize the SpriteFont objects
+        playGame = new SpriteFont("START", 0, 475, "Times New Roman", 35, new Color(0, 0, 0));
         playGame.setOutlineColor(Color.black);
         playGame.setOutlineThickness(3);
-        credits = new SpriteFont("CREDITS", 460, 450, "Times New Roman", 35, new Color(0, 0, 0));
+        
+        credits = new SpriteFont("CREDITS", 0, 475, "Times New Roman", 35, new Color(0, 0, 0));
         credits.setOutlineColor(Color.black);
         credits.setOutlineThickness(3);
+        
+        // Initialize the background map
         background = new TitleScreenMap();
         background.setAdjustCamera(false);
+        
         keyPressTimer = 0;
         menuItemSelected = -1;
         keyLocker.lockKey(Key.SPACE);
     }
 
     public void update() {
-        // update background map (to play tile animations)
+        // Update the background map (to play tile animations)
         background.update(null);
 
-        // if down or up is pressed, change menu item "hovered" over (blue square in front of text will move along with currentMenuItemHovered changing)
-        if ((Keyboard.isKeyDown(Key.RIGHT) || Keyboard.isKeyDown(Key.D)) &&  keyPressTimer == 0 && currentMenuItemHovered == 0) {
+        // Handle menu navigation
+        if ((Keyboard.isKeyDown(Key.RIGHT) || Keyboard.isKeyDown(Key.D)) && keyPressTimer == 0 && currentMenuItemHovered == 0) {
             keyPressTimer = 14;
             currentMenuItemHovered++;
-        } else if ((Keyboard.isKeyDown(Key.LEFT) || Keyboard.isKeyDown(Key.A)) &&  keyPressTimer == 0 && currentMenuItemHovered == 1) {
+        } else if ((Keyboard.isKeyDown(Key.LEFT) || Keyboard.isKeyDown(Key.A)) && keyPressTimer == 0 && currentMenuItemHovered == 1) {
             keyPressTimer = 14;
             currentMenuItemHovered--;
         } else {
@@ -58,14 +63,14 @@ public class MenuScreen extends Screen {
             }
         }
 
-        // if down is pressed on last menu item or up is pressed on first menu item, "loop" the selection back around to the beginning/end
+        // Loop the selection back around
         if (currentMenuItemHovered > 1) {
             currentMenuItemHovered = 0;
         } else if (currentMenuItemHovered < 0) {
             currentMenuItemHovered = 1;
         }
 
-        // sets location for blue square in front of text (pointerLocation) and also sets color of spritefont text based on which menu item is being hovered
+        // Update the colors based on the hovered item
         if (currentMenuItemHovered == 0) {
             playGame.setColor(Color.red);
             credits.setColor(Color.white);
@@ -74,14 +79,14 @@ public class MenuScreen extends Screen {
             credits.setColor(Color.red);
         }
 
-        // if space is pressed on menu item, change to appropriate screen based on which menu item was chosen
+        // Check for selection confirmation
         if (Keyboard.isKeyUp(Key.SPACE)) {
             keyLocker.unlockKey(Key.SPACE);
         }
         if (!keyLocker.isKeyLocked(Key.SPACE) && Keyboard.isKeyDown(Key.SPACE)) {
             menuItemSelected = currentMenuItemHovered;
             if (menuItemSelected == 0) {
-                screenCoordinator.setGameState(GameState.LEVEL);
+                screenCoordinator.setGameState(GameState.BASEMENT_LEVEL);
             } else if (menuItemSelected == 1) {
                 screenCoordinator.setGameState(GameState.CREDITS);
             }
@@ -91,6 +96,12 @@ public class MenuScreen extends Screen {
     public void draw(GraphicsHandler graphicsHandler) {
         background.draw(graphicsHandler);
         titleScreen.draw(graphicsHandler);
+
+        // Set the x positions
+        playGame.centerTextX(ScreenManager.getScreenWidth() - 250, graphicsHandler.getGraphics());
+        credits.centerTextX(ScreenManager.getScreenWidth() + 250, graphicsHandler.getGraphics());
+
+        // Draw the menu items
         playGame.draw(graphicsHandler);
         credits.draw(graphicsHandler);
     }
