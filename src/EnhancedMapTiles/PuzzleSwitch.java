@@ -22,8 +22,7 @@ public class PuzzleSwitch extends EnhancedMapTile{
     protected KeyLocker keyLocker = new KeyLocker();
 
     public PuzzleSwitch(SwitchesPuzzle puzzle, Point location, int switchNumber, String correctLocation, Key key){
-        //This 80 times switch number just spaces them out in a nice line. Will need to be removed later
-        super(location.x + 80*switchNumber, location.y, new SpriteSheet(ImageLoader.load("SwitchBox.png"), 16, 16), TileType.PASSABLE);
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("SwitchBox.png"), 16, 16), TileType.PASSABLE);
         this.switchNumber = switchNumber;
         this.puzzle = puzzle;
         this.currentAnimationName = "DEFAULT";

@@ -1,8 +1,12 @@
 package Maps;
 
+import Level.EnhancedMapTile;
 import Level.Map;
 import Tilesets.CommonTileset;
 import java.util.ArrayList;
+
+import EnhancedMapTiles.FakeBark;
+import EnhancedMapTiles.SwitchesPuzzle;
 import Level.Projectile;
 import Projectiles.Raindrop;
 
@@ -23,19 +27,74 @@ public class Outside extends Map {
 
         for (int y : Y_SPAWN_POINTS) {
             int xSpawnShift;
-                if (alternateSpawn) {
-                    xSpawnShift = 4;
-                    alternateSpawn = false;
-                } else {
-                    xSpawnShift = 0;
-                    alternateSpawn = true;
-                }
+            if (alternateSpawn) {
+                xSpawnShift = 4;
+                alternateSpawn = false;
+            } else {
+                xSpawnShift = 0;
+                alternateSpawn = true;
+            }
             for (int x : X_SPAWN_POINTS) {
-
-                Raindrop raindrop = new Raindrop(getMapTile(x + xSpawnShift, y).getLocation(), 1, 3, 0, "Raindrop.png", getMapTile(x + xSpawnShift, 24).getLocation(), 17, 24);
+                Raindrop raindrop = new Raindrop(
+                    getMapTile(x + xSpawnShift, y).getLocation(), 
+                    1, 3, 0, 
+                    "Raindrop.png", 
+                    getMapTile(x + xSpawnShift, 24).getLocation(), 
+                    17, 24
+                );
                 projectiles.add(raindrop);
             }
         }
         return projectiles;  
+    }
+
+    @Override
+    public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
+        ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
+
+        for (int x = 61; x <= 70; x++) {
+            for (int y = 15; y <= 48; y++) {
+                FakeBark fakeBark = new FakeBark(getMapTile(x, y).getLocation());
+                enhancedMapTiles.add(fakeBark);
+            }
+        }
+
+        for (int x = 62; x <= 69; x++) {
+            FakeBark fakeBark1 = new FakeBark(getMapTile(x, 14).getLocation());
+            enhancedMapTiles.add(fakeBark1);
+        }
+
+        for (int x = 63; x <= 68; x++) {
+            FakeBark fakeBark2 = new FakeBark(getMapTile(x, 13).getLocation());
+            enhancedMapTiles.add(fakeBark2);
+        }
+
+        enhancedMapTiles.add(new FakeBark(getMapTile(60, 48).getLocation()));
+        enhancedMapTiles.add(new FakeBark(getMapTile(60, 47).getLocation()));
+        enhancedMapTiles.add(new FakeBark(getMapTile(60, 17).getLocation()));
+        enhancedMapTiles.add(new FakeBark(getMapTile(60, 18).getLocation()));
+
+        SwitchesPuzzle puzzle = new SwitchesPuzzle(
+            this, 
+            getMapTile(58, 47).getLocation(),
+            getMapTile(59, 47).getLocation(),
+            getMapTile(58, 48).getLocation(),
+            getMapTile(59, 48).getLocation()
+        );
+
+        enhancedMapTiles.add(puzzle.getS1());
+        enhancedMapTiles.add(puzzle.getS2());
+        enhancedMapTiles.add(puzzle.getS3());
+        enhancedMapTiles.add(puzzle.getS4());
+
+        return enhancedMapTiles;
+    }
+
+    public void hideFakeBark() {
+        for (EnhancedMapTile tile : this.getEnhancedMapTiles()) {
+            if (tile instanceof FakeBark) {
+                ((FakeBark) tile).setTransparent(true);
+            }
+        }
     }
 }

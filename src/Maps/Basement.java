@@ -5,7 +5,6 @@ import Enemies.RoachEnemy;
 import EnhancedMapTiles.Anchor;
 import EnhancedMapTiles.BasementEndLevelTile;
 import EnhancedMapTiles.JumpPoint;
-import EnhancedMapTiles.SwitchesPuzzle;
 import Level.Enemy;
 import Level.EnhancedMapTile;
 import Level.Map;
@@ -17,7 +16,7 @@ public class Basement extends Map {
 
     public Basement() {
         super("basement.txt", new CommonTileset());
-        this.playerStartPosition = getMapTile(2, 13).getLocation();
+        this.playerStartPosition = getMapTile(4, 10).getLocation();
     }
 
    
@@ -28,10 +27,10 @@ public class Basement extends Map {
         /* FlyEnemy flyEnemy = new FlyEnemy(getMapTile(5, 1).getLocation().addY(5), Direction.LEFT);
         enemies.add(flyEnemy); */
 
-        FlyEnemy flyEnemy = new FlyEnemy(getMapTile(16, 10).getLocation().subtractY(25), Direction.RIGHT);
+        FlyEnemy flyEnemy = new FlyEnemy(getMapTile(16, 10).getLocation().subtractY(25), Direction.RIGHT, this);
         enemies.add(flyEnemy);
 
-        RoachEnemy roachEnemy = new RoachEnemy(getMapTile(5, 14).getLocation().subtractY(5), Direction.RIGHT);
+        RoachEnemy roachEnemy = new RoachEnemy(getMapTile(10, 14).getLocation().subtractY(5), Direction.RIGHT, this);
         enemies.add(roachEnemy);
          
         /* BugEnemy bugEnemy = new BugEnemy(getMapTile(5, 14).getLocation().subtractY(5), Direction.RIGHT);
@@ -54,12 +53,6 @@ public class Basement extends Map {
 
         Anchor testAnchor = new Anchor(getMapTile(20, 10).getLocation());
         enhancedMapTiles.add(testAnchor);
-
-        SwitchesPuzzle puzzle = new SwitchesPuzzle(getMapTile(40, 13).getLocation());
-        enhancedMapTiles.add(puzzle.getS1());
-        enhancedMapTiles.add(puzzle.getS2());
-        enhancedMapTiles.add(puzzle.getS3());
-        enhancedMapTiles.add(puzzle.getS4());
 
         return enhancedMapTiles;
     }

@@ -11,18 +11,30 @@ import Utils.Point;
 
 import java.util.HashMap;
 
-// This class is for the end level gold box tile
-// when the player touches it, it will tell the player that the level has been completed
-public class EndLevelBox extends EnhancedMapTile {
-    public EndLevelBox(Point location) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("GoldBox.png"), 16, 16), TileType.PASSABLE);
+public class FakeBark extends EnhancedMapTile {
+    private boolean isTransparent = false;
+
+    public FakeBark(Point location) {
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("FakeBark.png"), 16, 16), TileType.NOT_PASSABLE);
+        this.currentAnimationName = "DEFAULT";
     }
 
     @Override
     public void update(Player player) {
         super.update(player);
-        if (intersects(player)) {
+        if (!isTransparent && intersects(player)) {
             player.completeLevel();
+        }
+    }
+
+    public void setTransparent(boolean transparent) {
+        this.isTransparent = transparent;
+        if (transparent) {
+            this.currentAnimationName = "TRANSPARENT";
+            this.tileType = TileType.PASSABLE;
+        } else {
+            this.currentAnimationName = "DEFAULT";
+            this.tileType = TileType.NOT_PASSABLE;
         }
     }
 
@@ -32,16 +44,14 @@ public class EndLevelBox extends EnhancedMapTile {
             put("DEFAULT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0), 40)
                         .withScale(3)
-                        .withBounds(1, 1, 14, 14)
+                        .withBounds(1, 1, 16, 16)
                         .build(),
+            });
+            put("TRANSPARENT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 1), 40)
                         .withScale(3)
-                        .withBounds(1, 1, 14, 14)
+                        .withBounds(1, 1, 16, 16)
                         .build(),
-                new FrameBuilder(spriteSheet.getSprite(0, 2), 40)
-                        .withScale(3)
-                        .withBounds(1, 1, 14, 14)
-                        .build()
             });
         }};
     }

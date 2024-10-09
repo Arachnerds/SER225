@@ -7,6 +7,7 @@ import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
 import Level.Enemy;
 import Level.EnemyState;
+import Level.Map;
 import Level.MapEntity;
 import Level.Player;
 import Utils.AirGroundState;
@@ -27,13 +28,15 @@ public class FlyEnemy extends Enemy{
     private Direction facingDirection;
     private AirGroundState airGroundState;
     private Point startPoint;
+    private Map map;
 
-    public FlyEnemy(Point location, Direction facingDirection) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("FlySpriteDraft1.png"), 757, 539), "WALK_LEFT", 1);
+    public FlyEnemy(Point location, Direction facingDirection, Map map) {
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("FlySpriteDraft2.png"), 128, 91), "WALK_LEFT", 1);
         this.setScale(0.1f);
         this.startFacingDirection = facingDirection;
         startPoint = location;
         this.initialize();
+        this.map = map;
     }
 
     @Override
@@ -74,9 +77,9 @@ public class FlyEnemy extends Enemy{
         moveAmountY += gravity;
         
         //check if movement bounds have been reached -> turn around
-        if(player.getLocation().x >= (startPoint.x+7)){
+        if (this.getLocation().x >= (startPoint.x + 3*map.getMapTile(1, 1).getX())){
             facingDirection = Direction.LEFT;
-        } else if(player.getLocation().x<=(startPoint.x-7)){
+        } else if(this.getLocation().x<=(startPoint.x - 3*map.getMapTile(1, 1).getX())){
             facingDirection = Direction.RIGHT;
         }
 
@@ -141,8 +144,8 @@ public class FlyEnemy extends Enemy{
         return new HashMap<String, Frame[]>() {{
             put("WALK_LEFT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
-                            .withScale(.1f)
-                            .withBounds(50, 6, 650, 450)
+                            .withScale(.75f)
+                            .withBounds(5, 6, 128, 91)
                             .build(),
                     /**new FrameBuilder(spriteSheet.getSprite(0, 1), 8)
                             .withScale(2)
@@ -152,9 +155,9 @@ public class FlyEnemy extends Enemy{
 
             put("WALK_RIGHT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
-                            .withScale(.1f)
+                            .withScale(.75f)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(50, 6, 650, 450)
+                            .withBounds(5, 6, 128, 91)
                             .build(),
                     /**new FrameBuilder(spriteSheet.getSprite(0, 1), 8)
                             .withScale(2)
@@ -165,8 +168,8 @@ public class FlyEnemy extends Enemy{
 
             put("DEAD_LEFT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
-                        .withScale(.1f)
-                        .withBounds(50, 6, 650, 450)
+                        .withScale(.75f)
+                        .withBounds(5, 6, 128, 91)
                         .build(),
                 /**new FrameBuilder(spriteSheet.getSprite(0, 1), 8)
                         .withScale(2)
@@ -176,10 +179,10 @@ public class FlyEnemy extends Enemy{
 
             put("DEAD_RIGHT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
-                        .withScale(.1f)
+                        .withScale(.75f)
                         .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                         .withImageEffect(ImageEffect.FLIP_VERTICAL)
-                        .withBounds(50, 6, 650, 450)
+                        .withBounds(5, 6, 128, 91)
                         .build(),
                 /**new FrameBuilder(spriteSheet.getSprite(0, 1), 8)
                         .withScale(2)

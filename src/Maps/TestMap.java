@@ -3,7 +3,7 @@ package Maps;
 import Enemies.BugEnemy;
 import Enemies.DinosaurEnemy;
 import Engine.ImageLoader;
-import EnhancedMapTiles.EndLevelBox;
+import EnhancedMapTiles.FakeBark;
 import EnhancedMapTiles.HorizontalMovingPlatform;
 import GameObject.Rectangle;
 import Level.*;
@@ -49,8 +49,8 @@ public class TestMap extends Map {
         );
         enhancedMapTiles.add(hmp);
 
-        EndLevelBox endLevelBox = new EndLevelBox(getMapTile(32, 7).getLocation());
-        enhancedMapTiles.add(endLevelBox);
+        FakeBark fakeBark = new FakeBark(getMapTile(32, 7).getLocation());
+        enhancedMapTiles.add(fakeBark);
 
         return enhancedMapTiles;
     }

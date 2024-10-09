@@ -8,6 +8,7 @@ import java.util.HashMap;
 
 // This class is a base class for all enhanced map tiles in the game -- all enhanced map tiles should extend from it
 public class EnhancedMapTile extends MapTile {
+    private boolean visible = true; // Add a visibility property
 
     public EnhancedMapTile(float x, float y, HashMap<String, Frame[]> animations, TileType tileType) {
         super(x, y, animations, tileType);
@@ -30,6 +31,14 @@ public class EnhancedMapTile extends MapTile {
         super.initialize();
     }
 
+    // Add a method to hide the tile
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+    }
+
+    public boolean isVisible() {
+        return visible;
+    }
 
     public void update(Player player) {
         super.update();
@@ -37,7 +46,9 @@ public class EnhancedMapTile extends MapTile {
 
     @Override
     public void draw(GraphicsHandler graphicsHandler) {
-        super.draw(graphicsHandler);
+        // Only draw the tile if it is visible
+        if (visible) {
+            super.draw(graphicsHandler);
+        }
     }
-
 }

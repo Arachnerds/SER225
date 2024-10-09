@@ -7,6 +7,7 @@ import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
 import Level.Enemy;
 import Level.EnemyState;
+import Level.Map;
 import Level.MapEntity;
 import Level.Player;
 import Utils.AirGroundState;
@@ -27,14 +28,16 @@ public class RoachEnemy extends Enemy {
     private Direction facingDirection;
     private AirGroundState airGroundState;
     private Point startPoint;
+    private Map map;
 
-    public RoachEnemy(Point location, Direction facingDirection) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("RoachSpriteDraft1.png"), 1185, 411), "WALK_LEFT", 2);
+    public RoachEnemy(Point location, Direction facingDirection, Map map) {
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("RoachSpriteDraft2.png"), 128, 46), "WALK_LEFT", 2);
         this.setScale(.1f);
         this.setBounds(currentFrame);
         this.startFacingDirection = facingDirection;
         startPoint = location;
         this.initialize();
+        this.map = map;
     }
 
     @Override
@@ -75,9 +78,9 @@ public class RoachEnemy extends Enemy {
         moveAmountY += gravity;
 
         //check if movement bounds have been reached -> turn around
-        if(player.getLocation().x >= (startPoint.x+7)){
+        if(this.getLocation().x >= (startPoint.x + 4*map.getMapTile(1, 1).getX())) {
             facingDirection = Direction.LEFT;
-        } else if(player.getLocation().x<=(startPoint.x-7)){
+        } else if(this.getLocation().x<=(startPoint.x - 3*map.getMapTile(1, 1).getX())){
             facingDirection = Direction.RIGHT;
         }
 
@@ -149,8 +152,8 @@ public class RoachEnemy extends Enemy {
         return new HashMap<String, Frame[]>() {{
             put("WALK_LEFT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
-                            .withScale(.1f)
-                            .withBounds(150, 1, 750, 350)
+                            .withScale(.75f)
+                            .withBounds(10, 1, 128, 46)
                             .build(),
                     /**new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
                             .withScale(2)
@@ -160,9 +163,9 @@ public class RoachEnemy extends Enemy {
 
             put("WALK_RIGHT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
-                            .withScale(.1f)
+                            .withScale(.75f)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(150, 1,750, 350)
+                            .withBounds(10, 1,128, 46)
                             .build(),
                     /**new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
                             .withScale(2)
@@ -173,9 +176,9 @@ public class RoachEnemy extends Enemy {
 
             put("DEAD_LEFT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
-                        .withScale(.1f)
+                        .withScale(.75f)
                         .withImageEffect(ImageEffect.FLIP_VERTICAL)
-                        .withBounds(150, 1,750, 350)
+                        .withBounds(10, 1,128, 46)
                         .build(),
                 /**new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
                         .withScale(2)
@@ -186,10 +189,10 @@ public class RoachEnemy extends Enemy {
 
             put("DEAD_RIGHT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
-                        .withScale(.1f)
+                        .withScale(.75f)
                         .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                         .withImageEffect(ImageEffect.FLIP_VERTICAL)
-                        .withBounds(150, 1,750, 350)
+                        .withBounds(10, 1,128, 46)
                         .build(),
                 /**new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
                         .withScale(2)
