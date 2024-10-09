@@ -5,13 +5,12 @@ import Utils.Point;
 import Maps.Outside;
 
 public class SwitchesPuzzle {
-    PuzzleSwitch s1;
-    PuzzleSwitch s2;
-    PuzzleSwitch s3;
-    PuzzleSwitch s4;
-    Outside map;  // Reference to the map
-
-    // Adjust constructor to accept the map and separate locations for each switch
+    private PuzzleSwitch s1;
+    private PuzzleSwitch s2;
+    private PuzzleSwitch s3;
+    private PuzzleSwitch s4;
+    private Outside map;
+    
     public SwitchesPuzzle(Outside map, Point loc1, Point loc2, Point loc3, Point loc4) {
         this.map = map; // Store the map reference
         s1 = new PuzzleSwitch(this, loc1, 1, "SWITCHED", Key.ONE);
@@ -21,7 +20,6 @@ public class SwitchesPuzzle {
     }
 
     public void respond(PuzzleSwitch s) {
-        // Flip the switch that was interacted with
         if (s.getSwitchNum() == 1) {
             s1.flip();
         } else if (s.getSwitchNum() == 2) {
@@ -35,7 +33,8 @@ public class SwitchesPuzzle {
         // Check if the puzzle is completed
         if (s1.isOn() && s2.isOn() && s3.isOn() && s4.isOn()) {
             System.out.println("You completed the puzzle!");
-            hideSwitches(); // Hide switches when the puzzle is solved
+            hideSwitches();
+            map.hideFakeBark();
         }
     }
 
