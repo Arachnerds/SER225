@@ -16,7 +16,7 @@ public class Basement extends Map {
 
     public Basement() {
         super("basement.txt", new CommonTileset());
-        this.playerStartPosition = getMapTile(2, 13).getLocation();
+        this.playerStartPosition = getMapTile(4, 10).getLocation();
     }
 
    
@@ -30,7 +30,7 @@ public class Basement extends Map {
         FlyEnemy flyEnemy = new FlyEnemy(getMapTile(16, 10).getLocation().subtractY(25), Direction.RIGHT, this);
         enemies.add(flyEnemy);
 
-        RoachEnemy roachEnemy = new RoachEnemy(getMapTile(5, 14).getLocation().subtractY(5), Direction.RIGHT, this);
+        RoachEnemy roachEnemy = new RoachEnemy(getMapTile(10, 14).getLocation().subtractY(5), Direction.RIGHT, this);
         enemies.add(roachEnemy);
          
         /* BugEnemy bugEnemy = new BugEnemy(getMapTile(5, 14).getLocation().subtractY(5), Direction.RIGHT);

@@ -31,7 +31,7 @@ public class FlyEnemy extends Enemy{
     private Map map;
 
     public FlyEnemy(Point location, Direction facingDirection, Map map) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("FlySpriteDraft1.png"), 757, 539), "WALK_LEFT", 1);
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("FlySpriteDraft2.png"), 128, 91), "WALK_LEFT", 1);
         this.setScale(0.1f);
         this.startFacingDirection = facingDirection;
         startPoint = location;
@@ -144,8 +144,8 @@ public class FlyEnemy extends Enemy{
         return new HashMap<String, Frame[]>() {{
             put("WALK_LEFT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
-                            .withScale(.1f)
-                            .withBounds(50, 6, 650, 450)
+                            .withScale(.75f)
+                            .withBounds(5, 6, 128, 91)
                             .build(),
                     /**new FrameBuilder(spriteSheet.getSprite(0, 1), 8)
                             .withScale(2)
@@ -155,9 +155,9 @@ public class FlyEnemy extends Enemy{
 
             put("WALK_RIGHT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
-                            .withScale(.1f)
+                            .withScale(.75f)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(50, 6, 650, 450)
+                            .withBounds(5, 6, 128, 91)
                             .build(),
                     /**new FrameBuilder(spriteSheet.getSprite(0, 1), 8)
                             .withScale(2)
@@ -168,8 +168,8 @@ public class FlyEnemy extends Enemy{
 
             put("DEAD_LEFT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
-                        .withScale(.1f)
-                        .withBounds(50, 6, 650, 450)
+                        .withScale(.75f)
+                        .withBounds(5, 6, 128, 91)
                         .build(),
                 /**new FrameBuilder(spriteSheet.getSprite(0, 1), 8)
                         .withScale(2)
@@ -179,10 +179,10 @@ public class FlyEnemy extends Enemy{
 
             put("DEAD_RIGHT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
-                        .withScale(.1f)
+                        .withScale(.75f)
                         .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                         .withImageEffect(ImageEffect.FLIP_VERTICAL)
-                        .withBounds(50, 6, 650, 450)
+                        .withBounds(5, 6, 128, 91)
                         .build(),
                 /**new FrameBuilder(spriteSheet.getSprite(0, 1), 8)
                         .withScale(2)
