@@ -18,10 +18,12 @@ public class Anchor extends EnhancedMapTile{
 
 private double radius;
 private Double theta;
+private float rotationAdjustment;
 
     public Anchor(Point location) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("AnchorBox.png"), 16, 16), TileType.PASSABLE);
         radius = 0;
+        rotationAdjustment = 1;
     }
 
     @Override
@@ -31,6 +33,13 @@ private Double theta;
         //Test key - L prints location (only works when an anchor is on screen)
         if(Keyboard.isKeyDown(Key.L)){
             System.out.println("x: "+ player.getX() + " " + "y: "+ player.getY());
+        }
+
+        if(player.getX()>this.getX()){
+            rotationAdjustment = -1;
+        }
+        else{
+            rotationAdjustment = 1;
         }
 
 
@@ -58,15 +67,19 @@ private Double theta;
                     
                     //Theta is in radians. Incrementing it by about a degree each time.
                     
-                    theta = (theta + 0.02)%(2*Math.PI);
+                    //theta = (theta + 0.02)%(2*Math.PI);
+                    /* if(player.getX()<this.getX() && theta<0){
+                        theta = -theta;
+                    } */
+
                     
                     //This part is trying to make sure the player always moves in one direction (clockwise or counterclockwise) - Not working
-                    /* if(player.getX()<this.getX()){
-                        theta = (theta - 0.02)%(2*Math.PI);
+                    if(player.getX()<this.getX()){
+                        theta = (theta + 0.02)%(2*Math.PI);
                     }
                     else{
-                        theta = (theta + 0.02)%(2*Math.PI);
-                    } */
+                        theta = (theta - 0.02)%(2*Math.PI);
+                    }
 
                     //This part is trying to limit theta to be between 0 and pi radians, so we only swing underneath
                     /* if(theta<Math.PI){
@@ -97,15 +110,16 @@ private Double theta;
                    
                     float dx = prevRadX - newRadX;
                     float dy = prevRadY - newRadY;
-                
-                    player.moveXHandleCollision(dx);
-                    player.moveYHandleCollision(dy);
                     
+                    player.moveXHandleCollision(rotationAdjustment*dx);
+                    player.moveYHandleCollision(rotationAdjustment*dy);
+                    
+                    //dx seems to behave properly, dy seems to be the issue
+                    //Not just a simple negative thing, the magnitude seems off as well
+                    System.out.println(dx);
                 }
 
-               
-                
-                System.out.println(radius);
+                //System.out.println(radius);
             }
             else{
                 radius = 0;
