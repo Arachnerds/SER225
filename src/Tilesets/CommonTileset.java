@@ -1432,6 +1432,296 @@ public class CommonTileset extends Tileset {
 
         mapTiles.add(trunkPassT);
 
+        // Garden Wood
+        Frame gardenWood1 = new FrameBuilder(getSubImage(4, 6))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder gardenWoodT1 = new MapTileBuilder(gardenWood1)
+                .withTileType(TileType.CLIMBABLE);
+
+        mapTiles.add(gardenWoodT1);
+
+        // Garden Wood
+        Frame gardenWood2 = new FrameBuilder(getSubImage(4, 7))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder gardenWoodT2 = new MapTileBuilder(gardenWood2)
+                .withTileType(TileType.CLIMBABLE);
+
+        mapTiles.add(gardenWoodT2);
+
+        // Garden Wood
+        Frame gardenWood3 = new FrameBuilder(getSubImage(4, 8))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder gardenWoodT3 = new MapTileBuilder(gardenWood3)
+                .withTileType(TileType.CLIMBABLE);
+
+        mapTiles.add(gardenWoodT3);
+
+        // Garden Wood
+        Frame gardenWood4 = new FrameBuilder(getSubImage(4, 9))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder gardenWoodT4 = new MapTileBuilder(gardenWood4)
+                .withTileType(TileType.CLIMBABLE);
+
+        mapTiles.add(gardenWoodT4);
+
+        // Garden Wood
+        Frame gardenWood5 = new FrameBuilder(getSubImage(5, 6))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder gardenWoodT5 = new MapTileBuilder(gardenWood5)
+                .withTileType(TileType.CLIMBABLE);
+
+        mapTiles.add(gardenWoodT5);
+
+        // Garden Wood
+        Frame gardenWood6 = new FrameBuilder(getSubImage(5, 7))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder gardenWoodT6 = new MapTileBuilder(gardenWood6)
+                .withTileType(TileType.CLIMBABLE);
+
+        mapTiles.add(gardenWoodT6);
+
+        // Garden Wood
+        Frame gardenWood7 = new FrameBuilder(getSubImage(5, 8))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder gardenWoodT7 = new MapTileBuilder(gardenWood7)
+                .withTileType(TileType.CLIMBABLE);
+
+        mapTiles.add(gardenWoodT7);
+
+        // Garden Wood
+        Frame gardenWood8 = new FrameBuilder(getSubImage(5, 9))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder gardenWoodT8 = new MapTileBuilder(gardenWood8)
+                .withTileType(TileType.CLIMBABLE);
+
+        mapTiles.add(gardenWoodT8);
+
+        // Garden Wood
+        Frame gardenWood9 = new FrameBuilder(getSubImage(4, 10))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder gardenWoodT9 = new MapTileBuilder(gardenWood9)
+                .withTileType(TileType.CLIMBABLE);
+
+        mapTiles.add(gardenWoodT9);
+
+        // Garden Wood
+        Frame gardenWood10 = new FrameBuilder(getSubImage(4, 11))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder gardenWoodT10 = new MapTileBuilder(gardenWood10)
+                .withTileType(TileType.CLIMBABLE);
+
+        mapTiles.add(gardenWoodT10);
+
+        // Garden Wood
+        Frame gardenWood11 = new FrameBuilder(getSubImage(4, 12))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder gardenWoodT11 = new MapTileBuilder(gardenWood11)
+                .withTileType(TileType.CLIMBABLE);
+
+        mapTiles.add(gardenWoodT11);
+
+        // Garden Wood
+        Frame gardenWood12 = new FrameBuilder(getSubImage(5, 10))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder gardenWoodT12 = new MapTileBuilder(gardenWood12)
+                .withTileType(TileType.CLIMBABLE);
+
+        mapTiles.add(gardenWoodT12);
+
+        // Garden Wood
+        Frame gardenWood13 = new FrameBuilder(getSubImage(5, 11))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder gardenWoodT13 = new MapTileBuilder(gardenWood13)
+                .withTileType(TileType.CLIMBABLE);
+
+        mapTiles.add(gardenWoodT13);
+
+        // Garden Wood
+        Frame gardenWood14 = new FrameBuilder(getSubImage(5, 12))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder gardenWoodT14 = new MapTileBuilder(gardenWood14)
+                .withTileType(TileType.CLIMBABLE);
+
+        mapTiles.add(gardenWoodT14);
+
+        // Tomato Post
+        Frame tomatoPost1 = new FrameBuilder(getSubImage(3, 11))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder tomatoPost1T = new MapTileBuilder(tomatoPost1)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(tomatoPost1T);
+
+        // Tomato Post
+        Frame tomatoPost2 = new FrameBuilder(getSubImage(3, 12))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder tomatoPost2T = new MapTileBuilder(tomatoPost2)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(tomatoPost2T);
+
+        // Bulkhead Body
+        Frame bulkBody = new FrameBuilder(getSubImage(3, 5))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder bulkBodyT = new MapTileBuilder(bulkBody)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(bulkBodyT);
+
+        // Bulkhead Door
+        Frame bulkDoor1 = new FrameBuilder(getSubImage(2, 11))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder bulkDoor1T = new MapTileBuilder(bulkDoor1)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(bulkDoor1T);
+
+        // Bulkhead Door
+        Frame bulkDoor2 = new FrameBuilder(getSubImage(2, 12))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder bulkDoor2T = new MapTileBuilder(bulkDoor2)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(bulkDoor2T);
+
+        // Bulkhead Wall
+        Frame bulkFillWall = new FrameBuilder(getSubImage(2, 13))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder bulkFillWallT = new MapTileBuilder(bulkFillWall)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(bulkFillWallT);
+
+        // Bulkhead Top
+        Frame bulkTop1 = new FrameBuilder(getSubImage(3, 13))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder bulkTop1T = new MapTileBuilder(bulkTop1)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(bulkTop1T);
+
+        // Bulkhead Top
+        Frame bulkTop2 = new FrameBuilder(getSubImage(4, 13))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder bulkTop2T = new MapTileBuilder(bulkTop2)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(bulkTop2T);
+
+        // Bulkhead Top
+        Frame bulkTop3 = new FrameBuilder(getSubImage(5, 13))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder bulkTop3T = new MapTileBuilder(bulkTop3)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(bulkTop3T);
+
+        // Bulkhead Walll
+        Frame bulkWalll = new FrameBuilder(getSubImage(2, 14))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder bulkWalllT = new MapTileBuilder(bulkWalll)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(bulkWalllT);
+
+        // Bulkhead Top
+        Frame bulkTopA1 = new FrameBuilder(getSubImage(3, 14))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder bulkTopA1T = new MapTileBuilder(bulkTopA1)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(bulkTopA1T);
+
+        // Bulkhead Top
+        Frame bulkATop2 = new FrameBuilder(getSubImage(4, 14))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder bulkTopA2T = new MapTileBuilder(bulkATop2)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(bulkTopA2T);
+
+        // Bulkhead Top
+        Frame bulkTopA3 = new FrameBuilder(getSubImage(5, 14))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder bulkTopA3T = new MapTileBuilder(bulkTopA3)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(bulkTopA3T);
+
+        // Bulkhead ?
+        Frame bulkWhat = new FrameBuilder(getSubImage(2, 15))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder bulkWhatT = new MapTileBuilder(bulkWhat)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(bulkWhatT);
+
+        // Bulkhead Doorknob
+        Frame bulkKnob = new FrameBuilder(getSubImage(3, 15))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder bulkKnobT = new MapTileBuilder(bulkKnob)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(bulkKnobT);
+
         return mapTiles;
     }
 }
