@@ -56,10 +56,11 @@ private Double theta;
                     float prevRadX = ((float)(radius*Math.cos(theta)));
                     float prevRadY = ((float)(radius*Math.sin(theta)));
                     
-                    //Theta is in radians. Incrementing it by about a degree each time. Limiting it to between 0 and 180 degrees (0 and pi radians)
+                    //Theta is in radians. Incrementing it by about a degree each time.
                     
                     theta = (theta + 0.02)%(2*Math.PI);
-
+                    
+                    //This part is trying to make sure the player always moves in one direction (clockwise or counterclockwise) - Not working
                     /* if(player.getX()<this.getX()){
                         theta = (theta - 0.02)%(2*Math.PI);
                     }
@@ -67,6 +68,7 @@ private Double theta;
                         theta = (theta + 0.02)%(2*Math.PI);
                     } */
 
+                    //This part is trying to limit theta to be between 0 and pi radians, so we only swing underneath
                     /* if(theta<Math.PI){
                         theta = (theta + 0.02)%(2*Math.PI);
                     }
@@ -92,6 +94,7 @@ private Double theta;
                         
                     } */
                    //JUST CHEAT AND TURN THETA THE OTHER WAY WHEN YOU"RE STANDING ON THE LEFT?
+                   
                     float dx = prevRadX - newRadX;
                     float dy = prevRadY - newRadY;
                 
