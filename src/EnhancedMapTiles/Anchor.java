@@ -18,19 +18,17 @@ public class Anchor extends EnhancedMapTile{
 
 private double radius;
 private Double theta;
-private int moveTimer;
 
     public Anchor(Point location) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("AnchorBox.png"), 16, 16), TileType.PASSABLE);
         radius = 0;
-        moveTimer = 0;
     }
 
     @Override
     public void update(Player player) {
         super.update(player);
         
-        //Test key - L prints location
+        //Test key - L prints location (only works when an anchor is on screen)
         if(Keyboard.isKeyDown(Key.L)){
             System.out.println("x: "+ player.getX() + " " + "y: "+ player.getY());
         }
@@ -47,51 +45,64 @@ private int moveTimer;
                    radius = this.distToAnchor(player.getX(), player.getY());
                 }
 
-                if(moveTimer == 0){
-                    moveTimer = 10;
-                }
                 //Just do the theta calculation ONCE, then increment theta
                 if(theta == null) {
                     theta = Math.atan(((this.getY()-player.getY())/(this.getX()-player.getX()))%(2*Math.PI));
                 }
                 
-                if(moveTimer>1){
-                    moveTimer--;
-                }
-                else{
-                    //Theta is in radians. Incrementing it by about a degree each time
-                    theta = (theta + 0.002)%(2*Math.PI);
-                    float dx = ((float)(radius*Math.cos(theta)));
-                    float dy = -((float)(radius*Math.sin(theta)));
+                
+                else{                   
+                    //X and Y components at the previous theta (x = rcos(theta), y = rsin(theta))
+                    float prevRadX = ((float)(radius*Math.cos(theta)));
+                    float prevRadY = ((float)(radius*Math.sin(theta)));
+                    
+                    //Theta is in radians. Incrementing it by about a degree each time. Limiting it to between 0 and 180 degrees (0 and pi radians)
+                    
+                    theta = (theta + 0.02)%(2*Math.PI);
+
+                    /* if(player.getX()<this.getX()){
+                        theta = (theta - 0.02)%(2*Math.PI);
+                    }
+                    else{
+                        theta = (theta + 0.02)%(2*Math.PI);
+                    } */
+
+                    /* if(theta<Math.PI){
+                        theta = (theta + 0.02)%(2*Math.PI);
+                    }
+                    else{
+                        theta = (theta - 0.02)%(2*Math.PI);
+                    } */
+                    
+                    
+                    //X and Y components at the new theta
+                    float newRadX = ((float)(radius*Math.cos(theta)));
+                    float newRadY = ((float)(radius*Math.sin(theta)));
+
+                    //Change in x and y
+                    
+                    //Need to make sure it always goes clockwise/counterclockwise
+                    /* float dx = 0;
+                    float dy = 0;
+                    if(player.getX() > this.getX()){
+                        dx = prevRadX - newRadX;
+                        dy = prevRadY - newRadY;
+                    }
+                    else{
+                        
+                    } */
+                   //JUST CHEAT AND TURN THETA THE OTHER WAY WHEN YOU"RE STANDING ON THE LEFT?
+                    float dx = prevRadX - newRadX;
+                    float dy = prevRadY - newRadY;
                 
                     player.moveXHandleCollision(dx);
                     player.moveYHandleCollision(dy);
-                    moveTimer = 10;
+                    
                 }
 
-               // player.setX()+player.getX());
-               // player.setY(((float)(radius*Math.sin(theta)))+player.getY());
-                
-                //May need some logic here to handle negative cases (ie left/right of anchor)
-                //Right now its only handling left to right motion
-                
-                //If player is left of the anchor
-                /* if(this.getX() > player.getX()){
-                   //theta = Math.atan(((this.getY()-player.getY())/(this.getX()-player.getX()))%(2*Math.PI));
-                }
-                else{ //If player is right of the anchor
-                    //theta = Math.atan(((this.getY()-player.getY())/(this.getX()-player.getX()))%(2*Math.PI));
-                } */
-
+               
                 
                 System.out.println(radius);
-                //System.out.println(theta);
-                //System.out.println(radius/(this.getX()-player.getX())%(2*Math.PI));
-
-               //x = rcos(theta), y = rsin(theta)
-               //Set location instead of moving
-                /* player.moveXHandleCollision((float)(radius*Math.cos(theta)*.1));
-                player.moveYHandleCollision((float)(radius*Math.sin(theta)*.1)); */
             }
             else{
                 radius = 0;
