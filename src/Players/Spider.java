@@ -95,10 +95,10 @@ public class Spider extends Player {
         }
     }
 
-    public void draw(GraphicsHandler graphicsHandler) {
+    /**public void draw(GraphicsHandler graphicsHandler) {
         super.draw(graphicsHandler);
         drawBounds(graphicsHandler, new Color(255, 0, 0, 100));
-    }
+    }**/
 
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
@@ -248,17 +248,44 @@ public class Spider extends Player {
             });
 
             put("CLIMB_RIGHT", new Frame[] {
-                    new FrameBuilder(spriteSheet.getSprite(0, 0))
+                    new FrameBuilder(spriteSheet.getSprite(3, 0), 7)
                             .withScale(.75f)
-                            .withBounds(0, 12, 128, 100)
+                            .withBounds(0, 9, 128, 100)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(3, 1), 7)
+                            .withScale(.75f)
+                            .withBounds(0, 9, 128, 100)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(3, 2), 7)
+                            .withScale(.75f)
+                            .withBounds(0, 9, 128, 100)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(3, 3), 7)
+                            .withScale(.75f)
+                            .withBounds(0, 9, 128, 100)
                             .build()
             });
 
             put("CLIMB_LEFT", new Frame[] {
-                    new FrameBuilder(spriteSheet.getSprite(0, 0))
+                    new FrameBuilder(spriteSheet.getSprite(3, 0), 7)
                             .withScale(.75f)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(0, 12, 128, 100)
+                            .withBounds(0, 9, 128, 100)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(3, 1), 7)
+                            .withScale(.75f)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(0, 9, 128, 100)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(3, 2), 7)
+                            .withScale(.75f)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(0, 9, 128, 100)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(3, 3), 7)
+                            .withScale(.75f)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(0, 9, 128, 100)
                             .build()
             });
         }};
