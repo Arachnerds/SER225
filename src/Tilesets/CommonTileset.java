@@ -104,7 +104,7 @@ public class CommonTileset extends Tileset {
                 .build();
 
         MapTileBuilder treeTrunkTile = new MapTileBuilder(treeTrunkFrame)
-                .withTileType(TileType.PASSABLE);
+                .withTileType(TileType.NOT_PASSABLE);
 
         mapTiles.add(treeTrunkTile);
 
@@ -1421,6 +1421,16 @@ public class CommonTileset extends Tileset {
                 .withTileType(TileType.PASSABLE);
 
         mapTiles.add(barkInsideT);
+
+        // tree trunk
+        Frame trunkPass = new FrameBuilder(getSubImage(1, 0))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder trunkPassT = new MapTileBuilder(trunkPass)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(trunkPassT);
 
         return mapTiles;
     }
