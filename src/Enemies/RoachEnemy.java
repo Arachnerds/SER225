@@ -1,6 +1,7 @@
 package Enemies;
 
 import Builders.FrameBuilder;
+import Engine.GraphicsHandler;
 import Engine.ImageLoader;
 import GameObject.Frame;
 import GameObject.ImageEffect;
@@ -14,6 +15,7 @@ import Utils.AirGroundState;
 import Utils.Direction;
 import Utils.Point;
 
+import java.awt.Color;
 import java.util.HashMap;
 
 // This class is for the black bug enemy
@@ -31,8 +33,8 @@ public class RoachEnemy extends Enemy {
     private Map map;
 
     public RoachEnemy(Point location, Direction facingDirection, Map map) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("RoachSpriteDraft2.png"), 128, 46), "WALK_LEFT", 2);
-        this.setScale(.1f);
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("RoachSpriteSheetDraft1.png"), 128, 46), "WALK_LEFT", 2);
+        this.setScale(.75f);
         this.setBounds(currentFrame);
         this.startFacingDirection = facingDirection;
         startPoint = location;
@@ -80,16 +82,20 @@ public class RoachEnemy extends Enemy {
         //check if movement bounds have been reached -> turn around
         if(this.getLocation().x >= (startPoint.x + 4*map.getMapTile(1, 1).getX())) {
             facingDirection = Direction.LEFT;
+            currentAnimationName = "WALK_LEFT";
         } else if(this.getLocation().x<=(startPoint.x - 3*map.getMapTile(1, 1).getX())){
             facingDirection = Direction.RIGHT;
+            currentAnimationName = "WALK_RIGHT";
         }
 
         // if on ground, walk forward based on facing direction
         if (airGroundState == AirGroundState.GROUND) {
             if (facingDirection == Direction.RIGHT) {
                 moveAmountX += movementSpeed;
+                //currentAnimationName = "WALK_RIGHT";
             } else {
                 moveAmountX -= movementSpeed;
+                //currentAnimationName = "WALK_LEFT";
             }
         }
 
@@ -111,7 +117,21 @@ public class RoachEnemy extends Enemy {
     // Setter method to set temporary movement speed of dinosaur
     @Override
     public void setMovementSpeed(float movementSpeed) {
+        if(movementSpeed < .5f){
+            if (facingDirection == Direction.RIGHT) {
+                currentAnimationName = "WEB_RIGHT";
+            } else {
+                currentAnimationName = "WEB_LEFT";
+            }
+        } else{
+            if (facingDirection == Direction.RIGHT) {
+                currentAnimationName = "WALK_RIGHT";
+            } else {
+                currentAnimationName = "WALK_LEFT";
+            }
+        }
         this.movementSpeed = movementSpeed;
+
     }
 
     @Override
@@ -150,15 +170,16 @@ public class RoachEnemy extends Enemy {
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
         return new HashMap<String, Frame[]>() {{
+
             put("WALK_LEFT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
                             .withScale(.75f)
+                             .withBounds(10, 1, 128, 46)
+                             .build(),
+                    new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
+                            .withScale(.75f)
                             .withBounds(10, 1, 128, 46)
-                            .build(),
-                    /**new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
-                            .withScale(2)
-                            .withBounds(6, 6, 12, 7)
-                            .build()*/
+                            .build()
             });
 
             put("WALK_RIGHT", new Frame[] {
@@ -167,11 +188,11 @@ public class RoachEnemy extends Enemy {
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(10, 1,128, 46)
                             .build(),
-                    /**new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
-                            .withScale(2)
+                    new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
+                            .withScale(.75f)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(6, 6, 12, 7)
-                            .build()*/
+                            .withBounds(10, 1, 128, 46)
+                            .build()
             });
 
             put("DEAD_LEFT", new Frame[] {
@@ -195,11 +216,33 @@ public class RoachEnemy extends Enemy {
                         .withBounds(10, 1,128, 46)
                         .build(),
                 /**new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
-                        .withScale(2)
+                        .withScale(.75f)
                         .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                        .withBounds(6, 6, 128, 46)
+                        .build()*/
+            });
+
+            put("WEB_LEFT", new Frame[] {
+                new FrameBuilder(spriteSheet.getSprite(1, 0), 8)
+                        .withScale(.75f)
+                        .withBounds(10, 1, 128, 46)
+                        .build(),
+                /**new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
+                        .withScale(2)
                         .withBounds(6, 6, 12, 7)
                         .build()*/
             });
+            put("WEB_RIGHT", new Frame[] {
+            new FrameBuilder(spriteSheet.getSprite(1, 0), 8)
+                    .withScale(.75f)
+                    .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                    .withBounds(10, 1, 128, 46)
+                    .build(),
+            /**new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
+                    .withScale(2)
+                    .withBounds(6, 6, 12, 7)
+                    .build()*/
+             });
         }};
     }
 

@@ -31,8 +31,8 @@ public class FlyEnemy extends Enemy{
     private Map map;
 
     public FlyEnemy(Point location, Direction facingDirection, Map map) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("FlySpriteDraft2.png"), 128, 91), "WALK_LEFT", 1);
-        this.setScale(0.1f);
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("FlySpriteSheetDraft1.png"), 128, 91), "WALK_LEFT", 1);
+        this.setScale(0.75f);
         this.startFacingDirection = facingDirection;
         startPoint = location;
         this.initialize();
@@ -79,8 +79,10 @@ public class FlyEnemy extends Enemy{
         //check if movement bounds have been reached -> turn around
         if (this.getLocation().x >= (startPoint.x + 3*map.getMapTile(1, 1).getX())){
             facingDirection = Direction.LEFT;
+            currentAnimationName = "WALK_LEFT";
         } else if(this.getLocation().x<=(startPoint.x - 3*map.getMapTile(1, 1).getX())){
             facingDirection = Direction.RIGHT;
+            currentAnimationName = "WALK_RIGHT";
         }
 
         // if on ground, walk forward based on facing direction
@@ -108,6 +110,19 @@ public class FlyEnemy extends Enemy{
     // Setter method to set temporary movement speed of dinosaur
     @Override
     public void setMovementSpeed(float movementSpeed) {
+        if(movementSpeed < .5f){
+            if (facingDirection == Direction.RIGHT) {
+                currentAnimationName = "WEB_RIGHT";
+            } else {
+                currentAnimationName = "WEB_LEFT";
+            }
+        } else{
+            if (facingDirection == Direction.RIGHT) {
+                currentAnimationName = "WALK_RIGHT";
+            } else {
+                currentAnimationName = "WALK_LEFT";
+            }
+        }
         this.movementSpeed = movementSpeed;
     }
 
@@ -189,6 +204,28 @@ public class FlyEnemy extends Enemy{
                         .withBounds(6, 6, 12, 7)
                         .build()*/
             });
+
+            put("WEB_LEFT", new Frame[] {
+                new FrameBuilder(spriteSheet.getSprite(1, 0), 8)
+                        .withScale(.75f)
+                        .withBounds(5, 6, 128, 91)
+                        .build(),
+                /**new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
+                        .withScale(2)
+                        .withBounds(6, 6, 12, 7)
+                        .build()*/
+            });
+            put("WEB_RIGHT", new Frame[] {
+            new FrameBuilder(spriteSheet.getSprite(1, 0), 8)
+                    .withScale(.75f)
+                    .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                    .withBounds(5, 6, 128, 91)
+                    .build(),
+            /**new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
+                    .withScale(2)
+                    .withBounds(6, 6, 12, 7)
+                    .build()*/
+             });
         }};
     }
 
