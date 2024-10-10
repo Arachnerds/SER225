@@ -5,7 +5,10 @@ import Level.Map;
 import Tilesets.CommonTileset;
 import java.util.ArrayList;
 
+import EnhancedMapTiles.BasementEndLevelTile;
 import EnhancedMapTiles.FakeBark;
+import EnhancedMapTiles.JumpPoint;
+import EnhancedMapTiles.OutsideEndLevelTile;
 import EnhancedMapTiles.SwitchesPuzzle;
 import Level.Projectile;
 import Projectiles.Raindrop;
@@ -52,6 +55,9 @@ public class Outside extends Map {
     public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
         ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
 
+        OutsideEndLevelTile outsideEndLevelTile = new OutsideEndLevelTile(getMapTile(4, 18).getLocation());
+        enhancedMapTiles.add(outsideEndLevelTile);
+
         for (int x = 61; x <= 70; x++) {
             for (int y = 15; y <= 48; y++) {
                 FakeBark fakeBark = new FakeBark(getMapTile(x, y).getLocation());
@@ -86,6 +92,24 @@ public class Outside extends Map {
         enhancedMapTiles.add(puzzle.getS2());
         enhancedMapTiles.add(puzzle.getS3());
         enhancedMapTiles.add(puzzle.getS4());
+
+        JumpPoint testJumpPoint = new JumpPoint(getMapTile(43, 15).getLocation(),"right");
+        enhancedMapTiles.add(testJumpPoint);
+
+        JumpPoint testJumpPoint2 = new JumpPoint(getMapTile(37, 15).getLocation(),"right");
+        enhancedMapTiles.add(testJumpPoint2);
+        
+        JumpPoint testJumpPoint3 = new JumpPoint(getMapTile(32, 15).getLocation(),"right");
+        enhancedMapTiles.add(testJumpPoint3);
+
+        JumpPoint testJumpPoint4 = new JumpPoint(getMapTile(25, 15).getLocation(),"right");
+        enhancedMapTiles.add(testJumpPoint4);
+
+        JumpPoint testJumpPoint5 = new JumpPoint(getMapTile(18, 15).getLocation(),"right");
+        enhancedMapTiles.add(testJumpPoint5);
+
+        JumpPoint testJumpPoint6 = new JumpPoint(getMapTile(11, 15).getLocation(),"right");
+        enhancedMapTiles.add(testJumpPoint6);
 
         return enhancedMapTiles;
     }

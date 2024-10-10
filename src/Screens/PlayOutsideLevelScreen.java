@@ -57,7 +57,7 @@ public class PlayOutsideLevelScreen extends Screen implements PlayerListener {
                     outsideLevelClearedScreen.update();
                     screenTimer--;
                     if (screenTimer == 0) {
-                        resetLevel(); // Change here to restart the level
+                        goBackToMenu(); // Change here to restart the level
                     }
                 }
                 break;

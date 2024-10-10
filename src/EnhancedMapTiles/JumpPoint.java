@@ -22,8 +22,8 @@ public class JumpPoint extends EnhancedMapTile {
     private int hitboxWidth;
     private int hitboxHeight;
 
-    //Constructor for a jump point with a centered hitbox
-    public JumpPoint(Point location){
+    // Constructor for a jump point with a centered hitbox
+    public JumpPoint(Point location) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("JumpPoint.png"), 16, 16), TileType.PASSABLE);
         hitboxX = -50;
         hitboxY = -50;
@@ -32,26 +32,22 @@ public class JumpPoint extends EnhancedMapTile {
         this.setBounds(new Rectangle(hitboxX, hitboxY, hitboxWidth, hitboxHeight));
     }
 
-    //Constructor for a jump point with a "left" or "right" hitbox
-    public JumpPoint(Point location, String side){
+    // Constructor for a jump point with a "left" or "right" hitbox
+    public JumpPoint(Point location, String side) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("JumpPoint.png"), 16, 16), TileType.PASSABLE);
         hitboxWidth = 70;
         hitboxHeight = 100;
         hitboxY = -50;
-        if(side.equals("left")){
+        if (side.equals("left")) {
             hitboxX = -50; 
-        }
-        else if(side.equals("right")){
+        } else if (side.equals("right")) {
             hitboxX = 0;
         }
-
         this.setBounds(new Rectangle(hitboxX, hitboxY, hitboxWidth, hitboxHeight));
-        
-        
     }
-    
-    //Constructor for a jump point with a custom hitbox
-    public JumpPoint(Point location, float hitboxX, float hitboxY, int hitboxWidth, int hitboxHeight){
+
+    // Constructor for a jump point with a custom hitbox
+    public JumpPoint(Point location, float hitboxX, float hitboxY, int hitboxWidth, int hitboxHeight) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("JumpPoint.png"), 16, 16), TileType.PASSABLE);
         this.hitboxX = hitboxX;
         this.hitboxY = hitboxY;
@@ -65,27 +61,20 @@ public class JumpPoint extends EnhancedMapTile {
         super.update(player);
         this.setBounds(new Rectangle(hitboxX, hitboxY, hitboxWidth, hitboxHeight));
 
-        //A test button to print hotbox position
-        /* if(Keyboard.isKeyDown(Key.T)){
-            System.out.println(hitboxX + " " + hitboxY + " " + hitboxWidth + " " + hitboxHeight);
-        }
- */
         if (intersects(player)) {
             this.setCurrentAnimationName("inRange");
 
-            if(Keyboard.isKeyDown(Key.E)){
+            if (Keyboard.isKeyDown(Key.E)) {
                 this.setCurrentAnimationName("Webbed");
-                player.moveX(this.xDist(player.getX()));
-                player.moveY(this.xDist(player.getY()));
-            }
 
-        }  
-        else{
+                // Align player's position directly to the JumpPoint's location
+                player.setX(this.getX());
+                player.setY(this.getY());
+            }
+        } else {
             this.setCurrentAnimationName("DEFAULT");
         }
-
     }
-    
 
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
@@ -93,43 +82,38 @@ public class JumpPoint extends EnhancedMapTile {
             put("DEFAULT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0), 40)
                         .withScale(3)
-                        .withBounds(hitboxX,hitboxY,hitboxWidth,hitboxHeight)
+                        .withBounds(hitboxX, hitboxY, hitboxWidth, hitboxHeight)
                         .build(),
             });
 
             put("inRange", new Frame[] {
-                
                 new FrameBuilder(spriteSheet.getSprite(0, 1), 40)
                         .withScale(3)
-                        .withBounds(hitboxX,hitboxY,hitboxWidth,hitboxHeight)
+                        .withBounds(hitboxX, hitboxY, hitboxWidth, hitboxHeight)
                         .build(),
             });
 
             put("Webbed", new Frame[] {
-                
                 new FrameBuilder(spriteSheet.getSprite(0, 2), 0)
                         .withScale(3)
-                        .withBounds(hitboxX,hitboxY,hitboxWidth,hitboxHeight)
+                        .withBounds(hitboxX, hitboxY, hitboxWidth, hitboxHeight)
                         .build(),
             });
-
         }};
     }
 
-    public float xDist(float x){
+    public float xDist(float x) {
         return this.getX() - x;
     }
 
-    public float yDist(float y){
+    public float yDist(float y) {
         return this.getY() - y;
     }
 
-    //A testing method that shows the location of the hitbox
+    // A testing method that shows the location of the hitbox
     /**@Override
     public void draw(GraphicsHandler graphicsHandler) {
         super.draw(graphicsHandler);
         drawBounds(graphicsHandler, new Color(255, 0, 0, 100));
     }**/
-
-
 }

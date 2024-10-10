@@ -1218,7 +1218,7 @@ public class CommonTileset extends Tileset {
                 .build();
 
         MapTileBuilder windowFrameCornerTLT = new MapTileBuilder(windowFrameCornerTL)
-                .withTileType(TileType.NOT_PASSABLE);
+                .withTileType(TileType.PASSABLE);
 
         mapTiles.add(windowFrameCornerTLT);
 
@@ -1771,6 +1771,216 @@ public class CommonTileset extends Tileset {
                 .withTileType(TileType.PASSABLE);
 
         mapTiles.add(bulkKnobT);
+
+        // Window Pane Top
+        Frame windowPaneTopB = new FrameBuilder(getSubImage(7, 6))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder windowPaneTopBT = new MapTileBuilder(windowPaneTopB)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(windowPaneTopBT);
+
+        // Window Pane Bottom
+        Frame windowPaneBottomB = new FrameBuilder(getSubImage(7, 7))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder windowPaneBottomBT = new MapTileBuilder(windowPaneBottomB)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(windowPaneBottomBT);
+
+        // Window Pane Middle
+        Frame windowPaneMiddleB = new FrameBuilder(getSubImage(7, 8))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder windowPaneMiddleBT = new MapTileBuilder(windowPaneMiddleB)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(windowPaneMiddleBT);
+
+        // Window Pane Frame Left
+        Frame windowPaneFrameLeftB = new FrameBuilder(getSubImage(7, 9))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder windowPaneFrameLeftBT = new MapTileBuilder(windowPaneFrameLeftB)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(windowPaneFrameLeftBT);
+
+        // Window Pane Frame Right
+        Frame windowPaneFrameRightB = new FrameBuilder(getSubImage(7, 10))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder windowPaneFrameRightBT = new MapTileBuilder(windowPaneFrameRightB)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(windowPaneFrameRightBT);
+
+        // Window Pane Frame Right
+        Frame windowAlt1B = new FrameBuilder(getSubImage(7, 11))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder windowAlt1BT = new MapTileBuilder(windowAlt1B)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(windowAlt1BT);
+
+        // Window Pane Frame Right
+        Frame windowAlt2B = new FrameBuilder(getSubImage(7, 12))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder windowAlt2BT = new MapTileBuilder(windowAlt2B)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(windowAlt2BT);
+
+        // Window Pane Frame Right
+        Frame windowAlt3B = new FrameBuilder(getSubImage(7, 13))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder windowAlt3BT = new MapTileBuilder(windowAlt3B)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(windowAlt3BT);
+
+        // Window Pane Frame Right
+        Frame windowAlt4B = new FrameBuilder(getSubImage(7, 14))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder windowAlt4BT = new MapTileBuilder(windowAlt4B)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(windowAlt4BT);
+
+        // Window Pane Frame Right
+        Frame windowAlt5B = new FrameBuilder(getSubImage(7, 15))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder windowAlt5BT = new MapTileBuilder(windowAlt5B)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(windowAlt5BT);
+
+        // Window Pane Frame Right
+        Frame windowAlt6B = new FrameBuilder(getSubImage(7, 16))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder windowAlt6BT = new MapTileBuilder(windowAlt6B)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(windowAlt6BT);
+
+        // Window Pane Frame Right
+        Frame windowOutsideBlue1 = new FrameBuilder(getSubImage(6, 6))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder windowOutsideBlue1T = new MapTileBuilder(windowOutsideBlue1)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(windowOutsideBlue1T);
+
+        // Window Pane Frame Right
+        Frame windowOutsideBlue2 = new FrameBuilder(getSubImage(6, 7))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder windowOutsideBlue2T = new MapTileBuilder(windowOutsideBlue2)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(windowOutsideBlue2T);
+
+        // Window Pane Frame Right
+        Frame windowOutsideBlue3 = new FrameBuilder(getSubImage(6, 8))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder windowOutsideBlue3T = new MapTileBuilder(windowOutsideBlue3)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(windowOutsideBlue3T);
+
+        // Window Pane Frame Right
+        Frame windowOutsideBlue4 = new FrameBuilder(getSubImage(6, 9))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder windowOutsideBlue4T = new MapTileBuilder(windowOutsideBlue4)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(windowOutsideBlue4T);
+
+        // Window Pane Frame Right
+        Frame windowOutsideBlue4A = new FrameBuilder(getSubImage(6, 10))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder windowOutsideBlue4TA = new MapTileBuilder(windowOutsideBlue4A)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(windowOutsideBlue4TA);
+
+        // Window Pane Frame Right
+        Frame windowOutsideBlue5A = new FrameBuilder(getSubImage(6, 11))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder windowOutsideBlue5TA = new MapTileBuilder(windowOutsideBlue5A)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(windowOutsideBlue5TA);
+
+        // Window Pane Frame Right
+        Frame windowOutsideBlue6A = new FrameBuilder(getSubImage(6, 12))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder windowOutsideBlue6TA = new MapTileBuilder(windowOutsideBlue6A)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(windowOutsideBlue6TA);
+
+        // Window Pane Frame Right
+        Frame windowOutsideBlue6AA = new FrameBuilder(getSubImage(6, 13))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder windowOutsideBlue6TAA = new MapTileBuilder(windowOutsideBlue6AA)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(windowOutsideBlue6TAA);
+
+        // Window Frame Top
+        Frame windowLedge = new FrameBuilder(getSubImage(0, 7))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder windowLedgeT = new MapTileBuilder(windowLedge)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(windowLedgeT);
+
+        // grey rock
+        Frame greyRockFramePASS = new FrameBuilder(getSubImage(3, 2))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder greyRockTilePASS = new MapTileBuilder(greyRockFramePASS)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(greyRockTilePASS);
 
         return mapTiles;
     }
