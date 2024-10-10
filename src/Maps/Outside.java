@@ -1,10 +1,15 @@
 package Maps;
 
+import Level.Enemy;
 import Level.EnhancedMapTile;
 import Level.Map;
 import Tilesets.CommonTileset;
+import Utils.Direction;
+
 import java.util.ArrayList;
 
+import Enemies.FlyEnemy;
+import Enemies.RoachEnemy;
 import EnhancedMapTiles.BasementEndLevelTile;
 import EnhancedMapTiles.FakeBark;
 import EnhancedMapTiles.JumpPoint;
@@ -49,6 +54,25 @@ public class Outside extends Map {
             }
         }
         return projectiles;  
+    }
+
+    @Override
+    public ArrayList<Enemy> loadEnemies() {
+        ArrayList<Enemy> enemies = new ArrayList<>();
+
+        FlyEnemy flyEnemy = new FlyEnemy(getMapTile(51, 18).getLocation().subtractY(25), Direction.RIGHT, this);
+        enemies.add(flyEnemy);
+
+        RoachEnemy roachEnemy = new RoachEnemy(getMapTile(30, 46).getLocation().subtractY(5), Direction.RIGHT, this);
+        enemies.add(roachEnemy);
+
+        RoachEnemy roachEnemy2 = new RoachEnemy(getMapTile(41, 46).getLocation().subtractY(5), Direction.RIGHT, this);
+        enemies.add(roachEnemy2);
+         
+        /* BugEnemy bugEnemy = new BugEnemy(getMapTile(5, 14).getLocation().subtractY(5), Direction.RIGHT);
+        enemies.add(bugEnemy); */
+
+        return enemies;
     }
 
     @Override
