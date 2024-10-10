@@ -36,7 +36,7 @@ private float rotationAdjustment;
         }
 
         if(player.getX()>this.getX()){
-            rotationAdjustment = -1;
+            rotationAdjustment = 1;
         }
         else{
             rotationAdjustment = 1;
@@ -55,11 +55,10 @@ private float rotationAdjustment;
                 }
 
                 //Just do the theta calculation ONCE, then increment theta
+                //DON'T LIKE THIS MATH.PI IN HERE - But it does smooth out the motion on the left side a bit, even though it still looks very wrong
                 if(theta == null) {
-                    theta = Math.atan(((this.getY()-player.getY())/(this.getX()-player.getX()))%(2*Math.PI));
+                    theta = Math.atan(((this.getY()-player.getY())/(this.getX()-player.getX())+2*Math.PI)%(2*Math.PI));
                 }
-                
-                
                 else{                   
                     //X and Y components at the previous theta (x = rcos(theta), y = rsin(theta))
                     float prevRadX = ((float)(radius*Math.cos(theta)));
@@ -67,19 +66,17 @@ private float rotationAdjustment;
                     
                     //Theta is in radians. Incrementing it by about a degree each time.
                     
-                    //theta = (theta + 0.02)%(2*Math.PI);
-                    /* if(player.getX()<this.getX() && theta<0){
-                        theta = -theta;
-                    } */
+                    theta = (theta - 0.02)%(2*Math.PI);
+                    
 
                     
                     //This part is trying to make sure the player always moves in one direction (clockwise or counterclockwise) - Not working
-                    if(player.getX()<this.getX()){
+                    /* if(player.getX()<this.getX()){
                         theta = (theta + 0.02)%(2*Math.PI);
                     }
                     else{
                         theta = (theta - 0.02)%(2*Math.PI);
-                    }
+                    } */
 
                     //This part is trying to limit theta to be between 0 and pi radians, so we only swing underneath
                     /* if(theta<Math.PI){
@@ -108,15 +105,15 @@ private float rotationAdjustment;
                     } */
                    //JUST CHEAT AND TURN THETA THE OTHER WAY WHEN YOU"RE STANDING ON THE LEFT?
                    
-                    float dx = prevRadX - newRadX;
-                    float dy = prevRadY - newRadY;
+                    float dx = newRadX - prevRadX;
+                    float dy = newRadY - prevRadY;
                     
                     player.moveXHandleCollision(rotationAdjustment*dx);
                     player.moveYHandleCollision(rotationAdjustment*dy);
                     
                     //dx seems to behave properly, dy seems to be the issue
                     //Not just a simple negative thing, the magnitude seems off as well
-                    System.out.println(dx);
+                    System.out.println("radius: "+ radius +", theta: " + theta +", dx: " + dx + ", dy: " + dy);
                 }
 
                 //System.out.println(radius);
