@@ -5,6 +5,9 @@ import GameObject.SpriteSheet;
 import Utils.AirGroundState;
 
 import java.util.HashMap;
+import java.util.Timer;
+import java.util.TimerTask;
+//import java.util.StopWatch;
 
 // This class is a base class for all enemies in the game -- all enemies should extend from it
 public abstract class Enemy extends MapEntity {
@@ -15,7 +18,11 @@ public abstract class Enemy extends MapEntity {
     private float tempMovementSpeed;
     protected boolean hasBeenAttacked = false;
     protected boolean hasBeenKilled = false;
+    protected boolean attackCooldownOn = false;
     protected EnemyState enemyState;
+    
+    
+    protected float coolDown;
 
     public Enemy(float x, float y, SpriteSheet spriteSheet, String startingAnimation, int health) {
         super(x, y, spriteSheet, startingAnimation);
@@ -78,6 +85,15 @@ public abstract class Enemy extends MapEntity {
                 projectile.touchedEnemy(this);
             }
         }
+
+        if(hasBeenAttacked){
+            coolDown++;
+            if(coolDown>=30f){
+                //hasBeenAttacked = false;
+                attackCooldownOn = false;
+            }
+        }
+
     }
 
     // A subclass can override this method to specify what it does when it touches the player
@@ -92,10 +108,12 @@ public abstract class Enemy extends MapEntity {
             this.health--;
             player.hitEnemy = true;
             hasBeenAttacked = true;
-            player.momentumY = 0;
+            player.momentumY = 0.1f;
             player.playerJumping();
+            attackCooldownOn = true;
+            coolDown = 0;
 
-        } else {
+        } else if(!attackCooldownOn &&!isFrozen) {
             player.hurtPlayer(this);
         }
     }
