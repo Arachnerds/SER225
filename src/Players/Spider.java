@@ -207,7 +207,8 @@ public class Spider extends Player {
 
             put("DEATH_RIGHT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
-                            .withScale(.1f)
+                            .withScale(.75f)
+                            .withImageEffect(ImageEffect.FLIP_VERTICAL)
                             .build(),
                     /**new FrameBuilder(spriteSheet.getSprite(5, 1), 8)
                             .withScale(3)
@@ -219,8 +220,9 @@ public class Spider extends Player {
 
             put("DEATH_LEFT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
-                            .withScale(.1f)
+                            .withScale(.75f)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withImageEffect(ImageEffect.FLIP_VERTICAL)
                             .build(),
                     /**new FrameBuilder(spriteSheet.getSprite(5, 1), 8)
                             .withScale(3)

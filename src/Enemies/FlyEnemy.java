@@ -185,6 +185,7 @@ public class FlyEnemy extends Enemy{
                 new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
                         .withScale(.75f)
                         .withBounds(5, 6, 128, 91)
+                        .withImageEffect(ImageEffect.FLIP_VERTICAL)
                         .build(),
                 /**new FrameBuilder(spriteSheet.getSprite(0, 1), 8)
                         .withScale(2)
