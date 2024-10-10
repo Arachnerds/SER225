@@ -57,7 +57,7 @@ private float rotationAdjustment;
                 //Just do the theta calculation ONCE, then increment theta
                 //DON'T LIKE THIS MATH.PI IN HERE - But it does smooth out the motion on the left side a bit, even though it still looks very wrong
                 if(theta == null) {
-                    theta = Math.atan(((this.getY()-player.getY())/(this.getX()-player.getX())+2*Math.PI)%(2*Math.PI));
+                    theta = Math.atan(((this.getY()-player.getY())/(this.getX()-player.getX()))%(2*Math.PI));
                 }
                 else{                   
                     //X and Y components at the previous theta (x = rcos(theta), y = rsin(theta))
