@@ -10,7 +10,6 @@ import SpriteFont.SpriteFont;
 
 import java.awt.*;
 
-// This class is for the credits screen
 public class CreditsScreen extends Screen {
     protected ScreenCoordinator screenCoordinator;
     protected Map background;
@@ -24,17 +23,18 @@ public class CreditsScreen extends Screen {
     protected SpriteFont backLabel;
     protected boolean backSelected = true;
 
+    protected float colorTransition = 0;
+    protected boolean increasing = true;
+
     public CreditsScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
     }
 
     @Override
     public void initialize() {
-        // Setup graphics on screen (background map, spritefont text)
         background = new TitleScreenMap();
         background.setAdjustCamera(false);
 
-        // Initialize SpriteFont objects with default x position
         creditsLabel = new SpriteFont("Arachnerds Inc.", 0, 150, "Times New Roman", 45, Color.white);
         creditsLabel.setOutlineColor(Color.black);
         creditsLabel.setOutlineThickness(3);
@@ -65,6 +65,32 @@ public class CreditsScreen extends Screen {
     public void update() {
         background.update(null);
 
+        if (increasing) {
+            colorTransition += 0.02f;
+            if (colorTransition >= 1) {
+                colorTransition = 1;
+                increasing = false;
+            }
+        } else {
+            colorTransition -= 0.02f;
+            if (colorTransition <= 0) {
+                colorTransition = 0;
+                increasing = true;
+            }
+        }
+
+        Color flashingColor = new Color(
+            255,
+            (int) (255 * (1 - colorTransition)),
+            (int) (255 * (1 - colorTransition))
+        );
+
+        if (backSelected) {
+            backLabel.setColor(flashingColor);
+        } else {
+            backLabel.setColor(Color.white);
+        }
+
         if (Keyboard.isKeyUp(Key.SPACE)) {
             keyLocker.unlockKey(Key.SPACE);
         }
@@ -78,7 +104,6 @@ public class CreditsScreen extends Screen {
         background.draw(graphicsHandler);
         titleScreen.draw(graphicsHandler);
         
-        // Center the labels horizontally
         int centerX = ScreenManager.getScreenWidth();
 
         creditsLabel.centerTextX(centerX, graphicsHandler.getGraphics());
@@ -87,14 +112,6 @@ public class CreditsScreen extends Screen {
         ericLabel.centerTextX(centerX, graphicsHandler.getGraphics());
         ryanLabel.centerTextX(centerX, graphicsHandler.getGraphics());
 
-        // Change the color of the back label based on selection
-        if (backSelected) {
-            backLabel.setColor(Color.red);
-        } else {
-            backLabel.setColor(Color.white);
-        }
-
-        // Draw the labels
         creditsLabel.draw(graphicsHandler);
         brooksLabel.draw(graphicsHandler);
         callandraLabel.draw(graphicsHandler);

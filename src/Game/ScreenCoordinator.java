@@ -3,7 +3,9 @@ package Game;
 import Engine.DefaultScreen;
 import Engine.GraphicsHandler;
 import Engine.Screen;
+import Screens.ArachnerdsProject;
 import Screens.CreditsScreen;
+import Screens.IntroCutscene;
 import Screens.MenuScreen;
 import Screens.PlayBasementLevelScreen;
 import Screens.PlayOutsideLevelScreen;
@@ -32,7 +34,7 @@ public class ScreenCoordinator extends Screen {
 	@Override
 	public void initialize() {
 		// start game off with Menu Screen
-		gameState = GameState.MENU;
+		gameState = GameState.ARACHNERDS;
 	}
 
 	@Override
@@ -53,6 +55,14 @@ public class ScreenCoordinator extends Screen {
 						break;
 					case CREDITS:
 						currentScreen = new CreditsScreen(this);
+						break;
+					case INTRO_CUTSCENE:
+						currentScreen = new IntroCutscene(this);
+						break;
+					case ARACHNERDS:
+						currentScreen = new ArachnerdsProject(this);
+						break;
+					default:
 						break;
 				}
 				currentScreen.initialize();

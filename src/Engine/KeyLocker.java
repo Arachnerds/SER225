@@ -9,18 +9,25 @@ import java.util.HashSet;
 public class KeyLocker {
     private HashSet<Key> lockedKeys = new HashSet<>();
 
-    // lock a key
+    // Lock a key
     public void lockKey(Key key) {
         lockedKeys.add(key);
     }
 
-    // unlock a key
+    // Unlock a key
     public void unlockKey(Key key) {
         lockedKeys.remove(key);
     }
 
-    // check if a key is currently locked
+    // Check if a key is currently locked
     public boolean isKeyLocked(Key key) {
         return lockedKeys.contains(key);
+    }
+
+    // Lock all keys
+    public void lockAllKeys() {
+        for (Key key : Key.values()) {
+            lockKey(key);
+        }
     }
 }

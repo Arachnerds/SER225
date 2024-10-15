@@ -22,12 +22,10 @@ public class OutsideLevelClearedScreen extends Screen {
 
     @Override
     public void update() {
-        // Update logic (if needed) goes here
     }
 
     @Override
     public void draw(GraphicsHandler graphicsHandler) {
-        // Paint entire screen black and display level cleared text
         graphicsHandler.drawFilledRectangle(0, 0, ScreenManager.getScreenWidth(), ScreenManager.getScreenHeight(), Color.black);
         winMessage.centerTextX(ScreenManager.getScreenWidth(), graphicsHandler.getGraphics());
         winMessage.centerTextY(ScreenManager.getScreenHeight(), graphicsHandler.getGraphics());

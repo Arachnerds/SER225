@@ -2,6 +2,7 @@ package Screens;
 
 import Engine.GraphicsHandler;
 import Engine.Screen;
+import Engine.Sound;
 import Game.GameState;
 import Game.ScreenCoordinator;
 import Level.Map;
@@ -10,7 +11,6 @@ import Level.PlayerListener;
 import Maps.Basement;
 import Players.Spider;
 
-// This class is for when the platformer game is actually being played
 public class PlayBasementLevelScreen extends Screen implements PlayerListener {
     protected ScreenCoordinator screenCoordinator;
     protected Map map;
@@ -23,14 +23,12 @@ public class PlayBasementLevelScreen extends Screen implements PlayerListener {
 
     public PlayBasementLevelScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
-        initialize(); // Call initialize in constructor for setup
     }
 
     public void initialize() {
-        // Define/setup map
+        Sound.stopMusic();
         this.map = new Basement();
 
-        // Setup player
         this.player = new Spider(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
         this.player.setMap(map);
         this.player.addListener(this);
@@ -42,14 +40,11 @@ public class PlayBasementLevelScreen extends Screen implements PlayerListener {
     }
 
     public void update() {
-        // Based on screen state, perform specific actions
         switch (playLevelScreenState) {
-            // If level is "running," update player and map to keep game logic for the platformer level going
             case RUNNING:
                 player.update();
                 map.update(player);
                 break;
-            // If level has been completed, bring up level cleared screen
             case LEVEL_COMPLETED:
                 if (levelCompletedStateChangeStart) {
                     screenTimer = 130;
@@ -58,11 +53,10 @@ public class PlayBasementLevelScreen extends Screen implements PlayerListener {
                     basementLevelClearedScreen.update();
                     screenTimer--;
                     if (screenTimer == 0) {
-                        goToOutsideLevelScreen(); // Transition to PlayOutsideLevelScreen
+                        goToOutsideLevelScreen();
                     }
                 }
                 break;
-            // Wait on level lose screen to make a decision (reset level or send player back to main menu)
             case LEVEL_LOSE:
                 basementLevelLoseScreen.update();
                 break;
@@ -70,7 +64,6 @@ public class PlayBasementLevelScreen extends Screen implements PlayerListener {
     }
 
     public void draw(GraphicsHandler graphicsHandler) {
-        // Based on screen state, draw appropriate graphics
         switch (playLevelScreenState) {
             case RUNNING:
                 map.draw(graphicsHandler);
@@ -105,11 +98,10 @@ public class PlayBasementLevelScreen extends Screen implements PlayerListener {
     }
 
     public void resetLevel() {
-        initialize(); // Re-initialize the level
+        initialize();
     }
 
     public void goToOutsideLevelScreen() {
-        // Transition to PlayOutsideLevelScreen
         screenCoordinator.setGameState(GameState.OUTSIDE_LEVEL);
     }
 
@@ -117,7 +109,6 @@ public class PlayBasementLevelScreen extends Screen implements PlayerListener {
         screenCoordinator.setGameState(GameState.MENU);
     }
 
-    // This enum represents the different states this screen can be in
     private enum PlayLevelScreenState {
         RUNNING, LEVEL_COMPLETED, LEVEL_LOSE
     }

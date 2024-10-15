@@ -6,7 +6,6 @@ import SpriteFont.SpriteFont;
 
 import java.awt.*;
 
-// This class is for the level lose screen for basement levels
 public class BasementLevelLoseScreen extends Screen {
     protected PlayBasementLevelScreen playBasementLevelScreen;
     protected int currentMenuItemHovered = 0;
@@ -17,6 +16,8 @@ public class BasementLevelLoseScreen extends Screen {
     protected Sprite background = new Sprite(ImageLoader.load("creditsScreenBlank.png"), 0, 0);
     protected int keyPressTimer;
     protected KeyLocker keyLocker = new KeyLocker();
+    protected float colorTransition = 0;
+    protected boolean increasing = true;
 
     public BasementLevelLoseScreen(PlayBasementLevelScreen playLevelScreen) {
         this.playBasementLevelScreen = playLevelScreen;
@@ -56,34 +57,50 @@ public class BasementLevelLoseScreen extends Screen {
             }
         }
 
-        // Loop the selection back around when reaching top or bottom
         if (currentMenuItemHovered > 1) {
             currentMenuItemHovered = 0;
         } else if (currentMenuItemHovered < 0) {
             currentMenuItemHovered = 1;
         }
 
-        // Update the menu item colors based on hover
+        if (increasing) {
+            colorTransition += 0.02f;
+            if (colorTransition >= 1) {
+                colorTransition = 1;
+                increasing = false;
+            }
+        } else {
+            colorTransition -= 0.02f;
+            if (colorTransition <= 0) {
+                colorTransition = 0;
+                increasing = true;
+            }
+        }
+
+        Color flashingColor = new Color(
+            255,
+            (int) (255 * (1 - colorTransition)),
+            (int) (255 * (1 - colorTransition))
+        );
+
         if (currentMenuItemHovered == 0) {
-            retryOption.setColor(Color.red);
+            retryOption.setColor(flashingColor);
             quitOption.setColor(Color.white);
         } else if (currentMenuItemHovered == 1) {
             retryOption.setColor(Color.white);
-            quitOption.setColor(Color.red);
+            quitOption.setColor(flashingColor);
         }
 
-        // Unlock space key and confirm selection
         if (Keyboard.isKeyUp(Key.SPACE)) {
             keyLocker.unlockKey(Key.SPACE);
         }
 
-        // Execute action based on the selected option
         if (!keyLocker.isKeyLocked(Key.SPACE) && Keyboard.isKeyDown(Key.SPACE)) {
             menuItemSelected = currentMenuItemHovered;
             if (menuItemSelected == 0) {
-                playBasementLevelScreen.resetLevel(); // Retry the level
+                playBasementLevelScreen.resetLevel();
             } else if (menuItemSelected == 1) {
-                playBasementLevelScreen.goBackToMenu(); // Go back to the main menu
+                playBasementLevelScreen.goBackToMenu();
             }
         }
     }
@@ -92,14 +109,12 @@ public class BasementLevelLoseScreen extends Screen {
     public void draw(GraphicsHandler graphicsHandler) {
         graphicsHandler.drawFilledRectangle(0, 0, ScreenManager.getScreenWidth(), ScreenManager.getScreenHeight(), Color.black);
         background.draw(graphicsHandler);
-        
-        // Set the x positions to align with the MenuScreen
+
         retryOption.centerTextX(ScreenManager.getScreenWidth() - 250, graphicsHandler.getGraphics());
         quitOption.centerTextX(ScreenManager.getScreenWidth() + 250, graphicsHandler.getGraphics());
 
-        // Center the death message on the screen
         deathMessage.centerTextX(ScreenManager.getScreenWidth(), graphicsHandler.getGraphics());
-        deathMessage.draw(graphicsHandler); // Draw the "You Died" message
+        deathMessage.draw(graphicsHandler);
 
         retryOption.draw(graphicsHandler);
         quitOption.draw(graphicsHandler);
