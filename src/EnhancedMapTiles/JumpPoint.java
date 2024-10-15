@@ -21,6 +21,9 @@ public class JumpPoint extends EnhancedMapTile {
     private float hitboxY;
     private int hitboxWidth;
     private int hitboxHeight;
+    private Float dx;
+    private Float dy;
+    private String startPosCode;
 
     // Constructor for a jump point with a centered hitbox
     public JumpPoint(Point location) {
@@ -30,6 +33,7 @@ public class JumpPoint extends EnhancedMapTile {
         hitboxWidth = 100;
         hitboxHeight = 100;
         this.setBounds(new Rectangle(hitboxX, hitboxY, hitboxWidth, hitboxHeight));
+        startPosCode = "";
     }
 
     // Constructor for a jump point with a "left" or "right" hitbox
@@ -44,6 +48,7 @@ public class JumpPoint extends EnhancedMapTile {
             hitboxX = 0;
         }
         this.setBounds(new Rectangle(hitboxX, hitboxY, hitboxWidth, hitboxHeight));
+        startPosCode = "";
     }
 
     // Constructor for a jump point with a custom hitbox
@@ -54,6 +59,7 @@ public class JumpPoint extends EnhancedMapTile {
         this.hitboxWidth = hitboxWidth;
         this.hitboxHeight = hitboxHeight;
         this.setBounds(new Rectangle(hitboxX, hitboxY, hitboxWidth, hitboxHeight));
+        startPosCode = "";
     }
 
     @Override
@@ -65,16 +71,80 @@ public class JumpPoint extends EnhancedMapTile {
             this.setCurrentAnimationName("inRange");
 
             if (Keyboard.isKeyDown(Key.E)) {
+                //These 4 cases tell us where the spider started - L/R, Above/Below jump point
+                String xCode = "";
+                String yCode = "";
+
+                if(startPosCode.equals("")){
+                    if(player.getX()<this.getX()){
+                        xCode = "L";
+                    }
+                    else{
+                        xCode = "R";
+                    }
+    
+                    if(player.getY()<this.getY()){
+                        yCode = "A";
+                    }
+                    else{
+                        yCode = "B";
+                    }
+                    startPosCode = xCode + yCode;
+                }
+                
+
+                player.setGravity(0f);
+                if(dx == null){
+                    dx = (this.getX()-player.getX())/50;                                        
+                }
+                
+                if(dy == null){
+                    dy = (this.getY()-player.getY())/50;
+                }
+                
                 this.setCurrentAnimationName("Webbed");
 
                 // Align player's position directly to the JumpPoint's location
-                player.setX(this.getX());
-                player.setY(this.getY());
+                //Maybe just do this once you get close enough??
+                /* player.setX(this.getX());
+                player.setY(this.getY()); */
+                    
+                if(startPosCode.equals("LB")){
+                    if(player.getX() < this.getX() && player.getY() > this.getY()){
+                        player.moveX(dx);
+                        player.moveY(dy);
+                    }
+                }
+                else if(startPosCode.equals("LA")){
+                    if(player.getX() < this.getX() && player.getY() < this.getY()){
+                        player.moveX(dx);
+                        player.moveY(dy);
+                    } 
+                   
+                }
+                else if(startPosCode.equals("RB")){
+                    if(player.getX() > this.getX() && player.getY() > this.getY()){
+                        player.moveX(dx);
+                        player.moveY(dy);
+                    }
+                }
+                else if (startPosCode.equals("RA")){
+                    if(player.getX() > this.getX() && player.getY() < this.getY()){
+                        player.moveX(dx);
+                        player.moveY(dy);
+                    }
+                }
             }
-        } else {
-            this.setCurrentAnimationName("DEFAULT");
+            else{
+                dx = null;
+                dy = null;
+                startPosCode = "";
+                this.setCurrentAnimationName("DEFAULT");
+                player.setGravity(.5f);
+            }     
         }
-    }
+    } 
+    
 
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
