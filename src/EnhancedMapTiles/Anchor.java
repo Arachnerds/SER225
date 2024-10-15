@@ -55,7 +55,6 @@ private float rotationAdjustment;
                 }
 
                 //Just do the theta calculation ONCE, then increment theta
-                //DON'T LIKE THIS MATH.PI IN HERE - But it does smooth out the motion on the left side a bit, even though it still looks very wrong
                 if(theta == null) {
                     theta = Math.atan(((this.getY()-player.getY())/(this.getX()-player.getX()))%(2*Math.PI));
                 }
@@ -65,7 +64,6 @@ private float rotationAdjustment;
                     float prevRadY = ((float)(radius*Math.sin(theta)));
                     
                     //Theta is in radians. Incrementing it by about a degree each time.
-                    
                     theta = (theta - 0.02)%(2*Math.PI);
                     
 
@@ -91,7 +89,7 @@ private float rotationAdjustment;
                     float newRadX = ((float)(radius*Math.cos(theta)));
                     float newRadY = ((float)(radius*Math.sin(theta)));
 
-                    //Change in x and y
+                    
                     
                     //Need to make sure it always goes clockwise/counterclockwise
                     /* float dx = 0;
@@ -103,22 +101,21 @@ private float rotationAdjustment;
                     else{
                         
                     } */
-                   //JUST CHEAT AND TURN THETA THE OTHER WAY WHEN YOU"RE STANDING ON THE LEFT?
                    
+                    //Change in x and y
                     float dx = newRadX - prevRadX;
                     float dy = newRadY - prevRadY;
                     
                     player.moveXHandleCollision(rotationAdjustment*dx);
                     player.moveYHandleCollision(rotationAdjustment*dy);
                     
-                    //dx seems to behave properly, dy seems to be the issue
-                    //Not just a simple negative thing, the magnitude seems off as well
+                    //Printing various values for debugging
                     System.out.println("radius: "+ radius +", theta: " + theta +", dx: " + dx + ", dy: " + dy);
                 }
 
-                //System.out.println(radius);
             }
             else{
+                //Resetting when you let go of the button
                 radius = 0;
                 theta = null;
                 player.setGravity(.5f);
