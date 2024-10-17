@@ -1,7 +1,6 @@
 package Engine;
 
 import GameObject.ImageEffect;
-
 import java.awt.*;
 import java.awt.font.GlyphVector;
 import java.awt.geom.AffineTransform;
@@ -51,6 +50,15 @@ public class GraphicsHandler {
         g.drawRect(x, y, width, height);
 
         g.setColor(oldColor);
+    }
+
+    public void drawLine(int x1, int y1, int x2, int y2, Color color){
+        Color oldcolor = g.getColor();
+
+        g.setColor(color);
+        g.drawLine(x1, y1, x2, y2);
+
+        g.setColor(oldcolor);
     }
 
     public void drawRectangle(int x, int y, int width, int height, Color color, int borderThickness) {
