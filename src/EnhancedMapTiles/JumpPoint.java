@@ -5,12 +5,14 @@ import Engine.GraphicsHandler;
 import Engine.ImageLoader;
 import Engine.Key;
 import Engine.Keyboard;
+import Game.WebLine;
 import GameObject.Frame;
 import GameObject.Rectangle;
 import GameObject.SpriteSheet;
 import Level.EnhancedMapTile;
 import Level.Player;
 import Level.TileType;
+import Level.WebSquare;
 import Utils.Point;
 import java.awt.Color;
 import java.util.HashMap;
@@ -24,6 +26,7 @@ public class JumpPoint extends EnhancedMapTile {
     private Float dx;
     private Float dy;
     private String startPosCode;
+    private Player player;
 
     // Constructor for a jump point with a centered hitbox
     public JumpPoint(Point location) {
@@ -64,11 +67,17 @@ public class JumpPoint extends EnhancedMapTile {
 
     @Override
     public void update(Player player) {
+        this.player = player;
         super.update(player);
         this.setBounds(new Rectangle(hitboxX, hitboxY, hitboxWidth, hitboxHeight));
 
         if (intersects(player)) {
             this.setCurrentAnimationName("inRange");
+
+            //Testing to try to display a web
+            //WebSquare web = new WebSquare(player.getLocation(),this.getLocation());
+            //NEEDS SOME SORT OF MAP.ADD
+            
 
             if (Keyboard.isKeyDown(Key.E)) {
                 //These 4 cases tell us where the spider started - L/R, Above/Below jump point
@@ -135,6 +144,7 @@ public class JumpPoint extends EnhancedMapTile {
                     }
                 }
             }
+            //NEED TO MOVE THIS ELSE STATEMENT TO THE OUTSIDE
             else{
                 dx = null;
                 dy = null;
@@ -180,10 +190,18 @@ public class JumpPoint extends EnhancedMapTile {
         return this.getY() - y;
     }
 
-    // A testing method that shows the location of the hitbox
-    /**@Override
+    // Overriding the hitbox draw method to just draw a line instead
+    @Override
     public void draw(GraphicsHandler graphicsHandler) {
         super.draw(graphicsHandler);
-        drawBounds(graphicsHandler, new Color(255, 0, 0, 100));
-    }**/
+        if(this.intersects(player) && Keyboard.isKeyDown(Key.E)){
+            graphicsHandler.drawLine((int)this.getLocation().x,(int)this.getLocation().y,(int)player.getLocation().x,(int)player.getLocation().y,new Color(255, 0, 0, 100));
+        }
+        
+        
+        //drawBounds(graphicsHandler, new Color(255, 0, 0, 100));
+        
+    }
+
+    
 }
