@@ -2,10 +2,15 @@ package Engine;
 
 import GameObject.Rectangle;
 import GameObject.Sprite;
+import Players.Spider;
+import Screens.PlayBasementLevelScreen;
+import Screens.PlayOutsideLevelScreen;
 import SpriteFont.SpriteFont;
 import Utils.Colors;
 
 import javax.swing.*;
+import Game.ScreenCoordinator;
+
 import java.awt.*;
 
 public class GamePanel extends JPanel {
@@ -13,6 +18,7 @@ public class GamePanel extends JPanel {
     private GraphicsHandler graphicsHandler;
 
     private boolean isGamePaused = false;
+    private boolean isOnCooldown = false;
 
     private SpriteFont pauseLabel;
     private SpriteFont controlsLabel;
@@ -39,6 +45,12 @@ public class GamePanel extends JPanel {
     private int currentQuitOptionHovered = 1;
     private boolean isQuitConfirmationVisible = false;
     private boolean isControlsVisible = false;
+
+    private int cooldownBarWidth = 140;
+    private int cooldownBarWidthMax = 140;
+    private int cooldownBarHeight = 13;
+    private int cooldownBarXPosition = 20;
+    private int cooldownBarYPosition = this.getHeight() - 100;
 
     public GamePanel() {
         super();
@@ -97,10 +109,21 @@ public class GamePanel extends JPanel {
     public void update() {
         updatePauseState();
         updateShowFPSState();
+        updateCooldownBar();
         if (!isGamePaused) {
             screenManager.update();
         } else {
             updateMenuNavigation();
+        }
+    }
+
+    private void updateCooldownBar() {
+        if (isOnCooldown && cooldownBarWidth == cooldownBarWidthMax) {
+            cooldownBarWidth = 0;
+        }
+
+        if (cooldownBarWidth >= cooldownBarWidthMax) {
+            isOnCooldown = false;
         }
     }
 
@@ -173,6 +196,7 @@ public class GamePanel extends JPanel {
     public void draw() {
         screenManager.draw(graphicsHandler);
         Graphics2D g2d = graphicsHandler.getGraphics();
+        Screen currentScreenState = screenManager.getCurrentScreen();
         pauseLabel.centerTextX(getWidth(), g2d);
         controlsLabel.centerTextX(getWidth(), g2d);
         quitLabel.centerTextX(getWidth(), g2d); 
@@ -180,6 +204,56 @@ public class GamePanel extends JPanel {
         yesLabel.centerTextX(getWidth(), g2d);
         noLabel.centerTextX(getWidth(), g2d);
         quitWarningLabel.centerTextX(getWidth(), g2d);
+
+        PlayLevelCurrentScreenState currentPlayState = PlayLevelCurrentScreenState.OTHER;
+
+        if (currentScreenState instanceof ScreenCoordinator) {
+            ScreenCoordinator screenCoordinator = (ScreenCoordinator) currentScreenState;
+            Screen currentScreen = screenCoordinator.getCurrentScreen();
+
+            if (currentScreen instanceof PlayBasementLevelScreen) {
+                PlayBasementLevelScreen playScreen = (PlayBasementLevelScreen) currentScreen;
+                
+                if (playScreen.getPlayLevelScreenState() == PlayBasementLevelScreen.PlayLevelScreenState.RUNNING) {
+                    currentPlayState = PlayLevelCurrentScreenState.RUNNING;
+                    if (playScreen.getPlayer().hasShotWeb()) {
+                        cooldownBarWidth = playScreen.getPlayer().getShootCooldownFrames()*2;
+                        isOnCooldown = true;
+                    } else {
+                        cooldownBarWidth = cooldownBarWidthMax;
+                        isOnCooldown = false;
+                    }
+                }
+
+            } else if (currentScreen instanceof PlayOutsideLevelScreen) {
+                PlayOutsideLevelScreen playScreen = (PlayOutsideLevelScreen) currentScreen;
+                
+                if (playScreen.getPlayLevelScreenState() == PlayOutsideLevelScreen.PlayLevelScreenState.RUNNING) {
+                    currentPlayState = PlayLevelCurrentScreenState.RUNNING;
+                    if (playScreen.getPlayer().hasShotWeb()) {
+                        cooldownBarWidth = playScreen.getPlayer().getShootCooldownFrames()*2;
+                        isOnCooldown = true;
+                    } else {
+                        cooldownBarWidth = cooldownBarWidthMax;
+                        isOnCooldown = false;
+                    }
+                }
+            }
+        }
+
+        if (currentPlayState == PlayLevelCurrentScreenState.RUNNING) {
+            cooldownBarYPosition = getHeight() - cooldownBarHeight - 15;
+
+            graphicsHandler.drawFilledRectangle(cooldownBarXPosition - 4, cooldownBarYPosition - 4, cooldownBarWidthMax + 8, cooldownBarHeight + 8, java.awt.Color.BLACK);
+            
+            if (!isOnCooldown) {
+                graphicsHandler.drawFilledRectangle(cooldownBarXPosition, cooldownBarYPosition, cooldownBarWidth, cooldownBarHeight, java.awt.Color.WHITE);
+                isOnCooldown = false;
+            } else {
+                graphicsHandler.drawFilledRectangle(cooldownBarXPosition, cooldownBarYPosition, cooldownBarWidth, cooldownBarHeight, java.awt.Color.RED);
+            }
+        }
+        
         if (isGamePaused) {
             pauseScreen.draw(graphicsHandler);
             if (!isQuitConfirmationVisible && !isControlsVisible) {
@@ -234,5 +308,9 @@ public class GamePanel extends JPanel {
             graphicsHandler.setGraphics((Graphics2D) g);
             draw();
         }
+    }
+
+    private enum PlayLevelCurrentScreenState {
+        RUNNING, OTHER
     }
 }

@@ -109,7 +109,15 @@ public class PlayBasementLevelScreen extends Screen implements PlayerListener {
         screenCoordinator.setGameState(GameState.MENU);
     }
 
-    private enum PlayLevelScreenState {
+    public ScreenCoordinator getScreenCoordinator() {
+        return this.screenCoordinator;
+    }
+
+    public Spider getPlayer() {
+        return (Spider) this.player;
+    }
+
+    public enum PlayLevelScreenState {
         RUNNING, LEVEL_COMPLETED, LEVEL_LOSE
     }
 }

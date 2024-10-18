@@ -74,6 +74,10 @@ public class ScreenCoordinator extends Screen {
 		} while (previousGameState != gameState);
 	}
 
+	public Screen getCurrentScreen() {
+		return this.currentScreen;
+	}
+
 	@Override
 	public void draw(GraphicsHandler graphicsHandler) {
 		// call the draw method for the currentScreen

@@ -89,7 +89,6 @@ public abstract class Enemy extends MapEntity {
         if(hasBeenAttacked){
             coolDown++;
             if(coolDown>=30f){
-                //hasBeenAttacked = false;
                 attackCooldownOn = false;
             }
         }

@@ -20,7 +20,8 @@ import java.util.HashMap;
 public class Spider extends Player {
         // Instance variables to determine cooldown of projectile shooting for spider
         private int shootCooldownFrames;
-        private final int MAX_COOLDOWN = 50;
+        private final int MAX_COOLDOWN = 70;
+        private boolean hasShotWeb = false;
 
         
         public Spider(float x, float y) {
@@ -33,7 +34,7 @@ public class Spider extends Player {
         walkSpeed = 3.5f;
         momentumYIncrease = .5f;
         shootCooldownFrames = 0;
-    }
+        }
 
         // Method called when shoot key is pressed
         // The spider will fire a web projectile based on spider direction and location
@@ -62,7 +63,7 @@ public class Spider extends Player {
         // add fireball enemy to the map for it to spawn in the level
         map.addProjectile(web);
         
-        shootCooldownFrames = MAX_COOLDOWN; 
+        shootCooldownFrames = 0; 
 
         super.update();
 
@@ -79,20 +80,30 @@ public class Spider extends Player {
     public void handleInput() { 
         if (Keyboard.isKeyDown(SHOOT_KEY) && !keyLocker.isKeyLocked(SHOOT_KEY)) {
             shootWebProjectile();
+            hasShotWeb = true;
             keyLocker.lockKey(SHOOT_KEY);
         }
     }
 
     // Update the cooldown timer in the update loop, decreases the frames with each loop
     private void updateCooldown() {
-        if (shootCooldownFrames > 0) {
-            shootCooldownFrames--; 
+        if (shootCooldownFrames < MAX_COOLDOWN && hasShotWeb) {
+            shootCooldownFrames++; 
         }
 
         // Unlock the key once cooldown is over and the key is released
-        if (shootCooldownFrames <= 0 && Keyboard.isKeyUp(SHOOT_KEY)) {
+        if (shootCooldownFrames >= MAX_COOLDOWN && Keyboard.isKeyUp(SHOOT_KEY)) {
             keyLocker.unlockKey(SHOOT_KEY);
+            hasShotWeb = false;
         }
+    }
+
+    public boolean hasShotWeb() {
+        return hasShotWeb;
+    }
+
+    public int getShootCooldownFrames() {
+        return shootCooldownFrames;
     }
 
     /**public void draw(GraphicsHandler graphicsHandler) {
