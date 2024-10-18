@@ -4,6 +4,8 @@ import Builders.FrameBuilder;
 import Engine.GraphicsHandler;
 import Engine.ImageLoader;
 import Engine.Keyboard;
+import Engine.Sound;
+import Engine.Sound.SoundEffect;
 import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
@@ -81,6 +83,7 @@ public class Spider extends Player {
         if (Keyboard.isKeyDown(SHOOT_KEY) && !keyLocker.isKeyLocked(SHOOT_KEY)) {
             shootWebProjectile();
             hasShotWeb = true;
+            Sound.startSFX(Sound.SoundEffect.WEB);
             keyLocker.lockKey(SHOOT_KEY);
         }
     }
