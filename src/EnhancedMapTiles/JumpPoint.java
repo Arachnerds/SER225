@@ -26,12 +26,10 @@ public class JumpPoint extends EnhancedMapTile {
     private Float dy;
     private String startPosCode;
     private Player player;
-    private Point originalLocation;
 
     // Constructor for a jump point with a centered hitbox
     public JumpPoint(Point location) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("JumpPoint.png"), 16, 16), TileType.PASSABLE);
-        originalLocation = location;
         hitboxX = -50;
         hitboxY = -50;
         hitboxWidth = 100;
@@ -43,7 +41,6 @@ public class JumpPoint extends EnhancedMapTile {
     // Constructor for a jump point with a "left" or "right" hitbox
     public JumpPoint(Point location, String side) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("JumpPoint.png"), 16, 16), TileType.PASSABLE);
-        originalLocation = location;
         hitboxWidth = 70;
         hitboxHeight = 100;
         hitboxY = -50;
@@ -59,7 +56,6 @@ public class JumpPoint extends EnhancedMapTile {
     // Constructor for a jump point with a custom hitbox
     public JumpPoint(Point location, float hitboxX, float hitboxY, int hitboxWidth, int hitboxHeight) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("JumpPoint.png"), 16, 16), TileType.PASSABLE);
-        originalLocation = location;
         this.hitboxX = hitboxX;
         this.hitboxY = hitboxY;
         this.hitboxWidth = hitboxWidth;
