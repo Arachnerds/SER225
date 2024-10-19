@@ -12,6 +12,7 @@ import javax.swing.*;
 import Game.ScreenCoordinator;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class GamePanel extends JPanel {
     private ScreenManager screenManager;
@@ -19,6 +20,7 @@ public class GamePanel extends JPanel {
 
     private boolean isGamePaused = false;
     private boolean isOnCooldown = false;
+    private boolean hasKey = false;
 
     private SpriteFont pauseLabel;
     private SpriteFont controlsLabel;
@@ -40,6 +42,7 @@ public class GamePanel extends JPanel {
     private int currentFPS;
     private boolean doPaint;
     protected Sprite pauseScreen = new Sprite(ImageLoader.load("creditsScreenBlank.png"), 0, 0);
+    protected Sprite doorKey = new Sprite(ImageLoader.load("DoorKey.png"));
 
     private int currentMenuItemHovered = 0;
     private int currentQuitOptionHovered = 1;
@@ -51,6 +54,9 @@ public class GamePanel extends JPanel {
     private int cooldownBarHeight = 13;
     private int cooldownBarXPosition = 20;
     private int cooldownBarYPosition = this.getHeight() - 100;
+
+    private int keyLocationX;
+    private int keyLocationY;
 
     public GamePanel() {
         super();
@@ -223,6 +229,8 @@ public class GamePanel extends JPanel {
                         cooldownBarWidth = cooldownBarWidthMax;
                         isOnCooldown = false;
                     }
+
+                    this.hasKey = playScreen.getPlayer().hasKey();
                 }
 
             } else if (currentScreen instanceof PlayOutsideLevelScreen) {
@@ -237,6 +245,8 @@ public class GamePanel extends JPanel {
                         cooldownBarWidth = cooldownBarWidthMax;
                         isOnCooldown = false;
                     }
+
+                    this.hasKey = playScreen.getPlayer().hasKey();
                 }
             }
         }
@@ -252,6 +262,14 @@ public class GamePanel extends JPanel {
             } else {
                 graphicsHandler.drawFilledRectangle(cooldownBarXPosition, cooldownBarYPosition, cooldownBarWidth, cooldownBarHeight, java.awt.Color.RED);
             }
+        }
+
+        if (currentPlayState == PlayLevelCurrentScreenState.RUNNING && hasKey) {
+            this.keyLocationX = this.getWidth() - 40;
+            this.keyLocationY = this.getHeight() - 40;
+            this.doorKey.setLocation(keyLocationX, keyLocationY);
+            this.doorKey.setScale(2f);
+            doorKey.draw(graphicsHandler);
         }
         
         if (isGamePaused) {

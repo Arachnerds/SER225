@@ -5,6 +5,7 @@ import Enemies.RoachEnemy;
 import Enemies.PillbugEnemy;
 import EnhancedMapTiles.Anchor;
 import EnhancedMapTiles.BasementEndLevelTile;
+import EnhancedMapTiles.DoorKey;
 import EnhancedMapTiles.JumpPoint;
 import Level.Enemy;
 import Level.EnhancedMapTile;
@@ -54,6 +55,8 @@ public class Basement extends Map {
         JumpPoint testJumpPoint = new JumpPoint(getMapTile(10, 10).getLocation(),"left");
         enhancedMapTiles.add(testJumpPoint);
 
+        DoorKey key = new DoorKey(getMapTile(10, 13).getLocation());
+        enhancedMapTiles.add(key);
 
         Anchor testAnchor = new Anchor(getMapTile(20, 10).getLocation());
         enhancedMapTiles.add(testAnchor);
