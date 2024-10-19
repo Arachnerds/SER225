@@ -202,9 +202,10 @@ public class JumpPoint extends EnhancedMapTile {
             if(player.getFacingDirection() == Direction.LEFT){
                 facingDirectionAdjustment = (int)(player.getX2() - player.getX1());
             }
-            //The player x and y. y2 has to be done differently for some reason.
+            //The player x and y
             int x2 = (int)player.getCalibratedXLocation() + facingDirectionAdjustment;                     
-            int y2 = (int)player.getY() - hitboxHeight;
+            //That 60 is an adjustment so the web doesn't come from the top corner of the hitbox. Hardcoding is not ideal but fine for now (until we add the walrus)
+            int y2 = (int)player.getCalibratedYLocation() + 60;
             
             graphicsHandler.drawLine(x1,y1,x2,y2,new Color(255, 255, 255, 100));
             
