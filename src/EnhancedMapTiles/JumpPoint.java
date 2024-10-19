@@ -5,14 +5,13 @@ import Engine.GraphicsHandler;
 import Engine.ImageLoader;
 import Engine.Key;
 import Engine.Keyboard;
-import Game.WebLine;
 import GameObject.Frame;
 import GameObject.Rectangle;
 import GameObject.SpriteSheet;
 import Level.EnhancedMapTile;
 import Level.Player;
 import Level.TileType;
-import Level.WebSquare;
+import Utils.Direction;
 import Utils.Point;
 import java.awt.Color;
 import java.util.HashMap;
@@ -27,10 +26,12 @@ public class JumpPoint extends EnhancedMapTile {
     private Float dy;
     private String startPosCode;
     private Player player;
+    private Point originalLocation;
 
     // Constructor for a jump point with a centered hitbox
     public JumpPoint(Point location) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("JumpPoint.png"), 16, 16), TileType.PASSABLE);
+        originalLocation = location;
         hitboxX = -50;
         hitboxY = -50;
         hitboxWidth = 100;
@@ -42,6 +43,7 @@ public class JumpPoint extends EnhancedMapTile {
     // Constructor for a jump point with a "left" or "right" hitbox
     public JumpPoint(Point location, String side) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("JumpPoint.png"), 16, 16), TileType.PASSABLE);
+        originalLocation = location;
         hitboxWidth = 70;
         hitboxHeight = 100;
         hitboxY = -50;
@@ -57,6 +59,7 @@ public class JumpPoint extends EnhancedMapTile {
     // Constructor for a jump point with a custom hitbox
     public JumpPoint(Point location, float hitboxX, float hitboxY, int hitboxWidth, int hitboxHeight) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("JumpPoint.png"), 16, 16), TileType.PASSABLE);
+        originalLocation = location;
         this.hitboxX = hitboxX;
         this.hitboxY = hitboxY;
         this.hitboxWidth = hitboxWidth;
@@ -73,11 +76,6 @@ public class JumpPoint extends EnhancedMapTile {
 
         if (intersects(player)) {
             this.setCurrentAnimationName("inRange");
-
-            //Testing to try to display a web
-            //WebSquare web = new WebSquare(player.getLocation(),this.getLocation());
-            //NEEDS SOME SORT OF MAP.ADD
-            
 
             if (Keyboard.isKeyDown(Key.E)) {
                 //These 4 cases tell us where the spider started - L/R, Above/Below jump point
@@ -195,11 +193,22 @@ public class JumpPoint extends EnhancedMapTile {
     public void draw(GraphicsHandler graphicsHandler) {
         super.draw(graphicsHandler);
         if(this.intersects(player) && Keyboard.isKeyDown(Key.E)){
-            graphicsHandler.drawLine((int)this.getLocation().x,(int)this.getLocation().y,(int)player.getLocation().x,(int)player.getLocation().y,new Color(255, 0, 0, 100));
+            //The jump point's x and y, with a little adjustment so the line goes to the center of it
+            int x1 = (int)this.getCalibratedXLocation()+25;
+            int y1 = (int)this.getCalibratedYLocation()+25;
+
+            //Need to an adjustment if the player is facing left so the web isn't coming out of the mouth
+            int facingDirectionAdjustment = 0;
+            if(player.getFacingDirection() == Direction.LEFT){
+                facingDirectionAdjustment = (int)(player.getX2() - player.getX1());
+            }
+            //The player x and y. y2 has to be done differently for some reason.
+            int x2 = (int)player.getCalibratedXLocation() + facingDirectionAdjustment;                     
+            int y2 = (int)player.getY() - hitboxHeight;
+            
+            graphicsHandler.drawLine(x1,y1,x2,y2,new Color(255, 255, 255, 100));
+            
         }
-        
-        
-        //drawBounds(graphicsHandler, new Color(255, 0, 0, 100));
         
     }
 
