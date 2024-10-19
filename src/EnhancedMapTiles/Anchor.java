@@ -24,6 +24,7 @@ public class Anchor extends EnhancedMapTile{
   private float rotationAdjustment;
   private Player player;
   private String startPosCode;
+  private String currentPosCode;
 
   
   public Anchor(Point location) {
@@ -31,46 +32,57 @@ public class Anchor extends EnhancedMapTile{
     radius = 0;
     rotationAdjustment = 1;
     startPosCode = "";
+    currentPosCode = "";
   }
   
   @Override
   public void update(Player player) {
     super.update(player);
     this.player = player;
+
+
+        //CurrentPosCode tells us where the spider currently is.
+        String xCode = "";
+        String yCode = "";
+
+        if(player.getX()<this.getX()){
+            xCode = "L";
+        }
+        else{
+            xCode = "R";
+        }
+
+        if(player.getY()<this.getY()){
+            yCode = "A";
+        }
+        else{
+            yCode = "B";
+        }
+        currentPosCode = xCode + yCode;
+
+        xCode = "";
+        yCode = "";
     
     //Test key - L prints location (only works when an anchor is on screen)
     if(Keyboard.isKeyDown(Key.L)){
       System.out.println("x: "+ player.getX() + " " + "y: "+ player.getY());
+      System.out.println(currentPosCode);
     }
     
-    //Directly underneath or above the jump point, it jitters between these two
-    //Initialize a counter for how often it flips between the two
-    //If that gets too high, pick one for a bit (2 or so iterations) to force it past that point
-    //DONT MAKE THE ROTATION ADJUSTMENT IF IT FALLS WITHIN SOME TOLERANCE
-    float oldRot = rotationAdjustment;
-    //int flipCounter = 0;
-
-    //Maybe try using position codes like jump point did.
-    /* if(player.getX()>this.getX()){
-      rotationAdjustment = 1;
-    }
-    else if (player.getX()<this.getX()&&player.getY()>this.getY()){
-      rotationAdjustment = 1;
-    } */
-   
-
-
-    
-    //System.out.print(flipCounter);
+        
     if (intersects(player)) {
       this.setCurrentAnimationName("inRange");
       
       if(Keyboard.isKeyDown(Key.E)){
         //These 4 cases tell us where the spider started - L/R, Above/Below jump point
-        String xCode = "";
-        String yCode = "";
+        xCode = "";
+        yCode = "";
 
         if(startPosCode.equals("")){
+            theta = null;
+            radius = 0;
+            
+            
             if(player.getX()<this.getX()){
                 xCode = "L";
             }
@@ -87,6 +99,9 @@ public class Anchor extends EnhancedMapTile{
             startPosCode = xCode + yCode;
         }
 
+        //xyAdjustment is a positive/negative value applied to dx and dy at the end when you actually move the spider
+        //rotationAdjustment determines whether theta is increasing or decreasing
+        //Together, they determine direction of motion and make sure that motion works correctly in each quadrant
         int xyAdjustment = 1;
         if(startPosCode.equals("LA")){
             rotationAdjustment = 1;
@@ -122,50 +137,31 @@ public class Anchor extends EnhancedMapTile{
           //Theta is in radians. Incrementing it by about a degree each time.
           theta = (theta - rotationAdjustment*0.02)%(2*Math.PI);
           
-          
-          
-          //This part is trying to make sure the player always moves in one direction (clockwise or counterclockwise) - Not working
-          /* if(player.getX()<this.getX()){
-            theta = (theta + 0.02)%(2*Math.PI);
+          //This part is what makes the spider "bounce" back in the other direction when it hits an edge.
+          //You treat is as starting a new swing, and all the logic of it is covered by that
+          if((startPosCode.equals("LA")||startPosCode.equals("LB")) && currentPosCode.equals("RA")){
+            startPosCode = "";
           }
-          else{
-            theta = (theta - 0.02)%(2*Math.PI);
-          } */
-            
-            //This part is trying to limit theta to be between 0 and pi radians, so we only swing underneath
-          /* if(theta<Math.PI){
-            theta = (theta + 0.02)%(2*Math.PI);
+          if((startPosCode.equals("RA")||startPosCode.equals("RB")) && currentPosCode.equals("LA")){
+            startPosCode = "";
           }
-          else{
-            theta = (theta - 0.02)%(2*Math.PI);
-          } */
             
-            
-            //X and Y components at the new theta
-          float newRadX = ((float)(radius*Math.cos(theta)));
-          float newRadY = ((float)(radius*Math.sin(theta)));
-          
-          
-          
-         
-            
-            //Change in x and y
+        //X and Y components at the new theta
+        float newRadX = ((float)(radius*Math.cos(theta)));
+        float newRadY = ((float)(radius*Math.sin(theta)));
+           
+          //Change in x and y
           float dx = newRadX - prevRadX;
           float dy = newRadY - prevRadY;
-          
-          /* player.moveXHandleCollision(rotationAdjustment*dx);
-          player.moveYHandleCollision(rotationAdjustment*dy); */
-
+        
           player.moveXHandleCollision(xyAdjustment*dx);
           player.moveYHandleCollision(xyAdjustment*dy);
-        
+
           //Printing various values for debugging
-          System.out.print(startPosCode);
-          System.out.println("radius: "+ radius +", theta: " + theta +", dx: " + dx + ", dy: " + dy);
+          //System.out.print(startPosCode);
+          //System.out.println("radius: "+ radius +", theta: " + theta +", dx: " + dx + ", dy: " + dy);
         }
 
-        
-        
       }
       else{
         //Resetting when you let go of the button
@@ -181,10 +177,6 @@ public class Anchor extends EnhancedMapTile{
     }
   }
 
-
-
-
-  
   @Override
   public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
     return new HashMap<String, Frame[]>() {{
@@ -219,22 +211,14 @@ public class Anchor extends EnhancedMapTile{
     return (float)(Math.hypot(x-this.getX(), y-this.getY()));
   }
   
-
-
-
-
-
-
-
-
   // Overriding the hitbox draw method to just draw a line instead
   @Override
   public void draw(GraphicsHandler graphicsHandler) {
     super.draw(graphicsHandler);
     if(this.intersects(player) && Keyboard.isKeyDown(Key.E)){
       //The jump point's x and y, with a little adjustment so the line goes to the center of it
-            int x1 = (int)this.getCalibratedXLocation()+25;
-            int y1 = (int)this.getCalibratedYLocation()+25;
+        int x1 = (int)this.getCalibratedXLocation()+25;
+        int y1 = (int)this.getCalibratedYLocation()+25;
 
       //Need to an adjustment if the player is facing left so the web isn't coming out of the mouth
       int facingDirectionAdjustment = 0;
@@ -244,9 +228,9 @@ public class Anchor extends EnhancedMapTile{
       //The player x and y
       int x2 = (int)player.getCalibratedXLocation() + facingDirectionAdjustment;                     
       //That 60 is an adjustment so the web doesn't come from the top corner of the hitbox. Hardcoding is not ideal but fine for now (until we add the walrus)
-            int y2 = (int)player.getCalibratedYLocation() + 60;
+        int y2 = (int)player.getCalibratedYLocation() + 60;
             
-            graphicsHandler.drawLine(x1,y1,x2,y2,new Color(255, 255, 255, 100));
+        graphicsHandler.drawLine(x1,y1,x2,y2,new Color(255, 255, 255, 100));
             
         }
         
