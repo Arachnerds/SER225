@@ -1,7 +1,6 @@
 package Maps;
 
 import Enemies.FlyEnemy;
-import Enemies.RoachEnemy;
 import Enemies.PillbugEnemy;
 import EnhancedMapTiles.Anchor;
 import EnhancedMapTiles.BasementEndLevelTile;
@@ -58,7 +57,7 @@ public class Basement extends Map {
         DoorKey key = new DoorKey(getMapTile(10, 13).getLocation());
         enhancedMapTiles.add(key);
 
-        Anchor testAnchor = new Anchor(getMapTile(20, 10).getLocation());
+        Anchor testAnchor = new Anchor(getMapTile(20, 9).getLocation());
         enhancedMapTiles.add(testAnchor);
 
         return enhancedMapTiles;
