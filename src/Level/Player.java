@@ -58,6 +58,7 @@ public abstract class Player extends GameObject {
     protected Timer exitClimbTimer = new Timer();
     protected boolean climbTimerStarted = false;
     protected boolean hitEnemy = false;
+    protected boolean hasKey = false;
 
     public Player(SpriteSheet spriteSheet, float x, float y, String startingAnimationName) {
         super(spriteSheet, x, y, startingAnimationName);
@@ -461,6 +462,14 @@ public abstract class Player extends GameObject {
 
     public void setLevelState(LevelState levelState) {
         this.levelState = levelState;
+    }
+
+    public void setHasKey(boolean hasKey) {
+        this.hasKey = hasKey;
+    }
+
+    public boolean hasKey() {
+        return this.hasKey;
     }
 
     public void addListener(PlayerListener listener) {
