@@ -137,15 +137,18 @@ public class JumpPoint extends EnhancedMapTile {
                         player.moveY(dy);
                     }
                 }
-            }   
+            }
+            else{
+                dx = null;
+                dy = null;
+                startPosCode = "";
+                player.setGravity(.5f);
+            }     
         }
         else{
-            dx = null;
-            dy = null;
-            startPosCode = "";
             this.setCurrentAnimationName("DEFAULT");
-            player.setGravity(.5f);
-        }  
+        }
+        
     } 
     
 
