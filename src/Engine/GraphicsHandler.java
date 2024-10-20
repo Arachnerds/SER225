@@ -40,6 +40,21 @@ public class GraphicsHandler {
             case FLIP_H_AND_V:
                 g.drawImage(image, x + width, y + height, -width, -height, null);
                 break;
+            case ROTATE_90_CLOCKWISE:
+                g.rotate(Math.toRadians(90), x + width / 2, y + height / 2);
+                g.drawImage(image, x, y, width, height, null);
+                g.rotate(Math.toRadians(-90), x + width / 2, y + height / 2);
+                break;
+            case ROTATE_180_CLOCKWISE:
+                g.rotate(Math.toRadians(180), x + width / 2, y + height / 2);
+                g.drawImage(image, x, y, width, height, null);
+                g.rotate(Math.toRadians(-180), x + width / 2, y + height / 2);
+                break;
+            case ROTATE_270_CLOCKWISE:
+                g.rotate(Math.toRadians(270), x + width / 2, y + height / 2);
+                g.drawImage(image, x, y, width, height, null);
+                g.rotate(Math.toRadians(-270), x + width / 2, y + height / 2);
+                break;
         }
     }
 

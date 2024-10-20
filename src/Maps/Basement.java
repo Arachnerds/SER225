@@ -6,6 +6,7 @@ import EnhancedMapTiles.Anchor;
 import EnhancedMapTiles.BasementEndLevelTile;
 import EnhancedMapTiles.DoorKey;
 import EnhancedMapTiles.JumpPoint;
+import EnhancedMapTiles.RotatingPuzzle;
 import Level.Enemy;
 import Level.EnhancedMapTile;
 import Level.Map;
@@ -56,6 +57,11 @@ public class Basement extends Map {
 
         DoorKey key = new DoorKey(getMapTile(10, 13).getLocation());
         enhancedMapTiles.add(key);
+
+        RotatingPuzzle puzzle = new RotatingPuzzle(this, getMapTile(7, 13).getLocation());
+        enhancedMapTiles.add(puzzle.getP1());
+        enhancedMapTiles.add(puzzle.getP2());
+        enhancedMapTiles.add(puzzle.getP3());
 
         Anchor testAnchor = new Anchor(getMapTile(20, 9).getLocation());
         enhancedMapTiles.add(testAnchor);
