@@ -171,7 +171,7 @@ public class FireflyEnemy extends Enemy {
             int fireballY = Math.round(getY()) + 4;
 
             // create Fireball enemy
-            Fireball fireball = new Fireball(new Point(fireballX, fireballY), movementSpeed, 60);
+            FireflyAttack fireball = new FireflyAttack(new Point(fireballX, fireballY), movementSpeed, 120);
 
             // add fireball enemy to the map for it to spawn in the level
             map.addEnemy(fireball);
