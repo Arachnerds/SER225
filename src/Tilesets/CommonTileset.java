@@ -2162,6 +2162,436 @@ public class CommonTileset extends Tileset {
 
         mapTiles.add(pillow8T);
 
+        // Blanket
+        Frame mattress = new FrameBuilder(getSubImage(8, 16))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder mattressT = new MapTileBuilder(mattress)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(mattressT);
+
+        // Blanket
+        Frame mattressEnd = new FrameBuilder(getSubImage(8, 15))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder mattressEndT = new MapTileBuilder(mattressEnd)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(mattressEndT);
+
+        // Blanket
+        Frame mattressEndBottom = new FrameBuilder(getSubImage(9, 6))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder mattressEndBottomT = new MapTileBuilder(mattressEndBottom)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(mattressEndBottomT);
+
+        // Blanket
+        Frame windowFix1 = new FrameBuilder(getSubImage(9, 7))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder windowFix1T = new MapTileBuilder(windowFix1)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(windowFix1T);
+
+        // Blanket
+        Frame windowFix2 = new FrameBuilder(getSubImage(9, 8))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder windowFix2T = new MapTileBuilder(windowFix2)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(windowFix2T);
+
+        // Blanket
+        Frame windowFix3 = new FrameBuilder(getSubImage(9, 9))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder windowFix3T = new MapTileBuilder(windowFix3)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(windowFix3T);
+
+        // Blanket
+        Frame windowFix4 = new FrameBuilder(getSubImage(9, 10))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder windowFix4T = new MapTileBuilder(windowFix4)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(windowFix4T);
+
+        // Blanket
+        Frame windowFix5 = new FrameBuilder(getSubImage(9, 11))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder windowFix5T = new MapTileBuilder(windowFix5)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(windowFix5T);
+
+        // Blanket
+        Frame windowFix6 = new FrameBuilder(getSubImage(9, 12))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder windowFix6T = new MapTileBuilder(windowFix6)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(windowFix6T);
+
+        // Blanket
+        Frame windowFix7 = new FrameBuilder(getSubImage(9, 13))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder windowFix7T = new MapTileBuilder(windowFix7)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(windowFix7T);
+
+        // Blanket
+        Frame windowFix8 = new FrameBuilder(getSubImage(9, 14))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder windowFix8T = new MapTileBuilder(windowFix8)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(windowFix8T);
+
+        // Blanket
+        Frame windowFix9 = new FrameBuilder(getSubImage(9, 15))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder windowFix9T = new MapTileBuilder(windowFix9)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(windowFix9T);
+
+        // Blanket
+        Frame windowFix10 = new FrameBuilder(getSubImage(9, 16))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder windowFix10T = new MapTileBuilder(windowFix10)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(windowFix10T);
+
+        // Blanket
+        Frame windowFix11 = new FrameBuilder(getSubImage(10, 6))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder windowFix11T = new MapTileBuilder(windowFix11)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(windowFix11T);
+
+        // Blanket
+        Frame windowFix12 = new FrameBuilder(getSubImage(10, 7))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder windowFix12T = new MapTileBuilder(windowFix12)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(windowFix12T);
+
+        // Blanket
+        Frame windowFix13 = new FrameBuilder(getSubImage(10, 8))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder windowFix13T = new MapTileBuilder(windowFix13)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(windowFix13T);
+
+        // Blanket
+        Frame windowFix14 = new FrameBuilder(getSubImage(10, 9))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder windowFix14T = new MapTileBuilder(windowFix14)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(windowFix14T);
+
+        // Blanket
+        Frame windowFix15 = new FrameBuilder(getSubImage(10, 10))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder windowFix15T = new MapTileBuilder(windowFix15)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(windowFix15T);
+
+        // Blanket
+        Frame windowFix16 = new FrameBuilder(getSubImage(10, 11))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder windowFix16T = new MapTileBuilder(windowFix16)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(windowFix16T);
+
+        // Blanket
+        Frame windowFix17 = new FrameBuilder(getSubImage(10, 12))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder windowFix17T = new MapTileBuilder(windowFix17)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(windowFix17T);
+
+        // Blanket
+        Frame windowFix18 = new FrameBuilder(getSubImage(10, 13))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder windowFix18T = new MapTileBuilder(windowFix18)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(windowFix18T);
+
+        // Blanket
+        Frame windowFix19 = new FrameBuilder(getSubImage(10, 14))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder windowFix19T = new MapTileBuilder(windowFix19)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(windowFix19T);
+
+        // Blanket
+        Frame windowFix20 = new FrameBuilder(getSubImage(10, 15))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder windowFix20T = new MapTileBuilder(windowFix20)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(windowFix20T);
+
+        // Blanket
+        Frame windowFix21 = new FrameBuilder(getSubImage(10, 16))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder windowFix21T = new MapTileBuilder(windowFix21)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(windowFix21T);
+
+        // Blanket
+        Frame windowFix22 = new FrameBuilder(getSubImage(11, 6))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder windowFix22T = new MapTileBuilder(windowFix22)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(windowFix22T);
+
+        // Blanket
+        Frame windowFix23 = new FrameBuilder(getSubImage(11, 7))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder windowFix23T = new MapTileBuilder(windowFix23)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(windowFix23T);
+
+        // Blanket
+        Frame windowFix24 = new FrameBuilder(getSubImage(11, 8))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder windowFix24T = new MapTileBuilder(windowFix24)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(windowFix24T);
+
+        // Blanket
+        Frame windowFix25 = new FrameBuilder(getSubImage(11, 9))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder windowFix25T = new MapTileBuilder(windowFix25)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(windowFix25T);
+
+        // Blanket
+        Frame windowFix26 = new FrameBuilder(getSubImage(11, 10))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder windowFix26T = new MapTileBuilder(windowFix26)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(windowFix26T);
+
+        // Blanket
+        Frame windowFix27 = new FrameBuilder(getSubImage(11, 11))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder windowFix27T = new MapTileBuilder(windowFix27)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(windowFix27T);
+
+        // Blanket
+        Frame windowFix28 = new FrameBuilder(getSubImage(11, 12))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder windowFix28T = new MapTileBuilder(windowFix28)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(windowFix28T);
+
+        // Blanket
+        Frame windowFix29 = new FrameBuilder(getSubImage(11, 13))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder windowFix29T = new MapTileBuilder(windowFix29)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(windowFix29T);
+
+        // Blanket
+        Frame windowFix30 = new FrameBuilder(getSubImage(11, 14))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder windowFix30T = new MapTileBuilder(windowFix30)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(windowFix30T);
+
+        // Blanket
+        Frame windowFix31 = new FrameBuilder(getSubImage(11, 15))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder windowFix31T = new MapTileBuilder(windowFix31)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(windowFix31T);
+
+        // Blanket
+        Frame floorWall = new FrameBuilder(getSubImage(11, 16))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder floorWallT = new MapTileBuilder(floorWall)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(floorWallT);
+
+        // Blanket
+        Frame floorWallDoor = new FrameBuilder(getSubImage(12, 6))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder floorWallTDoor = new MapTileBuilder(floorWallDoor)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(floorWallTDoor);
+
+        // Blanket
+        Frame doorFrame1 = new FrameBuilder(getSubImage(12, 7))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder doorFrame1T = new MapTileBuilder(doorFrame1)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(doorFrame1T);
+
+        // Blanket
+        Frame doorFrame2 = new FrameBuilder(getSubImage(12, 8))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder doorFrame2T = new MapTileBuilder(doorFrame2)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(doorFrame2T);
+
+        // Blanket
+        Frame doorFrame3 = new FrameBuilder(getSubImage(12, 9))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder doorFrame3T = new MapTileBuilder(doorFrame3)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(doorFrame3T);
+
+        // Blanket
+        Frame doorFrame4 = new FrameBuilder(getSubImage(12, 10))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder doorFrame4T = new MapTileBuilder(doorFrame4)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(doorFrame4T);
+
+        // Blanket
+        Frame doorFrame5 = new FrameBuilder(getSubImage(12, 11))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder doorFrame5T = new MapTileBuilder(doorFrame5)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(doorFrame5T);
+
+        // Blanket
+        Frame doorFrame6 = new FrameBuilder(getSubImage(12, 12))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder doorFrame6T = new MapTileBuilder(doorFrame6)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(doorFrame6T);
+
+        // Blanket
+        Frame doorFrame7 = new FrameBuilder(getSubImage(12, 14))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder doorFrame7T = new MapTileBuilder(doorFrame7)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(doorFrame7T);
+
         return mapTiles;
     }
 }
