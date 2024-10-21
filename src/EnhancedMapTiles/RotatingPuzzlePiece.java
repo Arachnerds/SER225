@@ -17,13 +17,15 @@ public class RotatingPuzzlePiece extends EnhancedMapTile {
     private RotatingPuzzle puzzle;
     private Key key;
     protected KeyLocker keyLocker = new KeyLocker();
+    private String imageFileName;
 
-    public RotatingPuzzlePiece(RotatingPuzzle puzzle, float locationX, float locationY, Key key, String animationName){
+    public RotatingPuzzlePiece(RotatingPuzzle puzzle, float locationX, float locationY, Key key, String animationName,String fileName){
         // super(location.x, location.y, new SpriteSheet(ImageLoader.load("SwitchBox.png"), 16, 16), TileType.PASSABLE);
-        super(locationX, locationY, new SpriteSheet(ImageLoader.load("SwitchBox.png"), 16, 16), TileType.PASSABLE);
+        super(locationX, locationY, new SpriteSheet(ImageLoader.load(fileName), 16, 16), TileType.PASSABLE);
         this.puzzle = puzzle;
         this.currentAnimationName = animationName;
         this.key = key;
+        imageFileName = fileName;
     }
 
     // Rotate the piece 90 degrees clockwise from current position
