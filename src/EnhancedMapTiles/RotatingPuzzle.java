@@ -18,19 +18,28 @@ public class RotatingPuzzle {
         // Create the pieces of the rotating puzzle
         // CURRENT POSITIONING/LOCATION OF PEICES IS NOT CORRECT
         // THEY NEED TO OVERLAP AND BE CENTERED ON EACHOTHER
-        p1 = new RotatingPuzzlePiece(this, location.x, location.y, Key.ONE, "RIGHT");
-        p2 = new RotatingPuzzlePiece(this, location.x + map.getMapTile(1, 1).getWidth(), location.y, Key.TWO, "LEFT");
-        p3 = new RotatingPuzzlePiece(this, location.x + map.getMapTile(1, 1).getWidth()*2, location.y, Key.THREE, "DOWN");
+
+        //Rough estimate:
+        //Pass in a location for the outer ring
+        //The middle ought to be +4 x and y from that
+        //The innermost ring should be +6 from the outer ring
+        p1 = new RotatingPuzzlePiece(this, location.x, location.y, Key.ONE, "RIGHT","GoldBox.png");
+        p2 = new RotatingPuzzlePiece(this, location.x + 4+20, location.y, Key.TWO, "LEFT","GoldBox.png");
+        p3 = new RotatingPuzzlePiece(this, location.x + 6+40, location.y, Key.THREE, "DOWN","GoldBox.png");
     }
 
     public void respond(RotatingPuzzlePiece p, Player player) {
         // Rotate passed puzzle piece
-        p.rotate();
+        if(player.hasKey()){
+            p.rotate();
+        }
+        
 
         // Check if all peices are in correct location, then handle what happens on the map
         if (p1.isCorrect() && p2.isCorrect() && p3.isCorrect() && player.hasKey()) {
             hideSwitches();
             player.setHasKey(false);
+            System.out.println("You solved the puzzle!");
         }
     }
 
