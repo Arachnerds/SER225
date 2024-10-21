@@ -4,6 +4,7 @@ import GameObject.Rectangle;
 import GameObject.Sprite;
 import Players.Spider;
 import Screens.PlayBasementLevelScreen;
+import Screens.PlayBedroomLevelScreen;
 import Screens.PlayOutsideLevelScreen;
 import SpriteFont.SpriteFont;
 import Utils.Colors;
@@ -237,6 +238,21 @@ public class GamePanel extends JPanel {
                 PlayOutsideLevelScreen playScreen = (PlayOutsideLevelScreen) currentScreen;
                 
                 if (playScreen.getPlayLevelScreenState() == PlayOutsideLevelScreen.PlayLevelScreenState.RUNNING) {
+                    currentPlayState = PlayLevelCurrentScreenState.RUNNING;
+                    if (playScreen.getPlayer().hasShotWeb()) {
+                        cooldownBarWidth = playScreen.getPlayer().getShootCooldownFrames()*2;
+                        isOnCooldown = true;
+                    } else {
+                        cooldownBarWidth = cooldownBarWidthMax;
+                        isOnCooldown = false;
+                    }
+
+                    this.hasKey = playScreen.getPlayer().hasKey();
+                }
+            } else if (currentScreen instanceof PlayBedroomLevelScreen) {
+                PlayBedroomLevelScreen playScreen = (PlayBedroomLevelScreen) currentScreen;
+                
+                if (playScreen.getPlayLevelScreenState() == PlayBedroomLevelScreen.PlayLevelScreenState.RUNNING) {
                     currentPlayState = PlayLevelCurrentScreenState.RUNNING;
                     if (playScreen.getPlayer().hasShotWeb()) {
                         cooldownBarWidth = playScreen.getPlayer().getShootCooldownFrames()*2;
