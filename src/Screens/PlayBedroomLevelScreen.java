@@ -8,35 +8,33 @@ import Game.ScreenCoordinator;
 import Level.Map;
 import Level.Player;
 import Level.PlayerListener;
-import Maps.Outside;
+import Maps.Bedroom;
 import Players.Spider;
 
-public class PlayOutsideLevelScreen extends Screen implements PlayerListener {
+public class PlayBedroomLevelScreen extends Screen implements PlayerListener {
     protected ScreenCoordinator screenCoordinator;
     protected Map map;
     protected Player player;
     protected PlayLevelScreenState playLevelScreenState;
     protected int screenTimer;
-    protected OutsideLevelClearedScreen outsideLevelClearedScreen;
-    protected OutsideLevelLoseScreen outsideLevelLoseScreen;
+    protected BedroomLevelClearedScreen bedroomLevelClearedScreen;
+    protected BedroomLevelLoseScreen bedroomLevelLoseScreen;
     protected boolean levelCompletedStateChangeStart;
 
-    public PlayOutsideLevelScreen(ScreenCoordinator screenCoordinator) {
+    public PlayBedroomLevelScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
     }
 
     public void initialize() {
         Sound.stopMusic();
-        Sound.stopAmbience();
-        Sound.playAmbience(Sound.Ambience.OUTSIDE);
-        this.map = new Outside();
+        this.map = new Bedroom();
 
         this.player = new Spider(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
         this.player.setMap(map);
         this.player.addListener(this);
 
-        outsideLevelClearedScreen = new OutsideLevelClearedScreen();
-        outsideLevelLoseScreen = new OutsideLevelLoseScreen(this);
+        bedroomLevelClearedScreen = new BedroomLevelClearedScreen();
+        bedroomLevelLoseScreen = new BedroomLevelLoseScreen(this);
 
         this.playLevelScreenState = PlayLevelScreenState.RUNNING;
     }
@@ -52,15 +50,15 @@ public class PlayOutsideLevelScreen extends Screen implements PlayerListener {
                     screenTimer = 130;
                     levelCompletedStateChangeStart = false;
                 } else {
-                    outsideLevelClearedScreen.update();
+                    bedroomLevelClearedScreen.update();
                     screenTimer--;
                     if (screenTimer == 0) {
-                        goToBedroomLevelScreen();
+                        goToOutsideLevelScreen();
                     }
                 }
                 break;
             case LEVEL_LOSE:
-                outsideLevelLoseScreen.update();
+                bedroomLevelLoseScreen.update();
                 break;
         }
     }
@@ -72,10 +70,10 @@ public class PlayOutsideLevelScreen extends Screen implements PlayerListener {
                 player.draw(graphicsHandler);
                 break;
             case LEVEL_COMPLETED:
-                outsideLevelClearedScreen.draw(graphicsHandler);
+                bedroomLevelClearedScreen.draw(graphicsHandler);
                 break;
             case LEVEL_LOSE:
-                outsideLevelLoseScreen.draw(graphicsHandler);
+                bedroomLevelLoseScreen.draw(graphicsHandler);
                 break;
         }
     }
@@ -103,12 +101,16 @@ public class PlayOutsideLevelScreen extends Screen implements PlayerListener {
         initialize();
     }
 
-    public void goToBedroomLevelScreen() {
-        screenCoordinator.setGameState(GameState.BEDROOM_LEVEL);
+    public void goToOutsideLevelScreen() {
+        screenCoordinator.setGameState(GameState.OUTSIDE_LEVEL);
     }
 
     public void goBackToMenu() {
         screenCoordinator.setGameState(GameState.MENU);
+    }
+
+    public ScreenCoordinator getScreenCoordinator() {
+        return this.screenCoordinator;
     }
 
     public Spider getPlayer() {

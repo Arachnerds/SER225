@@ -9,6 +9,7 @@ import Screens.IntroCutscene;
 import Screens.MenuScreen;
 import Screens.PlayBasementLevelScreen;
 import Screens.PlayOutsideLevelScreen;
+import Screens.PlayBedroomLevelScreen;
 
 /*
  * Based on the current game state, this class determines which Screen should be shown
@@ -53,6 +54,8 @@ public class ScreenCoordinator extends Screen {
 					case OUTSIDE_LEVEL:
 						currentScreen = new PlayOutsideLevelScreen(this);
 						break;
+					case BEDROOM_LEVEL:
+						currentScreen = new PlayBedroomLevelScreen(this);
 					case CREDITS:
 						currentScreen = new CreditsScreen(this);
 						break;

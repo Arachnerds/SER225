@@ -10,7 +10,6 @@ import java.util.ArrayList;
 
 import Enemies.FlyEnemy;
 import Enemies.RoachEnemy;
-import EnhancedMapTiles.BasementEndLevelTile;
 import EnhancedMapTiles.FakeBark;
 import EnhancedMapTiles.JumpPoint;
 import EnhancedMapTiles.OutsideEndLevelTile;

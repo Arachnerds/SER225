@@ -1981,6 +1981,186 @@ public class CommonTileset extends Tileset {
                 .withTileType(TileType.PASSABLE);
 
         mapTiles.add(greyRockTilePASS);
+        
+        // Floor Bedroom
+        Frame bedroomFloor = new FrameBuilder(getSubImage(2, 16))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder bedroomFloorT = new MapTileBuilder(bedroomFloor)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(bedroomFloorT);
+
+        // End Blanket
+        Frame blanketEnd = new FrameBuilder(getSubImage(4, 15))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder blanketEndT = new MapTileBuilder(blanketEnd)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(blanketEndT);
+
+        // Blanket
+        Frame blanket = new FrameBuilder(getSubImage(3, 16))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder blanketT = new MapTileBuilder(blanket)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(blanketT);
+
+        // End Blanket
+        Frame throwBlanket = new FrameBuilder(getSubImage(5, 15))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder throwBlanketT = new MapTileBuilder(throwBlanket)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(throwBlanketT);
+
+        // Blanket
+        Frame throwTop = new FrameBuilder(getSubImage(4, 16))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder throwTopT = new MapTileBuilder(throwTop)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(throwTopT);
+
+        // Blanket
+        Frame throwBottom = new FrameBuilder(getSubImage(5, 16))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder throwBottomT = new MapTileBuilder(throwBottom)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(throwBottomT);
+
+        // Blanket
+        Frame blanketEnd1 = new FrameBuilder(getSubImage(6, 14))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder blanketEnd1T = new MapTileBuilder(blanketEnd1)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(blanketEnd1T);
+
+        // Blanket
+        Frame blanketBottom = new FrameBuilder(getSubImage(6, 15))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder blanketBottomT = new MapTileBuilder(blanketBottom)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(blanketBottomT);
+
+        // Blanket
+        Frame blanketBottomEnd = new FrameBuilder(getSubImage(6, 16))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder blanketBottomEndT = new MapTileBuilder(blanketBottomEnd)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(blanketBottomEndT);
+
+        // Blanket
+        Frame bedLeg = new FrameBuilder(getSubImage(8, 6))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder bedLegT = new MapTileBuilder(bedLeg)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(bedLegT);
+
+        // Blanket
+        Frame pillow1 = new FrameBuilder(getSubImage(8, 7))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder pillow1T = new MapTileBuilder(pillow1)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(pillow1T);
+
+        // Blanket
+        Frame pillow2 = new FrameBuilder(getSubImage(8, 8))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder pillow2T = new MapTileBuilder(pillow2)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(pillow2T);
+
+        // Blanket
+        Frame pillow3 = new FrameBuilder(getSubImage(8, 9))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder pillow3T = new MapTileBuilder(pillow3)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(pillow3T);
+
+        // Blanket
+        Frame pillow4 = new FrameBuilder(getSubImage(8, 10))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder pillow4T = new MapTileBuilder(pillow4)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(pillow4T);
+
+        // Blanket
+        Frame pillow5 = new FrameBuilder(getSubImage(8, 11))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder pillow5T = new MapTileBuilder(pillow5)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(pillow5T);
+
+        // Blanket
+        Frame pillow6 = new FrameBuilder(getSubImage(8, 12))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder pillow6T = new MapTileBuilder(pillow6)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(pillow6T);
+
+        // Blanket
+        Frame pillow7 = new FrameBuilder(getSubImage(8, 13))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder pillow7T = new MapTileBuilder(pillow7)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(pillow7T);
+
+        // Blanket
+        Frame pillow8 = new FrameBuilder(getSubImage(8, 14))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder pillow8T = new MapTileBuilder(pillow8)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(pillow8T);
 
         return mapTiles;
     }
