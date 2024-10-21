@@ -68,7 +68,9 @@ public class FlyEnemy extends Enemy{
             } else {
                 this.currentAnimationName = "DEAD_RIGHT";
             }
-
+            gravity = 1f;
+            moveAmountY += gravity;
+            moveYHandleCollision(moveAmountY);
             super.update(player);
             return;
         }

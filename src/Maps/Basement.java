@@ -2,6 +2,7 @@ package Maps;
 
 import Enemies.FlyEnemy;
 import Enemies.PillbugEnemy;
+import Enemies.FireflyEnemy;
 import EnhancedMapTiles.Anchor;
 import EnhancedMapTiles.BasementEndLevelTile;
 import EnhancedMapTiles.DoorKey;
@@ -32,11 +33,14 @@ public class Basement extends Map {
         FlyEnemy flyEnemy = new FlyEnemy(getMapTile(16, 10).getLocation().subtractY(25), Direction.RIGHT, this);
         enemies.add(flyEnemy);
 
-        //RoachEnemy roachEnemy = new RoachEnemy(getMapTile(10, 14).getLocation().subtractY(5), Direction.RIGHT, this);
+       // RoachEnemy roachEnemy = new RoachEnemy(getMapTile(10, 14).getLocation().subtractY(5), Direction.RIGHT, this);
         //enemies.add(roachEnemy);
 
-        PillbugEnemy pillEnemy = new PillbugEnemy(getMapTile(10, 13).getLocation().subtractY(5), Direction.RIGHT, this);
-        enemies.add(pillEnemy);
+        FireflyEnemy fireflyEnemy = new FireflyEnemy(getMapTile(10, 9).getLocation().subtractY(5), Direction.RIGHT, this);
+        enemies.add(fireflyEnemy);
+
+       // PillbugEnemy pillEnemy = new PillbugEnemy(getMapTile(10, 13).getLocation().subtractY(5), Direction.RIGHT, this);
+       // enemies.add(pillEnemy);
          
         /* BugEnemy bugEnemy = new BugEnemy(getMapTile(5, 14).getLocation().subtractY(5), Direction.RIGHT);
         enemies.add(bugEnemy); */
