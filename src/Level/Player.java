@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import Enemies.FireflyAttack;
+
 public abstract class Player extends GameObject {
     // values that affect player movement
     // these should be set in a subclass
@@ -390,7 +392,7 @@ public abstract class Player extends GameObject {
     public void hurtPlayer(MapEntity mapEntity) {
         if (!isInvincible) {
             // if map entity is an enemy, kill player on touch
-            if (mapEntity instanceof Enemy || mapEntity instanceof Raindrop) {
+            if (mapEntity instanceof Enemy || mapEntity instanceof Raindrop || mapEntity instanceof FireflyAttack) {
                 levelState = LevelState.PLAYER_DEAD;
             }
         }

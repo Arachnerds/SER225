@@ -63,8 +63,7 @@ public class Projectile extends MapEntity {
         }
     }
 
-    // Method to remove projectile when touches enemy
     public void touchedEnemy(Enemy enemy) {
-        this.mapEntityStatus = MapEntityStatus.REMOVED;
+
     }
 }

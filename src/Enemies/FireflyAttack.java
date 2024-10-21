@@ -8,6 +8,7 @@ import Level.Enemy;
 import Level.MapEntity;
 import Level.MapEntityStatus;
 import Level.Player;
+import Level.Projectile;
 import Utils.Direction;
 import Utils.Point;
 
@@ -16,13 +17,12 @@ import java.util.HashMap;
 // This class is for the fireball enemy that the DinosaurEnemy class shoots out
 // it will travel in a straight line (x axis) for a set time before disappearing
 // it will disappear early if it collides with a solid map tile
-public class FireflyAttack extends Enemy{
+public class FireflyAttack extends Projectile {
     private float movementSpeed;
-    private float originalMovementSpeed = movementSpeed;
     private int existenceFrames;
 
-    public FireflyAttack(Point location, float movementSpeed, int existenceFrames) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("FireflyAttackDraft1.png"), 64, 64), "DEFAULT", 1);
+    public FireflyAttack(Point location, float movementSpeed, int existenceFrames, String spritePath, int spriteWidth, int spriteHeight) {
+        super(location, movementSpeed, 0, existenceFrames, spritePath, spriteWidth, spriteHeight);
         this.movementSpeed = movementSpeed;
 
         // how long the fireball will exist for before disappearing
@@ -41,6 +41,10 @@ public class FireflyAttack extends Enemy{
             // move fireball forward
             moveXHandleCollision(movementSpeed);
             super.update(player);
+            // Check for collision with the player
+            if (this.intersects(player) ) {
+                player.hurtPlayer(this);
+            }
         }
         existenceFrames--;
     }
@@ -54,31 +58,12 @@ public class FireflyAttack extends Enemy{
     }
 
     @Override
-    public void touchedPlayer(Player player) {
-        // if fireball touches player, it disappears
-        super.touchedPlayer(player);
-        this.mapEntityStatus = MapEntityStatus.REMOVED;
-    }
-
-    // Getter method to return set movement speed of fireball
-    @Override
-    public float getOriginalMovementSpeed() {
-        return originalMovementSpeed;
-    }
-
-    // Setter method to set movement speed of fireball
-    @Override
-    public void setMovementSpeed(float movementSpeed) {
-        this.movementSpeed = movementSpeed;
-    }
-
-    @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
         return new HashMap<String, Frame[]>() {{
             put("DEFAULT", new Frame[]{
                     new FrameBuilder(spriteSheet.getSprite(0, 0))
                             .withScale(.5f)
-                            .withBounds(0,0, 64, 64)
+                            .withBounds(1,1, 64, 64)
                             .build()
             });
         }};

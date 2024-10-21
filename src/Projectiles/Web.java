@@ -23,8 +23,8 @@ public class Web extends Projectile {
     // Then the freezeEnemy method is invoked
     @Override
     public void touchedEnemy(Enemy enemy) {
-        super.touchedEnemy(enemy);
         this.freezeEnemy(enemy);
+        this.mapEntityStatus = MapEntityStatus.REMOVED;
     }
 
     // Method to freeze the enemy that intersected with the web
