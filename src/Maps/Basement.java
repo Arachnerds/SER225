@@ -1,8 +1,7 @@
 package Maps;
 
-import Enemies.FlyEnemy;
-import Enemies.PillbugEnemy;
 import Enemies.FireflyEnemy;
+import Enemies.FlyEnemy;
 import EnhancedMapTiles.Anchor;
 import EnhancedMapTiles.BasementEndLevelTile;
 import EnhancedMapTiles.DoorKey;
@@ -63,9 +62,11 @@ public class Basement extends Map {
         enhancedMapTiles.add(key);
 
         RotatingPuzzle puzzle = new RotatingPuzzle(this, getMapTile(7, 13).getLocation());
+        
         enhancedMapTiles.add(puzzle.getP1());
         enhancedMapTiles.add(puzzle.getP2());
         enhancedMapTiles.add(puzzle.getP3());
+        enhancedMapTiles.add(puzzle.getLockCase());
 
         Anchor testAnchor = new Anchor(getMapTile(20, 9).getLocation());
         enhancedMapTiles.add(testAnchor);
