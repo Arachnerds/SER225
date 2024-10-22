@@ -55,6 +55,26 @@ public class GraphicsHandler {
                 g.drawImage(image, x, y, width, height, null);
                 g.rotate(Math.toRadians(-270), x + width / 2, y + height / 2);
                 break;
+            case ROTATE_45_CLOCKWISE:
+                g.rotate(Math.toRadians(45), x + width / 2, y + height / 2);
+                g.drawImage(image, x, y, width, height, null);
+                g.rotate(Math.toRadians(-45), x + width / 2, y + height / 2);
+                break;
+            case ROTATE_135_CLOCKWISE:
+                g.rotate(Math.toRadians(135), x + width / 2, y + height / 2);
+                g.drawImage(image, x, y, width, height, null);
+                g.rotate(Math.toRadians(-135), x + width / 2, y + height / 2);
+                break;
+            case ROTATE_225_CLOCKWISE:
+                g.rotate(Math.toRadians(225), x + width / 2, y + height / 2);
+                g.drawImage(image, x, y, width, height, null);
+                g.rotate(Math.toRadians(-225), x + width / 2, y + height / 2);
+                break;
+            case ROTATE_315_CLOCKWISE:
+                g.rotate(Math.toRadians(315), x + width / 2, y + height / 2);
+                g.drawImage(image, x, y, width, height, null);
+                g.rotate(Math.toRadians(-315), x + width / 2, y + height / 2);
+                break;
         }
     }
 
