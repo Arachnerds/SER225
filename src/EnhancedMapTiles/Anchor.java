@@ -64,10 +64,10 @@ public class Anchor extends EnhancedMapTile{
         yCode = "";
     
     //Test key - L prints location (only works when an anchor is on screen)
-    if(Keyboard.isKeyDown(Key.L)){
+    /* if(Keyboard.isKeyDown(Key.L)){
       System.out.println("x: "+ player.getX() + " " + "y: "+ player.getY());
       System.out.println(currentPosCode);
-    }
+    } */
     
         
     if (intersects(player)) {
