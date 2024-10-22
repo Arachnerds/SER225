@@ -35,21 +35,21 @@ public class RotatingPuzzlePiece extends EnhancedMapTile {
                 this.currentAnimationName = "45";
                 break;
             case "45":
-                this.currentAnimationName = "RIGHT";
+                this.currentAnimationName = "90";
                 break;
-            case "RIGHT":
+            case "90":
                 this.currentAnimationName = "135";
                 break;
             case "135":
-                this.currentAnimationName = "DOWN";
+                this.currentAnimationName = "180";
                 break;
-            case "DOWN":
+            case "180":
                 this.currentAnimationName = "225";
                 break;
             case "225":
-                this.currentAnimationName = "LEFT";
+                this.currentAnimationName = "270";
                 break;
-            case "LEFT":
+            case "270":
                 this.currentAnimationName = "315";
                 break;
             case "315":
@@ -84,6 +84,7 @@ public class RotatingPuzzlePiece extends EnhancedMapTile {
         }
     }
 
+    //Numbered animation names reflect rotation in degrees
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
         return new HashMap<String, Frame[]>() {{
@@ -100,7 +101,7 @@ public class RotatingPuzzlePiece extends EnhancedMapTile {
                         .withBounds(1, 1, 14, 14)
                         .build(),
             });
-            put("RIGHT", new Frame[] {
+            put("90", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0), 0)
                         .withScale(3)
                         .withImageEffect(ImageEffect.ROTATE_90_CLOCKWISE)
@@ -114,7 +115,7 @@ public class RotatingPuzzlePiece extends EnhancedMapTile {
                         .withBounds(1, 1, 14, 14)
                         .build(),
             });
-            put("DOWN", new Frame[] {
+            put("180", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0), 0)
                         .withScale(3)
                         .withImageEffect(ImageEffect.ROTATE_180_CLOCKWISE)
@@ -128,7 +129,7 @@ public class RotatingPuzzlePiece extends EnhancedMapTile {
                         .withBounds(1, 1, 14, 14)
                         .build(),
             });
-            put("LEFT", new Frame[] {
+            put("270", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0), 0)
                         .withScale(3)
                         .withImageEffect(ImageEffect.ROTATE_270_CLOCKWISE)
