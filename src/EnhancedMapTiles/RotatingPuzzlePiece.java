@@ -32,15 +32,27 @@ public class RotatingPuzzlePiece extends EnhancedMapTile {
     public void rotate() {
         switch(currentAnimationName) {
             case "DEFAULT":
+                this.currentAnimationName = "45";
+                break;
+            case "45":
                 this.currentAnimationName = "RIGHT";
                 break;
             case "RIGHT":
+                this.currentAnimationName = "135";
+                break;
+            case "135":
                 this.currentAnimationName = "DOWN";
                 break;
             case "DOWN":
+                this.currentAnimationName = "225";
+                break;
+            case "225":
                 this.currentAnimationName = "LEFT";
                 break;
             case "LEFT":
+                this.currentAnimationName = "315";
+                break;
+            case "315":
                 this.currentAnimationName = "DEFAULT";
                 break;
         }
@@ -81,10 +93,24 @@ public class RotatingPuzzlePiece extends EnhancedMapTile {
                         .withBounds(1, 1, 14, 14)
                         .build(),
             });
+            put("45", new Frame[] {
+                new FrameBuilder(spriteSheet.getSprite(0, 0), 0)
+                        .withScale(3)
+                        .withImageEffect(ImageEffect.ROTATE_45_CLOCKWISE)
+                        .withBounds(1, 1, 14, 14)
+                        .build(),
+            });
             put("RIGHT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0), 0)
                         .withScale(3)
                         .withImageEffect(ImageEffect.ROTATE_90_CLOCKWISE)
+                        .withBounds(1, 1, 14, 14)
+                        .build(),
+            });
+            put("135", new Frame[] {
+                new FrameBuilder(spriteSheet.getSprite(0, 0), 0)
+                        .withScale(3)
+                        .withImageEffect(ImageEffect.ROTATE_135_CLOCKWISE)
                         .withBounds(1, 1, 14, 14)
                         .build(),
             });
@@ -95,10 +121,24 @@ public class RotatingPuzzlePiece extends EnhancedMapTile {
                         .withBounds(1, 1, 14, 14)
                         .build(),
             });
+            put("225", new Frame[] {
+                new FrameBuilder(spriteSheet.getSprite(0, 0), 0)
+                        .withScale(3)
+                        .withImageEffect(ImageEffect.ROTATE_225_CLOCKWISE)
+                        .withBounds(1, 1, 14, 14)
+                        .build(),
+            });
             put("LEFT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0), 0)
                         .withScale(3)
                         .withImageEffect(ImageEffect.ROTATE_270_CLOCKWISE)
+                        .withBounds(1, 1, 14, 14)
+                        .build(),
+            });
+            put("315", new Frame[] {
+                new FrameBuilder(spriteSheet.getSprite(0, 0), 0)
+                        .withScale(3)
+                        .withImageEffect(ImageEffect.ROTATE_315_CLOCKWISE)
                         .withBounds(1, 1, 14, 14)
                         .build(),
             });
