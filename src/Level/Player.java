@@ -1,5 +1,6 @@
 package Level;
 
+import Enemies.FireflyAttack;
 import Engine.Key;
 import Engine.KeyLocker;
 import Engine.Keyboard;
@@ -11,8 +12,6 @@ import Utils.Direction;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import Enemies.FireflyAttack;
 
 public abstract class Player extends GameObject {
     // values that affect player movement
@@ -108,6 +107,11 @@ public abstract class Player extends GameObject {
         // if player has lost level
         else if (levelState == LevelState.PLAYER_DEAD) {
             updatePlayerDead();
+        }
+
+        //A secret test key that completes the current level
+        if(Keyboard.isKeyDown(Key.ZERO)){
+            this.completeLevel();
         }
     }
 

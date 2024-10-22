@@ -30,7 +30,6 @@ public class RotatingPuzzle {
         if(r3.equals("0")){
             r3 = "DEFAULT";
         }
-        System.out.println("" + r1 + " " + r2 + " " + r3);
 
         //Notes on positioning:
         //Counting pixels on sprite sheets middle is 5 pixels further right/down
