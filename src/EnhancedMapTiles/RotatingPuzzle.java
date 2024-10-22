@@ -7,6 +7,7 @@ import Utils.Point;
 
 public class RotatingPuzzle {
 
+    private RotatingPuzzlePiece lockCase;
     private RotatingPuzzlePiece p1;
     private RotatingPuzzlePiece p2;
     private RotatingPuzzlePiece p3;
@@ -24,6 +25,7 @@ public class RotatingPuzzle {
         //Multiply by the scale of 3
         //Subtract 3(1) (Something about the way I'm counting)
         //Same idea for inner ring, but do that on top of the adjustment for the middle ring
+        lockCase = new RotatingPuzzlePiece(this, location.x, location.y, Key.Z, "DEFAULT","LockCase.png",18,18);
         p1 = new RotatingPuzzlePiece(this, location.x, location.y, Key.ONE, "RIGHT","OuterKeyRing.png",18,18);
         p2 = new RotatingPuzzlePiece(this, location.x + 12, location.y+12, Key.TWO, "LEFT","MiddleKeyRing.png",10,10);
         p3 = new RotatingPuzzlePiece(this, location.x + 12+6, location.y+12+6, Key.THREE, "DOWN","InnerKeyRing.png",6,6);
@@ -46,11 +48,16 @@ public class RotatingPuzzle {
 
     private void hideSwitches() {
         // Set all switches to not visible
+        lockCase.setVisible(false);
         p1.setVisible(false);
         p2.setVisible(false);
         p3.setVisible(false);
     }
 
+
+    public RotatingPuzzlePiece getLockCase() {
+        return lockCase;
+    }
     public RotatingPuzzlePiece getP1() {
         return p1;
     }
