@@ -19,13 +19,14 @@ public class RotatingPuzzle {
         // CURRENT POSITIONING/LOCATION OF PEICES IS NOT CORRECT
         // THEY NEED TO OVERLAP AND BE CENTERED ON EACHOTHER
 
-        //Rough estimate:
-        //Pass in a location for the outer ring
-        //The middle ought to be +4 x and y from that
-        //The innermost ring should be +6 from the outer ring
-        p1 = new RotatingPuzzlePiece(this, location.x, location.y, Key.ONE, "RIGHT","GoldBox.png");
-        p2 = new RotatingPuzzlePiece(this, location.x + 4+20, location.y, Key.TWO, "LEFT","GoldBox.png");
-        p3 = new RotatingPuzzlePiece(this, location.x + 6+40, location.y, Key.THREE, "DOWN","GoldBox.png");
+        //Notes on positioning:
+        //Counting pixels on sprite sheets middle is 5 pixels further right/down
+        //Multiply by the scale of 3
+        //Subtract 3(1) (Something about the way I'm counting)
+        //Same idea for inner ring, but do that on top of the adjustment for the middle ring
+        p1 = new RotatingPuzzlePiece(this, location.x, location.y, Key.ONE, "RIGHT","OuterKeyRing.png",18,18);
+        p2 = new RotatingPuzzlePiece(this, location.x + 12, location.y+12, Key.TWO, "LEFT","MiddleKeyRing.png",10,10);
+        p3 = new RotatingPuzzlePiece(this, location.x + 12+6, location.y+12+6, Key.THREE, "DOWN","InnerKeyRing.png",6,6);
     }
 
     public void respond(RotatingPuzzlePiece p, Player player) {

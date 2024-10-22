@@ -19,9 +19,9 @@ public class RotatingPuzzlePiece extends EnhancedMapTile {
     protected KeyLocker keyLocker = new KeyLocker();
     private String imageFileName;
 
-    public RotatingPuzzlePiece(RotatingPuzzle puzzle, float locationX, float locationY, Key key, String animationName,String fileName){
+    public RotatingPuzzlePiece(RotatingPuzzle puzzle, float locationX, float locationY, Key key, String animationName,String fileName, int SpriteWidth, int SpriteHeight){
         // super(location.x, location.y, new SpriteSheet(ImageLoader.load("SwitchBox.png"), 16, 16), TileType.PASSABLE);
-        super(locationX, locationY, new SpriteSheet(ImageLoader.load(fileName), 16, 16), TileType.PASSABLE);
+        super(locationX, locationY, new SpriteSheet(ImageLoader.load(fileName), SpriteWidth, SpriteHeight), TileType.PASSABLE);
         this.puzzle = puzzle;
         this.currentAnimationName = animationName;
         this.key = key;
