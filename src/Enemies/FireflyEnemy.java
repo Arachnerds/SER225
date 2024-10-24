@@ -344,10 +344,10 @@ public class FireflyEnemy extends Enemy {
         }};
     }
 
-    public void draw(GraphicsHandler graphicsHandler) {
+    /* public void draw(GraphicsHandler graphicsHandler) {
         super.draw(graphicsHandler);
         drawBounds(graphicsHandler, new Color(255, 0, 0, 100));
-    }
+    } */
     /**
     public enum DinosaurState {
         WALK, SHOOT_WAIT, SHOOT

@@ -1,21 +1,19 @@
 package Maps;
 
-import Level.Enemy;
-import Level.EnhancedMapTile;
-import Level.Map;
-import Tilesets.CommonTileset;
-import Utils.Direction;
-
-import java.util.ArrayList;
-
-import Enemies.FlyEnemy;
+import Enemies.PillbugEnemy;
 import Enemies.RoachEnemy;
 import EnhancedMapTiles.FakeBark;
 import EnhancedMapTiles.JumpPoint;
 import EnhancedMapTiles.OutsideEndLevelTile;
 import EnhancedMapTiles.SwitchesPuzzle;
+import Level.Enemy;
+import Level.EnhancedMapTile;
+import Level.Map;
 import Level.Projectile;
 import Projectiles.Raindrop;
+import Tilesets.CommonTileset;
+import Utils.Direction;
+import java.util.ArrayList;
 
 public class Outside extends Map {
 
@@ -59,8 +57,11 @@ public class Outside extends Map {
     public ArrayList<Enemy> loadEnemies() {
         ArrayList<Enemy> enemies = new ArrayList<>();
 
-        FlyEnemy flyEnemy = new FlyEnemy(getMapTile(51, 18).getLocation().subtractY(25), Direction.RIGHT, this);
-        enemies.add(flyEnemy);
+        /* FlyEnemy flyEnemy = new FlyEnemy(getMapTile(51, 18).getLocation().subtractY(25), Direction.RIGHT, this);
+        enemies.add(flyEnemy); */
+        PillbugEnemy pillbug = new PillbugEnemy(getMapTile(54, 18).getLocation().subtractY(5), Direction.RIGHT, this);
+        enemies.add(pillbug);
+
 
         RoachEnemy roachEnemy = new RoachEnemy(getMapTile(30, 46).getLocation().subtractY(5), Direction.RIGHT, this);
         enemies.add(roachEnemy);
@@ -70,6 +71,11 @@ public class Outside extends Map {
          
         /* BugEnemy bugEnemy = new BugEnemy(getMapTile(5, 14).getLocation().subtractY(5), Direction.RIGHT);
         enemies.add(bugEnemy); */
+
+        //A pillbug inside the tree - glitches outside of the tree
+        /* PillbugEnemy pillbug2 = new PillbugEnemy(getMapTile(64, 36).getLocation().subtractY(5), Direction.RIGHT, this);
+        enemies.add(pillbug2); */
+
 
         return enemies;
     }

@@ -29,13 +29,13 @@ public class Basement extends Map {
         /* FlyEnemy flyEnemy = new FlyEnemy(getMapTile(5, 1).getLocation().addY(5), Direction.LEFT);
         enemies.add(flyEnemy); */
 
-        FlyEnemy flyEnemy = new FlyEnemy(getMapTile(16, 10).getLocation().subtractY(25), Direction.RIGHT, this);
+        FlyEnemy flyEnemy = new FlyEnemy(getMapTile(16, 11).getLocation().subtractY(25), Direction.RIGHT, this);
         enemies.add(flyEnemy);
 
        // RoachEnemy roachEnemy = new RoachEnemy(getMapTile(10, 14).getLocation().subtractY(5), Direction.RIGHT, this);
         //enemies.add(roachEnemy);
 
-        FireflyEnemy fireflyEnemy = new FireflyEnemy(getMapTile(10, 9).getLocation().subtractY(5), Direction.RIGHT, this);
+        FireflyEnemy fireflyEnemy = new FireflyEnemy(getMapTile(45, 9).getLocation().subtractY(5), Direction.RIGHT, this);
         enemies.add(fireflyEnemy);
 
        // PillbugEnemy pillEnemy = new PillbugEnemy(getMapTile(10, 13).getLocation().subtractY(5), Direction.RIGHT, this);
@@ -58,10 +58,10 @@ public class Basement extends Map {
         JumpPoint testJumpPoint = new JumpPoint(getMapTile(10, 10).getLocation(),"left");
         enhancedMapTiles.add(testJumpPoint);
 
-        DoorKey key = new DoorKey(getMapTile(10, 13).getLocation());
+        DoorKey key = new DoorKey(getMapTile(48, 13).getLocation());
         enhancedMapTiles.add(key);
 
-        RotatingPuzzle puzzle = new RotatingPuzzle(this, getMapTile(7, 13).getLocation());
+        RotatingPuzzle puzzle = new RotatingPuzzle(this, getMapTile(50, 13).getLocation());
         
         enhancedMapTiles.add(puzzle.getP1());
         enhancedMapTiles.add(puzzle.getP2());
