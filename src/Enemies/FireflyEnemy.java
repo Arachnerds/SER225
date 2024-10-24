@@ -2,7 +2,6 @@ package Enemies;
 
 import Builders.FrameBuilder;
 import Enemies.DinosaurEnemy.DinosaurState;
-import Engine.GraphicsHandler;
 import Engine.ImageLoader;
 import GameObject.Frame;
 import GameObject.ImageEffect;
@@ -15,8 +14,6 @@ import Level.Player;
 import Utils.AirGroundState;
 import Utils.Direction;
 import Utils.Point;
-
-import java.awt.Color;
 
 import java.util.HashMap;
 

@@ -1,11 +1,9 @@
 package Players;
 
 import Builders.FrameBuilder;
-import Engine.GraphicsHandler;
 import Engine.ImageLoader;
 import Engine.Keyboard;
 import Engine.Sound;
-import Engine.Sound.SoundEffect;
 import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
@@ -14,7 +12,6 @@ import Projectiles.Web;
 import Utils.Direction;
 import Utils.Point;
 
-import java.awt.Color;
 import java.util.HashMap;
 
 // This is the class for the Spider player character
@@ -83,7 +80,7 @@ public class Spider extends Player {
         if (Keyboard.isKeyDown(SHOOT_KEY) && !keyLocker.isKeyLocked(SHOOT_KEY)) {
             shootWebProjectile();
             hasShotWeb = true;
-            Sound.startSFX(Sound.SoundEffect.WEB);
+            Sound.playSoundEffect(Sound.SoundEffect.WEB);
             keyLocker.lockKey(SHOOT_KEY);
         }
     }

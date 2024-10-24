@@ -53,7 +53,7 @@ public class PlayBedroomLevelScreen extends Screen implements PlayerListener {
                     bedroomLevelClearedScreen.update();
                     screenTimer--;
                     if (screenTimer == 0) {
-                        goToOutsideLevelScreen();
+                        goBackToMenu();
                     }
                 }
                 break;

@@ -42,7 +42,7 @@ public class MenuScreen extends Screen {
 
         background = new TitleScreenMap();
         background.setAdjustCamera(false);
-        Sound.play(Sound.Level.TITLE);
+        Sound.playMusic(Sound.Level.TITLE);
 
         keyPressTimer = 0;
         menuItemSelected = -1;

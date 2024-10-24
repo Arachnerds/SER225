@@ -1765,10 +1765,11 @@ public class CommonTileset extends Tileset {
         // Bulkhead Doorknob
         Frame bulkKnob = new FrameBuilder(getSubImage(3, 15))
                 .withScale(tileScale)
+                .withBounds(5, 5, 12, 12)
                 .build();
 
         MapTileBuilder bulkKnobT = new MapTileBuilder(bulkKnob)
-                .withTileType(TileType.PASSABLE);
+                .withTileType(TileType.JUMP_THROUGH_PLATFORM);
 
         mapTiles.add(bulkKnobT);
 
@@ -2018,7 +2019,7 @@ public class CommonTileset extends Tileset {
                 .build();
 
         MapTileBuilder throwBlanketT = new MapTileBuilder(throwBlanket)
-                .withTileType(TileType.NOT_PASSABLE);
+                .withTileType(TileType.PASSABLE);
 
         mapTiles.add(throwBlanketT);
 
@@ -2591,6 +2592,36 @@ public class CommonTileset extends Tileset {
                 .withTileType(TileType.PASSABLE);
 
         mapTiles.add(doorFrame7T);
+
+        // Blanket
+        Frame shelfBed1 = new FrameBuilder(getSubImage(13, 6))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder shelfBed1T = new MapTileBuilder(shelfBed1)
+                .withTileType(TileType.JUMP_THROUGH_PLATFORM);
+
+        mapTiles.add(shelfBed1T);
+
+        // Blanket
+        Frame shelfBed2 = new FrameBuilder(getSubImage(13, 7))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder shelfBed2T = new MapTileBuilder(shelfBed2)
+                .withTileType(TileType.JUMP_THROUGH_PLATFORM);
+
+        mapTiles.add(shelfBed2T);
+
+        // Blanket
+        Frame shelfBed3 = new FrameBuilder(getSubImage(13, 8))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder shelfBed3T = new MapTileBuilder(shelfBed3)
+                .withTileType(TileType.JUMP_THROUGH_PLATFORM);
+
+        mapTiles.add(shelfBed3T);
 
         return mapTiles;
     }

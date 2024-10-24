@@ -43,7 +43,7 @@ public class DoorKey extends EnhancedMapTile {
         }
 
         if (intersects(player)) {
-            Sound.startSFX(Sound.SoundEffect.KEY);
+            Sound.playSoundEffect(Sound.SoundEffect.KEY);
             player.setHasKey(true);
             this.setMapEntityStatus(MapEntityStatus.REMOVED);
         }

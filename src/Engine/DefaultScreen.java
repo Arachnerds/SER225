@@ -1,7 +1,5 @@
 package Engine;
 
-import Game.GameState;
-
 /*
  * Default Screen that does nothing
  * Its existence is really just to prevent null pointers from occurring if no Screen is set somewhere

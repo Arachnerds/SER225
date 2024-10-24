@@ -2,7 +2,6 @@ package Engine;
 
 import GameObject.Rectangle;
 import GameObject.Sprite;
-import Players.Spider;
 import Screens.PlayBasementLevelScreen;
 import Screens.PlayBedroomLevelScreen;
 import Screens.PlayOutsideLevelScreen;
@@ -13,7 +12,6 @@ import javax.swing.*;
 import Game.ScreenCoordinator;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 public class GamePanel extends JPanel {
     private ScreenManager screenManager;

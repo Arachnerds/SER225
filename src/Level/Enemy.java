@@ -5,9 +5,6 @@ import GameObject.SpriteSheet;
 import Utils.AirGroundState;
 
 import java.util.HashMap;
-import java.util.Timer;
-import java.util.TimerTask;
-//import java.util.StopWatch;
 
 // This class is a base class for all enemies in the game -- all enemies should extend from it
 public abstract class Enemy extends MapEntity {

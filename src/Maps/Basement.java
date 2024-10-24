@@ -2,11 +2,10 @@ package Maps;
 
 import Enemies.FireflyEnemy;
 import Enemies.FlyEnemy;
+import Enemies.RoachEnemy;
 import EnhancedMapTiles.Anchor;
 import EnhancedMapTiles.BasementEndLevelTile;
-import EnhancedMapTiles.DoorKey;
 import EnhancedMapTiles.JumpPoint;
-import EnhancedMapTiles.RotatingPuzzle;
 import Level.Enemy;
 import Level.EnhancedMapTile;
 import Level.Map;
@@ -32,8 +31,8 @@ public class Basement extends Map {
         FlyEnemy flyEnemy = new FlyEnemy(getMapTile(16, 11).getLocation().subtractY(25), Direction.RIGHT, this);
         enemies.add(flyEnemy);
 
-       // RoachEnemy roachEnemy = new RoachEnemy(getMapTile(10, 14).getLocation().subtractY(5), Direction.RIGHT, this);
-        //enemies.add(roachEnemy);
+        RoachEnemy roachEnemy = new RoachEnemy(getMapTile(10, 14).getLocation().subtractY(5), Direction.RIGHT, this);
+        enemies.add(roachEnemy);
 
         FireflyEnemy fireflyEnemy = new FireflyEnemy(getMapTile(45, 9).getLocation().subtractY(5), Direction.RIGHT, this);
         enemies.add(fireflyEnemy);
@@ -57,16 +56,6 @@ public class Basement extends Map {
         //Going to want to switch this back to an anchor, it is a jumppoint now for testing
         JumpPoint testJumpPoint = new JumpPoint(getMapTile(10, 10).getLocation(),"left");
         enhancedMapTiles.add(testJumpPoint);
-
-        DoorKey key = new DoorKey(getMapTile(48, 13).getLocation());
-        enhancedMapTiles.add(key);
-
-        RotatingPuzzle puzzle = new RotatingPuzzle(this, getMapTile(50, 13).getLocation());
-        
-        enhancedMapTiles.add(puzzle.getP1());
-        enhancedMapTiles.add(puzzle.getP2());
-        enhancedMapTiles.add(puzzle.getP3());
-        enhancedMapTiles.add(puzzle.getLockCase());
 
         Anchor testAnchor = new Anchor(getMapTile(20, 9).getLocation());
         enhancedMapTiles.add(testAnchor);

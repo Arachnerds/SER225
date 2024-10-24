@@ -1,7 +1,6 @@
 package Enemies;
 
 import Builders.FrameBuilder;
-import Engine.GraphicsHandler;
 import Engine.ImageLoader;
 import GameObject.Frame;
 import GameObject.ImageEffect;
@@ -15,7 +14,6 @@ import Utils.AirGroundState;
 import Utils.Direction;
 import Utils.Point;
 
-import java.awt.Color;
 import java.util.HashMap;
 
 // This class is for the black bug enemy

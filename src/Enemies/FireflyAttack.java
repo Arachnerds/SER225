@@ -1,10 +1,8 @@
 package Enemies;
 
 import Builders.FrameBuilder;
-import Engine.ImageLoader;
 import GameObject.Frame;
 import GameObject.SpriteSheet;
-import Level.Enemy;
 import Level.MapEntity;
 import Level.MapEntityStatus;
 import Level.Player;

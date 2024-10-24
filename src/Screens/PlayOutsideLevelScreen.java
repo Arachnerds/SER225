@@ -27,8 +27,6 @@ public class PlayOutsideLevelScreen extends Screen implements PlayerListener {
 
     public void initialize() {
         Sound.stopMusic();
-        Sound.stopAmbience();
-        Sound.playAmbience(Sound.Ambience.OUTSIDE);
         this.map = new Outside();
 
         this.player = new Spider(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
