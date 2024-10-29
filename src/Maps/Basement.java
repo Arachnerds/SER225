@@ -2,10 +2,10 @@ package Maps;
 
 import Enemies.FireflyEnemy;
 import Enemies.FlyEnemy;
-import Enemies.RoachEnemy;
 import EnhancedMapTiles.Anchor;
 import EnhancedMapTiles.BasementEndLevelTile;
 import EnhancedMapTiles.JumpPoint;
+import EnhancedMapTiles.PushableBlock;
 import Level.Enemy;
 import Level.EnhancedMapTile;
 import Level.Map;
@@ -31,8 +31,8 @@ public class Basement extends Map {
         FlyEnemy flyEnemy = new FlyEnemy(getMapTile(16, 11).getLocation().subtractY(25), Direction.RIGHT, this);
         enemies.add(flyEnemy);
 
-        RoachEnemy roachEnemy = new RoachEnemy(getMapTile(10, 14).getLocation().subtractY(5), Direction.RIGHT, this);
-        enemies.add(roachEnemy);
+        /* RoachEnemy roachEnemy = new RoachEnemy(getMapTile(10, 14).getLocation().subtractY(5), Direction.RIGHT, this);
+        enemies.add(roachEnemy); */
 
         FireflyEnemy fireflyEnemy = new FireflyEnemy(getMapTile(45, 9).getLocation().subtractY(5), Direction.RIGHT, this);
         enemies.add(fireflyEnemy);
@@ -59,6 +59,10 @@ public class Basement extends Map {
 
         Anchor testAnchor = new Anchor(getMapTile(20, 9).getLocation());
         enhancedMapTiles.add(testAnchor);
+
+        PushableBlock block = new PushableBlock(getMapTile(10, 0).getLocation().addY(10), "AnchorBox.png",16,16);
+        enhancedMapTiles.add(block);
+        enhancedMapTiles.add(block.getExtraHitbox());
 
         return enhancedMapTiles;
     }
