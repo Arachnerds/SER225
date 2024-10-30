@@ -4,6 +4,7 @@ import Builders.FrameBuilder;
 import Engine.GraphicsHandler;
 import Engine.ImageLoader;
 import GameObject.Frame;
+import GameObject.Rectangle;
 import GameObject.SpriteSheet;
 import Level.EnhancedMapTile;
 import Level.MapEntity;
@@ -19,18 +20,20 @@ import java.util.HashMap;
 //This class is an additional hitbox for pushable objects
 //It is simply overlayed on to a pushable object, but its bounds are a little larger and it is passable
 //This allows for collision detection while still having the object be solid (i.e. you can stand on it)
-//
+//We should never have to instantiate this class because it is handled in the PushableBlock class
 public class PushableBlockHitbox extends EnhancedMapTile{
   
     private Player player;
     private PushableBlock block;
     
     
-    public PushableBlockHitbox(Point location, PushableBlock block, String fileName, int spriteWidth, int spriteHeight) {
+    public PushableBlockHitbox(Point location, PushableBlock block, String fileName, int spriteWidth, int spriteHeight, int x, int y, int width, int height) {
       //Needs a little adjustment on y so that it doesn't move when you stand on top of it
       super(location.x, location.y+5, new SpriteSheet(ImageLoader.load(fileName), spriteWidth, spriteHeight), TileType.PASSABLE);
       this.setVisible(false);
       this.block = block;
+      this.setBounds(new Rectangle(x,y,width,height));
+      System.out.println("Success!");
     }
     
     @Override

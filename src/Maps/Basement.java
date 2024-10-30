@@ -60,7 +60,7 @@ public class Basement extends Map {
         Anchor testAnchor = new Anchor(getMapTile(20, 9).getLocation());
         enhancedMapTiles.add(testAnchor);
 
-        PushableBlock block = new PushableBlock(getMapTile(10, 0).getLocation().addY(10), "AnchorBox.png",16,16);
+        PushableBlock block = new PushableBlock(getMapTile(10, 0).getLocation().addY(10), "AnchorBox.png",16,16,4,4,8,8);
         enhancedMapTiles.add(block);
         enhancedMapTiles.add(block.getExtraHitbox());
 

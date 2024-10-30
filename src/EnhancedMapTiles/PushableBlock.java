@@ -6,6 +6,7 @@ import Engine.ImageLoader;
 import Engine.Key;
 import Engine.Keyboard;
 import GameObject.Frame;
+import GameObject.Rectangle;
 import GameObject.SpriteSheet;
 import Level.EnhancedMapTile;
 import Level.MapEntity;
@@ -17,6 +18,14 @@ import Utils.Point;
 import java.awt.Color;
 import java.util.HashMap;
 
+
+//A class for a pushable object
+//Works by essentially making two copies of it and tying them together to always be at the same location
+//One is solid, and its hitbox matches the object exactly so that when you jump on top, you walk on top of it
+//The other is passable and has a hitbox that is slightly larger, that way when it intersects with the player, you can push it
+//There may be an issue in the loadAnimations method - hard coded hitbox bounds - which is currently circumvented
+//using the setBounds method in the constructor. It may be an issue if we need to animate any pushable objects.
+//In that case, perhaps inheriting from this class and overriding that method would be the best course of action.
 public class PushableBlock extends EnhancedMapTile{
   
   private Player player;
@@ -32,18 +41,18 @@ public class PushableBlock extends EnhancedMapTile{
   protected float moveAmountX, moveAmountY;
   protected AirGroundState airGroundState;
   protected AirGroundState previousAirGroundState;
-  
-  //TO DO:
-  //Parameterize the constuctor for fileName, width, scale, etc. so it is more generalized and can be used for different sprites
-  //Clean up comments
-  public PushableBlock(Point location, String fileName, int spriteWidth, int spriteHeight) {
+
+  //Apologies for the very long constructor. The four integers at the end are the ones you would provide in the load animations method to set the hitbox.
+  public PushableBlock(Point location, String fileName, int spriteWidth, int spriteHeight, int withBoundsX, int withBoundsY, int withBoundsWidth, int withBoundsHeight) {
     super(location.x, location.y, new SpriteSheet(ImageLoader.load(fileName), spriteWidth, spriteHeight), TileType.NOT_PASSABLE);
     momentumY = 0;   
     airGroundState = AirGroundState.AIR;
     previousAirGroundState = airGroundState;
-    hitbox = new PushableBlockHitbox(location,this, fileName,spriteWidth,spriteHeight);
+    hitbox = new PushableBlockHitbox(location,this, fileName,spriteWidth,spriteHeight,withBoundsX-1,withBoundsY-1,withBoundsWidth+2,withBoundsHeight+2);
     isBeingPulled = false;
     originalWalkSpeed = 0;
+    System.out.println(this.getWidth());
+    this.setBounds(new Rectangle(withBoundsX, withBoundsY, withBoundsWidth, withBoundsHeight));
   }
   
   @Override
@@ -56,12 +65,10 @@ public class PushableBlock extends EnhancedMapTile{
     applyGravity();
     previousAirGroundState = airGroundState;
     this.moveYHandleCollision(moveAmountY);
-    //The +3 is necessary so that standing on top does not move the object
+    //The +3 is necessary so that standing on top does not push the object
     hitbox.setLocation(this.getX(), this.getY()+3);
     
-    //Probably need to extend the hitbox slightly beyond the bounds to actually get it to intersect
-    //The bounds are solid. So it hits the hitbox rather than just the part I want to be solid
-    //Create a second object over it that is passable with a slightly larger hitbox?
+
     if(this.getXDist(player.getX())<100){
       if(Keyboard.isKeyDown(Key.Y)){
         isBeingPulled = true;
@@ -73,8 +80,7 @@ public class PushableBlock extends EnhancedMapTile{
             else if((player.getX() > this.getX())&&(Keyboard.isKeyDown(Key.RIGHT) || Keyboard.isKeyDown(Key.D))){
               this.moveXHandleCollision(player.getWalkSpeed());
             }
-            
-            //bugging a bit when you drag it all the way to the right - block, spider, crate, then spider glitches through
+          
         }
         
       }
@@ -145,8 +151,8 @@ public class PushableBlock extends EnhancedMapTile{
 
   @Override
   public void onEndCollisionCheckY(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
-        // if player collides with a map tile below it, it is now on the ground
-        // if player does not collide with a map tile below, it is in air
+        // if object collides with a map tile below it, it is now on the ground
+        // if object does not collide with a map tile below, it is in air
         if (direction == Direction.DOWN) {
             if (hasCollided) {
                 momentumY = 0;
@@ -167,8 +173,9 @@ public class PushableBlock extends EnhancedMapTile{
     @Override
     public void draw(GraphicsHandler graphicsHandler) {
       super.draw(graphicsHandler);
+      drawBounds(graphicsHandler, new Color(255, 0, 0, 100));
       if(isBeingPulled){
-        //The jump point's x and y, with a little adjustment so the line goes to the center of it
+        //The center x and y of th epushable object
           int x1 = (int)((this.getCalibratedXLocation() + this.getWidth()/2));
           int y1 = (int)((this.getCalibratedYLocation() + this.getHeight()/2));
   
