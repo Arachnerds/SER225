@@ -97,12 +97,13 @@ public class JumpPoint extends EnhancedMapTile {
                 
 
                 player.setGravity(0f);
+                //Speed can be controlled by divisor here. Originally it was 50. Trying to speed it up a bit
                 if(dx == null){
-                    dx = (this.getX()-player.getX())/50;                                        
+                    dx = (this.getX()-player.getX())/38;                                        
                 }
                 
                 if(dy == null){
-                    dy = (this.getY()-player.getY())/50;
+                    dy = (this.getY()-player.getY())/38;
                 }
                 
                 this.setCurrentAnimationName("Webbed");

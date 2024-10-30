@@ -132,8 +132,9 @@ public class Anchor extends EnhancedMapTile{
           float prevRadX = ((float)(radius*Math.cos(theta)));
           float prevRadY = ((float)(radius*Math.sin(theta)));
           
-          //Theta is in radians. Incrementing it by about a degree each time.
-          theta = (theta - rotationAdjustment*0.02)%(2*Math.PI);
+          //Theta is in radians. Incrementing it by about a degree and a half each time.
+          //Speed can be controlled by how much you increment theta by
+          theta = (theta - rotationAdjustment*0.03)%(2*Math.PI);
           
           //This part is what makes the spider "bounce" back in the other direction when it hits an edge.
           //You treat is as starting a new swing, and all the logic of it is covered by that
