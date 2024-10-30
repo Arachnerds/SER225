@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public class Outside extends Map {
 
-    private static final int[] X_SPAWN_POINTS = {2, 10, 18, 24, 32, 40};
+    private static final int[] X_SPAWN_POINTS = {6,10, 18, 24, 32, 40};
     private static final int[] Y_SPAWN_POINTS = {24, 30, 36, 42};
     private boolean alternateSpawn = false;
 
