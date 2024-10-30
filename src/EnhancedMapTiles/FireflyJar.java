@@ -1,11 +1,13 @@
 package EnhancedMapTiles;
 
 import Builders.FrameBuilder;
+import Enemies.FireflyEnemy;
 import GameObject.Frame;
 import GameObject.SpriteSheet;
 import Level.Player;
 import Level.TileType;
 import Utils.AirGroundState;
+import Utils.Direction;
 import Utils.Point;
 import java.util.HashMap;
 
@@ -25,6 +27,10 @@ public class FireflyJar extends PushableBlock{
         this.tileType = TileType.PASSABLE;
         this.canBeMoved = false;
         //Need to figure out how to spawn a firefly here
+        Point fireflySpawnPoint = new Point(this.getLocation().x, this.getLocation().y-30);
+        FireflyEnemy firefly = new FireflyEnemy(fireflySpawnPoint, Direction.LEFT, map);
+        firefly.setCurrentAnimationName("WALK_UP");
+        map.addEnemy(firefly);
     }
     
   }
