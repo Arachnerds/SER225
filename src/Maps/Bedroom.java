@@ -1,7 +1,5 @@
 package Maps;
 
-import java.util.ArrayList;
-
 import Enemies.FireflyEnemy;
 import EnhancedMapTiles.DoorKey;
 import EnhancedMapTiles.JumpPoint;
@@ -11,6 +9,7 @@ import Level.EnhancedMapTile;
 import Level.Map;
 import Tilesets.CommonTileset;
 import Utils.Direction;
+import java.util.ArrayList;
 
 public class Bedroom extends Map {
 
@@ -49,7 +48,7 @@ public class Bedroom extends Map {
         
         enhancedMapTiles.add(key);
 
-        RotatingPuzzle puzzle = new RotatingPuzzle(this, getMapTile(7, 9).getLocation());
+        RotatingPuzzle puzzle = new RotatingPuzzle(this, getMapTile(7, 11).getLocation());
         
         enhancedMapTiles.add(puzzle.getP1());
         enhancedMapTiles.add(puzzle.getP2());
