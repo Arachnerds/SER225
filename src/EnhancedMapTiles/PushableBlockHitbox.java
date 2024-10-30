@@ -7,11 +7,8 @@ import GameObject.Frame;
 import GameObject.Rectangle;
 import GameObject.SpriteSheet;
 import Level.EnhancedMapTile;
-import Level.MapEntity;
 import Level.Player;
 import Level.TileType;
-import Utils.AirGroundState;
-import Utils.Direction;
 import Utils.Point;
 import java.awt.Color;
 import java.util.HashMap;
@@ -23,7 +20,7 @@ import java.util.HashMap;
 //We should never have to instantiate this class because it is handled in the PushableBlock class
 public class PushableBlockHitbox extends EnhancedMapTile{
   
-    private Player player;
+    protected Player player;
     private PushableBlock block;
     
     
@@ -33,7 +30,6 @@ public class PushableBlockHitbox extends EnhancedMapTile{
       this.setVisible(false);
       this.block = block;
       this.setBounds(new Rectangle(x,y,width,height));
-      System.out.println("Success!");
     }
     
     @Override
@@ -45,18 +41,19 @@ public class PushableBlockHitbox extends EnhancedMapTile{
       //Probably need to extend the hitbox slightly beyond the bounds to actually get it to instersect
       //The bounds are solid. So it hits the hitbox rather than just the part I want to be solid
       //Create a second object over it that is passable with a slightly larger hitbox?
-      if(intersects(player)){
-        System.out.println("They're intersecting!");
-        //This is a rate to move a pushed object at
-        int dx = 1;
-        if(player.getX() < this.getX()){
-          block.moveXHandleCollision(dx);
-        }
-        else{
-          block.moveXHandleCollision(-dx);
-        }
+      if(block.canBeMoved){
 
-        //Logic to push the ORIGINAL box here
+        if(intersects(player)){
+          System.out.println("They're intersecting!");
+          //This is a rate to move a pushed object at
+          int dx = 1;
+          if(player.getX() < this.getX()){
+            block.moveXHandleCollision(dx);
+          }
+          else{
+            block.moveXHandleCollision(-dx);
+          }
+      }
       }
     }
   
@@ -76,15 +73,7 @@ public class PushableBlockHitbox extends EnhancedMapTile{
           .withBounds(3,3,10,10)
           .build(),
         });
-        
-        put("Webbed", new Frame[] {
-          new FrameBuilder(spriteSheet.getSprite(0, 2), 0)
-          .withScale(3)
-          .withBounds(3,3,10,10)
-          .build(),
-        });
-        
-        
+  
       }};
     }
     

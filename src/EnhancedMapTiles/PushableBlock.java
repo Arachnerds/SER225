@@ -24,14 +24,16 @@ import java.util.HashMap;
 //One is solid, and its hitbox matches the object exactly so that when you jump on top, you walk on top of it
 //The other is passable and has a hitbox that is slightly larger, that way when it intersects with the player, you can push it
 //There may be an issue in the loadAnimations method - hard coded hitbox bounds - which is currently circumvented
-//using the setBounds method in the constructor. It may be an issue if we need to animate any pushable objects.
+//using the setBounds method in the constructor. It may be an issue if we need to animate any pushable objects,
+//but it should work nicely for objects that don't need more than one animation.
 //In that case, perhaps inheriting from this class and overriding that method would be the best course of action.
 public class PushableBlock extends EnhancedMapTile{
   
   private Player player;
-  private PushableBlockHitbox hitbox;
-  private boolean isBeingPulled;
-  private float originalWalkSpeed;
+  protected PushableBlockHitbox hitbox;
+  protected boolean isBeingPulled;
+  protected float originalWalkSpeed;
+  protected boolean canBeMoved;
 
   //Gravity related variables ripped from player class
   protected float gravity = .5f;
@@ -53,6 +55,7 @@ public class PushableBlock extends EnhancedMapTile{
     originalWalkSpeed = 0;
     System.out.println(this.getWidth());
     this.setBounds(new Rectangle(withBoundsX, withBoundsY, withBoundsWidth, withBoundsHeight));
+    canBeMoved = true;
   }
   
   @Override
@@ -68,26 +71,28 @@ public class PushableBlock extends EnhancedMapTile{
     //The +3 is necessary so that standing on top does not push the object
     hitbox.setLocation(this.getX(), this.getY()+3);
     
-
-    if(this.getXDist(player.getX())<100){
-      if(Keyboard.isKeyDown(Key.Y)){
-        isBeingPulled = true;
-        player.setWalkSpeed(originalWalkSpeed/2);
-        if(player.isWalking()){
-            if(player.getX() < this.getX() && (Keyboard.isKeyDown(Key.LEFT) || Keyboard.isKeyDown(Key.A))){
-              this.moveXHandleCollision(-player.getWalkSpeed());
-            }
-            else if((player.getX() > this.getX())&&(Keyboard.isKeyDown(Key.RIGHT) || Keyboard.isKeyDown(Key.D))){
-              this.moveXHandleCollision(player.getWalkSpeed());
-            }
+    if(canBeMoved){
+      if(this.getXDist(player.getX())<100){
+        if(Keyboard.isKeyDown(Key.Y)){
+          isBeingPulled = true;
+          player.setWalkSpeed(originalWalkSpeed/2);
+          if(player.isWalking()){
+              if(player.getX() < this.getX() && (Keyboard.isKeyDown(Key.LEFT) || Keyboard.isKeyDown(Key.A))){
+                this.moveXHandleCollision(-player.getWalkSpeed());
+              }
+              else if((player.getX() > this.getX())&&(Keyboard.isKeyDown(Key.RIGHT) || Keyboard.isKeyDown(Key.D))){
+                this.moveXHandleCollision(player.getWalkSpeed());
+              }
+            
+          }
           
         }
-        
-      }
-      else{
-        isBeingPulled = false;
-        player.setWalkSpeed(originalWalkSpeed);
-      }
+        else{
+          isBeingPulled = false;
+          player.setWalkSpeed(originalWalkSpeed);
+        }
+    }
+    
     }
     else{
       isBeingPulled = false;
@@ -104,22 +109,6 @@ public class PushableBlock extends EnhancedMapTile{
         .withBounds(4,4,8,8)
         .build(),
       });
-      
-      put("inRange", new Frame[] {
-        new FrameBuilder(spriteSheet.getSprite(0, 1), 40)
-        .withScale(3)
-        .withBounds(4,4,8,8)
-        .build(),
-      });
-      
-      put("Webbed", new Frame[] {
-        new FrameBuilder(spriteSheet.getSprite(0, 2), 0)
-        .withScale(3)
-        .withBounds(4,4,8,8)
-        .build(),
-      });
-      
-      
     }};
   }
   
@@ -195,4 +184,7 @@ public class PushableBlock extends EnhancedMapTile{
           
       }
 
+    public void stopGravity(){
+      this.gravity = 0f;
+    }
 }
