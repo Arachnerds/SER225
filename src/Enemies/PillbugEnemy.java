@@ -33,7 +33,7 @@ public class PillbugEnemy extends Enemy {
     private int standwait;
 
     public PillbugEnemy(Point location, Direction facingDirection, Map map) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("PillBugSpriteSheetDraft1.png"), 128, 87), "ROLL_LEFT", 2);
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("PillBugSpriteSheetDraft1.png"), 128, 87), "ROLL_LEFT", 1);
         this.setScale(.75f);
         this.setBounds(currentFrame);
         this.startFacingDirection = facingDirection;

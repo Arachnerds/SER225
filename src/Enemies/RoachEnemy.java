@@ -31,7 +31,7 @@ public class RoachEnemy extends Enemy {
     private Map map;
 
     public RoachEnemy(Point location, Direction facingDirection, Map map) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("RoachSpriteSheetDraft1.png"), 128, 46), "WALK_LEFT", 2);
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("RoachSpriteSheetDraft1.png"), 128, 46), "WALK_LEFT", 1);
         this.setScale(.75f);
         this.setBounds(currentFrame);
         this.startFacingDirection = facingDirection;

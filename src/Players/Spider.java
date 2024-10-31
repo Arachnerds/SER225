@@ -19,7 +19,7 @@ import java.util.HashMap;
 public class Spider extends Player {
         // Instance variables to determine cooldown of projectile shooting for spider
         private int shootCooldownFrames;
-        private final int MAX_COOLDOWN = 70;
+        private final int MAX_COOLDOWN = 80;
         private boolean hasShotWeb = false;
 
         
@@ -54,9 +54,9 @@ public class Spider extends Player {
 
         Web web;
         if (facingDirection.equals(Direction.RIGHT)) {
-            web = new Web(new Point(webX, webY), webVelocity, 0, 60, 120, "WebRight.png", 7, 9);
+            web = new Web(new Point(webX, webY), webVelocity, 0, 60, 200, "WebRight.png", 7, 9);
         } else {
-            web = new Web(new Point(webX, webY), webVelocity, 0, 60, 120, "WebLeft.png", 7, 9);
+            web = new Web(new Point(webX, webY), webVelocity, 0, 60, 200, "WebLeft.png", 7, 9);
         }
 
         // add fireball enemy to the map for it to spawn in the level
