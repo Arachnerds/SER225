@@ -82,73 +82,74 @@ public class RotatingPuzzlePiece extends EnhancedMapTile {
     }
 
     //Numbered animation names reflect rotation in degrees
+    //.withBounds(1, 1, 14, 14)
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
         return new HashMap<String, Frame[]>() {{
             put("DEFAULT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0), 0)
                         .withScale(3)
-                        .withBounds(1, 1, 14, 14)
+                        .withBounds(1, -15, 14, 35)
                         .build(),
             });
             put("45", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0), 0)
                         .withScale(3)
                         .withImageEffect(ImageEffect.ROTATE_45_CLOCKWISE)
-                        .withBounds(1, 1, 14, 14)
+                        .withBounds(1, -15, 14, 35)
                         .build(),
             });
             put("90", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0), 0)
                         .withScale(3)
                         .withImageEffect(ImageEffect.ROTATE_90_CLOCKWISE)
-                        .withBounds(1, 1, 14, 14)
+                        .withBounds(1, -15, 14, 35)
                         .build(),
             });
             put("135", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0), 0)
                         .withScale(3)
                         .withImageEffect(ImageEffect.ROTATE_135_CLOCKWISE)
-                        .withBounds(1, 1, 14, 14)
+                        .withBounds(1, -15, 14, 35)
                         .build(),
             });
             put("180", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0), 0)
                         .withScale(3)
                         .withImageEffect(ImageEffect.ROTATE_180_CLOCKWISE)
-                        .withBounds(1, 1, 14, 14)
+                        .withBounds(1, -15, 14, 35)
                         .build(),
             });
             put("225", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0), 0)
                         .withScale(3)
                         .withImageEffect(ImageEffect.ROTATE_225_CLOCKWISE)
-                        .withBounds(1, 1, 14, 14)
+                        .withBounds(1, -15, 14, 35)
                         .build(),
             });
             put("270", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0), 0)
                         .withScale(3)
                         .withImageEffect(ImageEffect.ROTATE_270_CLOCKWISE)
-                        .withBounds(1, 1, 14, 14)
+                        .withBounds(1, -15, 14, 35)
                         .build(),
             });
             put("315", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0), 0)
                         .withScale(3)
                         .withImageEffect(ImageEffect.ROTATE_315_CLOCKWISE)
-                        .withBounds(1, 1, 14, 14)
+                        .withBounds(1, -15, 14, 35)
                         .build(),
             });
         }};
     }
 
     //A testing method that displays the hitbox
-    /*@Override
+    /* @Override
     public void draw(GraphicsHandler graphicsHandler) {
         super.draw(graphicsHandler);
         drawBounds(graphicsHandler, new Color(255, 0, 0, 100));
-    }*/
+    } */
     
 }
 

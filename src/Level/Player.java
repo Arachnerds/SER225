@@ -1,6 +1,7 @@
 package Level;
 
 import Enemies.FireflyAttack;
+import Engine.GraphicsHandler;
 import Engine.Key;
 import Engine.KeyLocker;
 import Engine.Keyboard;
@@ -9,6 +10,7 @@ import GameObject.SpriteSheet;
 import Projectiles.Raindrop;
 import Utils.AirGroundState;
 import Utils.Direction;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -487,10 +489,23 @@ public abstract class Player extends GameObject {
     }
 
     // Uncomment this to have game draw player's bounds to make it easier to visualize
-    /*
+    
     public void draw(GraphicsHandler graphicsHandler) {
         super.draw(graphicsHandler);
         drawBounds(graphicsHandler, new Color(255, 0, 0, 100));
     }
-    */
+
+    public boolean isWalking(){
+        return playerState == PlayerState.WALKING;
+    }
+
+    public float getWalkSpeed(){
+        return walkSpeed;
+    }
+
+    public void setWalkSpeed(float speed){
+        walkSpeed = speed;
+    }
+
+   
 }

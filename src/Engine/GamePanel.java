@@ -48,8 +48,8 @@ public class GamePanel extends JPanel {
     private boolean isQuitConfirmationVisible = false;
     private boolean isControlsVisible = false;
 
-    private int cooldownBarWidth = 140;
-    private int cooldownBarWidthMax = 140;
+    private int cooldownBarWidth = 160;
+    private int cooldownBarWidthMax = 160;
     private int cooldownBarHeight = 13;
     private int cooldownBarXPosition = 20;
     private int cooldownBarYPosition = this.getHeight() - 100;
