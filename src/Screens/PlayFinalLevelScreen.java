@@ -8,7 +8,6 @@ import Game.ScreenCoordinator;
 import Level.Map;
 import Level.Player;
 import Level.PlayerListener;
-import Maps.Bedroom;
 import Maps.Final;
 import Players.Spider;
 
