@@ -10,6 +10,7 @@ import Screens.MenuScreen;
 import Screens.PlayBasementLevelScreen;
 import Screens.PlayOutsideLevelScreen;
 import Screens.PlayBedroomLevelScreen;
+import Screens.PlayFinalLevelScreen;
 
 /*
  * Based on the current game state, this class determines which Screen should be shown
@@ -65,6 +66,9 @@ public class ScreenCoordinator extends Screen {
 						break;
 					case ARACHNERDS:
 						currentScreen = new ArachnerdsProject(this);
+						break;
+					case FINAL:
+						currentScreen = new PlayFinalLevelScreen(this);
 						break;
 					default:
 						break;

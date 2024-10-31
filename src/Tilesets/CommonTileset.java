@@ -2596,6 +2596,7 @@ public class CommonTileset extends Tileset {
         // Blanket
         Frame shelfBed1 = new FrameBuilder(getSubImage(13, 6))
                 .withScale(tileScale)
+                .withBounds(0, 8, 16, 11)
                 .build();
 
         MapTileBuilder shelfBed1T = new MapTileBuilder(shelfBed1)
@@ -2606,6 +2607,7 @@ public class CommonTileset extends Tileset {
         // Blanket
         Frame shelfBed2 = new FrameBuilder(getSubImage(13, 7))
                 .withScale(tileScale)
+                .withBounds(0, 8, 16, 11)
                 .build();
 
         MapTileBuilder shelfBed2T = new MapTileBuilder(shelfBed2)
@@ -2616,6 +2618,7 @@ public class CommonTileset extends Tileset {
         // Blanket
         Frame shelfBed3 = new FrameBuilder(getSubImage(13, 8))
                 .withScale(tileScale)
+                .withBounds(0, 8, 16, 11)
                 .build();
 
         MapTileBuilder shelfBed3T = new MapTileBuilder(shelfBed3)

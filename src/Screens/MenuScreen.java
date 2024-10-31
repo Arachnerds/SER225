@@ -123,7 +123,7 @@ public class MenuScreen extends Screen {
             if (menuItemSelected == 0) {
                 screenCoordinator.setGameState(GameState.BASEMENT_LEVEL);
             } else if (menuItemSelected == 1) {
-                screenCoordinator.setGameState(GameState.CREDITS);
+                screenCoordinator.setGameState(GameState.FINAL);
             }
         }
     }
