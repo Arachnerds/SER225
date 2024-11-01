@@ -29,11 +29,13 @@ import java.util.HashMap;
 //In that case, perhaps inheriting from this class and overriding that method would be the best course of action.
 public class PushableBlock extends EnhancedMapTile{
   
-  private Player player;
+  protected Player player;
   protected PushableBlockHitbox hitbox;
   protected boolean isBeingPulled;
   protected float originalWalkSpeed;
   protected boolean canBeMoved; //Useful for situations like the firefly jar, where we want it to stop moving at some point
+  protected int dragRange;
+  protected int webAttachmentAdjustmentX;
 
   //Gravity related variables ripped from player class
   protected float gravity = .5f;
@@ -56,6 +58,8 @@ public class PushableBlock extends EnhancedMapTile{
     System.out.println(this.getWidth());
     this.setBounds(new Rectangle(withBoundsX, withBoundsY, withBoundsWidth, withBoundsHeight));
     canBeMoved = true;
+    dragRange = 100;
+    webAttachmentAdjustmentX = 0;
   }
   
   @Override
@@ -72,7 +76,7 @@ public class PushableBlock extends EnhancedMapTile{
     hitbox.setLocation(this.getX(), this.getY()+3);
     
     if(canBeMoved){
-      if(this.getXDist(player.getX())<100){
+      if(this.getXDist(player.getX())<dragRange){
         if(Keyboard.isKeyDown(Key.Y)){
           isBeingPulled = true;
           player.setWalkSpeed(originalWalkSpeed/2);
@@ -156,30 +160,30 @@ public class PushableBlock extends EnhancedMapTile{
   }
 
   // Overriding the hitbox draw method to just draw a line instead
-    @Override
-    public void draw(GraphicsHandler graphicsHandler) {
-      super.draw(graphicsHandler);
-      drawBounds(graphicsHandler, new Color(255, 0, 0, 100));
-      if(isBeingPulled){
-        //The center x and y of th epushable object
-          int x1 = (int)((this.getCalibratedXLocation() + this.getWidth()/2));
-          int y1 = (int)((this.getCalibratedYLocation() + this.getHeight()/2));
-  
-        //Need to an adjustment if the player is facing left so the web isn't coming out of the mouth
-        int facingDirectionAdjustment = 0;
-        if(player.getFacingDirection() == Direction.LEFT){
-          facingDirectionAdjustment = (int)(player.getX2() - player.getX1());
-        }
-        //The player x and y
-        int x2 = (int)player.getCalibratedXLocation() + facingDirectionAdjustment;                     
-        //That 60 is an adjustment so the web doesn't come from the top corner of the hitbox. Hardcoding is not ideal but fine for now (until we add the walrus)
-          int y2 = (int)player.getCalibratedYLocation() + 60;
-              
-          graphicsHandler.drawLine(x1,y1,x2,y2,new Color(255, 255, 255, 100));
-              
-          }
-          
+  @Override
+  public void draw(GraphicsHandler graphicsHandler) {
+    super.draw(graphicsHandler);
+    drawBounds(graphicsHandler, new Color(255, 0, 0, 100));
+    if(isBeingPulled){
+      //The center x and y of th epushable object
+        int x1 = (int)((this.getCalibratedXLocation() + this.getWidth()/2 + webAttachmentAdjustmentX));
+        int y1 = (int)((this.getCalibratedYLocation() + this.getHeight()/2));
+
+      //Need to an adjustment if the player is facing left so the web isn't coming out of the mouth
+      int facingDirectionAdjustment = 0;
+      if(player.getFacingDirection() == Direction.LEFT){
+        facingDirectionAdjustment = (int)(player.getX2() - player.getX1());
       }
+      //The player x and y
+      int x2 = (int)player.getCalibratedXLocation() + facingDirectionAdjustment;                     
+      //That 60 is an adjustment so the web doesn't come from the top corner of the hitbox. Hardcoding is not ideal but fine for now (until we add the walrus)
+        int y2 = (int)player.getCalibratedYLocation() + 60;
+            
+        graphicsHandler.drawLine(x1,y1,x2,y2,new Color(255, 255, 255, 100));
+            
+        }
+        
+    }
 
     public void stopGravity(){
       this.gravity = 0f;
