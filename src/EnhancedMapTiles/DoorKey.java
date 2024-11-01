@@ -60,4 +60,12 @@ public class DoorKey extends EnhancedMapTile {
             });
         }};
     }
+
+    public void setLocationMax(float y){
+        locationMax = y + 3;
+    }
+
+    public void setLocationMin(float y){
+        locationMin = y - 3;
+    }
 }

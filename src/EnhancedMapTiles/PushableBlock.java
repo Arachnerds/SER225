@@ -33,7 +33,7 @@ public class PushableBlock extends EnhancedMapTile{
   protected PushableBlockHitbox hitbox;
   protected boolean isBeingPulled;
   protected float originalWalkSpeed;
-  protected boolean canBeMoved;
+  protected boolean canBeMoved; //Useful for situations like the firefly jar, where we want it to stop moving at some point
 
   //Gravity related variables ripped from player class
   protected float gravity = .5f;
@@ -48,7 +48,7 @@ public class PushableBlock extends EnhancedMapTile{
   public PushableBlock(Point location, String fileName, int spriteWidth, int spriteHeight, int withBoundsX, int withBoundsY, int withBoundsWidth, int withBoundsHeight) {
     super(location.x, location.y, new SpriteSheet(ImageLoader.load(fileName), spriteWidth, spriteHeight), TileType.NOT_PASSABLE);
     momentumY = 0;   
-    airGroundState = AirGroundState.AIR;
+    airGroundState = AirGroundState.GROUND;
     previousAirGroundState = airGroundState;
     hitbox = new PushableBlockHitbox(location,this, fileName,spriteWidth,spriteHeight,withBoundsX-1,withBoundsY-1,withBoundsWidth+2,withBoundsHeight+2);
     isBeingPulled = false;

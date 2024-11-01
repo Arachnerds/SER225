@@ -4,7 +4,6 @@ import Enemies.FireflyEnemy;
 import Enemies.FlyEnemy;
 import EnhancedMapTiles.Anchor;
 import EnhancedMapTiles.BasementEndLevelTile;
-import EnhancedMapTiles.FireflyJar;
 import EnhancedMapTiles.JumpPoint;
 import Level.Enemy;
 import Level.EnhancedMapTile;
@@ -64,9 +63,7 @@ public class Basement extends Map {
         enhancedMapTiles.add(block);
         enhancedMapTiles.add(block.getExtraHitbox()); */
 
-        FireflyJar jar = new FireflyJar(getMapTile(10, 0).getLocation().addY(10));
-        enhancedMapTiles.add(jar);
-        enhancedMapTiles.add(jar.getExtraHitbox());
+        
 
         return enhancedMapTiles;
     }

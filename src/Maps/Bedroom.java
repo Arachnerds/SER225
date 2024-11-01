@@ -1,7 +1,7 @@
 package Maps;
 
 import Enemies.FireflyEnemy;
-import EnhancedMapTiles.DoorKey;
+import EnhancedMapTiles.FireflyJar;
 import EnhancedMapTiles.JumpPoint;
 import EnhancedMapTiles.RotatingPuzzle;
 import Level.Enemy;
@@ -44,9 +44,15 @@ public class Bedroom extends Map {
         // Using the custom hitbox constructor
         JumpPoint customJumpPoint = new JumpPoint(getMapTile(7, 7).getLocation(), customHitboxX, customHitboxY, customHitboxWidth, customHitboxHeight);
 
-        DoorKey key = new DoorKey(getMapTile(41, 4).getLocation());
+        /* DoorKey key = new DoorKey(getMapTile(41, 4).getLocation());
         
-        enhancedMapTiles.add(key);
+        enhancedMapTiles.add(key); */
+
+        //41, 2 addY 24 gets it right on the shelf
+        FireflyJar jar = new FireflyJar(getMapTile(41, 2).getLocation().addY(24));
+        enhancedMapTiles.add(jar);
+        enhancedMapTiles.add(jar.getExtraHitbox());
+        enhancedMapTiles.add(jar.getDoorKey());
 
         RotatingPuzzle puzzle = new RotatingPuzzle(this, getMapTile(7, 11).getLocation());
         
