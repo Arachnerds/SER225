@@ -119,9 +119,6 @@ public class PushableBlock extends EnhancedMapTile{
   protected void applyGravity() {
     if(airGroundState == AirGroundState.AIR){
       moveAmountY += gravity + momentumY;
-      if (moveAmountY > 0) {
-      increaseMomentum();
-      }
     }
     else{
       momentumY = 0;
