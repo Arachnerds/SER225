@@ -11,7 +11,6 @@ import Level.Player;
 import Projectiles.Web;
 import Utils.Direction;
 import Utils.Point;
-
 import java.util.HashMap;
 
 // This is the class for the Spider player character
@@ -204,7 +203,7 @@ public class Spider extends Player {
             put("CROUCH_RIGHT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(2, 0))
                             .withScale(.75f)
-                            .withBounds(0,10, 128, 90)
+                            .withBounds(0,21, 128, 88)
                             .build()
             });
 
@@ -212,7 +211,7 @@ public class Spider extends Player {
                     new FrameBuilder(spriteSheet.getSprite(2, 0))
                             .withScale(.75f)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(0, 10, 128, 90)
+                            .withBounds(0, 21, 128, 88)
                             .build()
             });
 
