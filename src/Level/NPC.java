@@ -7,6 +7,10 @@ import GameObject.Frame;
 import GameObject.SpriteSheet;
 import SpriteFont.SpriteFont;
 
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 // This class is a base class for all npcs in the game -- all npcs should extend from it
@@ -14,18 +18,30 @@ public class NPC extends MapEntity {
     protected boolean isInteractable = false;
     protected boolean talkedTo = false;
     protected SpriteFont message;
-    protected int talkedToTime; // how long after talking to NPC will textbox stay open -- use negative number to have it be infinite time
+    protected int talkedToTime;
     protected int timer;
-    protected Textbox textbox = new Textbox("");
+    protected Textbox textbox;
     protected int textboxOffsetX = 0;
     protected int textboxOffsetY = 0;
 
+    protected ArrayList<String> messages;
+    protected ArrayList<Integer> offsetX;
+    protected int currentMessageIndex = 0;
+    protected boolean keyLocked = false;
+
+    public NPC(float x, float y, SpriteSheet spriteSheet, String startingAnimation, ArrayList<String> messages) {
+        super(x, y, spriteSheet, startingAnimation);
+        this.messages = messages;
+        this.textbox = new Textbox(messages.get(currentMessageIndex));
+        this.message = createMessage();
+    }
+    
     public NPC(float x, float y, SpriteSheet spriteSheet, String startingAnimation) {
         super(x, y, spriteSheet, startingAnimation);
         this.message = createMessage();
     }
 
-    public NPC(float x, float y, HashMap<String, Frame[]> animations, String startingAnimation) {
+    /*public NPC(float x, float y, HashMap<String, Frame[]> animations, String startingAnimation) {
         super(x, y, animations, startingAnimation);
         this.message = createMessage();
     }
@@ -43,7 +59,7 @@ public class NPC extends MapEntity {
     public NPC(float x, float y) {
         super(x, y);
         this.message = createMessage();
-    }
+    }*/
 
     protected SpriteFont createMessage() {
         return null;
@@ -52,15 +68,18 @@ public class NPC extends MapEntity {
     public void update(Player player) {
         super.update();
         checkTalkedTo(player);
-        textbox.setLocation((int)getCalibratedXLocation() + textboxOffsetX, (int)getCalibratedYLocation() + textboxOffsetY);
+        textbox.setLocation((int) getCalibratedXLocation() + textboxOffsetX, (int) getCalibratedYLocation() + textboxOffsetY);
     }
+    
 
-    public void checkTalkedTo(Player player) {
-        if (isInteractable && intersects(player) && Keyboard.isKeyDown(Key.SPACE)) {
+    /*public void checkTalkedTo(Player player) {
+        if (isInteractable && intersects(player) && Keyboard.isKeyDown(Key.T)) {
             talkedTo = true;
             if (talkedToTime >= 0) {
                 timer = talkedToTime;
             }
+            currentMessageIndex = (currentMessageIndex + 1) % messages.size(); // Cycle through messages
+            textbox.setText(messages.get(currentMessageIndex)); // Update the textbox text
         }
 
         if (talkedTo && talkedToTime >= 0 && timer == 0) {
@@ -69,6 +88,30 @@ public class NPC extends MapEntity {
 
         if (timer > 0) {
             timer--;
+        }
+    }*/
+
+    public void checkTalkedTo(Player player) {
+        if (isInteractable && intersects(player)) {
+            if (Keyboard.isKeyDown(Key.T) && !keyLocked) {
+                if (!talkedTo) {
+                    talkedTo = true;
+                    currentMessageIndex = 0;
+                    textbox.setText(messages.get(currentMessageIndex));
+                } else {
+                    currentMessageIndex++;
+                    if (currentMessageIndex < messages.size()) {
+                        textbox.setText(messages.get(currentMessageIndex));
+                    } else {
+                        talkedTo = false;
+                        currentMessageIndex = 0;
+                        textbox.setText("");
+                    }
+                }
+                keyLocked = true;
+            } else if (Keyboard.isKeyUp(Key.T)) {
+                keyLocked = false;
+            }
         }
     }
 
