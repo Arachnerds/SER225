@@ -2,6 +2,7 @@ package Maps;
 
 import Enemies.FireflyEnemy;
 import Enemies.FlyEnemy;
+import Enemies.GrasshopperEnemy;
 import EnhancedMapTiles.Anchor;
 import EnhancedMapTiles.BasementEndLevelTile;
 import EnhancedMapTiles.JumpPoint;
@@ -35,6 +36,9 @@ public class Basement extends Map {
 
         /* RoachEnemy roachEnemy = new RoachEnemy(getMapTile(10, 14).getLocation().subtractY(5), Direction.RIGHT, this);
         enemies.add(roachEnemy); */
+
+        GrasshopperEnemy gEnemy = new GrasshopperEnemy(getMapTile(10, 9).getLocation().subtractY(5), Direction.RIGHT, this);
+        enemies.add(gEnemy);
 
         FireflyEnemy fireflyEnemy = new FireflyEnemy(getMapTile(45, 9).getLocation().subtractY(5), Direction.RIGHT, this);
         enemies.add(fireflyEnemy);

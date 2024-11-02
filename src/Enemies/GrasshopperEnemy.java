@@ -26,7 +26,7 @@ import java.util.HashMap;
 public class GrasshopperEnemy extends Enemy {
 
     private float gravity = 1f;
-    protected float movementSpeed = 1f;
+    protected float movementSpeed = 2f;
     private float originalMovementSpeed = movementSpeed;
     private Direction startFacingDirection;
     protected Direction facingDirection;
@@ -48,7 +48,7 @@ public class GrasshopperEnemy extends Enemy {
     private boolean goodToLand;
 
     public GrasshopperEnemy(Point startLocation, Direction facingDirection, Map map) {
-        super(startLocation.x, startLocation.y, new SpriteSheet(ImageLoader.load("grasshopper_single_draft1.png"), 224, 130), "STAND_LEFT", 1);
+        super(startLocation.x, startLocation.y, new SpriteSheet(ImageLoader.load("GrasshopperSpritesheetDraft1.png"), 211, 210), "STAND_LEFT", 1);
         this.startPoint = startLocation;
         this.startFacingDirection = facingDirection;
         startPoint = startLocation;
@@ -135,23 +135,23 @@ public class GrasshopperEnemy extends Enemy {
 
                 if (this.getLocation().x >= (startPoint.x + 5*map.getMapTile(1, 1).getX())){ //determine direction
                     facingDirection = Direction.LEFT;
-                    currentAnimationName = "STAND_LEFT";
                 } else if(this.getLocation().x<=(startPoint.x - 5*map.getMapTile(1, 1).getX())){
                     facingDirection = Direction.RIGHT;
-                    currentAnimationName = "STAND_RIGHT";
                 }
 
                 double aiming = (double)(Math.random() * 600);//randomize jump length
                 System.out.println("aiming = "+ aiming);
                 if(this.facingDirection == Direction.LEFT){ //aim jump
                     aim = this.x - aiming;
+                    currentAnimationName = "JUMP_LEFT";
                 } else{
                     aim = this.x + aiming;
+                    currentAnimationName = "JUMP_RIGHT";
                 }
                 jumpStartPos = this.x;
                 goodToLand = false;
 
-                System.out.println(aim +" - " + jumpStartPos);
+                //System.out.println(aim +" - " + jumpStartPos);
             }
 
             //System.out.println(aim +" - " + this.x);
@@ -160,9 +160,9 @@ public class GrasshopperEnemy extends Enemy {
                 System.out.println("heading right?");
                 if ((this.x - jumpStartPos) < ((aim-jumpStartPos)/2)) { //jumping up
                     moveAmountY -= 2* movementSpeed;
-                    System.out.print((this.x - jumpStartPos) +" <? " +(aim-jumpStartPos)/2 );
+                    //System.out.print((this.x - jumpStartPos) +" <? " +(aim-jumpStartPos)/2 );
                 } else{
-                    System.out.print(" head down!");
+                    //System.out.print(" head down!");
                     moveAmountY += movementSpeed;
                     goodToLand = true;
                 }
@@ -229,12 +229,22 @@ public class GrasshopperEnemy extends Enemy {
         // if bug has collided into something while walking forward,
         // it turns around (changes facing direction)
         if (hasCollided) {
-            if (direction == Direction.RIGHT) {
-                facingDirection = Direction.LEFT;
-                currentAnimationName = "STAND_LEFT";
-            } else {
-                facingDirection = Direction.RIGHT;
-                currentAnimationName = "STAND_RIGHT";
+            if(dinosaurState == DinosaurState.SHOOT){
+                if (direction == Direction.RIGHT) {
+                    facingDirection = Direction.LEFT;
+                    currentAnimationName = "JUMP_LEFT";
+                } else {
+                    facingDirection = Direction.RIGHT;
+                    currentAnimationName = "JUMP_RIGHT";
+                }
+            } else{
+                if (direction == Direction.RIGHT) {
+                    facingDirection = Direction.LEFT;
+                    currentAnimationName = "STAND_LEFT";
+                } else {
+                    facingDirection = Direction.RIGHT;
+                    currentAnimationName = "STAND_RIGHT";
+                }
             }
         }
     }
@@ -272,7 +282,7 @@ public class GrasshopperEnemy extends Enemy {
             put("STAND_LEFT", new Frame[]{
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 14)
                             .withScale(.75f)
-                            .withBounds(1, 1, 202, 116)
+                            .withBounds(27, 31, 176, 86)
                             .build(),
                     /**new FrameBuilder(spriteSheet.getSprite(0, 1), 14)
                             .withScale(3)
@@ -284,7 +294,7 @@ public class GrasshopperEnemy extends Enemy {
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 14)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withScale(.75f)
-                            .withBounds(1, 1, 202, 116)
+                            .withBounds(27, 31, 176, 86)
                             .build(),
                             /** 
                     new FrameBuilder(spriteSheet.getSprite(0, 1), 14)
@@ -296,24 +306,33 @@ public class GrasshopperEnemy extends Enemy {
 
             
             put("JUMP_LEFT", new Frame[]{
-                    new FrameBuilder(spriteSheet.getSprite(0, 0), 14)
+                new FrameBuilder(spriteSheet.getSprite(1, 0), 14)
+                            .withScale(.75f)
+                            .withBounds(27, 31, 176, 86)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(1, 0), 20)
                         .withScale(.75f)
-                        .withBounds(1, 1, 202, 116)
+                        .withBounds(28, 16, 170, 170)
                         .build()
             });
 
             put("JUMP_RIGHT", new Frame[]{
-                new FrameBuilder(spriteSheet.getSprite(0, 0), 14)
+                new FrameBuilder(spriteSheet.getSprite(1, 0), 14)
                             .withScale(.75f)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(1, 1, 202, 116)
+                            .withBounds(27, 31, 176, 86)
+                            .build(),
+                new FrameBuilder(spriteSheet.getSprite(1, 0), 14)
+                            .withScale(.75f)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(28, 16, 170, 170)
                             .build(),
             });
 
             put("WEB_LEFT", new Frame[] {
-                new FrameBuilder(spriteSheet.getSprite(0, 0), 14)
+                new FrameBuilder(spriteSheet.getSprite(2, 0), 14)
                         .withScale(.75f) 
-                        .withBounds(1, 1, 202, 116)
+                        .withBounds(27, 31, 176, 86)
                         .build(),
                 /**new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
                         .withScale(2)
@@ -321,10 +340,10 @@ public class GrasshopperEnemy extends Enemy {
                         .build()*/
             }); 
             put("WEB_RIGHT", new Frame[] {
-                new FrameBuilder(spriteSheet.getSprite(0, 0), 14)
+                new FrameBuilder(spriteSheet.getSprite(2, 0), 14)
                     .withScale(.75f)
                     .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                    .withBounds(1, 1, 202, 116)
+                    .withBounds(27, 31, 176, 86)
                     .build(),
             /**new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
                     .withScale(2)
@@ -335,7 +354,7 @@ public class GrasshopperEnemy extends Enemy {
              put("DEAD_LEFT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
                         .withScale(.75f)
-                        .withBounds(1, 1, 126, 80)
+                        .withBounds(27, 31, 176, 86)
                         .withImageEffect(ImageEffect.FLIP_VERTICAL)
                         .build(),
                 /**new FrameBuilder(spriteSheet.getSprite(0, 1), 8)
@@ -349,7 +368,7 @@ public class GrasshopperEnemy extends Enemy {
                         .withScale(.75f)
                         .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                         .withImageEffect(ImageEffect.FLIP_VERTICAL)
-                        .withBounds(1, 1, 126, 80)
+                        .withBounds(27, 31, 176, 86)
                         .build(),
                 /**new FrameBuilder(spriteSheet.getSprite(0, 1), 8)
                         .withScale(2)
