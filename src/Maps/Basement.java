@@ -80,9 +80,9 @@ public class Basement extends Map {
 
         // List of messeges that will be displayed in text boxes, IN ORDER
         ArrayList<String> messeges = new ArrayList<String>();
-        messeges.add("");
-        messeges.add("");
-        messeges.add("");
+        messeges.add("Yo");
+        messeges.add("Hello");
+        messeges.add("How we doin");
 
         // TRY TO MAKE ALL MESSEGES THE SAME SIZE AND THEN CHOOSE OFFEST VALUE TO CENTER THE TEXT BOX
         // Offest value is the last integer parameter in OldSpider Contructor to position the textboxes

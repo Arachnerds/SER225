@@ -24,6 +24,12 @@ public class OldSpider extends NPC {
     }
 
     public void update(Player player) {
+        if (player.getX() > this.getX()) {
+            this.currentAnimationName = "RIGHT";
+        } else {
+            this.currentAnimationName = "LEFT";
+        }
+
         super.update(player);
     }
 
