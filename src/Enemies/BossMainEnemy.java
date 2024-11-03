@@ -18,8 +18,7 @@ public class BossMainEnemy {
     private ArrayList<String> attackTypes;
     private int health;
 
-    public BossMainEnemy(Point location, Map map, int health) {
-        this.location = location;
+    public BossMainEnemy(Map map, int health) {
         this.map = map;
         this.health = health;
         attackTypes = new ArrayList<>();
