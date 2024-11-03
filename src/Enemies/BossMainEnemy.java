@@ -17,6 +17,7 @@ public class BossMainEnemy {
     private BossHandEnemy rightHand;
     private ArrayList<String> attackTypes;
     private int health;
+    private boolean isAlive = true;
 
     public BossMainEnemy(Map map, int health) {
         this.map = map;
@@ -42,7 +43,10 @@ public class BossMainEnemy {
 
 
     public void spawnNewHands(){ // spawn new hand enemies for the boss
-        Point lhandArea = new Point(location.x-5,location.y); //DETERMINE THESE LATER
+
+        if (!isAlive) return;
+
+        Point lhandArea = new Point(location.x-5,location.y); // DETERMINE THESE LATER BASED ON MAP TILES LOCATION
         Point rhandArea = new Point(location.x+5,location.y);
 
         if(leftHand == null || leftHand.handState == HandState.DEAD){
@@ -60,6 +64,9 @@ public class BossMainEnemy {
     // This will choose a random index from the array of attacks
     // Based on the chosen attack, the corresponding attack methods will be called
     public void coordinateAttack() {
+
+        if (!isAlive) return;
+
         Random random = new Random();
         int attackIndex = random.nextInt(attackTypes.size());
         String selectedAttack = attackTypes.get(attackIndex);
@@ -83,10 +90,27 @@ public class BossMainEnemy {
     // The method will check if both hands are in the idle position, if so, then will coordinate the new attack
     public void handleHandsIdleState() {
 
+        if (!isAlive) return;
+
         // Might need to check if the hands are null but unsure right now
         // Should never be null after initial creation because when a hand is kills, will be respawned
         if (leftHand.handState == HandState.IDLE && rightHand.handState == HandState.IDLE) {
             coordinateAttack(); 
         }
+    }
+
+    public void bossTakeDamage(int amount) {
+        if (!isAlive) return;
+
+        health -= amount;
+        if (health <= 0) {
+            health = 0;
+            die();
+        }
+    }
+
+    private void die() {
+        isAlive = false;
+        System.out.println("Boss fight over");
     }
 }

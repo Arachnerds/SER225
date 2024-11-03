@@ -488,6 +488,10 @@ public abstract class Player extends GameObject {
         this.gravity = g;
     }
 
+    public float getMoveAmountY() {
+        return moveAmountY;
+    }
+
     // Uncomment this to have game draw player's bounds to make it easier to visualize
     
     public void draw(GraphicsHandler graphicsHandler) {

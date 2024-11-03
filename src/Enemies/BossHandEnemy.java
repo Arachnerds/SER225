@@ -91,10 +91,12 @@ public class BossHandEnemy extends Enemy {
                 break;
 
             case SLAM_HOLD:
-                currentHoldFrameCount++;
-                if (currentHoldFrameCount >= holdFrames) {
-                    handState = HandState.SLAM_UP;
-                    currentHoldFrameCount = 0; 
+                if (!isFrozen) {
+                    currentHoldFrameCount++;
+                    if (currentHoldFrameCount >= holdFrames) {
+                        handState = HandState.SLAM_UP;
+                        currentHoldFrameCount = 0; 
+                    }
                 }
                 break;
 
@@ -168,6 +170,24 @@ public class BossHandEnemy extends Enemy {
         }
     }
 
+    @Override
+    public void touchedPlayer(Player player) {
+        super.touchedPlayer(player);
+        if (isFrozen && player.getAirGroundState().equals(AirGroundState.AIR) && player.getMoveAmountY() > 0) {
+            
+            this.handState = HandState.DEAD;
+            this.enemyState = EnemyState.DEAD; 
+            this.setMapEntityStatus(MapEntityStatus.REMOVED); 
+
+            enemyMain.bossTakeDamage(1);  
+            
+            enemyMain.spawnNewHands();
+
+        } else if (!attackCooldownOn && !isFrozen) {
+            player.hurtPlayer(this);
+        }
+    }
+
     // Method used to change state, and animation for the slam attack
     public void slamHand() {
         handState = HandState.SLAM_DOWN;
@@ -204,6 +224,18 @@ public class BossHandEnemy extends Enemy {
     @Override
     public void setMovementSpeed(float movementSpeed) {
         this.movementSpeed = movementSpeed;
+    }
+
+    @Override
+    public void freeze(int frames) {
+        if (handState == HandState.SLAM_HOLD) {
+            super.freeze(frames);
+            if (facingDirection == Direction.LEFT) {
+                currentAnimationName = "WEBBED_LEFT";
+            } else {
+                currentAnimationName = "WEBBED_RIGHT";
+            }
+        }
     }
 
     public enum HandState {
