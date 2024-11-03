@@ -20,7 +20,7 @@ public class OldSpider extends NPC {
         isInteractable = true;
         talkedToTime = 200;
         textboxOffsetX = offset;
-        textboxOffsetY = 0;
+        textboxOffsetY = -15;
     }
 
     public void update(Player player) {

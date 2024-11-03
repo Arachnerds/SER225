@@ -7,7 +7,9 @@ import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
 import Level.Enemy;
 import Level.EnemyState;
+import Level.Map;
 import Level.MapEntity;
+import Level.MapEntityStatus;
 import Level.Player;
 import Utils.AirGroundState;
 import Utils.Direction;
@@ -15,12 +17,9 @@ import Utils.Point;
 
 import java.util.HashMap;
 
-// This class is for the green dinosaur enemy that shoots fireballs
-// It walks back and forth between two set points (startLocation and endLocation)
-// Every so often (based on shootTimer) it will shoot a Fireball enemy
+
 public class BossHandEnemy extends Enemy {
 
-    private float gravity = 1f;
     protected float movementSpeed = 1f;
     private float originalMovementSpeed = movementSpeed;
     private Direction startFacingDirection;
@@ -30,17 +29,30 @@ public class BossHandEnemy extends Enemy {
     private Point startPoint;
     private boolean webbed;
 
+    private int holdFrames; 
+    private int currentHoldFrameCount;
+
     // can be either WALK or SHOOT based on what the enemy is currently set to do
     protected HandState handState;
     protected HandState previousHandState;
     protected BossMainEnemy enemyMain;
 
-    public BossHandEnemy(Point startLocation, Direction facingDirection, BossMainEnemy head) {
+    private Point sweepStartPointLeft;
+    private Point sweepStartPointRight;
+
+    public BossHandEnemy(Point startLocation, Direction facingDirection, BossMainEnemy head, Map map) {
         super(startLocation.x, startLocation.y, new SpriteSheet(ImageLoader.load("FireflyAttackDraft1.png"), 64, 64), "WALK_RIGHT", 1);
         this.startPoint = startLocation;
         this.webbed = false;
         this.enemyMain = head;
         this.startFacingDirection = facingDirection;
+        this.holdFrames = 30;
+
+        // Need to change the exact point locations to be based on the map tiles of the table platform !!!!!!!!!!!!!
+        // If starts at the left point, then the right point will be the end point for the sweep range, vice versa
+        this.sweepStartPointLeft = new Point(startLocation.x - 100, startLocation.y); 
+        this.sweepStartPointRight = new Point(startLocation.x + 100, startLocation.y);
+
         this.initialize();
     }
 
@@ -51,7 +63,7 @@ public class BossHandEnemy extends Enemy {
         handState = HandState.IDLE;
         previousHandState = handState;
 
-        facingDirection = startFacingDirection; //facing direction will be determined by palm
+        facingDirection = startFacingDirection; // facing direction will be determined by palm
         if (facingDirection == Direction.RIGHT) {
             currentAnimationName = "IDLE_RIGHT";
         } else if (facingDirection == Direction.LEFT) {
@@ -67,102 +79,69 @@ public class BossHandEnemy extends Enemy {
         float moveAmountY = 0;
 
         if (this.enemyState == EnemyState.DEAD) {
-            
-            if (!hasBeenKilled) {
-                hasBeenKilled = true;
-                this.setY(this.y + this.getHeight()/4);
-            }
-            
-            if (this.facingDirection == Direction.LEFT) {
-                this.currentAnimationName = "DEAD_LEFT";
-            } else {
-                this.currentAnimationName = "DEAD_RIGHT";
-            }
-            gravity = 1f;
-            moveAmountY += gravity;
-            moveYHandleCollision(moveAmountY);
+            this.setMapEntityStatus(MapEntityStatus.REMOVED);
             super.update(player);
             return;
         }
 
-        //MOST CODE KEPT FOR REEFERENCE, LIKELY UNNECESSARY. FEEL FREE TO REMOVE
-        /** 
-        // if shoot timer is up and dinosaur is not currently shooting, set its state to SHOOT
-        if (shootWaitTimer == 0 && dinosaurState != DinosaurState.SHOOT_WAIT) {
-            dinosaurState = DinosaurState.SHOOT_WAIT;
+        switch (handState) {
+
+            case SLAM_DOWN:
+                moveAmountY = movementSpeed;
+                break;
+
+            case SLAM_HOLD:
+                currentHoldFrameCount++;
+                if (currentHoldFrameCount >= holdFrames) {
+                    handState = HandState.SLAM_UP;
+                    currentHoldFrameCount = 0; 
+                }
+                break;
+
+            case SLAM_UP:
+                moveAmountY = -movementSpeed;
+                if (this.getY() <= startPoint.y) { 
+                    handState = HandState.IDLE; 
+                    if (facingDirection == Direction.RIGHT) {
+                        currentAnimationName = "IDLE_RIGHT";
+                    } else if (facingDirection == Direction.LEFT) {
+                        currentAnimationName = "IDLE_LEFT";
+                    }
+                    this.setY(startPoint.y); 
+                }
+                break;
+
+            case IDLE:
+                break;
+
+            case SWEEP_LEFT:
+                moveAmountX = -movementSpeed; 
+                if (this.getX() <= sweepStartPointRight.x) {
+                    handState = HandState.IDLE; 
+                    if (facingDirection == Direction.RIGHT) {
+                        currentAnimationName = "IDLE_RIGHT";
+                    } else if (facingDirection == Direction.LEFT) {
+                        currentAnimationName = "IDLE_LEFT";
+                    }
+                    this.setX(startPoint.x);
+                    this.setY(startPoint.y);
+                }
+                break;
+    
+            case SWEEP_RIGHT:
+                moveAmountX = movementSpeed; 
+                if (this.getX() >= sweepStartPointLeft.x) {
+                    handState = HandState.IDLE; 
+                    if (facingDirection == Direction.RIGHT) {
+                        currentAnimationName = "IDLE_RIGHT";
+                    } else if (facingDirection == Direction.LEFT) {
+                        currentAnimationName = "IDLE_LEFT";
+                    }
+                    this.setX(startPoint.x);
+                    this.setY(startPoint.y);
+                }
+                break;
         }
-        else {
-            shootWaitTimer--;
-        }
-
-        // if dinosaur is walking, determine which direction to walk in based on facing direction
-        if (dinosaurState == DinosaurState.WALK) {
-            if (facingDirection == Direction.RIGHT) {
-                currentAnimationName = "WALK_RIGHT";
-                moveXHandleCollision(movementSpeed);
-            } else {
-                currentAnimationName = "WALK_LEFT";
-                moveXHandleCollision(-movementSpeed);
-            }
-
-            // if dinosaur reaches the start or end location, it turns around
-            // dinosaur may end up going a bit past the start or end location depending on movement speed
-            // this calculates the difference and pushes the enemy back a bit so it ends up right on the start or end location
-            if (getX1() + getWidth() >= endBound) {
-                float difference = endBound - (getX2());
-                moveXHandleCollision(-difference);
-                facingDirection = Direction.LEFT;
-            } else if (getX1() <= startBound) {
-                float difference = startBound - getX1();
-                moveXHandleCollision(difference);
-                facingDirection = Direction.RIGHT;
-            }
-        }
-
-        // if dinosaur is waiting to shoot, it first turns read for a set number of frames
-        // after this waiting period is over, the fireball is actually shot out
-        if (dinosaurState == DinosaurState.SHOOT_WAIT) {
-            if (previousDinosaurState == DinosaurState.WALK) {
-                shootTimer = 65;
-                currentAnimationName = facingDirection == Direction.RIGHT ? "SHOOT_RIGHT" : "SHOOT_LEFT";
-            } else if (shootTimer == 0) {
-                dinosaurState = DinosaurState.SHOOT;
-            }
-            else {
-                shootTimer--;
-            }
-        }
-
-        // this is for actually having the dinosaur spit out the fireball
-        if (dinosaurState == DinosaurState.SHOOT) {
-            // define where fireball will spawn on map (x location) relative to dinosaur enemy's location
-            // and define its movement speed
-            int fireballX;
-            float movementSpeed;
-            if (facingDirection == Direction.RIGHT) {
-                fireballX = Math.round(getX()) + getWidth();
-                movementSpeed = 1.5f;
-            } else {
-                fireballX = Math.round(getX() - 21);
-                movementSpeed = -1.5f;
-            }
-
-            // define where fireball will spawn on the map (y location) relative to dinosaur enemy's location
-            int fireballY = Math.round(getY()) + 4;
-
-            // create Fireball enemy
-            Fireball fireball = new Fireball(new Point(fireballX, fireballY), movementSpeed, 60);
-
-            // add fireball enemy to the map for it to spawn in the level
-            map.addEnemy(fireball);
-
-            // change dinosaur back to its WALK state after shooting, reset shootTimer to wait a certain number of frames before shooting again
-            dinosaurState = DinosaurState.WALK;
-
-            // reset shoot wait timer so the process can happen again (dino walks around, then waits, then shoots)
-            shootWaitTimer = 130;
-        }
-            */
 
 
         moveYHandleCollision(moveAmountY);
@@ -170,36 +149,51 @@ public class BossHandEnemy extends Enemy {
 
         super.update(player);
 
+        // This will communicate to the boss to check if both hands are idle
+        enemyMain.handleHandsIdleState();
+
         previousHandState = handState;
     }
 
     @Override
     public void onEndCollisionCheckX(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
-        // if dinosaur enemy collides with something on the x axis, it turns around and walks the other way
-        if (hasCollided) {
-            /** 
-            if (direction == Direction.RIGHT) {
-                facingDirection = Direction.LEFT;
-                currentAnimationName = "WALK_LEFT";
-            } else {
-                facingDirection = Direction.RIGHT;
-                currentAnimationName = "WALK_RIGHT";
-            }*/
-        }
+        
     }
 
     @Override
     public void onEndCollisionCheckY(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
-        // if bug is colliding with the ground, change its air ground state to GROUND
-        // if it is not colliding with the ground, it means that it's currently in the air, so its air ground state is changed to AIR
-        if (direction == Direction.DOWN) {
-            if (hasCollided) {
-                airGroundState = AirGroundState.GROUND;
-            } else {
-                airGroundState = AirGroundState.AIR;
-            }
+        if (handState == HandState.SLAM_DOWN && hasCollided) {
+            handState = HandState.SLAM_HOLD; 
+            currentHoldFrameCount = 0;
         }
     }
+
+    // Method used to change state, and animation for the slam attack
+    public void slamHand() {
+        handState = HandState.SLAM_DOWN;
+        currentHoldFrameCount = 0; 
+        if (facingDirection == Direction.LEFT) {
+            this.currentAnimationName = "SLAM_LEFT";
+        } else {
+            this.currentAnimationName = "SLAM_RIGHT";
+        }
+    }
+
+    // Method used to change state, location, and animation for sweep attack
+    public void sweepHand() {
+        if (facingDirection == Direction.LEFT) {
+            handState = HandState.SWEEP_LEFT;
+            this.currentAnimationName = "SWEEP_LEFT"; 
+            this.setX(sweepStartPointLeft.x);
+            this.setY(sweepStartPointLeft.y);
+        } else {
+            handState = HandState.SWEEP_RIGHT;
+            this.currentAnimationName = "SWEEP_RIGHT"; 
+            this.setX(sweepStartPointRight.x);
+            this.setY(sweepStartPointRight.y);
+        }
+    }
+
 
     // Getter method to return movement speed of dinosaur
     @Override
@@ -207,25 +201,13 @@ public class BossHandEnemy extends Enemy {
         return originalMovementSpeed;
     }
 
-    // Setter method to set temporary movement speed of dinosaur
     @Override
     public void setMovementSpeed(float movementSpeed) {
-        if(movementSpeed < .5f){
-          if (facingDirection == Direction.RIGHT) {
-              currentAnimationName = "WEB_RIGHT";
-          } else {
-              currentAnimationName = "WEB_LEFT";
-          }
-          webbed = true;
-     } else{
-          if (facingDirection == Direction.RIGHT) {
-            //currentAnimationName = "WALK_UP";
-         } else {
-            //currentAnimationName = "WALK_DOWN";
-            }
-         webbed = false;
-        }
-     this.movementSpeed = movementSpeed;
+        this.movementSpeed = movementSpeed;
+    }
+
+    public enum HandState {
+        IDLE, SLAM_DOWN, SLAM_HOLD, SLAM_UP, SWEEP_LEFT, SWEEP_RIGHT, DEAD/*CLAP_DOWN, CLAP_SWEEP, CLAP_HOLD, CLAP_UP*/
     }
 
     @Override
@@ -236,34 +218,10 @@ public class BossHandEnemy extends Enemy {
                             .withScale(3)
                             .withBounds(4, 2, 5, 13)
                             .build(),
-                    new FrameBuilder(spriteSheet.getSprite(0, 1), 14)
-                            .withScale(3)
-                            .withBounds(4, 2, 5, 13)
-                            .build()
             });
 
             put("IDLE_RIGHT", new Frame[]{
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 14)
-                            .withScale(3)
-                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(4, 2, 5, 13)
-                            .build(),
-                    new FrameBuilder(spriteSheet.getSprite(0, 1), 14)
-                            .withScale(3)
-                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(4, 2, 5, 13)
-                            .build()
-            });
-
-            put("DOWN_LEFT", new Frame[]{
-                    new FrameBuilder(spriteSheet.getSprite(0, 0))
-                            .withScale(3)
-                            .withBounds(4, 2, 5, 13)
-                            .build(),
-            });
-
-            put("DOWN_RIGHT", new Frame[]{
-                    new FrameBuilder(spriteSheet.getSprite(0, 0))
                             .withScale(3)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(4, 2, 5, 13)
@@ -331,9 +289,5 @@ public class BossHandEnemy extends Enemy {
             });
 
         }};
-    }
-
-    public enum HandState {
-       IDLE, SLAM_DOWN, SLAM_HOLD, SLAM_UP, SWEEP_DOWN, SWEEP, SWEEP_UP, CLAP_DOWN, CLAP_SWEEP, CLAP_HOLD, CLAP_UP, DEAD
     }
 }

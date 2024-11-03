@@ -1,236 +1,93 @@
 package Enemies;
 
-import Builders.FrameBuilder;
-import Engine.ImageLoader;
-import GameObject.Frame;
-import GameObject.ImageEffect;
-import GameObject.SpriteSheet;
-import Level.Enemy;
-import Level.EnemyState;
 import Level.Map;
-import Level.MapEntity;
-import Level.Player;
-import Utils.AirGroundState;
 import Utils.Direction;
 import Utils.Point;
-import Enemies.BossHandEnemy;
+
+import java.util.ArrayList;
+import java.util.Random;
+
 import Enemies.BossHandEnemy.HandState;
 
-import java.util.HashMap;
+public class BossMainEnemy {
 
-// This class is for the black bug enemy
-// enemy behaves like a Mario goomba -- walks forward until it hits a solid map tile, and then turns around
-// if it ends up in the air from walking off a cliff, it will fall down until it hits the ground again, and then will continue walking
-public class BossMainEnemy extends Enemy {
-
-    private float gravity = .5f;
-    private float movementSpeed = .5f;
-    private float originalMovementSpeed = movementSpeed;
-    private Direction facingDirection;
-    private AirGroundState airGroundState;
-    private Point startPoint;
     private Map map;
-
+    private Point location;
     private BossHandEnemy leftHand;
     private BossHandEnemy rightHand;
+    private ArrayList<String> attackTypes;
+    private int health;
 
-    public BossMainEnemy(Point location, Direction facingDirection, Map map) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("RoachSpriteSheetDraft1.png"), 128, 46), "WALK_LEFT", 1);
-        this.setScale(.75f);
-        this.setBounds(currentFrame);
-        startPoint = location;
-        this.initialize();
+    public BossMainEnemy(Point location, Map map, int health) {
+        this.location = location;
         this.map = map;
+        this.health = health;
+        attackTypes = new ArrayList<>();
+        this.initializeAttackTypes();
+        this.initialize();
     }
 
-    @Override
     public void initialize() {
-        super.initialize();
-
-        spawnNewHand(); //spawn hands for the boss enemy
-
+        spawnNewHands(); //spawn hands for the boss enemy
     }
 
-    @Override
-    public void update(Player player) {
-        
-        if (this.enemyState == EnemyState.DEAD) {
-            
-            if (!hasBeenKilled) {
-                hasBeenKilled = true;
-                this.setY(this.y + this.getHeight()/4);
-            }
-            
-            if (this.facingDirection == Direction.LEFT) {
-                this.currentAnimationName = "DEAD_LEFT";
-            } else {
-                this.currentAnimationName = "DEAD_RIGHT";
-            }
-
-            super.update(player);
-            return;
-        } 
-
-        super.update(player);
+    // Just adding the attacks to the attack list
+    // Slam is added multiple times to increase probability during random selection
+    private void initializeAttackTypes() {
+        attackTypes.add("SLAM");
+        attackTypes.add("SLAM");
+        attackTypes.add("SLAM");
+        attackTypes.add("SWEEP_RIGHT");
+        attackTypes.add("SWEEP_LEFT");
     }
 
-    // Getter method to return movement speed of dinosaur
-    @Override
-    public float getOriginalMovementSpeed() {
-        return originalMovementSpeed;
-    }
 
-    // Setter method to set temporary movement speed of dinosaur
-    @Override
-    public void setMovementSpeed(float movementSpeed) {
-        if(movementSpeed < .5f){
-            if (facingDirection == Direction.RIGHT) {
-                currentAnimationName = "WEB_RIGHT";
-            } else {
-                currentAnimationName = "WEB_LEFT";
-            }
-        } else{
-            if (facingDirection == Direction.RIGHT) {
-                currentAnimationName = "WALK_RIGHT";
-            } else {
-                currentAnimationName = "WALK_LEFT";
-            }
-        }
-        this.movementSpeed = movementSpeed;
-
-    }
-
-    public void spawnNewHand(){ // spawn new hand enemies for the boss
-        Point lhandArea = new Point(startPoint.x-5,startPoint.y); //DETERMINE THESE LATER
-        Point rhandArea = new Point(startPoint.x+5,startPoint.y);
+    public void spawnNewHands(){ // spawn new hand enemies for the boss
+        Point lhandArea = new Point(location.x-5,location.y); //DETERMINE THESE LATER
+        Point rhandArea = new Point(location.x+5,location.y);
 
         if(leftHand == null || leftHand.handState == HandState.DEAD){
-            BossHandEnemy lHand = new BossHandEnemy(lhandArea, Direction.LEFT, this);
+            BossHandEnemy lHand = new BossHandEnemy(lhandArea, Direction.LEFT, this, map);
             map.addEnemy(lHand);
             leftHand = lHand;
         }
         if(rightHand == null || rightHand.handState == HandState.DEAD){
-            BossHandEnemy rHand = new BossHandEnemy(rhandArea, Direction.RIGHT, this);
+            BossHandEnemy rHand = new BossHandEnemy(rhandArea, Direction.RIGHT, this, map);
             map.addEnemy(rHand);
             rightHand = rHand;
         }
     }
 
+    // This will choose a random index from the array of attacks
+    // Based on the chosen attack, the corresponding attack methods will be called
+    public void coordinateAttack() {
+        Random random = new Random();
+        int attackIndex = random.nextInt(attackTypes.size());
+        String selectedAttack = attackTypes.get(attackIndex);
 
-    @Override
-    public void onEndCollisionCheckX(boolean hasCollided, Direction direction,  MapEntity entityCollidedWith) {
-        // if bug has collided into something while walking forward,
-        // it turns around (changes facing direction)
-        if (hasCollided) {
-            /**if(entityCollidedWith instanceof Player){
-                System.out.println("hit player");
-            }*/
-            //System.out.println("bug collision");
-            
-            if (direction == Direction.RIGHT) {
-                facingDirection = Direction.LEFT;
-                currentAnimationName = "WALK_LEFT";
-            } else {
-                facingDirection = Direction.RIGHT;
-                currentAnimationName = "WALK_RIGHT";
-            }
+        switch (selectedAttack) {
+            case "SLAM":
+                leftHand.slamHand();
+                rightHand.slamHand();
+                break;
+            case "SWEEP_RIGHT":
+                rightHand.sweepHand();
+                break;
+            case "SWEEP_LEFT":
+                leftHand.sweepHand();
+                break;
         }
     }
 
-    @Override
-    public void onEndCollisionCheckY(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
-        // if bug is colliding with the ground, change its air ground state to GROUND
-        // if it is not colliding with the ground, it means that it's currently in the air, so its air ground state is changed to AIR
-        if (direction == Direction.DOWN) {
-            if (hasCollided) {
-                airGroundState = AirGroundState.GROUND;
-            } else {
-                airGroundState = AirGroundState.AIR;
-            }
+    // This is the method used to communicate with the boss from the hands
+    // At the end of every update this method is called
+    // The method will check if both hands are in the idle position, if so, then will coordinate the new attack
+    public void handleHandsIdleState() {
+
+        // Might need to check if the hands are null but unsure right now
+        // Should never be null after initial creation because when a hand is kills, will be respawned
+        if (leftHand.handState == HandState.IDLE && rightHand.handState == HandState.IDLE) {
+            coordinateAttack(); 
         }
     }
-
-    @Override
-    public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
-        return new HashMap<String, Frame[]>() {{
-
-            put("WALK_LEFT", new Frame[] {
-                    new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
-                            .withScale(.75f)
-                             .withBounds(10, 1, 128, 46)
-                             .build(),
-                    new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
-                            .withScale(.75f)
-                            .withBounds(10, 1, 128, 46)
-                            .build()
-            });
-
-            put("WALK_RIGHT", new Frame[] {
-                    new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
-                            .withScale(.75f)
-                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(10, 1,128, 46)
-                            .build(),
-                    new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
-                            .withScale(.75f)
-                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(10, 1, 128, 46)
-                            .build()
-            });
-
-            put("DEAD_LEFT", new Frame[] {
-                new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
-                        .withScale(.75f)
-                        .withImageEffect(ImageEffect.FLIP_VERTICAL)
-                        .withBounds(10, 1,128, 46)
-                        .build(),
-                /**new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
-                        .withScale(2)
-                        .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                        .withBounds(6, 6, 12, 7)
-                        .build()*/
-            });
-
-            put("DEAD_RIGHT", new Frame[] {
-                new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
-                        .withScale(.75f)
-                        .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                        .withImageEffect(ImageEffect.FLIP_VERTICAL)
-                        .withBounds(10, 1,128, 46)
-                        .build(),
-                /**new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
-                        .withScale(.75f)
-                        .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                        .withBounds(6, 6, 128, 46)
-                        .build()*/
-            });
-
-            put("WEB_LEFT", new Frame[] {
-                new FrameBuilder(spriteSheet.getSprite(1, 0), 8)
-                        .withScale(.75f)
-                        .withBounds(10, 1, 128, 46)
-                        .build(),
-                /**new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
-                        .withScale(2)
-                        .withBounds(6, 6, 12, 7)
-                        .build()*/
-            });
-            put("WEB_RIGHT", new Frame[] {
-            new FrameBuilder(spriteSheet.getSprite(1, 0), 8)
-                    .withScale(.75f)
-                    .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                    .withBounds(10, 1, 128, 46)
-                    .build(),
-            /**new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
-                    .withScale(2)
-                    .withBounds(6, 6, 12, 7)
-                    .build()*/
-             });
-        }};
-    }
-
-    /**public void draw(GraphicsHandler graphicsHandler) {
-        super.draw(graphicsHandler);
-        drawBounds(graphicsHandler, new Color(255, 0, 0, 100));
-    }*/
 }
