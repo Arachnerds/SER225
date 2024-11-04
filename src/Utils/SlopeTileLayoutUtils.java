@@ -57,4 +57,5 @@ public class SlopeTileLayoutUtils {
         }
         return new TileLayout(slopeLayout, Direction.LEFT);
     }
+    
 }

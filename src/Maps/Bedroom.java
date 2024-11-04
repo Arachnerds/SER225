@@ -42,7 +42,7 @@ public class Bedroom extends Map {
         int customHitboxHeight = 300; // Height of 200 pixels
 
         // Using the custom hitbox constructor
-        JumpPoint customJumpPoint = new JumpPoint(getMapTile(7, 7).getLocation(), customHitboxX, customHitboxY, customHitboxWidth, customHitboxHeight);
+        JumpPoint customJumpPoint = new JumpPoint(getMapTile(7, 8).getLocation(), customHitboxX, customHitboxY, customHitboxWidth, customHitboxHeight);
 
         /* DoorKey key = new DoorKey(getMapTile(41, 4).getLocation());
         
