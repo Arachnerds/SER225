@@ -2,6 +2,7 @@ package EnhancedMapTiles;
 
 import Engine.Key;
 import Engine.Keyboard;
+import GameObject.Rectangle;
 import Level.Map;
 import Level.Player;
 import Utils.Point;
@@ -39,6 +40,7 @@ public class RotatingPuzzle {
         p1 = new RotatingPuzzlePiece(this, location.x, location.y, Key.ONE, r1, "OuterKeyRing.png", 18, 18);
         p2 = new RotatingPuzzlePiece(this, location.x + 12, location.y + 12, Key.TWO, r2, "MiddleKeyRing.png", 10, 10);
         p3 = new RotatingPuzzlePiece(this, location.x + 12 + 6, location.y + 12 + 6, Key.THREE, r3, "InnerKeyRing.png", 6, 6);
+        lockCase.setBounds(new Rectangle(8, -35, 14, 35));
     }
 
     public void respond(RotatingPuzzlePiece p, Player player) {

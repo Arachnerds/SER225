@@ -1,6 +1,7 @@
 package EnhancedMapTiles;
 
 import Builders.FrameBuilder;
+import Engine.GraphicsHandler;
 import Engine.ImageLoader;
 import Engine.Key;
 import Engine.KeyLocker;
@@ -11,6 +12,7 @@ import GameObject.SpriteSheet;
 import Level.EnhancedMapTile;
 import Level.Player;
 import Level.TileType;
+import java.awt.Color;
 import java.util.HashMap;
 
 public class RotatingPuzzlePiece extends EnhancedMapTile {
@@ -145,11 +147,11 @@ public class RotatingPuzzlePiece extends EnhancedMapTile {
     }
 
     //A testing method that displays the hitbox
-    /* @Override
+    @Override
     public void draw(GraphicsHandler graphicsHandler) {
         super.draw(graphicsHandler);
         drawBounds(graphicsHandler, new Color(255, 0, 0, 100));
-    } */
+    }
     
 }
 
