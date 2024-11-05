@@ -172,12 +172,15 @@ public class BossHandEnemy extends Enemy {
 
     @Override
     public void touchedPlayer(Player player) {
-        super.touchedPlayer(player);
+
         if (isFrozen && player.getAirGroundState().equals(AirGroundState.AIR) && player.getMoveAmountY() > 0) {
             
             this.handState = HandState.DEAD;
             this.enemyState = EnemyState.DEAD; 
             this.setMapEntityStatus(MapEntityStatus.REMOVED); 
+
+            player.setMomentumY(0.1f);
+            player.playerJumping();
 
             enemyMain.bossTakeDamage(1);  
             

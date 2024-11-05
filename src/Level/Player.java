@@ -220,7 +220,7 @@ public abstract class Player extends GameObject {
     }
 
     // player JUMPING state logic
-    protected void playerJumping() {
+    public void playerJumping() {
         // if last frame player was on ground and this frame player is still on ground, the jump needs to be setup
         if ((previousAirGroundState == AirGroundState.GROUND && airGroundState == AirGroundState.GROUND) || (airGroundState == AirGroundState.AIR && hitEnemy)) {
 
@@ -509,6 +509,11 @@ public abstract class Player extends GameObject {
 
     public void setWalkSpeed(float speed){
         walkSpeed = speed;
+    }
+
+    public void setMomentumY(float f) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setMomentumY'");
     }
 
    
