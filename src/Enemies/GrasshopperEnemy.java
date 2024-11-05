@@ -157,7 +157,7 @@ public class GrasshopperEnemy extends Enemy {
             //System.out.println(aim +" - " + this.x);
 
             if(facingDirection == Direction.RIGHT){
-                System.out.println("heading right?");
+                //System.out.println("heading right?");
                 if ((this.x - jumpStartPos) < ((aim-jumpStartPos)/2)) { //jumping up
                     moveAmountY -= 2* movementSpeed;
                     //System.out.print((this.x - jumpStartPos) +" <? " +(aim-jumpStartPos)/2 );
@@ -167,12 +167,12 @@ public class GrasshopperEnemy extends Enemy {
                     goodToLand = true;
                 }
             } else{
-                System.out.println("heading left?");
+                //System.out.println("heading left?");
                 if((this.x - aim) > (((jumpStartPos-aim)/2))){
                     moveAmountY -= 2* movementSpeed;
-                    System.out.print((this.x - aim) +" >? " +(((jumpStartPos-aim)/2)));
+                    //System.out.print((this.x - aim) +" >? " +(((jumpStartPos-aim)/2)));
                 } else{
-                    System.out.print(" head down!");
+                    //System.out.print(" head down!");
                     moveAmountY += movementSpeed;
                     goodToLand = true;
                 }

@@ -204,7 +204,7 @@ public class CommonTileset extends Tileset {
                 .build();
 
         MapTileBuilder waterTile = new MapTileBuilder(waterFrame)
-                .withTileType(TileType.WATER);
+                .withTileType(TileType.CLIMBABLE);
 
         mapTiles.add(waterTile);
 
@@ -2089,7 +2089,8 @@ public class CommonTileset extends Tileset {
                 .build();
 
         MapTileBuilder pillow1T = new MapTileBuilder(pillow1)
-                .withTileType(TileType.NOT_PASSABLE);
+                .withTileType(TileType.SLOPE)
+                .withTileLayout(SlopeTileLayoutUtils.createBottomLeft30SlopeLayout(spriteWidth, (int) tileScale));
 
         mapTiles.add(pillow1T);
 
@@ -2099,27 +2100,32 @@ public class CommonTileset extends Tileset {
                 .build();
 
         MapTileBuilder pillow2T = new MapTileBuilder(pillow2)
-                .withTileType(TileType.NOT_PASSABLE);
+                .withTileType(TileType.SLOPE)
+                .withTileLayout(SlopeTileLayoutUtils.createTopLeft30SlopeLayout(spriteWidth, (int) tileScale));
 
         mapTiles.add(pillow2T);
 
         // Blanket
-        Frame pillow3 = new FrameBuilder(getSubImage(8, 9))
+        Frame pillow3 = new FrameBuilder(getSubImage(8, 8))
                 .withScale(tileScale)
+                .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                 .build();
 
         MapTileBuilder pillow3T = new MapTileBuilder(pillow3)
-                .withTileType(TileType.NOT_PASSABLE);
+                .withTileType(TileType.SLOPE)
+                .withTileLayout(SlopeTileLayoutUtils.createTopLeft30SlopeLayout(spriteWidth, (int) tileScale));
 
         mapTiles.add(pillow3T);
 
         // Blanket
-        Frame pillow4 = new FrameBuilder(getSubImage(8, 10))
+        Frame pillow4 = new FrameBuilder(getSubImage(8,7))
                 .withScale(tileScale)
+                .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                 .build();
 
         MapTileBuilder pillow4T = new MapTileBuilder(pillow4)
-                .withTileType(TileType.NOT_PASSABLE);
+                .withTileType(TileType.SLOPE)
+                .withTileLayout(SlopeTileLayoutUtils.createBottomLeft30SlopeLayout(spriteWidth, (int) tileScale));
 
         mapTiles.add(pillow4T);
 
@@ -2645,6 +2651,451 @@ public class CommonTileset extends Tileset {
                 .withTileType(TileType.NOT_PASSABLE);
 
         mapTiles.add(wallNotPassBedT);
+
+        // Door Knob Top Left
+        Frame dKTL = new FrameBuilder(getSubImage(12, 15))
+                .withScale(tileScale)
+                .withBounds(14, 8, 15, 9)
+                .build();
+
+        MapTileBuilder dKTLT = new MapTileBuilder(dKTL)
+                .withTileType(TileType.JUMP_THROUGH_PLATFORM);
+
+        mapTiles.add(dKTLT);
+
+        // Door Knob Top Right
+        Frame dKTR = new FrameBuilder(getSubImage(12, 16))
+                .withScale(tileScale)
+                .withBounds(0, 8, 1, 9)
+                .build();
+
+        MapTileBuilder dKTRT = new MapTileBuilder(dKTR)
+                .withTileType(TileType.JUMP_THROUGH_PLATFORM);
+
+        mapTiles.add(dKTRT);
+
+        // Door Knob Bottom Left
+        Frame dKBL = new FrameBuilder(getSubImage(13, 15))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder dKBLT = new MapTileBuilder(dKBL)
+                .withTileType(TileType.JUMP_THROUGH_PLATFORM);
+
+        mapTiles.add(dKBLT);
+
+        // Door Knob Bottom Right
+        Frame dKBR = new FrameBuilder(getSubImage(13, 16))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder dKBRT = new MapTileBuilder(dKBR)
+                .withTileType(TileType.JUMP_THROUGH_PLATFORM);
+
+        mapTiles.add(dKBRT);
+
+        // Paint Bucket Red Bottom
+        Frame pBRB = new FrameBuilder(getSubImage(13, 9))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder pBRBT = new MapTileBuilder(pBRB)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(pBRBT);
+
+        // Paint Bucket Red Top
+        Frame pBRT = new FrameBuilder(getSubImage(13, 10))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder pBRTT = new MapTileBuilder(pBRT)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(pBRTT);
+
+        // Paint Bucket Orange Bottom
+        Frame pBOB = new FrameBuilder(getSubImage(13, 11))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder pBOBT = new MapTileBuilder(pBOB)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(pBOBT);
+
+        // Paint Bucket Red Top
+        Frame pBOT = new FrameBuilder(getSubImage(13, 12))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder pBOTT = new MapTileBuilder(pBOT)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(pBOTT);
+
+        // Paint Bucket Violet Bottom
+        Frame pBVB = new FrameBuilder(getSubImage(13, 13))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder pBVBT = new MapTileBuilder(pBVB)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(pBVBT);
+
+        // Paint Bucket Violet Top
+        Frame pBVT = new FrameBuilder(getSubImage(13, 14))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder pBVTT = new MapTileBuilder(pBVT)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(pBVTT);
+
+        // Baseball Shelf
+        Frame bS1 = new FrameBuilder(getSubImage(14, 6))
+                .withScale(tileScale)
+                .withBounds(0, 8, 16, 11)
+                .build();
+
+        MapTileBuilder bS1T = new MapTileBuilder(bS1)
+                .withTileType(TileType.JUMP_THROUGH_PLATFORM);
+
+        mapTiles.add(bS1T);
+
+        // Baseball Shelf
+        Frame bS4 = new FrameBuilder(getSubImage(14, 7))
+                .withScale(tileScale)
+                .withBounds(0, 8, 16, 11)
+                .build();
+
+        MapTileBuilder bS4T = new MapTileBuilder(bS4)
+                .withTileType(TileType.JUMP_THROUGH_PLATFORM);
+
+        mapTiles.add(bS4T);
+
+        // Baseball Shelf
+        Frame bS3 = new FrameBuilder(getSubImage(14, 8))
+                .withScale(tileScale)
+                .withBounds(0, 8, 16, 11)
+                .build();
+
+        MapTileBuilder bS3T = new MapTileBuilder(bS3)
+                .withTileType(TileType.JUMP_THROUGH_PLATFORM);
+
+        mapTiles.add(bS3T);
+
+        // Baseball Shelf
+        Frame bS2 = new FrameBuilder(getSubImage(14, 9))
+                .withScale(tileScale)
+                .withBounds(0, 8, 16, 11)
+                .build();
+
+        MapTileBuilder bS2T = new MapTileBuilder(bS2)
+                .withTileType(TileType.JUMP_THROUGH_PLATFORM);
+
+        mapTiles.add(bS2T);
+
+        // Trophy Shelf
+        Frame tS1 = new FrameBuilder(getSubImage(14, 10))
+                .withScale(tileScale)
+                .withBounds(0, 8, 16, 11)
+                .build();
+
+        MapTileBuilder tS1T = new MapTileBuilder(tS1)
+                .withTileType(TileType.JUMP_THROUGH_PLATFORM);
+
+        mapTiles.add(tS1T);
+
+        // Trophy Shelf
+        Frame tS2 = new FrameBuilder(getSubImage(14, 11))
+                .withScale(tileScale)
+                .withBounds(0, 8, 16, 11)
+                .build();
+
+        MapTileBuilder tS2T = new MapTileBuilder(tS2)
+                .withTileType(TileType.JUMP_THROUGH_PLATFORM);
+
+        mapTiles.add(tS2T);
+
+        // Trophy Shelf
+        Frame tS3 = new FrameBuilder(getSubImage(14, 12))
+                .withScale(tileScale)
+                .withBounds(0, 8, 16, 11)
+                .build();
+
+        MapTileBuilder tS3T = new MapTileBuilder(tS3)
+                .withTileType(TileType.JUMP_THROUGH_PLATFORM);
+
+        mapTiles.add(tS3T);
+
+        // Trophy Shelf
+        Frame tS4 = new FrameBuilder(getSubImage(14, 13))
+                .withScale(tileScale)
+                .withBounds(0, 8, 16, 11)
+                .build();
+
+        MapTileBuilder tS4T = new MapTileBuilder(tS4)
+                .withTileType(TileType.JUMP_THROUGH_PLATFORM);
+
+        mapTiles.add(tS4T);
+
+        // Trophy Shelf
+        Frame tS5 = new FrameBuilder(getSubImage(14, 14))
+                .withScale(tileScale)
+                .withBounds(0, 8, 16, 11)
+                .build();
+
+        MapTileBuilder tS5T = new MapTileBuilder(tS5)
+                .withTileType(TileType.JUMP_THROUGH_PLATFORM);
+
+        mapTiles.add(tS5T);
+
+        // Trophy Shelf
+        Frame tS6 = new FrameBuilder(getSubImage(14, 15))
+                .withScale(tileScale)
+                .withBounds(0, 8, 16, 11)
+                .build();
+
+        MapTileBuilder tS6T = new MapTileBuilder(tS6)
+                .withTileType(TileType.JUMP_THROUGH_PLATFORM);
+
+        mapTiles.add(tS6T);
+
+        // Trophy Shelf
+        Frame tS7 = new FrameBuilder(getSubImage(14, 16))
+                .withScale(tileScale)
+                .withBounds(0, 8, 16, 11)
+                .build();
+
+        MapTileBuilder tS7T = new MapTileBuilder(tS7)
+                .withTileType(TileType.JUMP_THROUGH_PLATFORM);
+
+        mapTiles.add(tS7T);
+
+        // Trophy Shelf
+        Frame tS8 = new FrameBuilder(getSubImage(15, 6))
+                .withScale(tileScale)
+                .withBounds(0, 8, 16, 11)
+                .build();
+
+        MapTileBuilder tS8T = new MapTileBuilder(tS8)
+                .withTileType(TileType.JUMP_THROUGH_PLATFORM);
+
+        mapTiles.add(tS8T);
+
+        // Trophy Shelf
+        Frame tS9 = new FrameBuilder(getSubImage(15, 7))
+                .withScale(tileScale)
+                .withBounds(0, 8, 16, 11)
+                .build();
+
+        MapTileBuilder tS9T = new MapTileBuilder(tS9)
+                .withTileType(TileType.JUMP_THROUGH_PLATFORM);
+
+        mapTiles.add(tS9T);
+
+        // Dresser
+        Frame dresser1 = new FrameBuilder(getSubImage(15, 8))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder dresser1T = new MapTileBuilder(dresser1)
+                .withTileType(TileType.CLIMBABLE);
+
+        mapTiles.add(dresser1T);
+
+        // Dresser
+        Frame dresser2 = new FrameBuilder(getSubImage(15, 9))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder dresser2T = new MapTileBuilder(dresser2)
+                .withTileType(TileType.CLIMBABLE);
+
+        mapTiles.add(dresser2T);
+
+        // Dresser
+        Frame dresser3 = new FrameBuilder(getSubImage(15, 10))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder dresser3T = new MapTileBuilder(dresser3)
+                .withTileType(TileType.CLIMBABLE);
+
+        mapTiles.add(dresser3T);
+
+        // Dresser
+        Frame dresser4 = new FrameBuilder(getSubImage(15, 11))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder dresser4T = new MapTileBuilder(dresser4)
+                .withTileType(TileType.CLIMBABLE);
+
+        mapTiles.add(dresser4T);
+
+        // Dresser
+        Frame dresser5 = new FrameBuilder(getSubImage(15, 12))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder dresser5T = new MapTileBuilder(dresser5)
+                .withTileType(TileType.CLIMBABLE);
+
+        mapTiles.add(dresser5T);
+
+        // Dresser
+        Frame dresser6 = new FrameBuilder(getSubImage(15, 13))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder dresser6T = new MapTileBuilder(dresser6)
+                .withTileType(TileType.CLIMBABLE);
+
+        mapTiles.add(dresser6T);
+
+        // Dresser
+        Frame dresser7 = new FrameBuilder(getSubImage(15, 14))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder dresser7T = new MapTileBuilder(dresser7)
+                .withTileType(TileType.CLIMBABLE);
+
+        mapTiles.add(dresser7T);
+
+        // Dresser
+        Frame dresser8 = new FrameBuilder(getSubImage(15, 15))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder dresser8T = new MapTileBuilder(dresser8)
+                .withTileType(TileType.CLIMBABLE);
+
+        mapTiles.add(dresser8T);
+
+        // Dresser
+        Frame dresser9 = new FrameBuilder(getSubImage(15, 16))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder dresser9T = new MapTileBuilder(dresser9)
+                .withTileType(TileType.CLIMBABLE);
+
+        mapTiles.add(dresser9T);
+
+        // Dresser
+        Frame dresser10 = new FrameBuilder(getSubImage(16, 6))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder dresser10T = new MapTileBuilder(dresser10)
+                .withTileType(TileType.CLIMBABLE);
+
+        mapTiles.add(dresser10T);
+
+        // Book Shelf
+        Frame bS = new FrameBuilder(getSubImage(16, 7))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder bST = new MapTileBuilder(bS)
+                .withTileType(TileType.JUMP_THROUGH_PLATFORM);
+
+        mapTiles.add(bST);
+
+        // Book Shelf
+        Frame bookshelf2 = new FrameBuilder(getSubImage(16, 8))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder bookshelf2T = new MapTileBuilder(bookshelf2)
+                .withTileType(TileType.JUMP_THROUGH_PLATFORM);
+
+        mapTiles.add(bookshelf2T);
+
+        // Book Shelf
+        Frame bookshelf3 = new FrameBuilder(getSubImage(16, 9))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder bookshelf3T = new MapTileBuilder(bookshelf3)
+                .withTileType(TileType.JUMP_THROUGH_PLATFORM);
+
+        mapTiles.add(bookshelf3T);
+
+        // Book Shelf
+        Frame bookshelf4 = new FrameBuilder(getSubImage(16, 10))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder bookshelf4T = new MapTileBuilder(bookshelf4)
+                .withTileType(TileType.JUMP_THROUGH_PLATFORM);
+
+        mapTiles.add(bookshelf4T);
+
+        // Big Photo Shelf
+        Frame bPS1 = new FrameBuilder(getSubImage(16, 11))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder bPS1T = new MapTileBuilder(bPS1)
+                .withTileType(TileType.JUMP_THROUGH_PLATFORM);
+
+        mapTiles.add(bPS1T);
+
+        // Big Photo Shelf
+        Frame bPS2 = new FrameBuilder(getSubImage(16, 12))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder bPS2T = new MapTileBuilder(bPS2)
+                .withTileType(TileType.JUMP_THROUGH_PLATFORM);
+
+        mapTiles.add(bPS2T);
+
+        // Big Photo Shelf
+        Frame bPS3 = new FrameBuilder(getSubImage(16, 13))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder bPS3T = new MapTileBuilder(bPS3)
+                .withTileType(TileType.JUMP_THROUGH_PLATFORM);
+
+        mapTiles.add(bPS3T);
+
+        // Big Photo Shelf
+        Frame bPS4 = new FrameBuilder(getSubImage(16, 14))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder bPS4T = new MapTileBuilder(bPS4)
+                .withTileType(TileType.JUMP_THROUGH_PLATFORM);
+
+        mapTiles.add(bPS4T);
+
+        // Big Photo Shelf
+        Frame bPS5= new FrameBuilder(getSubImage(16, 15))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder bPS5T = new MapTileBuilder(bPS5)
+                .withTileType(TileType.JUMP_THROUGH_PLATFORM);
+
+        mapTiles.add(bPS5T);
+
+        // Big Photo Shelf
+        Frame bPS6 = new FrameBuilder(getSubImage(16, 16))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder bPS6T = new MapTileBuilder(bPS6)
+                .withTileType(TileType.JUMP_THROUGH_PLATFORM);
+
+        mapTiles.add(bPS6T);
 
         return mapTiles;
     }
