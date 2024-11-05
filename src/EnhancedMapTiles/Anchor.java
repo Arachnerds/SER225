@@ -14,6 +14,7 @@ import Utils.Direction;
 import Utils.Point;
 import java.awt.Color;
 import java.util.HashMap;
+import Engine.KeyLocker;
 
 public class Anchor extends EnhancedMapTile{
   
@@ -23,6 +24,10 @@ public class Anchor extends EnhancedMapTile{
   private Player player;
   private String startPosCode;
   private String currentPosCode;
+  private String rotationDirection;
+  /* private int extraMoveCounter;
+  private float extraMoveX;
+  private float extraMoveY; */
 
   
   public Anchor(Point location) {
@@ -104,16 +109,20 @@ public class Anchor extends EnhancedMapTile{
         if(startPosCode.equals("LA")){
             rotationAdjustment = 1;
             xyAdjustment = -1;
+            rotationDirection = "clockwise";
         }
         else if(startPosCode.equals("LB")){
             rotationAdjustment = 1;
             xyAdjustment = -1;
+            rotationDirection = "clockwise";
         }
         else if(startPosCode.equals("RB")){
             rotationAdjustment = -1;
+            rotationDirection = "counterclockwise";
         }
         else {
             rotationAdjustment = -1;
+            rotationDirection = "counterclockwise";
         }
 
         this.setCurrentAnimationName("Webbed");
@@ -152,6 +161,8 @@ public class Anchor extends EnhancedMapTile{
           //Change in x and y
           float dx = newRadX - prevRadX;
           float dy = newRadY - prevRadY;
+          /* extraMoveX = Math.abs(dx);
+          extraMoveY = Math.abs(dy); */
         
           player.moveXHandleCollision(xyAdjustment*dx);
           player.moveYHandleCollision(xyAdjustment*dy);
@@ -160,6 +171,21 @@ public class Anchor extends EnhancedMapTile{
           //System.out.print(startPosCode);
           //System.out.println("radius: "+ radius +", theta: " + theta +", dx: " + dx + ", dy: " + dy);
         }
+        //Check placement of this
+        player.isSwinging = true;
+        //System.out.println(Keyboard.isKeyDown(Key.SPACE));
+        //The spider separates from the anchor point if you press space
+        if(Keyboard.isKeyDown(Key.SPACE)){
+          player.getKeyLocker().lockKey(Key.SPACE); //This doesn't seem to do it either
+          radius = 0;
+          theta = null;
+          startPosCode = "";
+          player.setGravity(.5f);
+          //player.isSwinging = false;
+          //Propelling the spider a little further
+          //extraMoveCounter = 100;
+        }
+        //System.out.println(rotationDirection);
 
       }
       else{
@@ -168,12 +194,43 @@ public class Anchor extends EnhancedMapTile{
         theta = null;
         startPosCode = "";
         player.setGravity(.5f);
+        player.isSwinging = false;
       }
     }
     else{
       this.setCurrentAnimationName("DEFAULT");
       player.setGravity(.5f);
+      player.isSwinging = false;
     }
+
+    //I don't really know how this is going to behave if the player hits space when above the horizontal
+    //But that should be pretty rare. You'd have to really try to do that.
+    /* if(extraMoveCounter > 0){
+      //Just need to do this once, not every time
+      //Also, the logic in there is wrong somewhere
+      if(extraMoveCounter == 100){
+        if(player.getX() < this.getX() &&rotationDirection.equals("counterclockwise")){
+          //extraMoveX = -extraMoveX;
+          extraMoveY = -extraMoveY;
+        }
+        else if(player.getX()>this.getX() && rotationDirection.equals("clockwise")){
+          extraMoveX = -extraMoveX;
+          extraMoveY = -extraMoveY;
+        }
+        else if(player.getX()>this.getX() && rotationDirection.equals("counterclockwise")){
+          extraMoveX = -extraMoveX;
+          //extraMoveY = -extraMoveY;
+        }
+      }
+      else if(extraMoveCounter == 0){
+        player.setGravity(.5f);
+      }
+
+      player.moveXHandleCollision(extraMoveX);
+      player.moveYHandleCollision(extraMoveY); //Should I wait to turn off gravity?
+      System.out.println("counter: " + extraMoveCounter + " x: " + extraMoveX + " y: " + extraMoveY);
+      extraMoveCounter--;
+    } */
   }
 
   @Override
@@ -214,7 +271,7 @@ public class Anchor extends EnhancedMapTile{
   @Override
   public void draw(GraphicsHandler graphicsHandler) {
     super.draw(graphicsHandler);
-    if(this.intersects(player) && Keyboard.isKeyDown(Key.E)){
+    if(this.intersects(player) && Keyboard.isKeyDown(Key.E) && !Keyboard.isKeyDown(Key.SPACE)){
       //The jump point's x and y, with a little adjustment so the line goes to the center of it
         int x1 = (int)this.getCalibratedXLocation()+25;
         int y1 = (int)this.getCalibratedYLocation()+25;
