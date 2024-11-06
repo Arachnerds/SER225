@@ -44,7 +44,7 @@ public class PushableBlockHitbox extends EnhancedMapTile{
       if(block.canBeMoved){
 
         if(intersects(player)){
-          System.out.println("They're intersecting!");
+          //System.out.println("They're intersecting!");
           //This is a rate to move a pushed object at
           int dx = 1;
           if(player.getX() < this.getX()){
@@ -83,12 +83,11 @@ public class PushableBlockHitbox extends EnhancedMapTile{
   
 
     
-    // Overriding the hitbox draw method to just draw a line instead
-    @Override
+    /* @Override
     public void draw(GraphicsHandler graphicsHandler) {
       super.draw(graphicsHandler);
       drawBounds(graphicsHandler, new Color(0, 0, 255, 100));
-      }
+      } */
   
   }
   

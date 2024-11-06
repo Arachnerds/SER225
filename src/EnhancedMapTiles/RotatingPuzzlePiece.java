@@ -147,11 +147,11 @@ public class RotatingPuzzlePiece extends EnhancedMapTile {
     }
 
     //A testing method that displays the hitbox
-    @Override
+    /* @Override
     public void draw(GraphicsHandler graphicsHandler) {
         super.draw(graphicsHandler);
         drawBounds(graphicsHandler, new Color(255, 0, 0, 100));
-    }
+    } */
     
 }
 

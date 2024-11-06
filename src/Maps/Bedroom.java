@@ -54,7 +54,7 @@ public class Bedroom extends Map {
         enhancedMapTiles.add(jar.getExtraHitbox());
         enhancedMapTiles.add(jar.getDoorKey());
 
-        RotatingPuzzle puzzle = new RotatingPuzzle(this, getMapTile(7, 11).getLocation());
+        RotatingPuzzle puzzle = new RotatingPuzzle(this, getMapTile(7, 11).getLocation().addX(20));
         
         enhancedMapTiles.add(puzzle.getP1());
         enhancedMapTiles.add(puzzle.getP2());
