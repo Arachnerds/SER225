@@ -62,6 +62,7 @@ public abstract class Player extends GameObject {
     protected boolean climbTimerStarted = false;
     protected boolean hitEnemy = false;
     protected boolean hasKey = false;
+    public boolean isSwinging = false;
 
     public Player(SpriteSheet spriteSheet, float x, float y, String startingAnimationName) {
         super(spriteSheet, x, y, startingAnimationName);
@@ -272,7 +273,24 @@ public abstract class Player extends GameObject {
         }
 
         hitEnemy = false;
+
+        //if the player was swinging they are allowed a "double jump"
+        if(isSwinging &&  !keyLocker.isKeyLocked(JUMP_KEY)&& Keyboard.isKeyDown(Key.SPACE)){
+            isSwinging = false;
+            System.out.println("AHHHHHHHHHHHHHHHHHHHH");
+            keyLocker.lockKey(Key.SPACE); //Try locking the key in the anchor class instead??
+            jumpForce = jumpHeight;
+            airGroundState = AirGroundState.AIR;
+            if (jumpForce > 0) {
+                moveAmountY -= jumpForce;
+                jumpForce -= jumpDegrade;
+                if (jumpForce < 0) {
+                    jumpForce = 0;
+                }
+            }
     }
+    }
+    
     
     protected void playerClimbing() {
         int playerX = Math.round(getBounds().getX1());
@@ -518,4 +536,10 @@ public abstract class Player extends GameObject {
     public void setMomentumY(float f) {
         this.momentumY = f;
     }
+
+   
+    public KeyLocker getKeyLocker(){
+        return keyLocker;
+    }
+  
 }

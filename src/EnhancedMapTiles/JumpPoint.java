@@ -26,6 +26,7 @@ public class JumpPoint extends EnhancedMapTile {
     private Float dy;
     private String startPosCode;
     private Player player;
+    
 
     // Constructor for a jump point with a centered hitbox
     public JumpPoint(Point location) {
@@ -36,6 +37,7 @@ public class JumpPoint extends EnhancedMapTile {
         hitboxHeight = 100;
         this.setBounds(new Rectangle(hitboxX, hitboxY, hitboxWidth, hitboxHeight));
         startPosCode = "";
+        
     }
 
     // Constructor for a jump point with a "left" or "right" hitbox
@@ -107,11 +109,6 @@ public class JumpPoint extends EnhancedMapTile {
                 }
                 
                 this.setCurrentAnimationName("Webbed");
-
-                // Align player's position directly to the JumpPoint's location
-                //Maybe just do this once you get close enough??
-                /* player.setX(this.getX());
-                player.setY(this.getY()); */
                     
                 if(startPosCode.equals("LB")){
                     if(player.getX() < this.getX() && player.getY() > this.getY()){
@@ -138,12 +135,24 @@ public class JumpPoint extends EnhancedMapTile {
                         player.moveY(dy);
                     }
                 }
+
+
+                //If the player presses jump, they kind of lower, hang, and bounce
+                //This entire block could be removed if we don't like how it looks
+                if(Keyboard.isKeyDown(Key.SPACE)){
+                    dx = null;
+                    dy = null;
+                    startPosCode = "";
+                    player.setGravity(.5f);
+                    
+                }
             }
             else{
                 dx = null;
                 dy = null;
                 startPosCode = "";
                 player.setGravity(.5f);
+                
             }     
         }
         else{
