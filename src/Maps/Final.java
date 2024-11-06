@@ -1,15 +1,20 @@
 package Maps;
 
+import Enemies.BossHandEnemy;
+import Enemies.BossMainEnemy;
 import Enemies.BugEnemy;
 import Enemies.DinosaurEnemy;
+import Enemies.RoachEnemy;
 import Engine.ImageLoader;
 import EnhancedMapTiles.FakeBark;
 import EnhancedMapTiles.HorizontalMovingPlatform;
+import EnhancedMapTiles.JumpPoint;
 import GameObject.Rectangle;
 import Level.*;
 import NPCs.Walrus;
 import Tilesets.CommonTileset;
 import Utils.Direction;
+import Utils.Point;
 
 import java.util.ArrayList;
 
@@ -18,44 +23,43 @@ public class Final extends Map {
 
     public Final() {
         super("final.txt", new CommonTileset());
-        this.playerStartPosition = getMapTile(10, 10).getLocation();
+        this.playerStartPosition = getMapTile(10, 18).getLocation();
     }
 
-    /**
+    
     @Override
     public ArrayList<Enemy> loadEnemies() {
         ArrayList<Enemy> enemies = new ArrayList<>();
 
-        BugEnemy bugEnemy = new BugEnemy(getMapTile(16, 10).getLocation().subtractY(25), Direction.LEFT);
-        enemies.add(bugEnemy);
+        Point lhandArea = new Point(this.getMapTile(5, 10).getX(), this.getMapTile(5, 10).getY()-20); // DETERMINE THESE LATER BASED ON MAP TILES LOCATION
+        Point rhandArea = new Point(this.getMapTile(12, 10).getX(), this.getMapTile(12, 10).getY()-20);
 
-        DinosaurEnemy dinosaurEnemy = new DinosaurEnemy(getMapTile(19, 1).getLocation().addY(2), getMapTile(22, 1).getLocation().addY(2), Direction.RIGHT);
-        enemies.add(dinosaurEnemy);
+        BossMainEnemy boss = new BossMainEnemy(this, 3);
+        BossHandEnemy lHand = new BossHandEnemy(lhandArea, Direction.LEFT, boss, this);
+        enemies.add(lHand);
+
+        BossHandEnemy rHand = new BossHandEnemy(rhandArea, Direction.RIGHT, boss, this);
+        enemies.add(rHand);
+        boss.setInitialHands(lHand, rHand);
 
         return enemies;
     }
 
+    
     @Override
     public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
         ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
 
-        HorizontalMovingPlatform hmp = new HorizontalMovingPlatform(
-                ImageLoader.load("GreenPlatform.png"),
-                getMapTile(24, 6).getLocation(),
-                getMapTile(27, 6).getLocation(),
-                TileType.JUMP_THROUGH_PLATFORM,
-                3,
-                new Rectangle(0, 6,16,4),
-                Direction.RIGHT
-        );
-        enhancedMapTiles.add(hmp);
+        JumpPoint j1 = new JumpPoint(new Point(this.getMapTile(3, 12).getX(), this.getMapTile(3, 12).getY()));
+        enhancedMapTiles.add(j1);
 
-        FakeBark fakeBark = new FakeBark(getMapTile(32, 7).getLocation());
-        enhancedMapTiles.add(fakeBark);
+        JumpPoint j2 = new JumpPoint(new Point(this.getMapTile(17, 12).getX(), this.getMapTile(18, 12).getY()));
+        enhancedMapTiles.add(j2);
 
         return enhancedMapTiles;
     }
 
+    /*
     @Override
     public ArrayList<NPC> loadNPCs() {
         ArrayList<NPC> npcs = new ArrayList<>();

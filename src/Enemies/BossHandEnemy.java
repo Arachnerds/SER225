@@ -1,6 +1,7 @@
 package Enemies;
 
 import Builders.FrameBuilder;
+import Engine.GraphicsHandler;
 import Engine.ImageLoader;
 import GameObject.Frame;
 import GameObject.ImageEffect;
@@ -15,19 +16,19 @@ import Utils.AirGroundState;
 import Utils.Direction;
 import Utils.Point;
 
+import java.awt.Color;
 import java.util.HashMap;
 
 
 public class BossHandEnemy extends Enemy {
 
-    protected float movementSpeed = 1f;
+    protected float movementSpeed = 3f;
     private float originalMovementSpeed = movementSpeed;
     private Direction startFacingDirection;
     protected Direction facingDirection;
     protected AirGroundState airGroundState;
 
     private Point startPoint;
-    private boolean webbed;
 
     private int holdFrames; 
     private int currentHoldFrameCount;
@@ -41,17 +42,16 @@ public class BossHandEnemy extends Enemy {
     private Point sweepStartPointRight;
 
     public BossHandEnemy(Point startLocation, Direction facingDirection, BossMainEnemy head, Map map) {
-        super(startLocation.x, startLocation.y, new SpriteSheet(ImageLoader.load("FireflyAttackDraft1.png"), 64, 64), "WALK_RIGHT", 1);
+        super(startLocation.x, startLocation.y, new SpriteSheet(ImageLoader.load("BossHandSpriteSheetDraft1.png"), 128, 128), "IDLE_LEFT", 1);
         this.startPoint = startLocation;
-        this.webbed = false;
         this.enemyMain = head;
         this.startFacingDirection = facingDirection;
-        this.holdFrames = 30;
+        this.holdFrames = 100;
 
         // Need to change the exact point locations to be based on the map tiles of the table platform !!!!!!!!!!!!!
         // If starts at the left point, then the right point will be the end point for the sweep range, vice versa
-        this.sweepStartPointLeft = new Point(startLocation.x - 100, startLocation.y); 
-        this.sweepStartPointRight = new Point(startLocation.x + 100, startLocation.y);
+        this.sweepStartPointLeft = new Point(map.getMapTile(0, 15).getX()-60, map.getMapTile(0, 15).getY()+40); 
+        this.sweepStartPointRight = new Point(map.getMapTile(18, 15).getX(), map.getMapTile(18, 15).getY()+40);
 
         this.initialize();
     }
@@ -84,6 +84,8 @@ public class BossHandEnemy extends Enemy {
             return;
         }
 
+        super.update(player);
+
         switch (handState) {
 
             case SLAM_DOWN:
@@ -91,8 +93,14 @@ public class BossHandEnemy extends Enemy {
                 break;
 
             case SLAM_HOLD:
+            currentHoldFrameCount++;
                 if (!isFrozen) {
-                    currentHoldFrameCount++;
+                    if (this.facingDirection == Direction.LEFT) {
+                        this.currentAnimationName = "SLAM_LEFT";
+                    } else {
+                        this.currentAnimationName = "SLAM_RIGHT";
+                    }
+
                     if (currentHoldFrameCount >= holdFrames) {
                         handState = HandState.SLAM_UP;
                         currentHoldFrameCount = 0; 
@@ -114,11 +122,14 @@ public class BossHandEnemy extends Enemy {
                 break;
 
             case IDLE:
+                if (enemyMain.checkIfHandsIdle()) {
+                    enemyMain.handleHandsIdleState();
+                }
                 break;
 
             case SWEEP_LEFT:
                 moveAmountX = -movementSpeed; 
-                if (this.getX() <= sweepStartPointRight.x) {
+                if (this.getX() <= sweepStartPointLeft.x) {
                     handState = HandState.IDLE; 
                     if (facingDirection == Direction.RIGHT) {
                         currentAnimationName = "IDLE_RIGHT";
@@ -132,7 +143,7 @@ public class BossHandEnemy extends Enemy {
     
             case SWEEP_RIGHT:
                 moveAmountX = movementSpeed; 
-                if (this.getX() >= sweepStartPointLeft.x) {
+                if (this.getX() >= sweepStartPointRight.x) {
                     handState = HandState.IDLE; 
                     if (facingDirection == Direction.RIGHT) {
                         currentAnimationName = "IDLE_RIGHT";
@@ -151,9 +162,6 @@ public class BossHandEnemy extends Enemy {
 
         super.update(player);
 
-        // This will communicate to the boss to check if both hands are idle
-        enemyMain.handleHandsIdleState();
-
         previousHandState = handState;
     }
 
@@ -164,27 +172,30 @@ public class BossHandEnemy extends Enemy {
 
     @Override
     public void onEndCollisionCheckY(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
-        if (handState == HandState.SLAM_DOWN && hasCollided) {
+        if (handState == HandState.SLAM_DOWN && (hasCollided || (this.getY() + this.getHeight()) >= map.getMapTile(0, 19).getY()+45)) {
             handState = HandState.SLAM_HOLD; 
             currentHoldFrameCount = 0;
         }
     }
 
+    
     @Override
     public void touchedPlayer(Player player) {
 
-        if (isFrozen && player.getAirGroundState().equals(AirGroundState.AIR) && player.getMoveAmountY() > 0) {
+        if (isFrozen && player.getAirGroundState().equals(AirGroundState.AIR) && player.getMoveAmountY() > 0 && !hasBeenAttacked) {
             
             this.handState = HandState.DEAD;
-            this.enemyState = EnemyState.DEAD; 
-            this.setMapEntityStatus(MapEntityStatus.REMOVED); 
+            this.enemyState = EnemyState.DEAD;  
 
             player.setMomentumY(0.1f);
+            player.setHitEnemy(true); 
             player.playerJumping();
+
+            this.setMapEntityStatus(MapEntityStatus.REMOVED);
 
             enemyMain.bossTakeDamage(1);  
             
-            enemyMain.spawnNewHands();
+            enemyMain.respawnHands();
 
         } else if (!attackCooldownOn && !isFrozen) {
             player.hurtPlayer(this);
@@ -204,16 +215,17 @@ public class BossHandEnemy extends Enemy {
 
     // Method used to change state, location, and animation for sweep attack
     public void sweepHand() {
+        currentHoldFrameCount = 0; 
         if (facingDirection == Direction.LEFT) {
             handState = HandState.SWEEP_LEFT;
             this.currentAnimationName = "SWEEP_LEFT"; 
-            this.setX(sweepStartPointLeft.x);
-            this.setY(sweepStartPointLeft.y);
+            this.setX(sweepStartPointRight.x);
+            this.setY(sweepStartPointRight.y);
         } else {
             handState = HandState.SWEEP_RIGHT;
             this.currentAnimationName = "SWEEP_RIGHT"; 
-            this.setX(sweepStartPointRight.x);
-            this.setY(sweepStartPointRight.y);
+            this.setX(sweepStartPointLeft.x);
+            this.setY(sweepStartPointLeft.y);
         }
     }
 
@@ -245,79 +257,85 @@ public class BossHandEnemy extends Enemy {
         IDLE, SLAM_DOWN, SLAM_HOLD, SLAM_UP, SWEEP_LEFT, SWEEP_RIGHT, DEAD/*CLAP_DOWN, CLAP_SWEEP, CLAP_HOLD, CLAP_UP*/
     }
 
+    /*public void draw(GraphicsHandler graphicsHandler) {
+        super.draw(graphicsHandler);
+        drawBounds(graphicsHandler, new Color(255, 0, 0, 100));
+    }*/
+
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
         return new HashMap<String, Frame[]>() {{
             put("IDLE_LEFT", new Frame[]{
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 14)
-                            .withScale(3)
-                            .withBounds(4, 2, 5, 13)
+                            .withScale(1.25f)
+                            .withBounds(32, 32, 64, 64)
                             .build(),
             });
 
             put("IDLE_RIGHT", new Frame[]{
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 14)
-                            .withScale(3)
+                            .withScale(1.25f)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(4, 2, 5, 13)
+                            .withBounds(32, 32, 64, 64)
                             .build(),
             });
 
             put("SLAM_LEFT", new Frame[]{
-                new FrameBuilder(spriteSheet.getSprite(0, 0))
-                        .withScale(3)
-                        .withBounds(4, 2, 5, 13)
+                new FrameBuilder(spriteSheet.getSprite(1, 0))
+                        .withScale(1.25f)
+                        .withBounds(20,20, 94, 100)
                         .build(),
             });
 
             put("SLAM_RIGHT", new Frame[]{
-                new FrameBuilder(spriteSheet.getSprite(0, 0))
-                        .withScale(3)
+                new FrameBuilder(spriteSheet.getSprite(1, 0))
+                        .withScale(1.25f)
                         .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                        .withBounds(4, 2, 5, 13)
+                        .withBounds(15, 20, 94, 100)
                         .build(),
             });
 
             put("WEBBED_LEFT", new Frame[]{
-                new FrameBuilder(spriteSheet.getSprite(0, 0))
-                        .withScale(3)
-                        .withBounds(4, 2, 5, 13)
+                new FrameBuilder(spriteSheet.getSprite(2, 0))
+                        .withScale(1.25f)
+                        .withBounds(20, 20, 94, 100)
                         .build(),
             });
 
             put("WEBBED_RIGHT", new Frame[]{
-                new FrameBuilder(spriteSheet.getSprite(0, 0))
-                        .withScale(3)
+                new FrameBuilder(spriteSheet.getSprite(2, 0))
+                        .withScale(1.25f)
                         .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                        .withBounds(4, 2, 5, 13)
-                        .build(),
-            });
-
-            put("SWEEP_LEFT", new Frame[]{
-                new FrameBuilder(spriteSheet.getSprite(0, 0))
-                        .withScale(3)
-                        .withBounds(4, 2, 5, 13)
+                        .withBounds(15, 20, 94, 100)
                         .build(),
             });
 
             put("SWEEP_RIGHT", new Frame[]{
-                new FrameBuilder(spriteSheet.getSprite(0, 0))
-                        .withScale(3)
-                        .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                        .withBounds(4, 2, 5, 13)
+                new FrameBuilder(spriteSheet.getSprite(3, 0))
+                        .withScale(1.25f)
+                        .withBounds(30, 5, 60, 123)
                         .build(),
             });
 
+            put("SWEEP_LEFT", new Frame[]{
+                new FrameBuilder(spriteSheet.getSprite(3, 0))
+                        .withScale(1.25f)
+                        .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                        .withBounds(38, 5, 60, 123)
+                        .build(),
+            });
+
+            // Did not add a clap attack
             put("CLAP_LEFT", new Frame[]{
-                new FrameBuilder(spriteSheet.getSprite(0, 0))
-                        .withScale(3)
+                new FrameBuilder(spriteSheet.getSprite(4, 0))
+                        .withScale(1.25f)
                         .withBounds(4, 2, 5, 13)
                         .build(),
             });
 
             put("CLAP_RIGHT", new Frame[]{
-                new FrameBuilder(spriteSheet.getSprite(0, 0))
-                        .withScale(3)
+                new FrameBuilder(spriteSheet.getSprite(4, 0))
+                        .withScale(1.25f)
                         .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                         .withBounds(4, 2, 5, 13)
                         .build(),

@@ -1,60 +1,64 @@
 package Enemies;
 
 import Level.Map;
+import Level.MapEntityStatus;
 import Utils.Direction;
 import Utils.Point;
+
 
 import java.util.ArrayList;
 import java.util.Random;
 
 import Enemies.BossHandEnemy.HandState;
 
-public class BossMainEnemy {
+public class BossMainEnemy  {
 
     private Map map;
-    private Point location;
     private BossHandEnemy leftHand;
     private BossHandEnemy rightHand;
     private ArrayList<String> attackTypes;
     private int health;
     private boolean isAlive = true;
 
+    private int idleCooldownFrames = 120;
+    private int idleCooldownCounter = 0;
+
     public BossMainEnemy(Map map, int health) {
         this.map = map;
         this.health = health;
         attackTypes = new ArrayList<>();
         this.initializeAttackTypes();
-        this.initialize();
+        // this.initialize();
     }
 
+    /*
     public void initialize() {
         spawnNewHands(); //spawn hands for the boss enemy
-    }
+    } */
 
     // Just adding the attacks to the attack list
     // Slam is added multiple times to increase probability during random selection
     private void initializeAttackTypes() {
         attackTypes.add("SLAM");
-        attackTypes.add("SLAM");
-        attackTypes.add("SLAM");
         attackTypes.add("SWEEP_RIGHT");
+        attackTypes.add("SLAM");
         attackTypes.add("SWEEP_LEFT");
+        attackTypes.add("SLAM");
     }
 
-
-    public void spawnNewHands(){ // spawn new hand enemies for the boss
+    public void respawnHands(){ 
 
         if (!isAlive) return;
 
-        Point lhandArea = new Point(location.x-5,location.y); // DETERMINE THESE LATER BASED ON MAP TILES LOCATION
-        Point rhandArea = new Point(location.x+5,location.y);
+        Point lhandArea = new Point(map.getMapTile(5, 10).getX(), map.getMapTile(5, 10).getY()-20); // DETERMINE THESE LATER BASED ON MAP TILES LOCATION
+        Point rhandArea = new Point(map.getMapTile(12, 10).getX(), map.getMapTile(12, 10).getY()-20);
 
-        if(leftHand == null || leftHand.handState == HandState.DEAD){
+        if(leftHand.handState == HandState.DEAD){
             BossHandEnemy lHand = new BossHandEnemy(lhandArea, Direction.LEFT, this, map);
             map.addEnemy(lHand);
             leftHand = lHand;
         }
-        if(rightHand == null || rightHand.handState == HandState.DEAD){
+        if(rightHand.handState == HandState.DEAD){
             BossHandEnemy rHand = new BossHandEnemy(rhandArea, Direction.RIGHT, this, map);
             map.addEnemy(rHand);
             rightHand = rHand;
@@ -112,5 +116,29 @@ public class BossMainEnemy {
     private void die() {
         isAlive = false;
         System.out.println("Boss fight over");
+        leftHand.setMapEntityStatus(MapEntityStatus.REMOVED);
+        rightHand.setMapEntityStatus(MapEntityStatus.REMOVED);
+    }
+
+    public void setInitialHands(BossHandEnemy leftHand, BossHandEnemy rightHand) {
+        this.leftHand = leftHand;
+        this.rightHand = rightHand;
+    }
+
+    public boolean checkIfHandsIdle() {
+        if (leftHand.handState == HandState.IDLE && rightHand.handState == HandState.IDLE) {
+            // Only reset the cooldown when both hands are idle
+            if (idleCooldownCounter < idleCooldownFrames) {
+                idleCooldownCounter++;
+                return false; // Hands are idle, but cooldown is still active
+            } else {
+                idleCooldownCounter = 0; // Reset counter to allow next attack after cooldown
+                return true; // Hands are idle and cooldown is complete
+            }
+        } else {
+            // If any hand is not idle, reset the cooldown counter
+            idleCooldownCounter = 0;
+            return false;
+        }
     }
 }

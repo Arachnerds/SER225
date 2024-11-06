@@ -408,6 +408,10 @@ public abstract class Player extends GameObject {
         enemy.hasBeenAttacked = false;
     }
 
+    public void setHitEnemy(boolean bool) {
+        this.hitEnemy = bool;
+    }
+
     // other entities can call this to tell the player they beat a level
     public void completeLevel() {
         levelState = LevelState.LEVEL_COMPLETED;
@@ -493,7 +497,7 @@ public abstract class Player extends GameObject {
     }
 
     // Uncomment this to have game draw player's bounds to make it easier to visualize
-    
+    // PLAYER HITBOX
     public void draw(GraphicsHandler graphicsHandler) {
         super.draw(graphicsHandler);
         drawBounds(graphicsHandler, new Color(255, 0, 0, 100));
@@ -512,9 +516,6 @@ public abstract class Player extends GameObject {
     }
 
     public void setMomentumY(float f) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setMomentumY'");
+        this.momentumY = f;
     }
-
-   
 }
