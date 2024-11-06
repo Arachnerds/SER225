@@ -35,10 +35,10 @@ public class Final extends Map {
         Point rhandArea = new Point(this.getMapTile(12, 10).getX(), this.getMapTile(12, 10).getY()-20);
 
         BossMainEnemy boss = new BossMainEnemy(this, 3);
-        BossHandEnemy lHand = new BossHandEnemy(lhandArea, Direction.LEFT, boss, this);
+        BossHandEnemy lHand = new BossHandEnemy(lhandArea, Direction.RIGHT, boss, this);
         enemies.add(lHand);
 
-        BossHandEnemy rHand = new BossHandEnemy(rhandArea, Direction.RIGHT, boss, this);
+        BossHandEnemy rHand = new BossHandEnemy(rhandArea, Direction.LEFT, boss, this);
         enemies.add(rHand);
         boss.setInitialHands(lHand, rHand);
 

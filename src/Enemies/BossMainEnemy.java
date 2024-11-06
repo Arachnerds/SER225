@@ -54,12 +54,12 @@ public class BossMainEnemy  {
         Point rhandArea = new Point(map.getMapTile(12, 10).getX(), map.getMapTile(12, 10).getY()-20);
 
         if(leftHand.handState == HandState.DEAD){
-            BossHandEnemy lHand = new BossHandEnemy(lhandArea, Direction.LEFT, this, map);
+            BossHandEnemy lHand = new BossHandEnemy(lhandArea, Direction.RIGHT, this, map);
             map.addEnemy(lHand);
             leftHand = lHand;
         }
         if(rightHand.handState == HandState.DEAD){
-            BossHandEnemy rHand = new BossHandEnemy(rhandArea, Direction.RIGHT, this, map);
+            BossHandEnemy rHand = new BossHandEnemy(rhandArea, Direction.LEFT, this, map);
             map.addEnemy(rHand);
             rightHand = rHand;
         }
@@ -81,10 +81,10 @@ public class BossMainEnemy  {
                 rightHand.slamHand();
                 break;
             case "SWEEP_RIGHT":
-                rightHand.sweepHand();
+                leftHand.sweepHand();
                 break;
             case "SWEEP_LEFT":
-                leftHand.sweepHand();
+                rightHand.sweepHand();
                 break;
         }
     }
