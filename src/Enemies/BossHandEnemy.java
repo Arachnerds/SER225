@@ -65,9 +65,9 @@ public class BossHandEnemy extends Enemy {
 
         facingDirection = startFacingDirection; // facing direction will be determined by palm
         if (facingDirection == Direction.RIGHT) {
-            currentAnimationName = "IDLE_RIGHT";
-        } else if (facingDirection == Direction.LEFT) {
             currentAnimationName = "IDLE_LEFT";
+        } else if (facingDirection == Direction.LEFT) {
+            currentAnimationName = "IDLE_RIGHT";
         }
         airGroundState = AirGroundState.AIR;
 
@@ -96,9 +96,9 @@ public class BossHandEnemy extends Enemy {
             currentHoldFrameCount++;
                 if (!isFrozen) {
                     if (this.facingDirection == Direction.LEFT) {
-                        this.currentAnimationName = "SLAM_LEFT";
-                    } else {
                         this.currentAnimationName = "SLAM_RIGHT";
+                    } else {
+                        this.currentAnimationName = "SLAM_LEFT";
                     }
 
                     if (currentHoldFrameCount >= holdFrames) {
@@ -113,9 +113,9 @@ public class BossHandEnemy extends Enemy {
                 if (this.getY() <= startPoint.y) { 
                     handState = HandState.IDLE; 
                     if (facingDirection == Direction.RIGHT) {
-                        currentAnimationName = "IDLE_RIGHT";
-                    } else if (facingDirection == Direction.LEFT) {
                         currentAnimationName = "IDLE_LEFT";
+                    } else if (facingDirection == Direction.LEFT) {
+                        currentAnimationName = "IDLE_RIGHT";
                     }
                     this.setY(startPoint.y); 
                 }
@@ -132,9 +132,9 @@ public class BossHandEnemy extends Enemy {
                 if (this.getX() <= sweepStartPointLeft.x) {
                     handState = HandState.IDLE; 
                     if (facingDirection == Direction.RIGHT) {
-                        currentAnimationName = "IDLE_RIGHT";
-                    } else if (facingDirection == Direction.LEFT) {
                         currentAnimationName = "IDLE_LEFT";
+                    } else if (facingDirection == Direction.LEFT) {
+                        currentAnimationName = "IDLE_RIGHT";
                     }
                     this.setX(startPoint.x);
                     this.setY(startPoint.y);
@@ -146,9 +146,9 @@ public class BossHandEnemy extends Enemy {
                 if (this.getX() >= sweepStartPointRight.x) {
                     handState = HandState.IDLE; 
                     if (facingDirection == Direction.RIGHT) {
-                        currentAnimationName = "IDLE_RIGHT";
-                    } else if (facingDirection == Direction.LEFT) {
                         currentAnimationName = "IDLE_LEFT";
+                    } else if (facingDirection == Direction.LEFT) {
+                        currentAnimationName = "IDLE_RIGHT";
                     }
                     this.setX(startPoint.x);
                     this.setY(startPoint.y);
@@ -207,9 +207,9 @@ public class BossHandEnemy extends Enemy {
         handState = HandState.SLAM_DOWN;
         currentHoldFrameCount = 0; 
         if (facingDirection == Direction.LEFT) {
-            this.currentAnimationName = "SLAM_LEFT";
-        } else {
             this.currentAnimationName = "SLAM_RIGHT";
+        } else {
+            this.currentAnimationName = "SLAM_LEFT";
         }
     }
 
@@ -246,9 +246,9 @@ public class BossHandEnemy extends Enemy {
         if (handState == HandState.SLAM_HOLD) {
             super.freeze(frames);
             if (facingDirection == Direction.LEFT) {
-                currentAnimationName = "WEBBED_LEFT";
-            } else {
                 currentAnimationName = "WEBBED_RIGHT";
+            } else {
+                currentAnimationName = "WEBBED_LEFT";
             }
         }
     }
