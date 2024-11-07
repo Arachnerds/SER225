@@ -575,7 +575,7 @@ public class CommonTileset extends Tileset {
                 .build();
 
         MapTileBuilder floorStairBottomTile = new MapTileBuilder(floorStairBottomFrame)
-                .withTileType(TileType.PASSABLE);
+                .withTileType(TileType.NOT_PASSABLE);
 
         mapTiles.add(floorStairBottomTile);
 
@@ -585,7 +585,7 @@ public class CommonTileset extends Tileset {
                 .build();
 
         MapTileBuilder stairTopTile = new MapTileBuilder(stairTopFrame)
-                .withTileType(TileType.PASSABLE);
+                .withTileType(TileType.NOT_PASSABLE);
 
         mapTiles.add(stairTopTile);
 
