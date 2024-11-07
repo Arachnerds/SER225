@@ -74,7 +74,7 @@ public class RotatingPuzzlePiece extends EnhancedMapTile {
     }
 
     public boolean puzzleIntersects(Player player) {
-        if(puzzle.getP1().intersects(player) || puzzle.getP2().intersects(player) || puzzle.getP3().intersects(player)) {
+        if(puzzle.getP1().intersects(player) || puzzle.getP2().intersects(player) || puzzle.getP3().intersects(player)||puzzle.getLockCase().intersects(player)) {
             return true;
         } else {
             return false;
