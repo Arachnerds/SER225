@@ -14,6 +14,7 @@ public class EditorMaps {
             add("Outside");
             add("Bedroom");
             add("Final");
+            add("Living Room");
         }};
     }
 
@@ -31,6 +32,8 @@ public class EditorMaps {
                 return new Bedroom();
             case "Final":
                 return new Final();
+            case "Living Room":
+                return new LivingRoom();
             default:
                 throw new RuntimeException("Unrecognized map name");
         }

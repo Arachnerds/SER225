@@ -35,6 +35,7 @@ public class PlayBedroomLevelScreen extends Screen implements PlayerListener {
 
         bedroomLevelClearedScreen = new BedroomLevelClearedScreen();
         bedroomLevelLoseScreen = new BedroomLevelLoseScreen(this);
+        Sound.playMusic(Sound.Level.BEDROOM);
 
         this.playLevelScreenState = PlayLevelScreenState.RUNNING;
     }
@@ -53,7 +54,7 @@ public class PlayBedroomLevelScreen extends Screen implements PlayerListener {
                     bedroomLevelClearedScreen.update();
                     screenTimer--;
                     if (screenTimer == 0) {
-                        goBackToMenu();
+                        goToLivingRoomLevelScreen();
                     }
                 }
                 break;
@@ -103,6 +104,10 @@ public class PlayBedroomLevelScreen extends Screen implements PlayerListener {
 
     public void goToOutsideLevelScreen() {
         screenCoordinator.setGameState(GameState.OUTSIDE_LEVEL);
+    }
+
+    public void goToLivingRoomLevelScreen() {
+        screenCoordinator.setGameState(GameState.LIVING_ROOM_LEVEL);
     }
 
     public void goBackToMenu() {

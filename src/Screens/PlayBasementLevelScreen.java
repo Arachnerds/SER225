@@ -36,6 +36,8 @@ public class PlayBasementLevelScreen extends Screen implements PlayerListener {
         basementLevelClearedScreen = new BasementLevelClearedScreen();
         basementLevelLoseScreen = new BasementLevelLoseScreen(this);
 
+        Sound.playMusic(Sound.Level.BASEMENT);
+
         this.playLevelScreenState = PlayLevelScreenState.RUNNING;
     }
 

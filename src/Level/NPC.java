@@ -3,15 +3,10 @@ package Level;
 import Engine.GraphicsHandler;
 import Engine.Key;
 import Engine.Keyboard;
-import GameObject.Frame;
 import GameObject.SpriteSheet;
 import SpriteFont.SpriteFont;
 
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 // This class is a base class for all npcs in the game -- all npcs should extend from it
 public class NPC extends MapEntity {

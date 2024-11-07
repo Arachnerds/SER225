@@ -51,7 +51,7 @@ public class Bedroom extends Map {
         enhancedMapTiles.add(key); */
 
         //41, 2 addY 24 gets it right on the shelf
-        FireflyJar jar = new FireflyJar(getMapTile(41, 2).getLocation().addY(24));
+        FireflyJar jar = new FireflyJar(getMapTile(39, 2).getLocation().addY(24));
         enhancedMapTiles.add(jar);
         enhancedMapTiles.add(jar.getExtraHitbox());
         enhancedMapTiles.add(jar.getDoorKey());

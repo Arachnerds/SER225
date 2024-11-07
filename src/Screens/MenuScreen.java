@@ -31,6 +31,7 @@ public class MenuScreen extends Screen {
     @Override
     public void initialize() {
         Sound.stopAmbience();
+        Sound.stopNarration();
 
         playGame = new SpriteFont("START", 0, 475, "Times New Roman", 35, new Color(255, 255, 255, alpha));
         playGame.setOutlineColor(new Color(0, 0, 0, alpha));

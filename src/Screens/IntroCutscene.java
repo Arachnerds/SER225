@@ -76,7 +76,6 @@ public class IntroCutscene extends Screen {
 
         if (musicDelayTimer >= musicDelayDuration && !musicStarted) {
             Sound.playMusic(Sound.Level.WALTZ);
-            Sound.setMusicVolume(-15.0f);
             musicStarted = true;
         }
 

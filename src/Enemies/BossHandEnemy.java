@@ -1,7 +1,6 @@
 package Enemies;
 
 import Builders.FrameBuilder;
-import Engine.GraphicsHandler;
 import Engine.ImageLoader;
 import GameObject.Frame;
 import GameObject.ImageEffect;
@@ -16,7 +15,6 @@ import Utils.AirGroundState;
 import Utils.Direction;
 import Utils.Point;
 
-import java.awt.Color;
 import java.util.HashMap;
 
 
@@ -153,6 +151,8 @@ public class BossHandEnemy extends Enemy {
                     this.setX(startPoint.x);
                     this.setY(startPoint.y);
                 }
+                break;
+            default:
                 break;
         }
 

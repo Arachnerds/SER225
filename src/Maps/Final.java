@@ -2,16 +2,8 @@ package Maps;
 
 import Enemies.BossHandEnemy;
 import Enemies.BossMainEnemy;
-import Enemies.BugEnemy;
-import Enemies.DinosaurEnemy;
-import Enemies.RoachEnemy;
-import Engine.ImageLoader;
-import EnhancedMapTiles.FakeBark;
-import EnhancedMapTiles.HorizontalMovingPlatform;
 import EnhancedMapTiles.JumpPoint;
-import GameObject.Rectangle;
 import Level.*;
-import NPCs.Walrus;
 import Tilesets.CommonTileset;
 import Utils.Direction;
 import Utils.Point;

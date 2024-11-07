@@ -14,7 +14,6 @@ import Utils.Direction;
 import Utils.Point;
 import java.awt.Color;
 import java.util.HashMap;
-import Engine.KeyLocker;
 
 public class Anchor extends EnhancedMapTile{
   
@@ -24,12 +23,6 @@ public class Anchor extends EnhancedMapTile{
   private Player player;
   private String startPosCode;
   private String currentPosCode;
-  private String rotationDirection;
-  /* private int extraMoveCounter;
-  private float extraMoveX;
-  private float extraMoveY; */
-
-  
   public Anchor(Point location) {
     super(location.x, location.y, new SpriteSheet(ImageLoader.load("AnchorBox.png"), 16, 16), TileType.PASSABLE);
     radius = 0;
@@ -109,20 +102,16 @@ public class Anchor extends EnhancedMapTile{
         if(startPosCode.equals("LA")){
             rotationAdjustment = 1;
             xyAdjustment = -1;
-            rotationDirection = "clockwise";
         }
         else if(startPosCode.equals("LB")){
             rotationAdjustment = 1;
             xyAdjustment = -1;
-            rotationDirection = "clockwise";
         }
         else if(startPosCode.equals("RB")){
             rotationAdjustment = -1;
-            rotationDirection = "counterclockwise";
         }
         else {
             rotationAdjustment = -1;
-            rotationDirection = "counterclockwise";
         }
 
         this.setCurrentAnimationName("Webbed");

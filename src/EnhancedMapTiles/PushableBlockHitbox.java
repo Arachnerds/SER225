@@ -1,7 +1,6 @@
 package EnhancedMapTiles;
 
 import Builders.FrameBuilder;
-import Engine.GraphicsHandler;
 import Engine.ImageLoader;
 import GameObject.Frame;
 import GameObject.Rectangle;
@@ -10,7 +9,6 @@ import Level.EnhancedMapTile;
 import Level.Player;
 import Level.TileType;
 import Utils.Point;
-import java.awt.Color;
 import java.util.HashMap;
 
 

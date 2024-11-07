@@ -3097,6 +3097,106 @@ public class CommonTileset extends Tileset {
 
         mapTiles.add(bPS6T);
 
+        // Guitar
+        Frame guitar1 = new FrameBuilder(getSubImage(16, 0))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder guitar1T = new MapTileBuilder(guitar1)
+                .withTileType(TileType.JUMP_THROUGH_PLATFORM);
+
+        mapTiles.add(guitar1T);
+
+        // Guitar
+        Frame guitar2 = new FrameBuilder(getSubImage(16, 1))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder guitar2T = new MapTileBuilder(guitar2)
+                .withTileType(TileType.JUMP_THROUGH_PLATFORM);
+
+        mapTiles.add(guitar2T);
+
+        // Guitar
+        Frame as = new FrameBuilder(getSubImage(0, 3))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder ast = new MapTileBuilder(as)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(ast);
+
+        // Guitar
+        Frame asf = new FrameBuilder(getSubImage(0, 4))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder asft = new MapTileBuilder(asf)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(asft);
+
+        // Guitar
+        Frame asd = new FrameBuilder(getSubImage(0, 5))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder asdt = new MapTileBuilder(asd)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(asdt);
+
+        // Guitar
+        Frame ase = new FrameBuilder(getSubImage(1, 2))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder aset = new MapTileBuilder(ase)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(aset);
+
+        // Guitar
+        Frame asef = new FrameBuilder(getSubImage(1, 3))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder aseft = new MapTileBuilder(asef)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(aseft);
+
+        // Guitar
+        Frame ased = new FrameBuilder(getSubImage(1, 4))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder asedt = new MapTileBuilder(ased)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(asedt);
+
+        // Guitar
+        Frame asefq = new FrameBuilder(getSubImage(3, 3))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder aseftq = new MapTileBuilder(asefq)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(aseftq);
+
+        // Guitar
+        Frame asedq = new FrameBuilder(getSubImage(3, 4))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder asedtq = new MapTileBuilder(asedq)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(asedtq);
+
         return mapTiles;
     }
 }

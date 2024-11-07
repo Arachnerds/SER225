@@ -19,7 +19,11 @@ public class Sound {
         TITLE(0, "Resources/menu.wav"),
         ANC(1, "Resources/animalCrossing.wav"),
         WALTZ(2, "Resources/waltz.wav"),
-        NARRATION(3, "Resources/narration.wav"); // New NARRATION enum
+        NARRATION(3, "Resources/narration.wav"), // New NARRATION enum
+        BASEMENT(4, "Resources/deep.wav"),
+        OUTSIDE(5, "Resources/raining.wav"),
+        BEDROOM(6, "Resources/bedroom.wav"),
+        LIVING_ROOM(7, "Resources/living.wav");
 
         private final String path;
 

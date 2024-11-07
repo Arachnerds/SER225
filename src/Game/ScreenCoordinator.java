@@ -11,6 +11,7 @@ import Screens.PlayBasementLevelScreen;
 import Screens.PlayOutsideLevelScreen;
 import Screens.PlayBedroomLevelScreen;
 import Screens.PlayFinalLevelScreen;
+import Screens.PlayLivingRoomLevelScreen;
 
 /*
  * Based on the current game state, this class determines which Screen should be shown
@@ -36,7 +37,7 @@ public class ScreenCoordinator extends Screen {
 	@Override
 	public void initialize() {
 		// start game off with Menu Screen
-		gameState = GameState.ARACHNERDS;
+		gameState = GameState.INTRO_CUTSCENE;
 	}
 
 	@Override
@@ -57,6 +58,9 @@ public class ScreenCoordinator extends Screen {
 						break;
 					case BEDROOM_LEVEL:
 						currentScreen = new PlayBedroomLevelScreen(this);
+						break;
+					case LIVING_ROOM_LEVEL:
+						currentScreen = new PlayLivingRoomLevelScreen(this);
 						break;
 					case CREDITS:
 						currentScreen = new CreditsScreen(this);

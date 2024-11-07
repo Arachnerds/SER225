@@ -2,17 +2,14 @@ package EnhancedMapTiles;
 
 import Builders.FrameBuilder;
 import Enemies.FireflyEnemy;
-import Engine.GraphicsHandler;
 import GameObject.Frame;
 import GameObject.Rectangle;
 import GameObject.SpriteSheet;
-import Level.EnhancedMapTile;
 import Level.Player;
 import Level.TileType;
 import Utils.AirGroundState;
 import Utils.Direction;
 import Utils.Point;
-import java.awt.Color;
 import java.util.HashMap;
 
 

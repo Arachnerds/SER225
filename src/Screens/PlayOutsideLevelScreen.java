@@ -35,6 +35,7 @@ public class PlayOutsideLevelScreen extends Screen implements PlayerListener {
 
         outsideLevelClearedScreen = new OutsideLevelClearedScreen();
         outsideLevelLoseScreen = new OutsideLevelLoseScreen(this);
+        Sound.playMusic(Sound.Level.OUTSIDE);
 
         this.playLevelScreenState = PlayLevelScreenState.RUNNING;
     }
