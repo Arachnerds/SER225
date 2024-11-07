@@ -67,9 +67,9 @@ public class MosquitoEnemy extends Enemy {
         anchors[2] = new Point(startPoint.x + 250f, startPoint.y + 125f);
         anchors[3] = new Point(startPoint.x - 250f, startPoint.y + 215f);
 
-        for (Point point : anchors) {
+        /*for (Point point : anchors) {
             System.out.println("Point: " + point);
-        }
+        }*/
         //jumpStartPos = 30;
         //goodToLand = true;
 
@@ -131,7 +131,7 @@ public class MosquitoEnemy extends Enemy {
             } else if (jumpWaitTimer == 0) { //timer is up, jump
                 dinosaurState = DinosaurState.SHOOT;
                 //previousDinosaurState = DinosaurState.SHOOT_WAIT
-                System.out.println("swap to move");
+                //System.out.println("swap to move");
             }
             else {
                 jumpWaitTimer--;
@@ -152,9 +152,9 @@ public class MosquitoEnemy extends Enemy {
                 }*/
 
                 int aiming = (int) (Math.random() * (3));//randomize point choice
-                System.out.println("random: " + aiming);
+                //System.out.println("random: " + aiming);
                 aim = anchors[aiming];
-                System.out.println("aim = "+ aim + " curr pos: "+ this.x +"," +this.y);
+                //System.out.println("aim = "+ aim + " curr pos: "+ this.x +"," +this.y);
 
 
                 if(aim.x<this.getLocation().x){ //determine direction
@@ -175,12 +175,12 @@ public class MosquitoEnemy extends Enemy {
 
                 if ((this.y > aim.y + 5)) { //jumping up
                     moveAmountY -=  movementSpeed;
-                    System.out.println("up+");
+                    //System.out.println("up+");
 
                 } else if(this.y < aim.y - 5){ //move down
                     
                     moveAmountY += movementSpeed;
-                    System.out.println("down+");
+                    //System.out.println("down+");
                 } else{
                     checky = true;
                 }
@@ -188,12 +188,12 @@ public class MosquitoEnemy extends Enemy {
                 //move relevant x position
                 if((this.x > aim.x + 5)){ //move left
                     moveAmountX -= movementSpeed;
-                    System.out.print("left");
+                    //System.out.print("left");
                     
                 } else if( this.x < aim.x - 5){ //move right
                     
                     moveAmountX += movementSpeed;
-                    System.out.print("right");
+                    //System.out.print("right");
                     
                 } else{
                     checkx = true;

@@ -140,7 +140,7 @@ public class GrasshopperEnemy extends Enemy {
                 }
 
                 double aiming = (double)(Math.random() * 600);//randomize jump length
-                System.out.println("aiming = "+ aiming);
+                //System.out.println("aiming = "+ aiming);
                 if(this.facingDirection == Direction.LEFT){ //aim jump
                     aim = this.x - aiming;
                     currentAnimationName = "JUMP_LEFT";
