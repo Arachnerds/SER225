@@ -4,6 +4,8 @@ import GameObject.Rectangle;
 import GameObject.Sprite;
 import Screens.PlayBasementLevelScreen;
 import Screens.PlayBedroomLevelScreen;
+import Screens.PlayFinalLevelScreen;
+import Screens.PlayLivingRoomLevelScreen;
 import Screens.PlayOutsideLevelScreen;
 import SpriteFont.SpriteFont;
 import Utils.Colors;
@@ -247,10 +249,40 @@ public class GamePanel extends JPanel {
 
                     this.hasKey = playScreen.getPlayer().hasKey();
                 }
+            } else if (currentScreen instanceof PlayLivingRoomLevelScreen) {
+                PlayLivingRoomLevelScreen playScreen = (PlayLivingRoomLevelScreen) currentScreen;
+                
+                if (playScreen.getPlayLevelScreenState() == PlayLivingRoomLevelScreen.PlayLevelScreenState.RUNNING) {
+                    currentPlayState = PlayLevelCurrentScreenState.RUNNING;
+                    if (playScreen.getPlayer().hasShotWeb()) {
+                        cooldownBarWidth = playScreen.getPlayer().getShootCooldownFrames()*2;
+                        isOnCooldown = true;
+                    } else {
+                        cooldownBarWidth = cooldownBarWidthMax;
+                        isOnCooldown = false;
+                    }
+
+                    this.hasKey = playScreen.getPlayer().hasKey();
+                }
             } else if (currentScreen instanceof PlayBedroomLevelScreen) {
                 PlayBedroomLevelScreen playScreen = (PlayBedroomLevelScreen) currentScreen;
                 
                 if (playScreen.getPlayLevelScreenState() == PlayBedroomLevelScreen.PlayLevelScreenState.RUNNING) {
+                    currentPlayState = PlayLevelCurrentScreenState.RUNNING;
+                    if (playScreen.getPlayer().hasShotWeb()) {
+                        cooldownBarWidth = playScreen.getPlayer().getShootCooldownFrames()*2;
+                        isOnCooldown = true;
+                    } else {
+                        cooldownBarWidth = cooldownBarWidthMax;
+                        isOnCooldown = false;
+                    }
+
+                    this.hasKey = playScreen.getPlayer().hasKey();
+                }
+            } else if (currentScreen instanceof PlayFinalLevelScreen) {
+                PlayFinalLevelScreen playScreen = (PlayFinalLevelScreen) currentScreen;
+                
+                if (playScreen.getPlayLevelScreenState() == PlayFinalLevelScreen.PlayLevelScreenState.RUNNING) {
                     currentPlayState = PlayLevelCurrentScreenState.RUNNING;
                     if (playScreen.getPlayer().hasShotWeb()) {
                         cooldownBarWidth = playScreen.getPlayer().getShootCooldownFrames()*2;

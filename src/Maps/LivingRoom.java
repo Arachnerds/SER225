@@ -80,7 +80,7 @@ public class LivingRoom extends Map {
         // TRY TO MAKE ALL MESSEGES THE SAME SIZE AND THEN CHOOSE OFFEST VALUE TO CENTER THE TEXT BOX
         // Offest value is the last integer parameter in OldSpider Contructor to position the textboxes
 
-        OldSpider spiderNPC = new OldSpider(getMapTile(66, 13).getLocation(), "LEFT", messeges, -45);
+        OldSpider spiderNPC = new OldSpider(getMapTile(66, 13).getLocation(), "LEFT", messeges, -50);
         npcs.add(spiderNPC);
 
         return npcs;
