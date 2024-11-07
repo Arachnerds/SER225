@@ -575,7 +575,7 @@ public class CommonTileset extends Tileset {
                 .build();
 
         MapTileBuilder floorStairBottomTile = new MapTileBuilder(floorStairBottomFrame)
-                .withTileType(TileType.NOT_PASSABLE);
+                .withTileType(TileType.PASSABLE);
 
         mapTiles.add(floorStairBottomTile);
 
@@ -585,7 +585,7 @@ public class CommonTileset extends Tileset {
                 .build();
 
         MapTileBuilder stairTopTile = new MapTileBuilder(stairTopFrame)
-                .withTileType(TileType.NOT_PASSABLE);
+                .withTileType(TileType.PASSABLE);
 
         mapTiles.add(stairTopTile);
 
@@ -605,7 +605,7 @@ public class CommonTileset extends Tileset {
                 .build();
 
         MapTileBuilder stairUnderhangTile1 = new MapTileBuilder(stairUnderhangFrame1)
-                .withTileType(TileType.NOT_PASSABLE);
+                .withTileType(TileType.PASSABLE);
 
         mapTiles.add(stairUnderhangTile1);
 
@@ -616,7 +616,7 @@ public class CommonTileset extends Tileset {
                 .build();
 
         MapTileBuilder wallStairBottomTile = new MapTileBuilder(wallStairBottomFrame)
-                .withTileType(TileType.NOT_PASSABLE);
+                .withTileType(TileType.PASSABLE);
 
         mapTiles.add(wallStairBottomTile);
 
@@ -626,7 +626,7 @@ public class CommonTileset extends Tileset {
                 .build();
 
         MapTileBuilder stairUnderhangTile2 = new MapTileBuilder(stairUnderhangFrame2)
-                .withTileType(TileType.NOT_PASSABLE);
+                .withTileType(TileType.PASSABLE);
 
         mapTiles.add(stairUnderhangTile2);
 
@@ -637,7 +637,7 @@ public class CommonTileset extends Tileset {
                 .build();
 
         MapTileBuilder windowStairTopTile = new MapTileBuilder(windowStairTopFrame)
-                .withTileType(TileType.NOT_PASSABLE);
+                .withTileType(TileType.PASSABLE);
 
         mapTiles.add(windowStairTopTile);
 
