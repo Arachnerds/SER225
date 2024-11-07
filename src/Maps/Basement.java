@@ -75,18 +75,14 @@ public class Basement extends Map {
         return enhancedMapTiles;
     }
 
-    @Override
+    /*@Override
     public ArrayList<NPC> loadNPCs() {
         ArrayList<NPC> npcs = new ArrayList<>();
 
-        //Walrus walrus = new Walrus(getMapTile(5, 13).getLocation().subtractY(13));
-        //npcs.add(walrus);
-
         // List of messeges that will be displayed in text boxes, IN ORDER
+        
         ArrayList<String> messeges = new ArrayList<String>();
-        messeges.add("Yo");
-        messeges.add("Hello");
-        messeges.add("How we doin");
+        messeges.add("");
 
         // TRY TO MAKE ALL MESSEGES THE SAME SIZE AND THEN CHOOSE OFFEST VALUE TO CENTER THE TEXT BOX
         // Offest value is the last integer parameter in OldSpider Contructor to position the textboxes
@@ -94,6 +90,5 @@ public class Basement extends Map {
         OldSpider spiderNPC = new OldSpider(getMapTile(5, 12).getLocation().addY(13), "LEFT", messeges, -20);
         npcs.add(spiderNPC);
 
-        return npcs;
-    }
+    }*/
 }

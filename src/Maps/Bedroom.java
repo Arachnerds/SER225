@@ -7,6 +7,8 @@ import EnhancedMapTiles.RotatingPuzzle;
 import Level.Enemy;
 import Level.EnhancedMapTile;
 import Level.Map;
+import Level.NPC;
+import NPCs.OldSpider;
 import Tilesets.CommonTileset;
 import Utils.Direction;
 import java.util.ArrayList;
@@ -64,5 +66,25 @@ public class Bedroom extends Map {
         enhancedMapTiles.add(customJumpPoint);
 
         return enhancedMapTiles;
+    }
+
+    @Override
+    public ArrayList<NPC> loadNPCs() {
+        ArrayList<NPC> npcs = new ArrayList<>();
+
+        // List of messeges that will be displayed in text boxes, IN ORDER
+        ArrayList<String> messeges = new ArrayList<String>();
+        messeges.add("I hope you got the key already!...");
+        messeges.add("Try webbing up to the doorknob...");
+        messeges.add("Use 1, 2, 3 to align the keylock");
+
+
+        // TRY TO MAKE ALL MESSEGES THE SAME SIZE AND THEN CHOOSE OFFEST VALUE TO CENTER THE TEXT BOX
+        // Offest value is the last integer parameter in OldSpider Contructor to position the textboxes
+
+        OldSpider spiderNPC = new OldSpider(getMapTile(2, 17).getLocation().addY(6), "LEFT", messeges, -50);
+        npcs.add(spiderNPC);
+
+        return npcs;
     }
 }

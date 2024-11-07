@@ -9,7 +9,9 @@ import EnhancedMapTiles.SwitchesPuzzle;
 import Level.Enemy;
 import Level.EnhancedMapTile;
 import Level.Map;
+import Level.NPC;
 import Level.Projectile;
+import NPCs.OldSpider;
 import Projectiles.Raindrop;
 import Tilesets.CommonTileset;
 import Utils.Direction;
@@ -17,7 +19,7 @@ import java.util.ArrayList;
 
 public class Outside extends Map {
 
-    private static final int[] X_SPAWN_POINTS = {6,10, 18, 24, 32, 40};
+    private static final int[] X_SPAWN_POINTS = {6, 12, 18, 24, 30, 36};
     private static final int[] Y_SPAWN_POINTS = {24, 30, 36, 42};
     private boolean alternateSpawn = false;
 
@@ -149,5 +151,25 @@ public class Outside extends Map {
                 ((FakeBark) tile).setTransparent(true);
             }
         }
+    }
+
+    @Override
+    public ArrayList<NPC> loadNPCs() {
+        ArrayList<NPC> npcs = new ArrayList<>();
+
+        // List of messeges that will be displayed in text boxes, IN ORDER
+        ArrayList<String> messeges = new ArrayList<String>();
+        messeges.add("It seems there is nowhere to go...");
+        messeges.add("See those sticks over there? ...");
+        messeges.add("Use 1, 2, 3, 4 to flip the sticks...");
+        messeges.add("Try to find the right combination!");
+
+        // TRY TO MAKE ALL MESSEGES THE SAME SIZE AND THEN CHOOSE OFFEST VALUE TO CENTER THE TEXT BOX
+        // Offest value is the last integer parameter in OldSpider Contructor to position the textboxes
+
+        OldSpider spiderNPC = new OldSpider(getMapTile(51, 47).getLocation().addY(13), "LEFT", messeges, -45);
+        npcs.add(spiderNPC);
+
+        return npcs;
     }
 }

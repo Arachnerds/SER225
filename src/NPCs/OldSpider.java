@@ -20,7 +20,7 @@ public class OldSpider extends NPC {
         isInteractable = true;
         talkedToTime = 200;
         textboxOffsetX = offset;
-        textboxOffsetY = -15;
+        textboxOffsetY = -30;
     }
 
     public void update(Player player) {
@@ -39,12 +39,14 @@ public class OldSpider extends NPC {
            put("RIGHT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0))
                     .withScale(0.75f)
+                    .withBounds(-32, -32, 192, 192)
                     .build()
            });
            put("LEFT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0))
                     .withScale(0.75f)
                     .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                    .withBounds(-32, -32, 192, 192)
                     .build()
     });
         }};
