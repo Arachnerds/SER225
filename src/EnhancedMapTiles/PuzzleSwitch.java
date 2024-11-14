@@ -1,6 +1,7 @@
 package EnhancedMapTiles;
 
 import Builders.FrameBuilder;
+import Engine.GraphicsHandler;
 import Engine.ImageLoader;
 import Engine.Key;
 import Engine.KeyLocker;
@@ -11,23 +12,22 @@ import Level.EnhancedMapTile;
 import Level.Player;
 import Level.TileType;
 import Utils.Point;
+import java.awt.Color;
 import java.util.HashMap;
 
 public class PuzzleSwitch extends EnhancedMapTile{
 
     private int switchNumber;
     private SwitchesPuzzle puzzle;
-    private String correctLocation;
     private Key key;
     protected KeyLocker keyLocker = new KeyLocker();
 
-    public PuzzleSwitch(SwitchesPuzzle puzzle, Point location, int switchNumber, String correctLocation, Key key){
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("SwitchBox.png"), 16, 16), TileType.PASSABLE);
+    public PuzzleSwitch(SwitchesPuzzle puzzle, Point location, int switchNumber, Key key){
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("TreeSwitch.png"), 16, 20), TileType.PASSABLE);
         this.switchNumber = switchNumber;
         this.puzzle = puzzle;
         this.currentAnimationName = "DEFAULT";
         this.key = key;
-        this.correctLocation = correctLocation;
     }
 
     public void flip(){
@@ -64,29 +64,29 @@ public class PuzzleSwitch extends EnhancedMapTile{
             put("DEFAULT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0), 40)
                         .withScale(3)
-                        .withBounds(1, 1, 14, 14)
+                        .withBounds(-70, 1, 115, 14)
                         .build(),
             });
                       
             put("SWITCHED", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 1), 40)
                         .withScale(3)
-                        .withBounds(1, 1, 14, 14)
+                        .withBounds(-70, 1, 115, 14)
                         .build(),
             });
         }};
     }
 
     public boolean isOn(){
-        return this.correctLocation.equals(this.currentAnimationName);
+        return this.currentAnimationName.equals("SWITCHED");
     }
 
     //A testing method that displays the hitbox
-    /*@Override
+    /* @Override
     public void draw(GraphicsHandler graphicsHandler) {
         super.draw(graphicsHandler);
         drawBounds(graphicsHandler, new Color(255, 0, 0, 100));
-    }*/
+    } */
 
     
 }

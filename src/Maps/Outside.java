@@ -113,10 +113,10 @@ public class Outside extends Map {
 
         SwitchesPuzzle puzzle = new SwitchesPuzzle(
             this, 
-            getMapTile(58, 47).getLocation(),
-            getMapTile(59, 47).getLocation(),
-            getMapTile(58, 48).getLocation(),
-            getMapTile(59, 48).getLocation()
+            getMapTile(56, 48).getLocation().addY(-30),
+            getMapTile(57, 48).getLocation().addY(-30),
+            getMapTile(58, 48).getLocation().addY(-30),
+            getMapTile(59, 48).getLocation().addY(-30)
         );
 
         enhancedMapTiles.add(puzzle.getS1());
