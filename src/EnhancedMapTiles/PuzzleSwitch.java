@@ -23,7 +23,7 @@ public class PuzzleSwitch extends EnhancedMapTile{
     protected KeyLocker keyLocker = new KeyLocker();
 
     public PuzzleSwitch(SwitchesPuzzle puzzle, Point location, int switchNumber, Key key){
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("TreeSwitch.png"), 16, 20), TileType.PASSABLE);
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("TreeSwitch.png"), 16, 24), TileType.PASSABLE);
         this.switchNumber = switchNumber;
         this.puzzle = puzzle;
         this.currentAnimationName = "DEFAULT";
