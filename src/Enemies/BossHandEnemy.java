@@ -47,7 +47,7 @@ public class BossHandEnemy extends Enemy {
     private Point sweepStartPointRight;
 
     public BossHandEnemy(Point startLocation, Direction facingDirection, BossMainEnemy head, Map map) {
-        super(startLocation.x, startLocation.y, new SpriteSheet(ImageLoader.load("BossHandSpriteSheetDraft1.png"), 128, 128), "IDLE_LEFT", 1);
+        super(startLocation.x, startLocation.y, new SpriteSheet(ImageLoader.load("BossHandSpriteSheetDraft2.png"), 128, 128), "IDLE_LEFT", 1);
         this.startPoint = startLocation;
         this.enemyMain = head;
         this.startFacingDirection = facingDirection;
@@ -381,17 +381,17 @@ public class BossHandEnemy extends Enemy {
 
             // Did not add a clap attack
             put("CLAP_LEFT", new Frame[]{
-                new FrameBuilder(spriteSheet.getSprite(4, 0))
+                new FrameBuilder(spriteSheet.getSprite(5, 0))
                         .withScale(1.25f)
-                        .withBounds(4, 2, 5, 13)
+                        .withBounds(38, 5, 60, 123)
                         .build(),
             });
 
             put("CLAP_RIGHT", new Frame[]{
-                new FrameBuilder(spriteSheet.getSprite(4, 0))
+                new FrameBuilder(spriteSheet.getSprite(5, 0))
                         .withScale(1.25f)
                         .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                        .withBounds(4, 2, 5, 13)
+                        .withBounds(38, 5, 60, 123)
                         .build(),
             });
 
