@@ -84,8 +84,8 @@ public class MenuScreen extends Screen {
         else{
             flashingColor = new Color(
             (int) (255* (1 - colorTransition)), //0
-            (int) (255 * (1 - colorTransition)), //162
-            (int) (232), //232
+            (int) (255 - 93* (1 - colorTransition)), //162
+            (int) (255 - 23*(1-colorTransition)), //232
             alpha
             );
         }
@@ -162,6 +162,7 @@ public class MenuScreen extends Screen {
                 screenCoordinator.setGameState(GameState.FINAL);
             } else if (menuItemSelected == 2) {
                 arachnophobiaEnabled = !arachnophobiaEnabled;
+                keyLocker.lockKey(Key.SPACE);
             }
         }
     }
