@@ -62,6 +62,10 @@ public abstract class Player extends GameObject {
     protected boolean hasKey = false;
     public boolean isSwinging = false;
 
+    //health
+    private int playerHealth = 3;
+    protected int invFrameCt = 0;
+
     public Player(SpriteSheet spriteSheet, float x, float y, String startingAnimationName) {
         super(spriteSheet, x, y, startingAnimationName);
         facingDirection = Direction.RIGHT;
@@ -79,6 +83,13 @@ public abstract class Player extends GameObject {
         // if player is currently playing through level (has not won or lost)
         if (levelState == LevelState.RUNNING) {
             applyGravity();
+
+            if(isInvincible){ //invincibility frames after being hit
+                invFrameCt++;
+                if(invFrameCt >= 60){
+                    isInvincible = false;
+                }
+            }
 
             // update player's state and current actions, which includes things like determining how much it should move each frame and if its walking or jumping
             do {
@@ -415,8 +426,14 @@ public abstract class Player extends GameObject {
         if (!isInvincible) {
             // if map entity is an enemy, kill player on touch
             if (mapEntity instanceof Enemy || mapEntity instanceof Raindrop || mapEntity instanceof FireflyAttack) {
-                levelState = LevelState.PLAYER_DEAD;
+                playerHealth--;
+                if(playerHealth<= 0){
+                    levelState = LevelState.PLAYER_DEAD;
+                }
+                isInvincible = true;
+                invFrameCt = 0;
             }
+
         }
     }
 
@@ -538,6 +555,10 @@ public abstract class Player extends GameObject {
    
     public KeyLocker getKeyLocker(){
         return keyLocker;
+    }
+
+    public int getPlayerLives(){
+        return playerHealth;
     }
   
 }
