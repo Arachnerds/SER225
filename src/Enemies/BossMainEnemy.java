@@ -2,6 +2,7 @@ package Enemies;
 
 import Level.Map;
 import Level.MapEntityStatus;
+import Level.Player;
 import Utils.Direction;
 import Utils.Point;
 
@@ -40,10 +41,10 @@ public class BossMainEnemy  {
     // Slam is added multiple times to increase probability during random selection
     private void initializeAttackTypes() {
         attackTypes.add("SLAM");
-        attackTypes.add("SWEEP_RIGHT");
-        attackTypes.add("SLAM");
-        attackTypes.add("SWEEP_LEFT");
-        attackTypes.add("SLAM");
+        //attackTypes.add("SWEEP_RIGHT");
+        //attackTypes.add("SLAM");
+        //attackTypes.add("SWEEP_LEFT");
+        //attackTypes.add("SLAM");
     }
 
     public void respawnHands(){ 
@@ -67,7 +68,7 @@ public class BossMainEnemy  {
 
     // This will choose a random index from the array of attacks
     // Based on the chosen attack, the corresponding attack methods will be called
-    public void coordinateAttack() {
+    public void coordinateAttack(Player player) {
 
         if (!isAlive) return;
 
@@ -77,8 +78,8 @@ public class BossMainEnemy  {
 
         switch (selectedAttack) {
             case "SLAM":
-                leftHand.slamHand();
-                rightHand.slamHand();
+                leftHand.slamHand(player, Direction.RIGHT);
+                rightHand.slamHand(player, Direction.LEFT);
                 break;
             case "SWEEP_RIGHT":
                 leftHand.sweepHand();
@@ -92,14 +93,14 @@ public class BossMainEnemy  {
     // This is the method used to communicate with the boss from the hands
     // At the end of every update this method is called
     // The method will check if both hands are in the idle position, if so, then will coordinate the new attack
-    public void handleHandsIdleState() {
+    public void handleHandsIdleState(Player player) {
 
         if (!isAlive) return;
 
         // Might need to check if the hands are null but unsure right now
         // Should never be null after initial creation because when a hand is kills, will be respawned
         if (leftHand.handState == HandState.IDLE && rightHand.handState == HandState.IDLE) {
-            coordinateAttack(); 
+            coordinateAttack(player); 
         }
     }
 

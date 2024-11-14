@@ -1,6 +1,7 @@
 package Enemies;
 
 import Builders.FrameBuilder;
+import Engine.GraphicsHandler;
 import Engine.ImageLoader;
 import GameObject.Frame;
 import GameObject.ImageEffect;
@@ -15,6 +16,7 @@ import Utils.AirGroundState;
 import Utils.Direction;
 import Utils.Point;
 
+import java.awt.Color;
 import java.util.HashMap;
 
 
@@ -25,11 +27,16 @@ public class BossHandEnemy extends Enemy {
     private Direction startFacingDirection;
     protected Direction facingDirection;
     protected AirGroundState airGroundState;
+    private float sweepSpeed = movementSpeed * 1.3f;
+    private float slamSpeed = movementSpeed * 3f;
 
     private Point startPoint;
 
     private int holdFrames; 
+    private int pauseFrames;
     private int currentHoldFrameCount;
+    private boolean isSlammed = false;
+    private boolean hasPaused = false;
 
     // can be either WALK or SHOOT based on what the enemy is currently set to do
     protected HandState handState;
@@ -45,6 +52,7 @@ public class BossHandEnemy extends Enemy {
         this.enemyMain = head;
         this.startFacingDirection = facingDirection;
         this.holdFrames = 100;
+        this.pauseFrames = 30;
 
         // Need to change the exact point locations to be based on the map tiles of the table platform !!!!!!!!!!!!!
         // If starts at the left point, then the right point will be the end point for the sweep range, vice versa
@@ -87,9 +95,26 @@ public class BossHandEnemy extends Enemy {
         switch (handState) {
 
             case SLAM_DOWN:
-                moveAmountY = movementSpeed;
+                if (!hasPaused) {
+                    moveAmountY = movementSpeed;
+                    if (this.getY() >= this.startPositionY + (2.5 * map.getMapTile(1, 1).getHeight())) {
+                        this.handState = HandState.SLAM_PAUSE;
+                        currentHoldFrameCount = 0;
+                        hasPaused = true;
+                    }
+                } else {
+                    moveAmountY = slamSpeed;
+                }
                 break;
 
+            case SLAM_PAUSE:
+            currentHoldFrameCount++;
+                if (currentHoldFrameCount >= pauseFrames) {
+                    handState = HandState.SLAM_DOWN;
+                    currentHoldFrameCount = 0; 
+                }
+                break;
+                
             case SLAM_HOLD:
             currentHoldFrameCount++;
                 if (!isFrozen) {
@@ -107,26 +132,43 @@ public class BossHandEnemy extends Enemy {
                 break;
 
             case SLAM_UP:
-                moveAmountY = -movementSpeed;
+                if (isSlammed) {
+                    float distanceY = startPoint.y - this.getY();
+                    float distanceX = startPoint.x - this.getX();
+    
+                    double totalDistance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+    
+                    double velocityY = (distanceY / totalDistance) * movementSpeed;
+                    double velocityX = (distanceX / totalDistance) * movementSpeed;
+    
+                    moveAmountY = (float) velocityY;
+                    moveAmountX = (float) velocityX;
+                } else {
+                    moveAmountY = -movementSpeed;
+                }
+
                 if (this.getY() <= startPoint.y) { 
-                    handState = HandState.IDLE; 
+                    handState = HandState.IDLE;
+                    hasPaused = false;
                     if (facingDirection == Direction.RIGHT) {
                         currentAnimationName = "IDLE_LEFT";
                     } else if (facingDirection == Direction.LEFT) {
                         currentAnimationName = "IDLE_RIGHT";
                     }
+                    this.setX(startPoint.x);
                     this.setY(startPoint.y); 
+                    this.isSlammed = false;
                 }
                 break;
 
             case IDLE:
                 if (enemyMain.checkIfHandsIdle()) {
-                    enemyMain.handleHandsIdleState();
+                    enemyMain.handleHandsIdleState(player);
                 }
                 break;
 
             case SWEEP_LEFT:
-                moveAmountX = -movementSpeed; 
+                moveAmountX = -sweepSpeed; 
                 if (this.getX() <= sweepStartPointLeft.x) {
                     handState = HandState.IDLE; 
                     if (facingDirection == Direction.RIGHT) {
@@ -140,7 +182,7 @@ public class BossHandEnemy extends Enemy {
                 break;
     
             case SWEEP_RIGHT:
-                moveAmountX = movementSpeed; 
+                moveAmountX = sweepSpeed; 
                 if (this.getX() >= sweepStartPointRight.x) {
                     handState = HandState.IDLE; 
                     if (facingDirection == Direction.RIGHT) {
@@ -152,10 +194,10 @@ public class BossHandEnemy extends Enemy {
                     this.setY(startPoint.y);
                 }
                 break;
+
             default:
                 break;
         }
-
 
         moveYHandleCollision(moveAmountY);
         moveXHandleCollision(moveAmountX);
@@ -172,7 +214,7 @@ public class BossHandEnemy extends Enemy {
 
     @Override
     public void onEndCollisionCheckY(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
-        if (handState == HandState.SLAM_DOWN && (hasCollided || (this.getY() + this.getHeight()) >= map.getMapTile(0, 19).getY()+45)) {
+        if (handState == HandState.SLAM_DOWN && (hasCollided || (this.getY() + this.getHeight()) >= map.getMapTile(0, 19).getY() + 10)) {
             handState = HandState.SLAM_HOLD; 
             currentHoldFrameCount = 0;
         }
@@ -203,13 +245,25 @@ public class BossHandEnemy extends Enemy {
     }
 
     // Method used to change state, and animation for the slam attack
-    public void slamHand() {
+    public void slamHand(Player player, Direction direction) {
         handState = HandState.SLAM_DOWN;
         currentHoldFrameCount = 0; 
         if (facingDirection == Direction.LEFT) {
             this.currentAnimationName = "SLAM_RIGHT";
         } else {
             this.currentAnimationName = "SLAM_LEFT";
+        }
+
+        if (player.getX() + player.getWidth()/2 <= (map.getWidthPixels()/2)) {
+            if (direction == Direction.RIGHT) {
+                this.setLocation(player.getX() + player.getWidth()/2 - this.getWidth()/2, this.startPositionY);
+                this.isSlammed = true;
+            }
+        } else {
+            if (direction == Direction.LEFT) {
+                this.setLocation(player.getX() + player.getWidth()/2 - this.getWidth()/2, this.startPositionY);
+                this.isSlammed = true;
+            }
         }
     }
 
@@ -254,13 +308,13 @@ public class BossHandEnemy extends Enemy {
     }
 
     public enum HandState {
-        IDLE, SLAM_DOWN, SLAM_HOLD, SLAM_UP, SWEEP_LEFT, SWEEP_RIGHT, DEAD/*CLAP_DOWN, CLAP_SWEEP, CLAP_HOLD, CLAP_UP*/
+        IDLE, SLAM_DOWN, SLAM_HOLD, SLAM_UP, SWEEP_LEFT, SWEEP_RIGHT, DEAD, SLAM_PAUSE/*CLAP_DOWN, CLAP_SWEEP, CLAP_HOLD, CLAP_UP*/
     }
 
-    /*public void draw(GraphicsHandler graphicsHandler) {
+    public void draw(GraphicsHandler graphicsHandler) {
         super.draw(graphicsHandler);
         drawBounds(graphicsHandler, new Color(255, 0, 0, 100));
-    }*/
+    }
 
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
@@ -283,7 +337,7 @@ public class BossHandEnemy extends Enemy {
             put("SLAM_LEFT", new Frame[]{
                 new FrameBuilder(spriteSheet.getSprite(1, 0))
                         .withScale(1.25f)
-                        .withBounds(20,20, 94, 100)
+                        .withBounds(30,30, 74, 80)
                         .build(),
             });
 
@@ -291,14 +345,14 @@ public class BossHandEnemy extends Enemy {
                 new FrameBuilder(spriteSheet.getSprite(1, 0))
                         .withScale(1.25f)
                         .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                        .withBounds(15, 20, 94, 100)
+                        .withBounds(25, 30, 74, 80)
                         .build(),
             });
 
             put("WEBBED_LEFT", new Frame[]{
                 new FrameBuilder(spriteSheet.getSprite(2, 0))
                         .withScale(1.25f)
-                        .withBounds(20, 20, 94, 100)
+                        .withBounds(30, 30, 74, 80)
                         .build(),
             });
 
@@ -306,7 +360,7 @@ public class BossHandEnemy extends Enemy {
                 new FrameBuilder(spriteSheet.getSprite(2, 0))
                         .withScale(1.25f)
                         .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                        .withBounds(15, 20, 94, 100)
+                        .withBounds(25, 30, 74, 80)
                         .build(),
             });
 
