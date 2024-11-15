@@ -3,6 +3,7 @@ package Screens;
 import Engine.*;
 import Game.GameState;
 import Game.ScreenCoordinator;
+import GameObject.Rectangle;
 import GameObject.Sprite;
 import Level.Map;
 import Maps.TitleScreenMap;
@@ -25,11 +26,16 @@ public class MenuScreen extends Screen {
     protected int alpha = 0;
     private boolean arachnophobiaEnabled;
     
+    private Sprite walrus = new Sprite(ImageLoader.load("VengefulWalrus.png"), ScreenManager.getScreenWidth()/2 -200, ScreenManager.getScreenHeight()/2 - 140);
+    protected SpriteFont walrusText;
 
+    private Rectangle textCover;
+    private Rectangle stringCover;
 
     public MenuScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
         arachnophobiaEnabled = false;
+        walrus.setScale(5);
     }
 
     @Override
@@ -45,10 +51,24 @@ public class MenuScreen extends Screen {
         credits.setOutlineColor(new Color(0, 0, 0, alpha));
         credits.setOutlineThickness(3);
 
-        //New text for arachnophobia here
         phobiaMode = new SpriteFont("ARACHNOPHOBIA MODE", 0, 475, "Times New Roman", 35, new Color(255, 255, 255, alpha));
         phobiaMode.setOutlineColor(new Color(0, 0, 0, alpha));
         phobiaMode.setOutlineThickness(3);
+
+        //walrusText is slapped over the title. It is not selectable text
+        walrusText = new SpriteFont("WALRUS'", 0, 475, "Algerian", 35, new Color(0, 162, 232, alpha));
+        walrusText.setOutlineColor(new Color(0, 0, 0, alpha));
+        walrusText.setOutlineThickness(3);
+
+        textCover = new Rectangle(0,0,380,111);
+        textCover.setColor(new Color(255,223,0));
+        textCover.moveRight(75);
+        textCover.moveDown(75);
+
+        stringCover = new Rectangle(0,0,10,201);
+        stringCover.setColor(new Color(0,0,0,.95f));
+        stringCover.moveRight(ScreenManager.getScreenWidth()/2);
+        
 
         background = new TitleScreenMap();
         background.setAdjustCamera(false);
@@ -99,6 +119,11 @@ public class MenuScreen extends Screen {
 
         phobiaMode.setColor(new Color(255, 255, 255, alpha));
         phobiaMode.setOutlineColor(new Color(0, 0, 0, alpha));
+
+        walrusText.setColor(new Color(0, 162, 232, alpha));
+        walrusText.setOutlineColor(new Color(0, 0, 0, alpha));
+        walrusText.setFontSize(90);
+        
 
         if ((Keyboard.isKeyDown(Key.RIGHT) || Keyboard.isKeyDown(Key.D)) && keyPressTimer == 0) {
             keyPressTimer = 14;
@@ -170,6 +195,18 @@ public class MenuScreen extends Screen {
     public void draw(GraphicsHandler graphicsHandler) {
         background.draw(graphicsHandler);
         titleScreen.draw(graphicsHandler);
+
+        walrusText.centerTextX(ScreenManager.getScreenWidth()-250, graphicsHandler.getGraphics());
+        walrusText.centerTextY(ScreenManager.getScreenHeight()-320, graphicsHandler.getGraphics());
+
+        if(arachnophobiaEnabled){
+            walrus.draw(graphicsHandler);
+            stringCover.draw(graphicsHandler);
+            textCover.draw(graphicsHandler);
+            walrusText.draw(graphicsHandler);
+            
+        }
+        
 
         playGame.centerTextX(ScreenManager.getScreenWidth() - 250, graphicsHandler.getGraphics());
         credits.centerTextX(ScreenManager.getScreenWidth() + 250, graphicsHandler.getGraphics());

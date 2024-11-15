@@ -57,7 +57,7 @@ public class SwitchesPuzzle {
             s3.flip();
         }
         if(s1.isOn()&&s2.isOn()&&s3.isOn()&&s4.isOn()){
-            System.out.println("You completed the puzzle!");
+            //System.out.println("You completed the puzzle!");
         }
 
         // Check if all switches are on, if so, hide them and trigger the map action
