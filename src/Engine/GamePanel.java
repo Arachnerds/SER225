@@ -11,6 +11,8 @@ import SpriteFont.SpriteFont;
 import Utils.Colors;
 
 import javax.swing.*;
+
+import Enemies.BossMainEnemy;
 import Game.ScreenCoordinator;
 
 import java.awt.*;
@@ -371,9 +373,25 @@ public class GamePanel extends JPanel {
                 }
             } else if (currentScreen instanceof PlayFinalLevelScreen) {
                 PlayFinalLevelScreen playScreen = (PlayFinalLevelScreen) currentScreen;
-                
                 if (playScreen.getPlayLevelScreenState() == PlayFinalLevelScreen.PlayLevelScreenState.RUNNING) {
-                    currentPlayState = PlayLevelCurrentScreenState.RUNNING;
+                    BossMainEnemy boss = playScreen.getBoss();
+                    if (!boss.isDead()) {
+                        int currentHealth = boss.getCurrentHealth();
+                        int maxHealth = boss.getMaxHealth();
+
+                        int fixedWidth = 500;
+
+                        double healthPercentage = (double) currentHealth / maxHealth;
+                        int currentHealthBarWidth = (int) (fixedWidth * healthPercentage);
+
+                        // Set the position for the health bar
+                        int healthBarXPosition = this.getWidth() / 2 - fixedWidth / 2;
+                        int healthBarYPosition = 30;
+                        
+                        graphicsHandler.drawFilledRectangle(healthBarXPosition, healthBarYPosition - 3, fixedWidth, 14, java.awt.Color.BLACK);
+                        graphicsHandler.drawFilledRectangle(healthBarXPosition + 3, healthBarYPosition, currentHealthBarWidth - 6, 8, java.awt.Color.RED);
+                    }
+
                     if (playScreen.getPlayer().hasShotWeb()) {
                         cooldownBarWidth = playScreen.getPlayer().getShootCooldownFrames()*2;
                         isOnCooldown = true;

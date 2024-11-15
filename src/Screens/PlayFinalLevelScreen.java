@@ -1,5 +1,6 @@
 package Screens;
 
+import Enemies.BossMainEnemy;
 import Engine.GraphicsHandler;
 import Engine.Screen;
 import Engine.Sound;
@@ -20,6 +21,7 @@ public class PlayFinalLevelScreen extends Screen implements PlayerListener {
     protected BedroomLevelClearedScreen bedroomLevelClearedScreen;
     protected BedroomLevelLoseScreen bedroomLevelLoseScreen;
     protected boolean levelCompletedStateChangeStart;
+    private BossMainEnemy boss;
 
     public PlayFinalLevelScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
@@ -28,10 +30,11 @@ public class PlayFinalLevelScreen extends Screen implements PlayerListener {
     public void initialize() {
         Sound.stopMusic();
         this.map = new Final();
-
         this.player = new Spider(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
         this.player.setMap(map);
         this.player.addListener(this);
+
+        this.boss = ((Final) map).getBoss();
 
         bedroomLevelClearedScreen = new BedroomLevelClearedScreen();
 
@@ -114,6 +117,10 @@ public class PlayFinalLevelScreen extends Screen implements PlayerListener {
 
     public Spider getPlayer() {
         return (Spider) this.player;
+    }
+
+    public BossMainEnemy getBoss() {
+        return boss;
     }
 
     public enum PlayLevelScreenState {
