@@ -27,8 +27,10 @@ public class BossHandEnemy extends Enemy {
     private Direction startFacingDirection;
     protected Direction facingDirection;
     protected AirGroundState airGroundState;
-    private float sweepSpeed = movementSpeed * 1.3f;
-    private float slamSpeed = movementSpeed * 3.5f;
+    private float sweepSpeed = movementSpeed * 1.5f;
+    private float clapRetractSpeed = movementSpeed * 1.8f;
+    private float slamSpeed = movementSpeed * 4f;
+    private BossHandEnemy otherHand;
 
     private Point startPoint;
 
@@ -195,6 +197,56 @@ public class BossHandEnemy extends Enemy {
                 }
                 break;
 
+            case CLAP:
+                if (this.currentAnimationName == "CLAP_RIGHT") { // Left hand moving right
+                    moveAmountX = sweepSpeed;
+                    if (this.intersects(otherHand)) {
+                        this.handState = HandState.CLAP_HOLD;
+                        currentHoldFrameCount = 0;
+                        /*this.setX(startPoint.x);
+                        this.setY(startPoint.y);*/
+                    }
+                } else {                                         // Right hand moving left
+                    moveAmountX = -sweepSpeed; 
+                    if (this.intersects(otherHand)) {
+                        this.handState = HandState.CLAP_HOLD;
+                        currentHoldFrameCount = 0;
+                        /*this.setX(startPoint.x);
+                        this.setY(startPoint.y);*/
+                    }
+                }
+                break;
+
+            case CLAP_HOLD:
+                moveAmountX = 0;
+                if (currentHoldFrameCount >= pauseFrames) {
+                    this.handState = HandState.CLAP_RETRACT;
+                    currentHoldFrameCount = 0;
+                } else {
+                    currentHoldFrameCount++;
+                }
+                break;
+
+            case CLAP_RETRACT:
+                if (this.currentAnimationName == "CLAP_RIGHT") { // Left hand moving right
+                    moveAmountX = -clapRetractSpeed; 
+                    if (this.getX() <= this.sweepStartPointLeft.x)  {
+                        this.handState = HandState.IDLE;
+                        this.setX(startPoint.x);
+                        this.setY(startPoint.y);
+                        this.currentAnimationName = "IDLE_LEFT";
+                    }
+                } else {                                         // Right hand moving left
+                    moveAmountX = clapRetractSpeed; 
+                    if (this.getX() >= this.sweepStartPointRight.x)  {
+                        this.handState = HandState.IDLE;
+                        this.setX(startPoint.x);
+                        this.setY(startPoint.y);
+                        this.currentAnimationName = "IDLE_RIGHT";
+                    }
+                }
+                break;
+
             default:
                 break;
         }
@@ -239,8 +291,16 @@ public class BossHandEnemy extends Enemy {
             
             enemyMain.respawnHands();
 
-        } else if (!attackCooldownOn && !isFrozen) {
+        } else if (!attackCooldownOn && !isFrozen && isAttacking()) {
             player.hurtPlayer(this);
+        }
+    }
+
+    public boolean isAttacking() {
+        if (this.handState == HandState.SLAM_DOWN || this.handState == HandState.CLAP || this.handState == HandState.SWEEP_LEFT || this.handState == HandState.SWEEP_RIGHT) {
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -283,6 +343,22 @@ public class BossHandEnemy extends Enemy {
         }
     }
 
+    // Method used to change state, location, and animation for sweep attack
+    public void clapHand(BossHandEnemy otherHand) {
+        this.otherHand = otherHand;
+        currentHoldFrameCount = 0;
+        if (facingDirection == Direction.LEFT) {
+            handState = HandState.CLAP;
+            this.currentAnimationName = "CLAP_LEFT"; 
+            this.setX(sweepStartPointRight.x);
+            this.setY(sweepStartPointRight.y);
+        } else {
+            handState = HandState.CLAP;
+            this.currentAnimationName = "CLAP_RIGHT"; 
+            this.setX(sweepStartPointLeft.x);
+            this.setY(sweepStartPointLeft.y);
+        }
+    }
 
     // Getter method to return movement speed of dinosaur
     @Override
@@ -308,7 +384,7 @@ public class BossHandEnemy extends Enemy {
     }
 
     public enum HandState {
-        IDLE, SLAM_DOWN, SLAM_HOLD, SLAM_UP, SWEEP_LEFT, SWEEP_RIGHT, DEAD, SLAM_PAUSE/*CLAP_DOWN, CLAP_SWEEP, CLAP_HOLD, CLAP_UP*/
+        IDLE, SLAM_DOWN, SLAM_HOLD, SLAM_UP, SWEEP_LEFT, SWEEP_RIGHT, DEAD, SLAM_PAUSE, CLAP, CLAP_HOLD, CLAP_RETRACT
     }
 
     public void draw(GraphicsHandler graphicsHandler) {
@@ -379,19 +455,18 @@ public class BossHandEnemy extends Enemy {
                         .build(),
             });
 
-            // Did not add a clap attack
-            put("CLAP_LEFT", new Frame[]{
-                new FrameBuilder(spriteSheet.getSprite(5, 0))
-                        .withScale(1.25f)
-                        .withBounds(38, 5, 60, 123)
-                        .build(),
-            });
-
             put("CLAP_RIGHT", new Frame[]{
                 new FrameBuilder(spriteSheet.getSprite(5, 0))
                         .withScale(1.25f)
+                        .withBounds(42, 5, 40, 123)
+                        .build(),
+            });
+
+            put("CLAP_LEFT", new Frame[]{
+                new FrameBuilder(spriteSheet.getSprite(5, 0))
+                        .withScale(1.25f)
                         .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                        .withBounds(38, 5, 60, 123)
+                        .withBounds(46, 5, 40, 123)
                         .build(),
             });
 

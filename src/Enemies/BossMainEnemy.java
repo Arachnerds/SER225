@@ -21,12 +21,14 @@ public class BossMainEnemy  {
     private int health;
     private boolean isAlive = true;
 
-    private int idleCooldownFrames = 120;
+    private int idleCooldownFrames = 180;
     private int idleCooldownCounter = 0;
+    private int maxHealth;
 
     public BossMainEnemy(Map map, int health) {
         this.map = map;
         this.health = health;
+        this.maxHealth = health;
         attackTypes = new ArrayList<>();
         this.initializeAttackTypes();
         // this.initialize();
@@ -41,10 +43,11 @@ public class BossMainEnemy  {
     // Slam is added multiple times to increase probability during random selection
     private void initializeAttackTypes() {
         attackTypes.add("SLAM");
-        //attackTypes.add("SWEEP_RIGHT");
-        //attackTypes.add("SLAM");
-        //attackTypes.add("SWEEP_LEFT");
-        //attackTypes.add("SLAM");
+        attackTypes.add("SWEEP_RIGHT");
+        attackTypes.add("SLAM");
+        attackTypes.add("SWEEP_LEFT");
+        attackTypes.add("SLAM");
+        attackTypes.add("CLAP");
     }
 
     public void respawnHands(){ 
@@ -87,6 +90,10 @@ public class BossMainEnemy  {
             case "SWEEP_LEFT":
                 rightHand.sweepHand();
                 break;
+            case "CLAP":
+                rightHand.clapHand(leftHand); // Might need to pass the other hand to check for collison
+                leftHand.clapHand(rightHand); // Same
+                break;
         }
     }
 
@@ -112,6 +119,18 @@ public class BossMainEnemy  {
             health = 0;
             die();
         }
+    }
+
+    public int getCurrentHealth() {
+        return health;
+    }
+
+    public int getMaxHealth() {
+        return maxHealth;
+    }
+
+    public boolean isDead() {
+        return !isAlive;
     }
 
     private void die() {

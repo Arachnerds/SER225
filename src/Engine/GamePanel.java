@@ -11,6 +11,8 @@ import SpriteFont.SpriteFont;
 import Utils.Colors;
 
 import javax.swing.*;
+
+import Enemies.BossMainEnemy;
 import Game.ScreenCoordinator;
 
 import java.awt.*;
@@ -56,6 +58,12 @@ public class GamePanel extends JPanel {
     private int cooldownBarXPosition = 20;
     private int cooldownBarYPosition = this.getHeight() - 100;
 
+    protected Sprite playerHeart = new Sprite(ImageLoader.load("player_heart_web.png"));
+    protected Sprite playerHeartdead = new Sprite(ImageLoader.load("player_heart_dead.png"));
+    private int playerHeartYPosition = this.getHeight() - 100;
+    private int playerHeartXPosition = 50;
+    private Sprite[] hearts = new Sprite[3];
+
     private int keyLocationX;
     private int keyLocationY;
 
@@ -90,6 +98,8 @@ public class GamePanel extends JPanel {
         currentFPS = Config.TARGET_FPS;
         GameLoop gameLoop = new GameLoop(this);
         gameLoopProcess = new Thread(gameLoop.getGameLoopProcess());
+
+
     }
 
     public void setupGame() {
@@ -114,9 +124,12 @@ public class GamePanel extends JPanel {
     }
 
     public void update() {
+
         updatePauseState();
         updateShowFPSState();
         updateCooldownBar();
+        //updatePlayerHealth();
+
         if (!isGamePaused) {
             screenManager.update();
         } else {
@@ -231,6 +244,25 @@ public class GamePanel extends JPanel {
                         isOnCooldown = false;
                     }
 
+                    int health = playScreen.getPlayer().getPlayerLives(); //retrieve player health
+
+                    for(int i = 0; i < health; i++){ //how many hearts left
+                        this.keyLocationX = this.getWidth() - ((50 * (3-i)) + 10) ;
+                        this.keyLocationY = this.getHeight() - 40;
+                        this.playerHeart.setLocation(keyLocationX, keyLocationY);
+                        this.playerHeart.setScale(1.5f);
+                        playerHeart.draw(graphicsHandler);
+                    }
+
+                    //how many hearts taken -> replace with black hearts
+                    for (int b = health; b<3;b++){
+                        this.keyLocationX = this.getWidth() - ((50 * (3-b)) + 10) ;
+                        this.keyLocationY = this.getHeight() - 40;
+                        this.playerHeartdead.setLocation(keyLocationX, keyLocationY);
+                        this.playerHeartdead.setScale(1.5f);
+                        playerHeartdead.draw(graphicsHandler);
+                    }
+
                     this.hasKey = playScreen.getPlayer().hasKey();
                 }
 
@@ -245,6 +277,26 @@ public class GamePanel extends JPanel {
                     } else {
                         cooldownBarWidth = cooldownBarWidthMax;
                         isOnCooldown = false;
+                    }
+
+
+                    int health = playScreen.getPlayer().getPlayerLives(); //retrieve player health
+
+                    for(int i = 0; i < health; i++){ //how many hearts left
+                        this.keyLocationX = this.getWidth() - ((50 * (3-i)) + 10) ;
+                        this.keyLocationY = this.getHeight() - 40;
+                        this.playerHeart.setLocation(keyLocationX, keyLocationY);
+                        this.playerHeart.setScale(1.5f);
+                        playerHeart.draw(graphicsHandler);
+                    }
+
+                    //how many hearts taken -> replace with black hearts
+                    for (int b = health; b<3;b++){
+                        this.keyLocationX = this.getWidth() - ((50 * (3-b)) + 10) ;
+                        this.keyLocationY = this.getHeight() - 40;
+                        this.playerHeartdead.setLocation(keyLocationX, keyLocationY);
+                        this.playerHeartdead.setScale(1.5f);
+                        playerHeartdead.draw(graphicsHandler);
                     }
 
                     this.hasKey = playScreen.getPlayer().hasKey();
@@ -262,6 +314,26 @@ public class GamePanel extends JPanel {
                         isOnCooldown = false;
                     }
 
+
+                    int health = playScreen.getPlayer().getPlayerLives(); //retrieve player health
+
+                    for(int i = 0; i < health; i++){ //how many hearts left
+                        this.keyLocationX = this.getWidth() - ((50 * (3-i)) + 10) ;
+                        this.keyLocationY = this.getHeight() - 40;
+                        this.playerHeart.setLocation(keyLocationX, keyLocationY);
+                        this.playerHeart.setScale(1.5f);
+                        playerHeart.draw(graphicsHandler);
+                    }
+
+                    //how many hearts taken -> replace with black hearts
+                    for (int b = health; b<3;b++){
+                        this.keyLocationX = this.getWidth() - ((50 * (3-b)) + 10) ;
+                        this.keyLocationY = this.getHeight() - 40;
+                        this.playerHeartdead.setLocation(keyLocationX, keyLocationY);
+                        this.playerHeartdead.setScale(1.5f);
+                        playerHeartdead.draw(graphicsHandler);
+                    }
+
                     this.hasKey = playScreen.getPlayer().hasKey();
                 }
             } else if (currentScreen instanceof PlayBedroomLevelScreen) {
@@ -277,19 +349,75 @@ public class GamePanel extends JPanel {
                         isOnCooldown = false;
                     }
 
+
+                    int health = playScreen.getPlayer().getPlayerLives(); //retrieve player health
+
+                    for(int i = 0; i < health; i++){ //how many hearts left
+                        this.keyLocationX = this.getWidth() - ((50 * (3-i)) + 10) ;
+                        this.keyLocationY = this.getHeight() - 40;
+                        this.playerHeart.setLocation(keyLocationX, keyLocationY);
+                        this.playerHeart.setScale(1.5f);
+                        playerHeart.draw(graphicsHandler);
+                    }
+
+                    //how many hearts taken -> replace with black hearts
+                    for (int b = health; b<3;b++){
+                        this.keyLocationX = this.getWidth() - ((50 * (3-b)) + 10) ;
+                        this.keyLocationY = this.getHeight() - 40;
+                        this.playerHeartdead.setLocation(keyLocationX, keyLocationY);
+                        this.playerHeartdead.setScale(1.5f);
+                        playerHeartdead.draw(graphicsHandler);
+                    }
+
                     this.hasKey = playScreen.getPlayer().hasKey();
                 }
             } else if (currentScreen instanceof PlayFinalLevelScreen) {
                 PlayFinalLevelScreen playScreen = (PlayFinalLevelScreen) currentScreen;
-                
                 if (playScreen.getPlayLevelScreenState() == PlayFinalLevelScreen.PlayLevelScreenState.RUNNING) {
-                    currentPlayState = PlayLevelCurrentScreenState.RUNNING;
+                    BossMainEnemy boss = playScreen.getBoss();
+                    if (!boss.isDead()) {
+                        int currentHealth = boss.getCurrentHealth();
+                        int maxHealth = boss.getMaxHealth();
+
+                        int fixedWidth = 500;
+
+                        double healthPercentage = (double) currentHealth / maxHealth;
+                        int currentHealthBarWidth = (int) (fixedWidth * healthPercentage);
+
+                        // Set the position for the health bar
+                        int healthBarXPosition = this.getWidth() / 2 - fixedWidth / 2;
+                        int healthBarYPosition = 30;
+                        
+                        graphicsHandler.drawFilledRectangle(healthBarXPosition, healthBarYPosition - 3, fixedWidth, 14, java.awt.Color.BLACK);
+                        graphicsHandler.drawFilledRectangle(healthBarXPosition + 3, healthBarYPosition, currentHealthBarWidth - 6, 8, java.awt.Color.RED);
+                    }
+
                     if (playScreen.getPlayer().hasShotWeb()) {
                         cooldownBarWidth = playScreen.getPlayer().getShootCooldownFrames()*2;
                         isOnCooldown = true;
                     } else {
                         cooldownBarWidth = cooldownBarWidthMax;
                         isOnCooldown = false;
+                    }
+
+
+                    int health = playScreen.getPlayer().getPlayerLives(); //retrieve player health
+
+                    for(int i = 0; i < health; i++){ //how many hearts left
+                        this.keyLocationX = this.getWidth() - ((50 * (3-i)) + 10) ;
+                        this.keyLocationY = this.getHeight() - 40;
+                        this.playerHeart.setLocation(keyLocationX, keyLocationY);
+                        this.playerHeart.setScale(1.5f);
+                        playerHeart.draw(graphicsHandler);
+                    }
+
+                    //how many hearts taken -> replace with black hearts
+                    for (int b = health; b<3;b++){
+                        this.keyLocationX = this.getWidth() - ((50 * (3-b)) + 10) ;
+                        this.keyLocationY = this.getHeight() - 40;
+                        this.playerHeartdead.setLocation(keyLocationX, keyLocationY);
+                        this.playerHeartdead.setScale(1.5f);
+                        playerHeartdead.draw(graphicsHandler);
                     }
 
                     this.hasKey = playScreen.getPlayer().hasKey();
@@ -312,7 +440,7 @@ public class GamePanel extends JPanel {
 
         if (currentPlayState == PlayLevelCurrentScreenState.RUNNING && hasKey) {
             this.keyLocationX = this.getWidth() - 40;
-            this.keyLocationY = this.getHeight() - 40;
+            this.keyLocationY = this.getHeight() - 560;
             this.doorKey.setLocation(keyLocationX, keyLocationY);
             this.doorKey.setScale(2f);
             doorKey.draw(graphicsHandler);
@@ -364,6 +492,7 @@ public class GamePanel extends JPanel {
             fpsDisplayLabel.draw(graphicsHandler);
         }
     }
+
 
     @Override
     protected void paintComponent(Graphics g) {
