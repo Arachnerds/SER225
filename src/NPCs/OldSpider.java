@@ -20,8 +20,11 @@ import java.util.HashMap;
 public class OldSpider extends NPC {
     private ArrayList<Key> tutorialKeys;
     private int keyIndex;
-    //This boolean makes sure the textbox is displayed automatically in the basement level so the player knows how to speak with it
-    private Boolean firstDisplay;
+    //This int makes sure the textbox is displayed automatically in the basement level so the player knows how to speak with it
+    // 0 - this is the first time encountering the old spider in the basement, textbox must be displayed right off the bat
+    // 1 - 
+    // 2 -
+    private boolean firstDisplay;
 
     public OldSpider(Point location, String animationDirection, ArrayList<String> messages, int offset, String filePath) {
         
@@ -48,6 +51,7 @@ public class OldSpider extends NPC {
         keyIndex = 0;
         
         textbox.setText("Press T to talk to me!");
+
         
     }
 
@@ -58,12 +62,19 @@ public class OldSpider extends NPC {
             this.currentAnimationName = "LEFT";
         }
 
-        if(firstDisplay == null && this.map.getMapFileName().equals("basement.txt")){
+        if(this.map.getMapFileName().equals("basement.txt")){
             firstDisplay = true;
         }
-        else{
+        else{ //THE WRONG SPOT TO DO THIS - need to make it false after you talk to the spider
             firstDisplay = false;
         }
+
+        /* if(firstDisplay == 0 && this.map.getMapFileName().equals("basement.txt")){
+            firstDisplay = true;
+        }
+        else{ //THE WRONG SPOT TO DO THIS - need to make it false after you talk to the spider
+            firstDisplay = false;
+        } */
         super.update(player);
     }
 
@@ -93,6 +104,7 @@ public class OldSpider extends NPC {
                             currentMessageIndex = 0;
                             textbox.setText("");
                             player.setInTutorial(false);
+                           firstDisplay = false;
                         }
                     }
                     keyLocked = true;
@@ -116,6 +128,7 @@ public class OldSpider extends NPC {
                             talkedTo = false;
                             currentMessageIndex = 0;
                             textbox.setText("");
+                            firstDisplay = false;
                         }
                     }
                     keyLocked = true;
@@ -148,7 +161,7 @@ public class OldSpider extends NPC {
     @Override
     public void draw(GraphicsHandler graphicsHandler) {
         super.draw(graphicsHandler);
-        if (talkedTo||firstDisplay) {
+        if ((talkedTo||firstDisplay) &&!textbox.getText().equals("")) {
             textbox.draw(graphicsHandler);
         }
     }

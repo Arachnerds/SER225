@@ -1,9 +1,8 @@
 package Level;
 
-import java.awt.*;
-
 import Engine.GraphicsHandler;
 import SpriteFont.SpriteFont;
+import java.awt.*;
 
 public class Textbox {
     protected int x;
@@ -16,10 +15,13 @@ public class Textbox {
     protected int hPadding = 10; // spacing to right and left of text
     protected int gap = 0; // horizontal space between lines of text -- only matters with multiline text
 
+    private String text;
+
     public Textbox(String text) {
         Font font = new Font("Arial", Font.PLAIN, 12);
         Point textLocation = new Point(x + hPadding + borderThickness, y + vPadding + borderThickness);
         spriteFont = new SpriteFont(text, textLocation.x, textLocation.y,  font, Color.black);
+        this.text = text;
     }
 
     public void setX(int x) {
@@ -40,6 +42,7 @@ public class Textbox {
 
     public void setText(String text) {
         spriteFont.setText(text);
+        this.text = text;
     }
 
     public void setTextColor(Color textColor) {
@@ -111,6 +114,10 @@ public class Textbox {
             }
         }
         return longestTextWidth;
+    }
+
+    public String getText(){
+        return text;
     }
 
     public void draw(GraphicsHandler graphicsHandler) {
