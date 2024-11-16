@@ -167,7 +167,7 @@ public class Outside extends Map {
         // TRY TO MAKE ALL MESSEGES THE SAME SIZE AND THEN CHOOSE OFFEST VALUE TO CENTER THE TEXT BOX
         // Offest value is the last integer parameter in OldSpider Contructor to position the textboxes
 
-        OldSpider spiderNPC = new OldSpider(getMapTile(51, 47).getLocation().addY(13), "LEFT", messeges, -45);
+        OldSpider spiderNPC = new OldSpider(getMapTile(51, 47).getLocation().addY(13), "LEFT", messeges, -45,"OldSpiderFinal.png");
         npcs.add(spiderNPC);
 
         return npcs;

@@ -74,6 +74,9 @@ public abstract class Player extends GameObject {
     private final int MAX_COOLDOWN = 80;
     private boolean hasShotWeb = false;
 
+    //Boolean to lock the player in place during basement tutorial
+    private boolean inTutorial;
+
     public Player(SpriteSheet spriteSheet, float x, float y, String startingAnimationName) {
         super(spriteSheet, x, y, startingAnimationName);
         facingDirection = Direction.RIGHT;
@@ -83,6 +86,7 @@ public abstract class Player extends GameObject {
         previousPlayerState = playerState;
         levelState = LevelState.RUNNING;
         shootCooldownFrames = 0;
+        inTutorial = false;
     }
 
     public void update() {
@@ -168,7 +172,10 @@ public abstract class Player extends GameObject {
     protected void playerStanding() {
         // if walk left or walk right key is pressed, player enters WALKING state
         if (Keyboard.isKeyDown(MOVE_LEFT_KEY) || Keyboard.isKeyDown(MOVE_RIGHT_KEY)||Keyboard.isKeyDown(MOVE_LEFT_ALT_KEY) || Keyboard.isKeyDown(MOVE_RIGHT_ALT_KEY)) {
-            playerState = PlayerState.WALKING;
+            if(!inTutorial){
+                playerState = PlayerState.WALKING;
+            }
+            
         }
 
         // if jump key is pressed, player enters JUMPING state
@@ -275,10 +282,12 @@ public abstract class Player extends GameObject {
             }
 
             // allows you to move left and right while in the air
-            if (Keyboard.isKeyDown(MOVE_LEFT_KEY)||Keyboard.isKeyDown(MOVE_LEFT_ALT_KEY)) {
-                moveAmountX -= walkSpeed;
-            } else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY)||Keyboard.isKeyDown(MOVE_RIGHT_ALT_KEY)) {
-                moveAmountX += walkSpeed;
+            if(!inTutorial){
+                if (Keyboard.isKeyDown(MOVE_LEFT_KEY)||Keyboard.isKeyDown(MOVE_LEFT_ALT_KEY)) {
+                    moveAmountX -= walkSpeed;
+                } else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY)||Keyboard.isKeyDown(MOVE_RIGHT_ALT_KEY)) {
+                    moveAmountX += walkSpeed;
+                }
             }
 
             // if player is falling, increases momentum as player falls so it falls faster over time
@@ -636,6 +645,10 @@ public abstract class Player extends GameObject {
 
     public int getPlayerLives(){
         return playerHealth;
+    }
+
+    public void setInTutorial(boolean bool){
+        inTutorial = bool;
     }
   
 }

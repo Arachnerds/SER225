@@ -1,5 +1,7 @@
 package Maps;
 
+import Enemies.FlyEnemy;
+import Enemies.RoachEnemy;
 import EnhancedMapTiles.JumpPoint;
 import EnhancedMapTiles.TVPuzzle1;
 import EnhancedMapTiles.TVPuzzle2;
@@ -13,8 +15,6 @@ import NPCs.OldSpider;
 import Tilesets.LivingRoomTileset;
 import Utils.Direction;
 import java.util.ArrayList;
-import Enemies.FlyEnemy;
-import Enemies.RoachEnemy;
 
 public class LivingRoom extends Map {
 
@@ -80,7 +80,7 @@ public class LivingRoom extends Map {
         // TRY TO MAKE ALL MESSEGES THE SAME SIZE AND THEN CHOOSE OFFEST VALUE TO CENTER THE TEXT BOX
         // Offest value is the last integer parameter in OldSpider Contructor to position the textboxes
 
-        OldSpider spiderNPC = new OldSpider(getMapTile(66, 13).getLocation(), "LEFT", messeges, -50);
+        OldSpider spiderNPC = new OldSpider(getMapTile(66, 13).getLocation(), "LEFT", messeges, -50,"OldSpiderFinal.png");
         npcs.add(spiderNPC);
 
         return npcs;
