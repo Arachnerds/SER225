@@ -58,7 +58,7 @@ public class GamePanel extends JPanel {
     private int cooldownBarXPosition = 20;
     private int cooldownBarYPosition = this.getHeight() - 100;
 
-    protected Sprite playerHeart = new Sprite(ImageLoader.load("player_heart_web.png"));
+    protected Sprite playerHeart = new Sprite(ImageLoader.load("player_heart_web2.png"));
     protected Sprite playerHeartdead = new Sprite(ImageLoader.load("player_heart_dead.png"));
     private int playerHeartYPosition = this.getHeight() - 100;
     private int playerHeartXPosition = 50;
