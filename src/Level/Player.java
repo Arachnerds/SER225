@@ -4,11 +4,14 @@ import Enemies.FireflyAttack;
 import Engine.Key;
 import Engine.KeyLocker;
 import Engine.Keyboard;
+import Engine.Sound;
 import GameObject.GameObject;
 import GameObject.SpriteSheet;
 import Projectiles.Raindrop;
+import Projectiles.Web;
 import Utils.AirGroundState;
 import Utils.Direction;
+import Utils.Point;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -66,6 +69,11 @@ public abstract class Player extends GameObject {
     private int playerHealth = 3;
     protected int invFrameCt = 0;
 
+    // Instance variables to determine cooldown of projectile shooting for spider
+    private int shootCooldownFrames;
+    private final int MAX_COOLDOWN = 80;
+    private boolean hasShotWeb = false;
+
     public Player(SpriteSheet spriteSheet, float x, float y, String startingAnimationName) {
         super(spriteSheet, x, y, startingAnimationName);
         facingDirection = Direction.RIGHT;
@@ -74,6 +82,7 @@ public abstract class Player extends GameObject {
         playerState = PlayerState.STANDING;
         previousPlayerState = playerState;
         levelState = LevelState.RUNNING;
+        shootCooldownFrames = 0;
     }
 
     public void update() {
@@ -109,6 +118,8 @@ public abstract class Player extends GameObject {
 
             // update player's animation
             super.update();
+            handleInput();
+            updateCooldown();
         }
 
         // if player has beaten level
@@ -484,6 +495,72 @@ public abstract class Player extends GameObject {
             }
         }
     }
+
+    // Method called when shoot key is pressed
+        // The spider will fire a web projectile based on spider direction and location
+        private void shootWebProjectile() {
+        int webX;
+        float webVelocity;
+
+        if (facingDirection == Direction.RIGHT) {
+            webX = Math.round(this.getX()) + (getWidth()/2);
+            webVelocity = 5.5f;
+        } else {
+            webX = Math.round(this.getX());
+            webVelocity = -5.5f;
+        }
+
+        // define where web will spawn on the map (y location) relative to spider's location
+        int webY = Math.round(getY() + getHeight()/3);
+
+        Web web;
+        if (facingDirection.equals(Direction.RIGHT)) {
+            web = new Web(new Point(webX, webY), webVelocity, 0, 60, 200, "WebRight.png", 7, 9);
+        } else {
+            web = new Web(new Point(webX, webY), webVelocity, 0, 60, 200, "WebLeft.png", 7, 9);
+        }
+
+        // add fireball enemy to the map for it to spawn in the level
+        map.addProjectile(web);
+        
+        shootCooldownFrames = 0; 
+
+        super.update();
+
+    }
+
+    // When shoot key is pressed, fire projectile and lock the shoot key
+    public void handleInput() { 
+        if (Keyboard.isKeyDown(SHOOT_KEY) && !keyLocker.isKeyLocked(SHOOT_KEY)) {
+            shootWebProjectile();
+            hasShotWeb = true;
+            Sound.playSoundEffect(Sound.SoundEffect.WEB);
+            keyLocker.lockKey(SHOOT_KEY);
+        }
+    }
+
+    // Update the cooldown timer in the update loop, decreases the frames with each loop
+    private void updateCooldown() {
+        if (shootCooldownFrames < MAX_COOLDOWN && hasShotWeb) {
+            shootCooldownFrames++; 
+        }
+
+        // Unlock the key once cooldown is over and the key is released
+        if (shootCooldownFrames >= MAX_COOLDOWN && Keyboard.isKeyUp(SHOOT_KEY)) {
+            keyLocker.unlockKey(SHOOT_KEY);
+            hasShotWeb = false;
+        }
+    }
+
+    public boolean hasShotWeb() {
+        return hasShotWeb;
+    }
+
+    public int getShootCooldownFrames() {
+        return shootCooldownFrames;
+    }
+
+
 
     public PlayerState getPlayerState() {
         return playerState;

@@ -11,6 +11,7 @@ import Level.Player;
 import Level.PlayerListener;
 import Maps.Final;
 import Players.Spider;
+import Players.WalrusPlayer;
 
 public class PlayFinalLevelScreen extends Screen implements PlayerListener {
     protected ScreenCoordinator screenCoordinator;
@@ -30,7 +31,12 @@ public class PlayFinalLevelScreen extends Screen implements PlayerListener {
     public void initialize() {
         Sound.stopMusic();
         this.map = new Final();
-        this.player = new Spider(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+        if(!screenCoordinator.getArachnophobiaEnabled()){
+            this.player = new Spider(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+        }
+        else{
+            this.player = new WalrusPlayer(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+        }
         this.player.setMap(map);
         this.player.addListener(this);
 
@@ -115,8 +121,8 @@ public class PlayFinalLevelScreen extends Screen implements PlayerListener {
         return this.screenCoordinator;
     }
 
-    public Spider getPlayer() {
-        return (Spider) this.player;
+    public Player getPlayer() {
+        return this.player;
     }
 
     public BossMainEnemy getBoss() {

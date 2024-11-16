@@ -190,6 +190,8 @@ public class MenuScreen extends Screen {
                 keyLocker.lockKey(Key.SPACE);
             }
         }
+
+        screenCoordinator.setArachnophobiaEnabled(arachnophobiaEnabled);
     }
 
     public void draw(GraphicsHandler graphicsHandler) {

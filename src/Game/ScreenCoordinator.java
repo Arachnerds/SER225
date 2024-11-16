@@ -8,10 +8,12 @@ import Screens.CreditsScreen;
 import Screens.IntroCutscene;
 import Screens.MenuScreen;
 import Screens.PlayBasementLevelScreen;
-import Screens.PlayOutsideLevelScreen;
 import Screens.PlayBedroomLevelScreen;
 import Screens.PlayFinalLevelScreen;
 import Screens.PlayLivingRoomLevelScreen;
+import Screens.PlayOutsideLevelScreen;
+
+
 
 /*
  * Based on the current game state, this class determines which Screen should be shown
@@ -20,6 +22,7 @@ import Screens.PlayLivingRoomLevelScreen;
 public class ScreenCoordinator extends Screen {
 	// currently shown Screen
 	protected Screen currentScreen = new DefaultScreen();
+	private boolean arachnophobiaEnabled = false;
 
 	// keep track of gameState so ScreenCoordinator knows which Screen to show
 	protected GameState gameState;
@@ -88,6 +91,14 @@ public class ScreenCoordinator extends Screen {
 
 	public Screen getCurrentScreen() {
 		return this.currentScreen;
+	}
+
+	public void setArachnophobiaEnabled(boolean bool){
+		arachnophobiaEnabled = bool;
+	}
+
+	public boolean getArachnophobiaEnabled(){
+		return arachnophobiaEnabled;
 	}
 
 	@Override

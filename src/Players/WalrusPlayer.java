@@ -13,11 +13,24 @@ import Utils.Direction;
 import Utils.Point;
 import java.util.HashMap;
 
+import Builders.FrameBuilder;
+import Engine.ImageLoader;
+import Engine.Keyboard;
+import Engine.Sound;
+import GameObject.Frame;
+import GameObject.ImageEffect;
+import GameObject.SpriteSheet;
+import Level.Player;
+import Projectiles.Web;
+import Utils.Direction;
+import Utils.Point;
+import java.util.HashMap;
+
 // This is the class for the Spider player character
 // basically just sets some values for physics and then defines animations
-public class Spider extends Player {
-        public Spider(float x, float y) {
-        super(new SpriteSheet(ImageLoader.load("SpiderSpriteSheetDraft1.png"), 128, 128), x, y, "STAND_RIGHT");
+public class WalrusPlayer extends Player {
+        public WalrusPlayer(float x, float y) {
+        super(new SpriteSheet(ImageLoader.load("BlueSpider.png"), 128, 128), x, y, "STAND_RIGHT");
         //this.setScale(.1f);
         gravity = .5f;
         terminalVelocityY = 6f;
