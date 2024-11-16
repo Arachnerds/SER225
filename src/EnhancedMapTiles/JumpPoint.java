@@ -11,6 +11,7 @@ import GameObject.SpriteSheet;
 import Level.EnhancedMapTile;
 import Level.Player;
 import Level.TileType;
+import Players.WalrusPlayer;
 import Utils.Direction;
 import Utils.Point;
 import java.awt.Color;
@@ -200,6 +201,13 @@ public class JumpPoint extends EnhancedMapTile {
     @Override
     public void draw(GraphicsHandler graphicsHandler) {
         super.draw(graphicsHandler);
+        int walrusXAdjust = 0;
+        int WalrusYAdjust = 0;
+        if(player instanceof WalrusPlayer){
+            walrusXAdjust = 10;
+            WalrusYAdjust = -10;
+        }
+
         if(this.intersects(player) && Keyboard.isKeyDown(Key.E)){
             //The jump point's x and y, with a little adjustment so the line goes to the center of it
             int x1 = (int)this.getCalibratedXLocation()+25;
@@ -209,11 +217,12 @@ public class JumpPoint extends EnhancedMapTile {
             int facingDirectionAdjustment = 0;
             if(player.getFacingDirection() == Direction.LEFT){
                 facingDirectionAdjustment = (int)(player.getX2() - player.getX1());
+                walrusXAdjust = walrusXAdjust *-1;
             }
             //The player x and y
-            int x2 = (int)player.getCalibratedXLocation() + facingDirectionAdjustment;                     
+            int x2 = (int)player.getCalibratedXLocation() + facingDirectionAdjustment + walrusXAdjust;                     
             //That 60 is an adjustment so the web doesn't come from the top corner of the hitbox. Hardcoding is not ideal but fine for now (until we add the walrus)
-            int y2 = (int)player.getCalibratedYLocation() + 60;
+            int y2 = (int)player.getCalibratedYLocation() + 60 + WalrusYAdjust;
             
             graphicsHandler.drawLine(x1,y1,x2,y2,new Color(255, 255, 255, 100));
             
