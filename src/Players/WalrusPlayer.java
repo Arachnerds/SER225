@@ -2,28 +2,10 @@ package Players;
 
 import Builders.FrameBuilder;
 import Engine.ImageLoader;
-import Engine.Keyboard;
-import Engine.Sound;
 import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
 import Level.Player;
-import Projectiles.Web;
-import Utils.Direction;
-import Utils.Point;
-import java.util.HashMap;
-
-import Builders.FrameBuilder;
-import Engine.ImageLoader;
-import Engine.Keyboard;
-import Engine.Sound;
-import GameObject.Frame;
-import GameObject.ImageEffect;
-import GameObject.SpriteSheet;
-import Level.Player;
-import Projectiles.Web;
-import Utils.Direction;
-import Utils.Point;
 import java.util.HashMap;
 
 // This is the class for the Spider player character

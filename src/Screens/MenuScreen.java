@@ -132,8 +132,18 @@ public class MenuScreen extends Screen {
         } else if ((Keyboard.isKeyDown(Key.LEFT) || Keyboard.isKeyDown(Key.A)) && keyPressTimer == 0) {
             keyPressTimer = 14;
             currentMenuItemHovered--;
+            if(currentMenuItemHovered < 0){
+                currentMenuItemHovered = currentMenuItemHovered +3;
+            }
             currentMenuItemHovered = currentMenuItemHovered % 3;
-        } else {
+        } else if((Keyboard.isKeyDown(Key.DOWN) || Keyboard.isKeyDown(Key.S)||Keyboard.isKeyDown(Key.UP) || Keyboard.isKeyDown(Key.W)) && keyPressTimer == 0 && (currentMenuItemHovered == 0 || currentMenuItemHovered ==1)){
+            keyPressTimer = 14;
+            currentMenuItemHovered = 2;
+        } else if((Keyboard.isKeyDown(Key.UP) || Keyboard.isKeyDown(Key.W)||(Keyboard.isKeyDown(Key.DOWN) || Keyboard.isKeyDown(Key.S))) && keyPressTimer == 0 && currentMenuItemHovered == 2){
+            keyPressTimer = 14;
+            currentMenuItemHovered = 0;
+        }
+        else {
             if (keyPressTimer > 0) {
                 keyPressTimer--;
             }
