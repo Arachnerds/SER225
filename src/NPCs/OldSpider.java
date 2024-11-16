@@ -61,6 +61,9 @@ public class OldSpider extends NPC {
         if(firstDisplay == null && this.map.getMapFileName().equals("basement.txt")){
             firstDisplay = true;
         }
+        else{
+            firstDisplay = false;
+        }
         super.update(player);
     }
 

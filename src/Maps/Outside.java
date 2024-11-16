@@ -159,10 +159,11 @@ public class Outside extends Map {
 
         // List of messeges that will be displayed in text boxes, IN ORDER
         ArrayList<String> messeges = new ArrayList<String>();
-        messeges.add("It seems there is nowhere to go...");
-        messeges.add("See those sticks over there? ...");
-        messeges.add("Use 1, 2, 3, 4 to flip the sticks...");
-        messeges.add("Try to find the right combination!");
+        messeges.add("What took you so long? Not bad for an old spider on his 7th knee replacement, huh? (T)");
+        messeges.add("It seems there is nowhere to go... (T)");
+        messeges.add("See those sticks over there? ... (T)");
+        messeges.add("Use 1, 2, 3, 4 to flip the sticks... (T)");
+        messeges.add("Try to find the right combination! (T)");
 
         // TRY TO MAKE ALL MESSEGES THE SAME SIZE AND THEN CHOOSE OFFEST VALUE TO CENTER THE TEXT BOX
         // Offest value is the last integer parameter in OldSpider Contructor to position the textboxes

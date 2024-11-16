@@ -74,9 +74,9 @@ public class Bedroom extends Map {
 
         // List of messeges that will be displayed in text boxes, IN ORDER
         ArrayList<String> messeges = new ArrayList<String>();
-        messeges.add("I hope you got the key already!...");
-        messeges.add("Try webbing up to the doorknob...");
-        messeges.add("Use 1, 2, 3 to align the keylock");
+        messeges.add("I hope you got the key already!... (T)");
+        messeges.add("Try webbing up to the doorknob... (T)");
+        messeges.add("Use 1, 2, 3 to align the lock. (T)");
 
 
         // TRY TO MAKE ALL MESSEGES THE SAME SIZE AND THEN CHOOSE OFFEST VALUE TO CENTER THE TEXT BOX

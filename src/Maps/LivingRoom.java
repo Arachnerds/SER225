@@ -72,10 +72,10 @@ public class LivingRoom extends Map {
 
         // List of messeges that will be displayed in text boxes, IN ORDER
         ArrayList<String> messeges = new ArrayList<String>();
-        messeges.add("There are some weird images on the screen...");
-        messeges.add("Press 1, 2, and 3 on the remote to move them.");
-        messeges.add("The pictures must have some meaning though...");
-        messeges.add("Try to remember if you saw them before!");
+        messeges.add("There are some weird images on the screen... (T)");
+        messeges.add("Press 1, 2, and 3 on the remote to move them. (T)");
+        messeges.add("The pictures must have some meaning though... (T)");
+        messeges.add("Try to remember if you saw them before! (T)");
 
         // TRY TO MAKE ALL MESSEGES THE SAME SIZE AND THEN CHOOSE OFFEST VALUE TO CENTER THE TEXT BOX
         // Offest value is the last integer parameter in OldSpider Contructor to position the textboxes
