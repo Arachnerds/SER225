@@ -15,7 +15,7 @@ import java.awt.Color;
 // basically just sets some values for physics and then defines animations
 public class WalrusPlayer extends Player {
         public WalrusPlayer(float x, float y) {
-        super(new SpriteSheet(ImageLoader.load("WalSpiderSpritesheetDraft1.png"), 24, 24), x, y-30, "STAND_RIGHT");
+        super(new SpriteSheet(ImageLoader.load("WalSpiderSpritesheetDraft1.png"), 24, 24), x, y, "STAND_RIGHT");
         //this.setScale(.1f);
         gravity = .5f;
         terminalVelocityY = 6f;
