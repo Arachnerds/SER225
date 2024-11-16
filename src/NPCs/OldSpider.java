@@ -19,6 +19,9 @@ import java.util.HashMap;
 
 public class OldSpider extends NPC {
     private ArrayList<Key> tutorialKeys;
+    private int keyIndex;
+    //This boolean makes sure the textbox is displayed automatically in the basement level so the player knows how to speak with it
+    private Boolean firstDisplay;
 
     public OldSpider(Point location, String animationDirection, ArrayList<String> messages, int offset, String filePath) {
         
@@ -29,7 +32,23 @@ public class OldSpider extends NPC {
         textboxOffsetY = -30;
         //Setting up a list of keys to use in the tutorial
         tutorialKeys = new ArrayList<Key>();
-        tutorialKeys.add(Key.DOWN);
+        tutorialKeys.add(Key.T);
+        tutorialKeys.add(Key.T);
+        tutorialKeys.add(Key.T);
+        tutorialKeys.add(Key.SPACE);
+        tutorialKeys.add(Key.Q);
+        tutorialKeys.add(Key.T);
+        tutorialKeys.add(Key.T);
+        tutorialKeys.add(Key.Y);
+        tutorialKeys.add(Key.E);
+        tutorialKeys.add(Key.C);
+        tutorialKeys.add(Key.T);
+        tutorialKeys.add(Key.T);
+        tutorialKeys.add(null);
+        keyIndex = 0;
+        
+        textbox.setText("Press T to talk to me!");
+        
     }
 
     public void update(Player player) {
@@ -39,6 +58,9 @@ public class OldSpider extends NPC {
             this.currentAnimationName = "LEFT";
         }
 
+        if(firstDisplay == null && this.map.getMapFileName().equals("basement.txt")){
+            firstDisplay = true;
+        }
         super.update(player);
     }
 
@@ -48,7 +70,11 @@ public class OldSpider extends NPC {
         //Special logic here for the tutorial in the basement
         if(this.map.getMapFileName().equals("basement.txt")){
             if (isInteractable && intersects(player)) {
-                if (Keyboard.isKeyDown(Key.T) && !keyLocked) {
+                if (Keyboard.isKeyDown(tutorialKeys.get(keyIndex)) && !keyLocked) {
+                    keyIndex++;
+                    if(firstDisplay){
+                        firstDisplay = false;
+                    }
                     if (!talkedTo) {
                         talkedTo = true;
                         //LOCK PLAYER TO CURRENT SPOT - FIGURE OUT WHERE TO UNDO THIS
@@ -67,7 +93,7 @@ public class OldSpider extends NPC {
                         }
                     }
                     keyLocked = true;
-                } else if (Keyboard.isKeyUp(Key.T)) {
+                } else if (Keyboard.isKeyUp(tutorialKeys.get(keyIndex))) {
                     keyLocked = false;
                 }
             }
@@ -119,6 +145,8 @@ public class OldSpider extends NPC {
     @Override
     public void draw(GraphicsHandler graphicsHandler) {
         super.draw(graphicsHandler);
-        
+        if (talkedTo||firstDisplay) {
+            textbox.draw(graphicsHandler);
+        }
     }
 }

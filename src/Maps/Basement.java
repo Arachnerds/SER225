@@ -81,13 +81,17 @@ public class Basement extends Map {
         // List of messeges that will be displayed in text boxes, IN ORDER
         
         ArrayList<String> messeges = new ArrayList<String>();
-        messeges.add("Press C to Continue");
-        messeges.add("Press B to Continue");
-
-        // TRY TO MAKE ALL MESSEGES THE SAME SIZE AND THEN CHOOSE OFFEST VALUE TO CENTER THE TEXT BOX
-        // Offest value is the last integer parameter in OldSpider Contructor to position the textboxes
-
-        //if(ScreenCoordinator.getArachnophobiaEnabled()){}
+        messeges.add("No grandchild of mine is going on a vengeful quest without learning a thing or two first! (T)");
+        messeges.add("You can walk using WASD or the arrow keys! (T)");
+        messeges.add("Good! Now, practice jumping! (SPACE)");
+        messeges.add("Use your natural web shooting abilities! (Q)");
+        messeges.add("Well done! To fight other bugs, you'll have to hit them with that web and stomp on 'em! (T)");
+        messeges.add("But you'll have to be quick, and do it before they break free! (T)");
+        messeges.add("A few final tips! Some objects can be pushed by walking into them, or pulled with Y. (Y)");
+        messeges.add("There are boxes you can swing from or jump to using E. (E)");
+        messeges.add("Those crates up ahead can be climbed by holding C and W or UP. (C)");
+        messeges.add("That's all! You can review these controls at any time from the pause menu by pressing P. (T)");
+        messeges.add("It looks like there is a light at the far end of the basement. I'll meet you out there. (T)");
 
         
         OldSpider spiderNPC = new OldSpider(getMapTile(5, 12).getLocation().addY(13), "LEFT", messeges, -20, "OldSpiderFinal.png");
