@@ -5,7 +5,6 @@ import Engine.Key;
 import Engine.Keyboard;
 import GameObject.SpriteSheet;
 import SpriteFont.SpriteFont;
-
 import java.util.ArrayList;
 
 // This class is a base class for all npcs in the game -- all npcs should extend from it
@@ -24,11 +23,14 @@ public class NPC extends MapEntity {
     protected int currentMessageIndex = 0;
     protected boolean keyLocked = false;
 
+    protected boolean arachnophobiaEnabled;
+
     public NPC(float x, float y, SpriteSheet spriteSheet, String startingAnimation, ArrayList<String> messages) {
         super(x, y, spriteSheet, startingAnimation);
         this.messages = messages;
         this.textbox = new Textbox(messages.get(currentMessageIndex));
         this.message = createMessage();
+        arachnophobiaEnabled = false;
     }
     
     public NPC(float x, float y, SpriteSheet spriteSheet, String startingAnimation) {
@@ -116,5 +118,21 @@ public class NPC extends MapEntity {
         if (talkedTo) {
             textbox.draw(graphicsHandler);
         }
+    }
+
+    public void setArachnophobiaEnabled(boolean bool){
+        this.arachnophobiaEnabled = bool;
+    }
+
+    /* public String getPreviousAnimationName(){
+        return previousAnimationName;
+    } */
+
+    public ArrayList<String> getMessages(){
+        return messages;
+    }
+
+    public int getTextboxOffsetX(){
+        return textboxOffsetX;
     }
 }

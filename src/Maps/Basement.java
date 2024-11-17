@@ -94,7 +94,7 @@ public class Basement extends Map {
         messeges.add("It looks like there is a light at the far end of the basement. I'll meet you out there. (T)");
 
         
-        OldSpider spiderNPC = new OldSpider(getMapTile(5, 12).getLocation().addY(13), "LEFT", messeges, -20, "OldSpiderFinal.png");
+        OldSpider spiderNPC = new OldSpider(getMapTile(5, 12).getLocation().addY(13), "LEFT", messeges, -20);
         npcs.add(spiderNPC);
 
         return npcs;

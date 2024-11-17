@@ -17,17 +17,15 @@ import Utils.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class OldSpider extends NPC {
+public class FancyWalrus extends NPC {
     private ArrayList<Key> tutorialKeys;
     private int keyIndex;
-
-    private String animationDirection;
     //This boolean makes sure the textbox is displayed automatically in the basement level so the player knows how to speak with it
     private boolean firstDisplay;
 
-    public OldSpider(Point location, String animationDirection, ArrayList<String> messages, int offset) {
+    public FancyWalrus(Point location, String animationDirection, ArrayList<String> messages, int offset) {
         
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("OldSpiderFinal.png"), 128, 128), animationDirection, messages);
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("FancyWalrus.png"), 93, 109), animationDirection, messages);
         isInteractable = true;
         talkedToTime = 200;
         textboxOffsetX = offset;
@@ -50,7 +48,7 @@ public class OldSpider extends NPC {
         keyIndex = 0;
         
         textbox.setText("Press T to talk to me!");
-        this.animationDirection = animationDirection;
+
         
     }
 
@@ -159,12 +157,10 @@ public class OldSpider extends NPC {
 
     @Override
     public void draw(GraphicsHandler graphicsHandler) {
-        if(!arachnophobiaEnabled){
-            super.draw(graphicsHandler);
-            if ((talkedTo||firstDisplay) &&!textbox.getText().equals("")) {
-                textbox.draw(graphicsHandler);
-            }
+        super.draw(graphicsHandler);
+        if ((talkedTo||firstDisplay) &&!textbox.getText().equals("")) {
+            textbox.draw(graphicsHandler);
         }
+        
     }
-
 }

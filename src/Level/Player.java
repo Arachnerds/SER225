@@ -7,6 +7,8 @@ import Engine.Keyboard;
 import Engine.Sound;
 import GameObject.GameObject;
 import GameObject.SpriteSheet;
+import NPCs.FancyWalrus;
+import Players.WalrusPlayer;
 import Projectiles.Raindrop;
 import Projectiles.Web;
 import Utils.AirGroundState;
@@ -76,6 +78,7 @@ public abstract class Player extends GameObject {
 
     //Boolean to lock the player in place during basement tutorial
     private boolean inTutorial;
+    private boolean phobiaChecked;
 
     public Player(SpriteSheet spriteSheet, float x, float y, String startingAnimationName) {
         super(spriteSheet, x, y, startingAnimationName);
@@ -87,12 +90,26 @@ public abstract class Player extends GameObject {
         levelState = LevelState.RUNNING;
         shootCooldownFrames = 0;
         inTutorial = false;
+        phobiaChecked = false;
     }
 
     public void update() {
         moveAmountX = 0;
         moveAmountY = 0;
 
+        if(this instanceof WalrusPlayer && phobiaChecked==false){
+            ArrayList<NPC> NPCs = map.getNPCs();
+            int numNPCs = NPCs.size();
+            for(int i = 0;i<numNPCs;i++){
+                NPC currentNPC = NPCs.get(i);
+                currentNPC.setArachnophobiaEnabled(true);
+                map.addNPC(new FancyWalrus(currentNPC.getLocation(), currentNPC.getCurrentAnimationName(), currentNPC.getMessages(), currentNPC.getTextboxOffsetX()));
+            }
+            phobiaChecked = true;
+            
+            
+        }
+        
         // if player is currently playing through level (has not won or lost)
         if (levelState == LevelState.RUNNING) {
             applyGravity();

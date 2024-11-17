@@ -82,7 +82,7 @@ public class Bedroom extends Map {
         // TRY TO MAKE ALL MESSEGES THE SAME SIZE AND THEN CHOOSE OFFEST VALUE TO CENTER THE TEXT BOX
         // Offest value is the last integer parameter in OldSpider Contructor to position the textboxes
 
-        OldSpider spiderNPC = new OldSpider(getMapTile(2, 17).getLocation().addY(6), "LEFT", messeges, -50,"OldSpiderFinal.png");
+        OldSpider spiderNPC = new OldSpider(getMapTile(2, 17).getLocation().addY(6), "LEFT", messeges, -50);
         npcs.add(spiderNPC);
 
         return npcs;
