@@ -5,12 +5,14 @@ import Engine.ImageLoader;
 import Engine.Screen;
 import Engine.ScreenManager;
 import GameObject.Sprite;
+import Game.ScreenCoordinator;
 
 import java.awt.*;
 
 // This class is for the level cleared screen for basement levels
 public class BasementLevelClearedScreen extends Screen {
-    protected Sprite cutscene = new Sprite(ImageLoader.load("levelTwoCutscene.png"), 0, 0);
+    protected Sprite cutscene; // The cutscene image sprite
+    private boolean isArachnophobiaEnabled;
 
     // Fade effect variables
     protected float fadeValue = 1; // Fully black at start
@@ -18,9 +20,14 @@ public class BasementLevelClearedScreen extends Screen {
     protected boolean isFadingOut = false;
     protected boolean isFadeComplete = false;
     protected long displayStartTime;
-    protected long displayDuration = 4000; // Extended duration: 4 seconds
+    protected long displayDuration = 4000; // Duration to display cutscene (4 seconds)
 
-    public BasementLevelClearedScreen() {
+    public BasementLevelClearedScreen(ScreenCoordinator screenCoordinator) {
+        // Retrieve arachnophobia mode directly from the ScreenCoordinator
+        this.isArachnophobiaEnabled = screenCoordinator.getArachnophobiaEnabled();
+        String cutsceneImage = isArachnophobiaEnabled ? "levelTwoCutsceneWalrus.png" : "levelTwoCutscene.png";
+        this.cutscene = new Sprite(ImageLoader.load(cutsceneImage), 0, 0);
+
         initialize();
     }
 
@@ -66,7 +73,7 @@ public class BasementLevelClearedScreen extends Screen {
         // Draw the cutscene image
         cutscene.draw(graphicsHandler);
 
-        // Draw the fade effect
+        // Draw the fade effect overlay
         if (fadeValue > 0) {
             Color fadeColor = new Color(0, 0, 0, (int) (fadeValue * 255));
             graphicsHandler.drawFilledRectangle(0, 0, ScreenManager.getScreenWidth(), ScreenManager.getScreenHeight(), fadeColor);
