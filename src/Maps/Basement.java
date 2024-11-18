@@ -2,6 +2,7 @@ package Maps;
 
 import Enemies.FireflyEnemy;
 import Enemies.FlyEnemy;
+import Enemies.GrasshopperEnemy;
 import Enemies.RoachEnemy;
 import EnhancedMapTiles.Anchor;
 import EnhancedMapTiles.BasementEndLevelTile;

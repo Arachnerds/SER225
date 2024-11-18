@@ -4,7 +4,7 @@ import Enemies.BossHandEnemy;
 import Enemies.BossMainEnemy;
 import EnhancedMapTiles.JumpPoint;
 import Level.*;
-import Tilesets.CommonTileset;
+import Tilesets.KitchenTileset;
 import Utils.Direction;
 import Utils.Point;
 
@@ -16,8 +16,8 @@ public class Final extends Map {
     private BossMainEnemy boss;
 
     public Final() {
-        super("final.txt", new CommonTileset());
-        this.playerStartPosition = getMapTile(10, 18).getLocation();
+        super("final.txt", new KitchenTileset());
+        this.playerStartPosition = getMapTile(9, 17).getLocation();
     }
 
     

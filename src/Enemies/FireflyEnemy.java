@@ -3,6 +3,7 @@ package Enemies;
 import Builders.FrameBuilder;
 import Enemies.DinosaurEnemy.DinosaurState;
 import Engine.ImageLoader;
+import Engine.Sound;
 import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
@@ -171,6 +172,8 @@ public class FireflyEnemy extends Enemy {
             FireflyAttack fireball = new FireflyAttack(new Point(fireballX, fireballY), movementSpeed, 120, "FireflyAttackDraft1.png", 64, 64);
 
             map.addProjectile(fireball);
+
+            Sound.playSoundEffect(Sound.SoundEffect.ELECTRIC);
 
             // change dinosaur back to its WALK state after shooting, reset shootTimer to wait a certain number of frames before shooting again
             dinosaurState = DinosaurState.WALK;

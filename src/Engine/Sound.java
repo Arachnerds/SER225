@@ -40,7 +40,9 @@ public class Sound {
     public enum SoundEffect {
         WEB(0, "Resources/web.wav"),
         WALK(1, "Resources/boom.wav"),
-        KEY(2, "Resources/KeyPickup.wav");
+        KEY(2, "Resources/KeyPickup.wav"),
+        GRASSHOPPER(3, "Resources/grasshopper.wav"),
+        ELECTRIC(4, "Resources/electric.wav");
 
         private final String path;
 
