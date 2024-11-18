@@ -9,8 +9,10 @@ import Engine.Keyboard;
 import GameObject.Frame;
 import GameObject.SpriteSheet;
 import Level.EnhancedMapTile;
+import Level.NPC;
 import Level.Player;
 import Level.TileType;
+import NPCs.OldSpider;
 import Utils.Point;
 import java.util.HashMap;
 
@@ -64,7 +66,16 @@ public class TVRemote extends EnhancedMapTile {
 
             // Check if all three puzzles are on the DEFAULT frame
             if (tvPuzzle1.isOnDefault() && tvPuzzle2.isOnDefault() && tvPuzzle3.isOnDefault()) {
-                Keyboard.simulateKeyPress(Key.ZERO); // Simulate Key.ZERO press
+                activateOldSpiderMovement();
+            }
+        }
+    }
+
+    private void activateOldSpiderMovement() {
+        for (NPC npc : map.getNPCs()) {
+            if (npc instanceof OldSpider) {
+                OldSpider spiderNPC = (OldSpider) npc;
+                spiderNPC.startMovingRight();
             }
         }
     }

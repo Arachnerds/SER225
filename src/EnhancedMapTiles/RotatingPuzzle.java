@@ -1,9 +1,8 @@
 package EnhancedMapTiles;
 
 import Engine.Key;
-import Engine.Keyboard;
 import GameObject.Rectangle;
-import Level.Map;
+import Maps.Bedroom;
 import Level.Player;
 import Utils.Point;
 
@@ -13,8 +12,11 @@ public class RotatingPuzzle {
     private RotatingPuzzlePiece p1;
     private RotatingPuzzlePiece p2;
     private RotatingPuzzlePiece p3;
+    private Bedroom map;
 
-    public RotatingPuzzle(Map map, Point location) {
+    public RotatingPuzzle(Bedroom map, Point location) {
+        this.map = map;
+
         // Strings of random 45 degree increments - "45", "90", etc.
         String r1 = "" + ((int)(Math.random() * 360)) / 45 * 45;
         String r2 = "" + ((int)(Math.random() * 360)) / 45 * 45;
@@ -52,8 +54,7 @@ public class RotatingPuzzle {
         // Check if all pieces are in correct location, then handle what happens on the map
         if (p1.isCorrect() && p2.isCorrect() && p3.isCorrect() && player.hasKey()) {
             hideSwitches();
-            player.setHasKey(false);
-            Keyboard.simulateKeyPress(Key.ZERO);
+            map.hideFakeDoor();
         }
     }
 

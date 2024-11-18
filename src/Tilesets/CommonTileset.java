@@ -3197,6 +3197,26 @@ public class CommonTileset extends Tileset {
 
         mapTiles.add(asedtq);
 
+        // Empty Door
+        Frame emptyDoor1 = new FrameBuilder(getSubImage(3, 0))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder emptyDoor1T = new MapTileBuilder(emptyDoor1)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(emptyDoor1T);
+
+        // Empty Door
+        Frame emptyDoor2 = new FrameBuilder(getSubImage(3, 2))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder emptyDoor2T = new MapTileBuilder(emptyDoor2)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(emptyDoor2T);
+
         return mapTiles;
     }
 }

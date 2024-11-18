@@ -112,7 +112,10 @@ public class Sound {
 
     // Method to play a sound effect once
     public static void playSoundEffect(SoundEffect sfx) {
-        stopSoundEffect(); // Stop any currently playing sound effect
+        if (sfx == SoundEffect.WEB || sfx == SoundEffect.KEY) {
+            stopSoundEffect(); // Stop any currently playing sound effects
+        }
+        
         try {
             soundEffectClip = AudioSystem.getClip();
             soundEffectClip.open(AudioSystem.getAudioInputStream(new File(sfx.getPath()).getAbsoluteFile()));
