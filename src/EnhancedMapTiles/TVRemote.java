@@ -66,16 +66,7 @@ public class TVRemote extends EnhancedMapTile {
 
             // Check if all three puzzles are on the DEFAULT frame
             if (tvPuzzle1.isOnDefault() && tvPuzzle2.isOnDefault() && tvPuzzle3.isOnDefault()) {
-                activateOldSpiderMovement();
-            }
-        }
-    }
-
-    private void activateOldSpiderMovement() {
-        for (NPC npc : map.getNPCs()) {
-            if (npc instanceof OldSpider) {
-                OldSpider spiderNPC = (OldSpider) npc;
-                spiderNPC.startMovingRight();
+                System.out.println("Finished puzzle!");
             }
         }
     }
