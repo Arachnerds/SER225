@@ -53,8 +53,8 @@ public class BossMainEnemy  {
 
         if (!isAlive) return;
 
-        Point lhandArea = new Point(map.getMapTile(3, 11).getX()+5, map.getMapTile(3, 10).getY()+45);
-        Point rhandArea = new Point(map.getMapTile(14, 11).getX()-20, map.getMapTile(14, 10).getY()+45); // DETERMINE THESE LATER BASED ON MAP TILES LOCATION
+        Point lhandArea = new Point(map.getMapTile(3, 11).getX()+5, map.getMapTile(3, 10).getY()+60);
+        Point rhandArea = new Point(map.getMapTile(14, 11).getX()-20, map.getMapTile(14, 10).getY()+60); // DETERMINE THESE LATER BASED ON MAP TILES LOCATION
 
         if(leftHand.handState == HandState.DEAD){
             BossHandEnemy lHand = new BossHandEnemy(lhandArea, Direction.RIGHT, this, map);

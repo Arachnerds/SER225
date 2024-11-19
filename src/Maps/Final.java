@@ -25,8 +25,8 @@ public class Final extends Map {
     public ArrayList<Enemy> loadEnemies() {
         ArrayList<Enemy> enemies = new ArrayList<>();
 
-        Point lhandArea = new Point(this.getMapTile(3, 11).getX()+5, this.getMapTile(3, 10).getY()+45); // DETERMINE THESE LATER BASED ON MAP TILES LOCATION
-        Point rhandArea = new Point(this.getMapTile(14, 11).getX()-20, this.getMapTile(14, 10).getY()+45);
+        Point lhandArea = new Point(this.getMapTile(3, 11).getX()+5, this.getMapTile(3, 10).getY()+60); // DETERMINE THESE LATER BASED ON MAP TILES LOCATION
+        Point rhandArea = new Point(this.getMapTile(14, 11).getX()-20, this.getMapTile(14, 10).getY()+60);
 
         BossMainEnemy boss = new BossMainEnemy(this, 5);
         this.boss = boss;
