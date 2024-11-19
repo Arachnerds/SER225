@@ -58,7 +58,7 @@ public class BossHandEnemy extends Enemy {
 
         // Need to change the exact point locations to be based on the map tiles of the table platform !!!!!!!!!!!!!
         // If starts at the left point, then the right point will be the end point for the sweep range, vice versa
-        this.sweepStartPointLeft = new Point(map.getMapTile(0, 15).getX()-60, map.getMapTile(0, 15).getY()+40); 
+        this.sweepStartPointLeft = new Point(map.getMapTile(0, 15).getX()-75, map.getMapTile(0, 15).getY()+40); 
         this.sweepStartPointRight = new Point(map.getMapTile(18, 15).getX(), map.getMapTile(18, 15).getY()+40);
 
         this.initialize();
@@ -99,7 +99,7 @@ public class BossHandEnemy extends Enemy {
             case SLAM_DOWN:
                 if (!hasPaused) {
                     moveAmountY = movementSpeed;
-                    if (this.getY() >= this.startPositionY + (2 * map.getMapTile(1, 1).getHeight())) {
+                    if (this.getY() >= this.startPositionY + (1.5 * map.getMapTile(1, 1).getHeight())) {
                         this.handState = HandState.SLAM_PAUSE;
                         currentHoldFrameCount = 0;
                         hasPaused = true;
@@ -387,10 +387,10 @@ public class BossHandEnemy extends Enemy {
         IDLE, SLAM_DOWN, SLAM_HOLD, SLAM_UP, SWEEP_LEFT, SWEEP_RIGHT, DEAD, SLAM_PAUSE, CLAP, CLAP_HOLD, CLAP_RETRACT
     }
 
-    public void draw(GraphicsHandler graphicsHandler) {
+    /*public void draw(GraphicsHandler graphicsHandler) {
         super.draw(graphicsHandler);
         drawBounds(graphicsHandler, new Color(255, 0, 0, 100));
-    }
+    }*/
 
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
