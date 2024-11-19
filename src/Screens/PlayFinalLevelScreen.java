@@ -31,10 +31,10 @@ public class PlayFinalLevelScreen extends Screen implements PlayerListener {
     public void initialize() {
         Sound.stopMusic();
         this.map = new Final();
-        if(!screenCoordinator.getArachnophobiaEnabled()){
+        if (!screenCoordinator.getArachnophobiaEnabled()){
             this.player = new Spider(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
         }
-        else{
+        else {
             this.player = new WalrusPlayer(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
         }
         this.player.setMap(map);
@@ -42,7 +42,8 @@ public class PlayFinalLevelScreen extends Screen implements PlayerListener {
 
         this.boss = ((Final) map).getBoss();
 
-        bedroomLevelClearedScreen = new BedroomLevelClearedScreen();
+        bedroomLevelClearedScreen = new BedroomLevelClearedScreen(screenCoordinator);
+        Sound.playMusic(Sound.Level.BOSS);
 
         this.playLevelScreenState = PlayLevelScreenState.RUNNING;
     }

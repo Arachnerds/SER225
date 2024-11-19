@@ -23,7 +23,9 @@ public class Sound {
         BASEMENT(4, "Resources/deep.wav"),
         OUTSIDE(5, "Resources/raining.wav"),
         BEDROOM(6, "Resources/bedroom.wav"),
-        LIVING_ROOM(7, "Resources/living.wav");
+        LIVING_ROOM(7, "Resources/living.wav"),
+        KITCHEN(8, "Resources/kitchen.wav"),
+        BOSS(9, "Resources/boss.wav");
 
         private final String path;
 

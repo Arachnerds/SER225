@@ -10,6 +10,7 @@ import Screens.MenuScreen;
 import Screens.PlayBasementLevelScreen;
 import Screens.PlayBedroomLevelScreen;
 import Screens.PlayFinalLevelScreen;
+import Screens.PlayKitchenLevelScreen;
 import Screens.PlayLivingRoomLevelScreen;
 import Screens.PlayOutsideLevelScreen;
 
@@ -40,7 +41,7 @@ public class ScreenCoordinator extends Screen {
 	@Override
 	public void initialize() {
 		// start game off with Menu Screen
-		gameState = GameState.ARACHNERDS;
+		gameState = GameState.KITCHEN_LEVEL;
 	}
 
 	@Override
@@ -77,6 +78,8 @@ public class ScreenCoordinator extends Screen {
 					case FINAL:
 						currentScreen = new PlayFinalLevelScreen(this);
 						break;
+					case KITCHEN_LEVEL:
+						currentScreen = new PlayKitchenLevelScreen(this);
 					default:
 						break;
 				}

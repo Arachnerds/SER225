@@ -8,7 +8,7 @@ import Game.ScreenCoordinator;
 import Level.Map;
 import Level.Player;
 import Level.PlayerListener;
-import Maps.LivingRoom;
+import Maps.Kitchen;
 import Players.Spider;
 import Players.WalrusPlayer;
 
@@ -28,7 +28,7 @@ public class PlayKitchenLevelScreen extends Screen implements PlayerListener {
 
     public void initialize() {
         Sound.stopMusic();
-        this.map = new LivingRoom();
+        this.map = new Kitchen();
 
         if(!screenCoordinator.getArachnophobiaEnabled()){
             this.player = new Spider(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
@@ -41,7 +41,7 @@ public class PlayKitchenLevelScreen extends Screen implements PlayerListener {
 
         kitchenLevelClearedScreen = new KitchenLevelClearedScreen();
         kitchenLevelLoseScreen = new KitchenLevelLoseScreen(this);
-        Sound.playMusic(Sound.Level.LIVING_ROOM);
+        Sound.playMusic(Sound.Level.KITCHEN);
 
         this.playLevelScreenState = PlayLevelScreenState.RUNNING;
     }

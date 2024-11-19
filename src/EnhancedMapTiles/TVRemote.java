@@ -66,7 +66,7 @@ public class TVRemote extends EnhancedMapTile {
 
             // Check if all three puzzles are on the DEFAULT frame
             if (tvPuzzle1.isOnDefault() && tvPuzzle2.isOnDefault() && tvPuzzle3.isOnDefault()) {
-                System.out.println("Finished puzzle!");
+                player.completeLevel();
             }
         }
     }

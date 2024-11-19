@@ -3911,6 +3911,7 @@ public class KitchenTileset extends Tileset {
         // right 45 degree slope (cabinets19)
         Frame table7 = new FrameBuilder(getSubImage(5, 11))
         .withScale(tileScale)
+        .withBounds(1, 4, 13, 16)
         .build();
 
         MapTileBuilder table7T = new MapTileBuilder(table7)
@@ -3944,13 +3945,14 @@ public class KitchenTileset extends Tileset {
         .build();
 
         MapTileBuilder table10T = new MapTileBuilder(table10)
-        .withTileType(TileType.NOT_PASSABLE);
+        .withTileType(TileType.PASSABLE);
 
         mapTiles.add(table10T);
 
         // right 45 degree slope (cabinets19)
         Frame table11 = new FrameBuilder(getSubImage(5, 15))
         .withScale(tileScale)
+        .withBounds(1, 4, 13, 16)
         .build();
 
         MapTileBuilder table11T = new MapTileBuilder(table11)
@@ -3961,6 +3963,7 @@ public class KitchenTileset extends Tileset {
         // right 45 degree slope (cabinets19)
         Frame table12 = new FrameBuilder(getSubImage(5, 16))
         .withScale(tileScale)
+        .withBounds(1, 1, 4, 16)
         .build();
 
         MapTileBuilder table12T = new MapTileBuilder(table12)
@@ -3971,6 +3974,7 @@ public class KitchenTileset extends Tileset {
         // right 45 degree slope (cabinets19)
         Frame table13 = new FrameBuilder(getSubImage(6, 0))
         .withScale(tileScale)
+        .withBounds(13, 1, 16, 16)
         .build();
 
         MapTileBuilder table13T = new MapTileBuilder(table13)
