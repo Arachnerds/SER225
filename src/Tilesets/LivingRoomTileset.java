@@ -3106,6 +3106,67 @@ public class LivingRoomTileset extends Tileset {
 
         mapTiles.add(rightSlopeTileT);
 
+        // right 45 degree slope
+        Frame curtain1 = new FrameBuilder(getSubImage(12, 6))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder curtain1T = new MapTileBuilder(curtain1)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(curtain1T);
+
+        // right 45 degree slope
+        Frame curtain2 = new FrameBuilder(getSubImage(12, 7))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder curtain2T = new MapTileBuilder(curtain2)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(curtain2T);
+
+        // right 45 degree slope
+        Frame curtain3 = new FrameBuilder(getSubImage(12, 8))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder curtain3T = new MapTileBuilder(curtain3)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(curtain3T);
+
+        // right 45 degree slope
+        Frame curtain4 = new FrameBuilder(getSubImage(12, 9))
+                .withScale(tileScale)
+                .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                .build();
+
+        MapTileBuilder curtain4T = new MapTileBuilder(curtain4)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(curtain4T);
+
+        // right 45 degree slope
+        Frame curtain5 = new FrameBuilder(getSubImage(12, 9))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder curtain5T = new MapTileBuilder(curtain5)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(curtain5T);
+
+        // right 45 degree slope
+        Frame curtain6 = new FrameBuilder(getSubImage(12, 10))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder curtain6T = new MapTileBuilder(curtain6)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(curtain6T);
+
         return mapTiles;
     }
 }
