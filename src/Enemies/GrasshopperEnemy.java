@@ -4,6 +4,7 @@ import Builders.FrameBuilder;
 import Enemies.DinosaurEnemy.DinosaurState;
 import Engine.GraphicsHandler;
 import Engine.ImageLoader;
+import Engine.Sound;
 import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
@@ -117,6 +118,7 @@ public class GrasshopperEnemy extends Enemy {
             } else if (jumpWaitTimer == 0) { //timer is up, jump
                 dinosaurState = DinosaurState.SHOOT;
                 //previousDinosaurState = DinosaurState.SHOOT_WAIT
+                Sound.playSoundEffect(Sound.SoundEffect.GRASSHOPPER);
             }
             else {
                 jumpWaitTimer--;

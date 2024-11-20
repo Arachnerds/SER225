@@ -39,7 +39,7 @@ public class PlayBedroomLevelScreen extends Screen implements PlayerListener {
         this.player.setMap(map);
         this.player.addListener(this);
 
-        bedroomLevelClearedScreen = new BedroomLevelClearedScreen();
+        bedroomLevelClearedScreen = new BedroomLevelClearedScreen(screenCoordinator);
         bedroomLevelLoseScreen = new BedroomLevelLoseScreen(this);
         Sound.playMusic(Sound.Level.BEDROOM);
 

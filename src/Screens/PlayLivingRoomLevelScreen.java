@@ -60,7 +60,7 @@ public class PlayLivingRoomLevelScreen extends Screen implements PlayerListener 
                     livingRoomLevelClearedScreen.update();
                     screenTimer--;
                     if (screenTimer == 0) {
-                        goBackToMenu();
+                        goToKitchenLevelScreen();
                     }
                 }
                 break;
@@ -108,12 +108,8 @@ public class PlayLivingRoomLevelScreen extends Screen implements PlayerListener 
         initialize();
     }
 
-    public void goToOutsideLevelScreen() {
-        screenCoordinator.setGameState(GameState.OUTSIDE_LEVEL);
-    }
-
-    public void goToLivingRoomLevelScreen() {
-        screenCoordinator.setGameState(GameState.LIVING_ROOM_LEVEL);
+    public void goToKitchenLevelScreen() {
+        screenCoordinator.setGameState(GameState.KITCHEN_LEVEL);
     }
 
     public void goBackToMenu() {

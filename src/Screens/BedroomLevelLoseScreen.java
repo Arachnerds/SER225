@@ -19,6 +19,11 @@ public class BedroomLevelLoseScreen extends Screen {
     protected float colorTransition = 0;
     protected boolean increasing = true;
 
+    // Fade effect variables
+    protected float fadeValue = 1; // Fully black at start
+    protected boolean isFadingIn = true;
+    protected boolean isFadingOut = false;
+
     public BedroomLevelLoseScreen(PlayBedroomLevelScreen playLevelScreen) {
         this.playBedroomLevelScreen = playLevelScreen;
         initialize();

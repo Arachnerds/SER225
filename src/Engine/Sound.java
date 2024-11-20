@@ -23,7 +23,9 @@ public class Sound {
         BASEMENT(4, "Resources/deep.wav"),
         OUTSIDE(5, "Resources/raining.wav"),
         BEDROOM(6, "Resources/bedroom.wav"),
-        LIVING_ROOM(7, "Resources/living.wav");
+        LIVING_ROOM(7, "Resources/living.wav"),
+        KITCHEN(8, "Resources/kitchen.wav"),
+        BOSS(9, "Resources/boss.wav");
 
         private final String path;
 
@@ -40,7 +42,9 @@ public class Sound {
     public enum SoundEffect {
         WEB(0, "Resources/web.wav"),
         WALK(1, "Resources/boom.wav"),
-        KEY(2, "Resources/KeyPickup.wav");
+        KEY(2, "Resources/KeyPickup.wav"),
+        GRASSHOPPER(3, "Resources/grasshopper.wav"),
+        ELECTRIC(4, "Resources/electric.wav");
 
         private final String path;
 
@@ -110,7 +114,10 @@ public class Sound {
 
     // Method to play a sound effect once
     public static void playSoundEffect(SoundEffect sfx) {
-        stopSoundEffect(); // Stop any currently playing sound effect
+        if (sfx == SoundEffect.WEB || sfx == SoundEffect.KEY) {
+            stopSoundEffect(); // Stop any currently playing sound effects
+        }
+        
         try {
             soundEffectClip = AudioSystem.getClip();
             soundEffectClip.open(AudioSystem.getAudioInputStream(new File(sfx.getPath()).getAbsoluteFile()));

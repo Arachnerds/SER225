@@ -3,6 +3,7 @@ package Maps;
 import Enemies.Fire;
 import Enemies.FireflyEnemy;
 import Enemies.FlyEnemy;
+import Enemies.GrasshopperEnemy;
 import Enemies.RoachEnemy;
 import EnhancedMapTiles.Anchor;
 import EnhancedMapTiles.BasementEndLevelTile;
@@ -24,7 +25,7 @@ public class Basement extends Map {
 
     public Basement() {
         super("basement.txt", new CommonTileset());
-        this.playerStartPosition = getMapTile(4, 10).getLocation();
+        this.playerStartPosition = getMapTile(4, 11).getLocation();
     }
 
    

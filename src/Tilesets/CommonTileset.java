@@ -3197,6 +3197,87 @@ public class CommonTileset extends Tileset {
 
         mapTiles.add(asedtq);
 
+        // Empty Door
+        Frame emptyDoor1 = new FrameBuilder(getSubImage(3, 0))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder emptyDoor1T = new MapTileBuilder(emptyDoor1)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(emptyDoor1T);
+
+        // Empty Door
+        Frame emptyDoor2 = new FrameBuilder(getSubImage(3, 2))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder emptyDoor2T = new MapTileBuilder(emptyDoor2)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(emptyDoor2T);
+
+        // right 45 degree slope
+        Frame curtain1 = new FrameBuilder(getSubImage(2, 0))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder curtain1T = new MapTileBuilder(curtain1)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(curtain1T);
+
+        // right 45 degree slope
+        Frame curtain2 = new FrameBuilder(getSubImage(2, 1))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder curtain2T = new MapTileBuilder(curtain2)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(curtain2T);
+
+        // right 45 degree slope
+        Frame curtain3 = new FrameBuilder(getSubImage(2, 2))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder curtain3T = new MapTileBuilder(curtain3)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(curtain3T);
+
+        // right 45 degree slope
+        Frame curtain4 = new FrameBuilder(getSubImage(2, 5))
+                .withScale(tileScale)
+                .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                .build();
+
+        MapTileBuilder curtain4T = new MapTileBuilder(curtain4)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(curtain4T);
+
+        // right 45 degree slope
+        Frame curtain5 = new FrameBuilder(getSubImage(2, 5))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder curtain5T = new MapTileBuilder(curtain5)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(curtain5T);
+
+        // right 45 degree slope
+        Frame curtain6 = new FrameBuilder(getSubImage(2, 4))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder curtain6T = new MapTileBuilder(curtain6)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(curtain6T);
+
         return mapTiles;
     }
 }
