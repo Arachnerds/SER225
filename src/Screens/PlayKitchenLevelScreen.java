@@ -60,7 +60,7 @@ public class PlayKitchenLevelScreen extends Screen implements PlayerListener {
                     kitchenLevelClearedScreen.update();
                     screenTimer--;
                     if (screenTimer == 0) {
-                        goBackToMenu();
+                        goToBossLevel();
                     }
                 }
                 break;
@@ -93,7 +93,7 @@ public class PlayKitchenLevelScreen extends Screen implements PlayerListener {
     public void onLevelCompleted() {
         if (playLevelScreenState != PlayLevelScreenState.LEVEL_COMPLETED) {
             playLevelScreenState = PlayLevelScreenState.LEVEL_COMPLETED;
-            levelCompletedStateChangeStart = true;
+            screenCoordinator.setGameState(GameState.FINAL);
         }
     }
 
@@ -118,6 +118,10 @@ public class PlayKitchenLevelScreen extends Screen implements PlayerListener {
 
     public void goBackToMenu() {
         screenCoordinator.setGameState(GameState.MENU);
+    }
+
+    public void goToBossLevel() {
+        screenCoordinator.setGameState(GameState.FINAL);
     }
 
     public ScreenCoordinator getScreenCoordinator() {

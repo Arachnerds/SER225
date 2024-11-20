@@ -138,14 +138,14 @@ public class Fire extends Enemy {
         return new HashMap<String, Frame[]>() {{
             put("WALK_LEFT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
-                            .withScale(2)
+                            .withScale(4)
                             .withBounds(1, 8, 22, 22)
                             .build(),
             });
 
             put("WALK_RIGHT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
-                            .withScale(2)
+                            .withScale(4)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(1, 8, 22, 22)
                             .build(),

@@ -4,7 +4,6 @@ import Builders.FrameBuilder;
 import Engine.GraphicsHandler;
 import Engine.ImageLoader;
 import Engine.Key;
-import Engine.KeyLocker;
 import Engine.Keyboard;
 import GameObject.Frame;
 import GameObject.ImageEffect;

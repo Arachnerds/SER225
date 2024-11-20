@@ -41,7 +41,7 @@ public class ScreenCoordinator extends Screen {
 	@Override
 	public void initialize() {
 		// start game off with Menu Screen
-		gameState = GameState.ARACHNERDS;
+		gameState = GameState.KITCHEN_LEVEL;
 	}
 
 	@Override

@@ -96,7 +96,7 @@ public class Textbox {
         spriteFont.setLocation(x + hPadding + borderThickness, y + vPadding + borderThickness);
     }
 
-    private Dimension getCalculatedBoxSize(Graphics2D graphics) {
+    public Dimension getCalculatedBoxSize(Graphics2D graphics) {
         String[] lines = spriteFont.getText().split("\n");
         int textWidth = getLongestTextWidth(lines, graphics);
         int textHeight = spriteFont.getFont().getSize() * lines.length;
