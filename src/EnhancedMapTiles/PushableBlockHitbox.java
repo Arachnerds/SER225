@@ -1,6 +1,7 @@
 package EnhancedMapTiles;
 
 import Builders.FrameBuilder;
+import Engine.GraphicsHandler;
 import Engine.ImageLoader;
 import GameObject.Frame;
 import GameObject.Rectangle;
@@ -9,6 +10,8 @@ import Level.EnhancedMapTile;
 import Level.Player;
 import Level.TileType;
 import Utils.Point;
+
+import java.awt.Color;
 import java.util.HashMap;
 
 
@@ -65,12 +68,12 @@ public class PushableBlockHitbox extends EnhancedMapTile{
           .build(),
         });
         
-        put("inRange", new Frame[] {
+        /* put("inRange", new Frame[] {
           new FrameBuilder(spriteSheet.getSprite(0, 1), 40)
           .withScale(3)
           .withBounds(3,3,10,10)
           .build(),
-        });
+        }); */
   
       }};
     }
@@ -81,11 +84,11 @@ public class PushableBlockHitbox extends EnhancedMapTile{
   
 
     
-    /* @Override
+    @Override
     public void draw(GraphicsHandler graphicsHandler) {
       super.draw(graphicsHandler);
       drawBounds(graphicsHandler, new Color(0, 0, 255, 100));
-      } */
+      }
   
   }
   

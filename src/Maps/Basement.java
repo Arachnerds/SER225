@@ -1,11 +1,14 @@
 package Maps;
 
+import Enemies.Fire;
 import Enemies.FireflyEnemy;
 import Enemies.FlyEnemy;
 import Enemies.RoachEnemy;
 import EnhancedMapTiles.Anchor;
 import EnhancedMapTiles.BasementEndLevelTile;
 import EnhancedMapTiles.JumpPoint;
+import EnhancedMapTiles.PushableBlock;
+import GameObject.Rectangle;
 import Level.Enemy;
 import Level.EnhancedMapTile;
 import Level.Map;
@@ -16,6 +19,8 @@ import Utils.Direction;
 import java.util.ArrayList;
 
 public class Basement extends Map {
+
+    private Fire fire;
 
     public Basement() {
         super("basement.txt", new CommonTileset());
@@ -48,6 +53,9 @@ public class Basement extends Map {
         /* BugEnemy bugEnemy = new BugEnemy(getMapTile(5, 14).getLocation().subtractY(5), Direction.RIGHT);
         enemies.add(bugEnemy); */
 
+        fire = new Fire(getMapTile(7, 11).getLocation().subtractY(5), Direction.RIGHT);
+        enemies.add(fire);
+
         return enemies;
     }
 
@@ -68,6 +76,17 @@ public class Basement extends Map {
         /* PushableBlock block = new PushableBlock(getMapTile(10, 0).getLocation().addY(10), "AnchorBox.png",16,16,4,4,8,8);
         enhancedMapTiles.add(block);
         enhancedMapTiles.add(block.getExtraHitbox()); */
+
+        PushableBlock fryingPan = new PushableBlock(getMapTile(9, 11).getLocation().subtractY(5), "FryingPan.png", 22, 10, 0, 5, 22, 6);
+        enhancedMapTiles.add(fryingPan);
+        enhancedMapTiles.add(fryingPan.getExtraHitbox());
+        fryingPan.setScale(9);
+        fryingPan.getExtraHitbox().setScale(9);
+        fryingPan.setWebAttachmentAdjustmentX(-100);
+        fryingPan.setDragRange(200);
+        
+        
+        fire.setPan(fryingPan);
 
         
 

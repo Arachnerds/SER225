@@ -46,13 +46,14 @@ public class PushableBlock extends EnhancedMapTile{
   protected AirGroundState airGroundState;
   protected AirGroundState previousAirGroundState;
 
+
   //Apologies for the very long constructor. The four integers at the end are the ones you would provide in the load animations method to set the hitbox.
   public PushableBlock(Point location, String fileName, int spriteWidth, int spriteHeight, int withBoundsX, int withBoundsY, int withBoundsWidth, int withBoundsHeight) {
     super(location.x, location.y, new SpriteSheet(ImageLoader.load(fileName), spriteWidth, spriteHeight), TileType.NOT_PASSABLE);
     momentumY = 0;   
     airGroundState = AirGroundState.GROUND;
     previousAirGroundState = airGroundState;
-    hitbox = new PushableBlockHitbox(location,this, fileName,spriteWidth,spriteHeight,withBoundsX-1,withBoundsY-1,withBoundsWidth+2,withBoundsHeight+2);
+    hitbox = new PushableBlockHitbox(location,this, fileName,spriteWidth,spriteHeight,withBoundsX-1,withBoundsY+1,withBoundsWidth+2,withBoundsHeight+2);
     isBeingPulled = false;
     originalWalkSpeed = 0;
     System.out.println(this.getWidth());
@@ -163,7 +164,7 @@ public class PushableBlock extends EnhancedMapTile{
   @Override
   public void draw(GraphicsHandler graphicsHandler) {
     super.draw(graphicsHandler);
-    //drawBounds(graphicsHandler, new Color(255, 0, 0, 100));
+    drawBounds(graphicsHandler, new Color(255, 0, 0, 100));
     if(isBeingPulled){
       //The center x and y of th epushable object
         int x1 = (int)((this.getCalibratedXLocation() + this.getWidth()/2 + webAttachmentAdjustmentX));
@@ -187,5 +188,13 @@ public class PushableBlock extends EnhancedMapTile{
 
     public void stopGravity(){
       this.gravity = 0f;
+    }
+
+    public void setWebAttachmentAdjustmentX(int x){
+      webAttachmentAdjustmentX = x;
+    }
+
+    public void setDragRange(int r){
+      dragRange = r;
     }
 }
