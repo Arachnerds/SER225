@@ -5,6 +5,7 @@ import GameObject.Sprite;
 import Screens.PlayBasementLevelScreen;
 import Screens.PlayBedroomLevelScreen;
 import Screens.PlayFinalLevelScreen;
+import Screens.PlayKitchenLevelScreen;
 import Screens.PlayLivingRoomLevelScreen;
 import Screens.PlayOutsideLevelScreen;
 import SpriteFont.SpriteFont;
@@ -371,9 +372,52 @@ public class GamePanel extends JPanel {
 
                     this.hasKey = playScreen.getPlayer().hasKey();
                 }
+            } else if (currentScreen instanceof PlayKitchenLevelScreen) {
+                PlayKitchenLevelScreen playScreen = (PlayKitchenLevelScreen) currentScreen;
+                
+                if (playScreen.getPlayLevelScreenState() == PlayKitchenLevelScreen.PlayLevelScreenState.RUNNING) {
+                    currentPlayState = PlayLevelCurrentScreenState.RUNNING;
+                    if (playScreen.getPlayer().hasShotWeb()) {
+                        cooldownBarWidth = playScreen.getPlayer().getShootCooldownFrames()*2;
+                        isOnCooldown = true;
+                    } else {
+                        cooldownBarWidth = cooldownBarWidthMax;
+                        isOnCooldown = false;
+                    }
+
+                    int health = playScreen.getPlayer().getPlayerLives(); //retrieve player health
+
+                    for(int i = 0; i < health; i++){ //how many hearts left
+                        this.keyLocationX = this.getWidth() - ((50 * (3-i)) + 10) ;
+                        this.keyLocationY = this.getHeight() - 40;
+                        this.playerHeart.setLocation(keyLocationX, keyLocationY);
+                        this.playerHeart.setScale(1.5f);
+                        playerHeart.draw(graphicsHandler);
+                    }
+
+                    //how many hearts taken -> replace with black hearts
+                    for (int b = health; b<3;b++){
+                        this.keyLocationX = this.getWidth() - ((50 * (3-b)) + 10) ;
+                        this.keyLocationY = this.getHeight() - 40;
+                        this.playerHeartdead.setLocation(keyLocationX, keyLocationY);
+                        this.playerHeartdead.setScale(1.5f);
+                        playerHeartdead.draw(graphicsHandler);
+                    }
+
+                    this.hasKey = playScreen.getPlayer().hasKey();
+                } 
             } else if (currentScreen instanceof PlayFinalLevelScreen) {
                 PlayFinalLevelScreen playScreen = (PlayFinalLevelScreen) currentScreen;
                 if (playScreen.getPlayLevelScreenState() == PlayFinalLevelScreen.PlayLevelScreenState.RUNNING) {
+                    currentPlayState = PlayLevelCurrentScreenState.RUNNING;
+                    if (playScreen.getPlayer().hasShotWeb()) {
+                        cooldownBarWidth = playScreen.getPlayer().getShootCooldownFrames()*2;
+                        isOnCooldown = true;
+                    } else {
+                        cooldownBarWidth = cooldownBarWidthMax;
+                        isOnCooldown = false;
+                    }
+
                     BossMainEnemy boss = playScreen.getBoss();
                     if (!boss.isDead()) {
                         int currentHealth = boss.getCurrentHealth();
