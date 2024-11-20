@@ -60,7 +60,7 @@ public abstract class Player extends GameObject {
     protected Key CROUCH_ALT_KEY = Key.DOWN;
 
     // flags
-    protected boolean isInvincible = false; // if true, player cannot be hurt by enemies (good for testing)
+    protected boolean isInvincible = true; // if true, player cannot be hurt by enemies (good for testing)
     protected Timer exitClimbTimer = new Timer();
     protected boolean climbTimerStarted = false;
     protected boolean hitEnemy = false;

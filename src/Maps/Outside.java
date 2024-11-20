@@ -2,6 +2,7 @@ package Maps;
 
 import Enemies.PillbugEnemy;
 import Enemies.RoachEnemy;
+import Enemies.BugEnemy;
 import EnhancedMapTiles.FakeBark;
 import EnhancedMapTiles.JumpPoint;
 import EnhancedMapTiles.OutsideEndLevelTile;
@@ -61,11 +62,11 @@ public class Outside extends Map {
 
         /* FlyEnemy flyEnemy = new FlyEnemy(getMapTile(51, 18).getLocation().subtractY(25), Direction.RIGHT, this);
         enemies.add(flyEnemy); */
-        PillbugEnemy pillbug = new PillbugEnemy(getMapTile(54, 18).getLocation().subtractY(5), Direction.RIGHT, this);
-        enemies.add(pillbug);
+        //PillbugEnemy pillbug = new PillbugEnemy(getMapTile(60, 18).getLocation().subtractY(5), Direction.RIGHT, this);
+        //enemies.add(pillbug);
 
-
-        RoachEnemy roachEnemy = new RoachEnemy(getMapTile(30, 46).getLocation().subtractY(5), Direction.RIGHT, this);
+        RoachEnemy roachEnemy = new RoachEnemy(getMapTile(60, 18).getLocation().subtractY(5), Direction.RIGHT, this);
+        //RoachEnemy roachEnemy = new RoachEnemy(getMapTile(30, 46).getLocation().subtractY(5), Direction.RIGHT, this);
         enemies.add(roachEnemy);
 
         RoachEnemy roachEnemy2 = new RoachEnemy(getMapTile(41, 46).getLocation().subtractY(5), Direction.RIGHT, this);

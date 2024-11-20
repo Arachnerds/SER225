@@ -14,6 +14,9 @@ import Utils.AirGroundState;
 import Utils.Direction;
 import Utils.Point;
 
+import Engine.GraphicsHandler;
+import java.awt.Color;
+
 import java.util.HashMap;
 
 // This class is for the black bug enemy
@@ -21,7 +24,7 @@ import java.util.HashMap;
 // if it ends up in the air from walking off a cliff, it will fall down until it hits the ground again, and then will continue walking
 public class PillbugEnemy extends Enemy {
 
-    private float gravity = .5f;
+    private float gravity =2f;
     private float movementSpeed = 5f;
     private float originalMovementSpeed = movementSpeed;
     private Direction startFacingDirection;
@@ -126,8 +129,9 @@ public class PillbugEnemy extends Enemy {
                 } else {
                     moveAmountX -= movementSpeed;
                     //currentAnimationName = "WALK_LEFT";
+                }
             }
-            }
+            System.out.println(this.getLocation());
         }
 
         // add gravity (if in air, this will cause bug to fall)
@@ -137,8 +141,6 @@ public class PillbugEnemy extends Enemy {
         // move bug
         moveYHandleCollision(moveAmountY);
         moveXHandleCollision(moveAmountX);
-
-        //this.drawBounds(graphicsHandler, Color.RED);
 
         super.update(player);
     }
@@ -205,6 +207,7 @@ public class PillbugEnemy extends Enemy {
         // if it is not colliding with the ground, it means that it's currently in the air, so its air ground state is changed to AIR
         if (direction == Direction.DOWN) {
             if (hasCollided) {
+                System.out.println("hit");
                 airGroundState = AirGroundState.GROUND;
             } else {
                 airGroundState = AirGroundState.AIR;
@@ -333,8 +336,12 @@ public class PillbugEnemy extends Enemy {
         }};
     }
 
-    /**public void draw(GraphicsHandler graphicsHandler) {
+    public void SetAirState(){
+        airGroundState = AirGroundState.GROUND;
+    }
+
+    public void draw(GraphicsHandler graphicsHandler) {
         super.draw(graphicsHandler);
         drawBounds(graphicsHandler, new Color(255, 0, 0, 100));
-    }**/
+    }
 }

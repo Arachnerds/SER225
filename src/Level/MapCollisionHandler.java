@@ -1,5 +1,6 @@
 package Level;
 
+import Enemies.PillbugEnemy;
 import GameObject.GameObject;
 import Utils.Direction;
 import Utils.Point;
@@ -109,6 +110,10 @@ public class MapCollisionHandler {
                 case NOT_PASSABLE:
                     return gameObject.intersects(mapTile);
                 case JUMP_THROUGH_PLATFORM:
+                System.out.println(gameObject.getClass()  + " intersect y2" + gameObject.getBounds().getY2() + "map y1 " + mapTile.getBounds().getY1() );
+                if(gameObject.getClass().toString() == "Enemies.PillbugEnemy"){
+                    //gameObject.getClass()).SetAirState();
+                }
                     return direction == Direction.DOWN && gameObject.intersects(mapTile) &&
                             Math.round(gameObject.getBounds().getY2()) == Math.round(mapTile.getBounds().getY1());
                 case WATER:

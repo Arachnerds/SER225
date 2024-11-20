@@ -14,6 +14,9 @@ import Utils.AirGroundState;
 import Utils.Direction;
 import Utils.Point;
 
+import Engine.GraphicsHandler;
+import java.awt.Color;
+
 import java.util.HashMap;
 
 // This class is for the black bug enemy
@@ -21,7 +24,7 @@ import java.util.HashMap;
 // if it ends up in the air from walking off a cliff, it will fall down until it hits the ground again, and then will continue walking
 public class RoachEnemy extends Enemy {
 
-    private float gravity = .5f;
+    private float gravity = 3f;
     private float movementSpeed = .5f;
     private float originalMovementSpeed = movementSpeed;
     private Direction startFacingDirection;
@@ -74,8 +77,7 @@ public class RoachEnemy extends Enemy {
             return;
         } 
 
-        // add gravity (if in air, this will cause bug to fall)
-        moveAmountY += gravity;
+
 
         //check if movement bounds have been reached -> turn around
         if(this.getLocation().x >= (startPoint.x + 4*map.getMapTile(1, 1).getX())) {
@@ -95,6 +97,9 @@ public class RoachEnemy extends Enemy {
                 moveAmountX -= movementSpeed;
                 //currentAnimationName = "WALK_LEFT";
             }
+        } else{
+            // add gravity (if in air, this will cause bug to fall)
+             moveAmountY += gravity;
         }
 
         // move bug
@@ -158,9 +163,11 @@ public class RoachEnemy extends Enemy {
         // if it is not colliding with the ground, it means that it's currently in the air, so its air ground state is changed to AIR
         if (direction == Direction.DOWN) {
             if (hasCollided) {
+                System.out.println("ROACH HIT");
                 airGroundState = AirGroundState.GROUND;
             } else {
                 airGroundState = AirGroundState.AIR;
+                System.out.println("ROACH AIR");
             }
         }
     }
@@ -174,10 +181,10 @@ public class RoachEnemy extends Enemy {
                             .withScale(.75f)
                              .withBounds(10, 1, 128, 46)
                              .build(),
-                    new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
+                    /*new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
                             .withScale(.75f)
                             .withBounds(10, 1, 128, 46)
-                            .build()
+                            .build()*/
             });
 
             put("WALK_RIGHT", new Frame[] {
@@ -186,11 +193,11 @@ public class RoachEnemy extends Enemy {
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(10, 1,128, 46)
                             .build(),
-                    new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
+                    /*new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
                             .withScale(.75f)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(10, 1, 128, 46)
-                            .build()
+                            .build()*/
             });
 
             put("DEAD_LEFT", new Frame[] {
@@ -244,8 +251,8 @@ public class RoachEnemy extends Enemy {
         }};
     }
 
-    /**public void draw(GraphicsHandler graphicsHandler) {
+    public void draw(GraphicsHandler graphicsHandler) {
         super.draw(graphicsHandler);
         drawBounds(graphicsHandler, new Color(255, 0, 0, 100));
-    }*/
+    }
 }
