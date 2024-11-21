@@ -5,6 +5,7 @@ import Engine.GraphicsHandler;
 import Engine.Screen;
 import Screens.ArachnerdsProject;
 import Screens.CreditsScreen;
+import Screens.EndCutscene;
 import Screens.IntroCutscene;
 import Screens.MenuScreen;
 import Screens.PlayBasementLevelScreen;
@@ -41,7 +42,7 @@ public class ScreenCoordinator extends Screen {
 	@Override
 	public void initialize() {
 		// start game off with Menu Screen
-		gameState = GameState.ARACHNERDS;
+		gameState = GameState.FINAL;
 	}
 
 	@Override
@@ -80,6 +81,8 @@ public class ScreenCoordinator extends Screen {
 						break;
 					case KITCHEN_LEVEL:
 						currentScreen = new PlayKitchenLevelScreen(this);
+					case END_CUTSCENE:
+						currentScreen = new EndCutscene(this);
 					default:
 						break;
 				}

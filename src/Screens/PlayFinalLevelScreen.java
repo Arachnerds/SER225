@@ -19,8 +19,8 @@ public class PlayFinalLevelScreen extends Screen implements PlayerListener {
     protected Player player;
     protected PlayLevelScreenState playLevelScreenState;
     protected int screenTimer;
-    protected BedroomLevelClearedScreen bedroomLevelClearedScreen;
-    protected BedroomLevelLoseScreen bedroomLevelLoseScreen;
+    protected FinalLevelLoseScreen finalLevelClearedScreen;
+    protected FinalLevelLoseScreen finalLevelLoseScreen;
     protected boolean levelCompletedStateChangeStart;
     private BossMainEnemy boss;
 
@@ -42,7 +42,8 @@ public class PlayFinalLevelScreen extends Screen implements PlayerListener {
 
         this.boss = ((Final) map).getBoss();
 
-        bedroomLevelClearedScreen = new BedroomLevelClearedScreen(screenCoordinator);
+        finalLevelLoseScreen = new FinalLevelLoseScreen(this);
+        
         Sound.playMusic(Sound.Level.BOSS);
 
         this.playLevelScreenState = PlayLevelScreenState.RUNNING;
@@ -59,7 +60,7 @@ public class PlayFinalLevelScreen extends Screen implements PlayerListener {
                     screenTimer = 130;
                     levelCompletedStateChangeStart = false;
                 } else {
-                    bedroomLevelClearedScreen.update();
+                    finalLevelClearedScreen.update();
                     screenTimer--;
                     if (screenTimer == 0) {
                         goBackToMenu();
@@ -67,7 +68,7 @@ public class PlayFinalLevelScreen extends Screen implements PlayerListener {
                 }
                 break;
             case LEVEL_LOSE:
-                bedroomLevelLoseScreen.update();
+                finalLevelLoseScreen.update();
                 break;
         }
     }
@@ -79,10 +80,10 @@ public class PlayFinalLevelScreen extends Screen implements PlayerListener {
                 player.draw(graphicsHandler);
                 break;
             case LEVEL_COMPLETED:
-                bedroomLevelClearedScreen.draw(graphicsHandler);
+                goToEnd();
                 break;
             case LEVEL_LOSE:
-                bedroomLevelLoseScreen.draw(graphicsHandler);
+                finalLevelLoseScreen.draw(graphicsHandler);
                 break;
         }
     }
@@ -112,6 +113,10 @@ public class PlayFinalLevelScreen extends Screen implements PlayerListener {
 
     public void goToOutsideLevelScreen() {
         screenCoordinator.setGameState(GameState.OUTSIDE_LEVEL);
+    }
+
+    public void goToEnd() {
+        screenCoordinator.setGameState(GameState.END_CUTSCENE);
     }
 
     public void goBackToMenu() {
