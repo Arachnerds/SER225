@@ -25,8 +25,8 @@ public class Final extends Map {
     public ArrayList<Enemy> loadEnemies() {
         ArrayList<Enemy> enemies = new ArrayList<>();
 
-        Point lhandArea = new Point(this.getMapTile(3, 11).getX()+5, this.getMapTile(3, 10).getY()+60); // DETERMINE THESE LATER BASED ON MAP TILES LOCATION
-        Point rhandArea = new Point(this.getMapTile(14, 11).getX()-20, this.getMapTile(14, 10).getY()+60);
+        Point lhandArea = new Point(this.getMapTile(3, 11).getX()-35, this.getMapTile(3, 10).getY()+60); // DETERMINE THESE LATER BASED ON MAP TILES LOCATION
+        Point rhandArea = new Point(this.getMapTile(14, 11).getX()+20, this.getMapTile(14, 10).getY()+60);
 
         BossMainEnemy boss = new BossMainEnemy(this, 5);
         this.boss = boss;
@@ -45,10 +45,10 @@ public class Final extends Map {
     public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
         ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
 
-        JumpPoint j1 = new JumpPoint(new Point(this.getMapTile(1, 12).getX(), this.getMapTile(1, 13).getY()));
+        JumpPoint j1 = new JumpPoint(new Point(this.getMapTile(1, 12).getX()-40, this.getMapTile(1, 13).getY()));
         enhancedMapTiles.add(j1);
 
-        JumpPoint j2 = new JumpPoint(new Point(this.getMapTile(19, 12).getX()-j1.getWidth(), this.getMapTile(18, 13).getY()));
+        JumpPoint j2 = new JumpPoint(new Point(this.getMapTile(19, 12).getX()-j1.getWidth()+40, this.getMapTile(18, 13).getY()));
         enhancedMapTiles.add(j2);
 
         JumpPoint j3 = new JumpPoint(new Point(this.getMapTile(9, 12).getX() + this.getMapTile(1, 1).getWidth()/2, this.getMapTile(8, 13).getY()));

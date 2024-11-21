@@ -13,7 +13,7 @@ import Utils.Point;
 
 public class LivingRoomEndTile extends EnhancedMapTile {
     public LivingRoomEndTile(Point location) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("LivingRoomEndTilew.png"), 16, 16), TileType.PASSABLE);
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("LivingRoomEndTile.png"), 16, 16), TileType.PASSABLE);
     }
 
     @Override
