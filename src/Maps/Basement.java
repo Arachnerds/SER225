@@ -68,7 +68,7 @@ public class Basement extends Map {
         enhancedMapTiles.add(basementEndLevelTile);
 
         //Going to want to switch this back to an anchor, it is a jumppoint now for testing
-        JumpPoint testJumpPoint = new JumpPoint(getMapTile(10, 10).getLocation(),"left");
+        JumpPoint testJumpPoint = new JumpPoint(getMapTile(12, 10).getLocation(),"left");
         enhancedMapTiles.add(testJumpPoint);
 
         Anchor testAnchor = new Anchor(getMapTile(20, 9).getLocation());

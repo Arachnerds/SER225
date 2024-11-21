@@ -1,5 +1,7 @@
 package Engine;
 
+import Enemies.BossMainEnemy;
+import Game.ScreenCoordinator;
 import GameObject.Rectangle;
 import GameObject.Sprite;
 import Screens.PlayBasementLevelScreen;
@@ -10,13 +12,8 @@ import Screens.PlayLivingRoomLevelScreen;
 import Screens.PlayOutsideLevelScreen;
 import SpriteFont.SpriteFont;
 import Utils.Colors;
-
-import javax.swing.*;
-
-import Enemies.BossMainEnemy;
-import Game.ScreenCoordinator;
-
 import java.awt.*;
+import javax.swing.*;
 
 public class GamePanel extends JPanel {
     private ScreenManager screenManager;
@@ -514,7 +511,8 @@ public class GamePanel extends JPanel {
                     "Space - Jump",
                     "C - Activate Climbing Mode",
                     "Q - Shoot Projectile",
-                    "E - Interact With Anchor Points"
+                    "E - Interact With Jumping/Swinging Points",
+                    "Y - Pull a draggable object"
                 };
                 for (int i = 0; i < controlInstructions.length; i++) {
                     SpriteFont instructionsLabel = new SpriteFont(controlInstructions[i], 0, 175 + (i * 40), "Times New Roman", 30, Color.white);
