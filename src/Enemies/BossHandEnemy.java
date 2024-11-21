@@ -287,7 +287,7 @@ public class BossHandEnemy extends Enemy {
 
             this.setMapEntityStatus(MapEntityStatus.REMOVED);
 
-            enemyMain.bossTakeDamage(1);  
+            enemyMain.bossTakeDamage(1, player);  
             
             enemyMain.respawnHands();
 

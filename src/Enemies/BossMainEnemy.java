@@ -110,13 +110,13 @@ public class BossMainEnemy  {
         }
     }
 
-    public void bossTakeDamage(int amount) {
+    public void bossTakeDamage(int amount, Player player) {
         if (!isAlive) return;
 
         health -= amount;
         if (health <= 0) {
             health = 0;
-            die();
+            die(player);
         }
     }
 
@@ -132,11 +132,12 @@ public class BossMainEnemy  {
         return !isAlive;
     }
 
-    private void die() {
+    private void die(Player player) {
         isAlive = false;
         System.out.println("Boss fight over");
         leftHand.setMapEntityStatus(MapEntityStatus.REMOVED);
         rightHand.setMapEntityStatus(MapEntityStatus.REMOVED);
+        player.completeLevel();
     }
 
     public void setInitialHands(BossHandEnemy leftHand, BossHandEnemy rightHand) {
