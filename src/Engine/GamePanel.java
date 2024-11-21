@@ -209,6 +209,10 @@ public class GamePanel extends JPanel {
         if (Keyboard.isKeyUp(Key.SPACE)) {
             keyLocker.unlockKey(Key.SPACE);
         }
+        //This makes sure you can't scroll off of the "back" button when you are on the controls screen
+        if(isControlsVisible){ 
+            currentMenuItemHovered = 0;
+        }
     }
 
     public void draw() {
