@@ -77,7 +77,7 @@ public class PushableBlock extends EnhancedMapTile{
     hitbox.setLocation(this.getX(), this.getY()+3);
     
     if(canBeMoved){
-      if(this.getXDist(player.getX())<dragRange){
+      if(this.getXDist(player.getX())<dragRange && !this.touching(player)){
         if(Keyboard.isKeyDown(Key.Y)){
           isBeingPulled = true;
           player.setWalkSpeed(originalWalkSpeed/2);
@@ -165,7 +165,7 @@ public class PushableBlock extends EnhancedMapTile{
   public void draw(GraphicsHandler graphicsHandler) {
     super.draw(graphicsHandler);
     //drawBounds(graphicsHandler, new Color(255, 0, 0, 100));
-    if(isBeingPulled){
+    if(isBeingPulled && this.getXDist(player.getX())<dragRange){
       //The center x and y of th epushable object
         int x1 = (int)((this.getCalibratedXLocation() + this.getWidth()/2 + webAttachmentAdjustmentX));
         int y1 = (int)((this.getCalibratedYLocation() + this.getHeight()/2));
@@ -182,9 +182,9 @@ public class PushableBlock extends EnhancedMapTile{
             
         graphicsHandler.drawLine(x1,y1,x2,y2,new Color(255, 255, 255, 100));
             
-        }
-        
     }
+        
+  }
 
     public void stopGravity(){
       this.gravity = 0f;
