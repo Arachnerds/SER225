@@ -42,7 +42,7 @@ public class ScreenCoordinator extends Screen {
 	@Override
 	public void initialize() {
 		// start game off with Menu Screen
-		gameState = GameState.ARACHNERDS;
+		gameState = GameState.KITCHEN_LEVEL;
 	}
 
 	@Override
@@ -81,8 +81,10 @@ public class ScreenCoordinator extends Screen {
 						break;
 					case KITCHEN_LEVEL:
 						currentScreen = new PlayKitchenLevelScreen(this);
+						break;
 					case END_CUTSCENE:
 						currentScreen = new EndCutscene(this);
+						break;
 					default:
 						break;
 				}
