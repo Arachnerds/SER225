@@ -1,14 +1,17 @@
 package Screens;
 
 import Engine.GraphicsHandler;
+import Engine.ImageLoader;
 import Engine.Screen;
 import Engine.ScreenManager;
-import SpriteFont.SpriteFont;
+import GameObject.Sprite;
+import Game.ScreenCoordinator;
 
 import java.awt.*;
 
 public class LivingRoomLevelClearedScreen extends Screen {
-    protected SpriteFont winMessage;
+    protected Sprite cutscene;
+    private boolean isArachnophobiaEnabled;
     protected float fadeValue = 1;
     protected boolean isFadingIn = true;
     protected boolean isFadingOut = false;
@@ -16,13 +19,15 @@ public class LivingRoomLevelClearedScreen extends Screen {
     protected long displayStartTime;
     protected long displayDuration = 4000;
 
-    public LivingRoomLevelClearedScreen() {
+    public LivingRoomLevelClearedScreen(ScreenCoordinator screenCoordinator) {
+        this.isArachnophobiaEnabled = screenCoordinator.getArachnophobiaEnabled();
+        String cutsceneImage = isArachnophobiaEnabled ? "level5CutsceneWalrus.png" : "level5Cutscene.png";
+        this.cutscene = new Sprite(ImageLoader.load(cutsceneImage), 0, 0);
         initialize();
     }
 
     @Override
     public void initialize() {
-        winMessage = new SpriteFont("Level Complete!", 0, 0, "Times New Roman", 35, Color.white);
         fadeValue = 1;
         isFadingIn = true;
         isFadingOut = false;
@@ -58,10 +63,7 @@ public class LivingRoomLevelClearedScreen extends Screen {
 
     @Override
     public void draw(GraphicsHandler graphicsHandler) {
-        graphicsHandler.drawFilledRectangle(0, 0, ScreenManager.getScreenWidth(), ScreenManager.getScreenHeight(), Color.black);
-        winMessage.centerTextX(ScreenManager.getScreenWidth(), graphicsHandler.getGraphics());
-        winMessage.centerTextY(ScreenManager.getScreenHeight(), graphicsHandler.getGraphics());
-        winMessage.draw(graphicsHandler);
+        cutscene.draw(graphicsHandler);
 
         if (fadeValue > 0) {
             Color fadeColor = new Color(0, 0, 0, (int) (fadeValue * 255));

@@ -39,7 +39,7 @@ public class PlayLivingRoomLevelScreen extends Screen implements PlayerListener 
         this.player.setMap(map);
         this.player.addListener(this);
 
-        livingRoomLevelClearedScreen = new LivingRoomLevelClearedScreen();
+        livingRoomLevelClearedScreen = new LivingRoomLevelClearedScreen(screenCoordinator);
         livingRoomLevelLoseScreen = new LivingRoomLevelLoseScreen(this);
         Sound.playMusic(Sound.Level.LIVING_ROOM);
 
