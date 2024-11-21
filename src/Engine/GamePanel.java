@@ -512,10 +512,11 @@ public class GamePanel extends JPanel {
                     "C - Activate Climbing Mode",
                     "Q - Shoot Projectile",
                     "E - Interact With Jumping/Swinging Points",
-                    "Y - Pull a draggable object"
+                    "Y - Pull a draggable object",
+                    "T - Talk to NPCs"
                 };
                 for (int i = 0; i < controlInstructions.length; i++) {
-                    SpriteFont instructionsLabel = new SpriteFont(controlInstructions[i], 0, 175 + (i * 40), "Times New Roman", 30, Color.white);
+                    SpriteFont instructionsLabel = new SpriteFont(controlInstructions[i], 0, 160 + (i * 40), "Times New Roman", 30, Color.white);
                     instructionsLabel.setOutlineColor(Color.black);
                     instructionsLabel.setOutlineThickness(2);
                     instructionsLabel.centerTextX(getWidth(), g2d);
