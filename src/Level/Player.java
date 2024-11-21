@@ -5,6 +5,7 @@ import Engine.Key;
 import Engine.KeyLocker;
 import Engine.Keyboard;
 import Engine.Sound;
+import EnhancedMapTiles.DangerousWater;
 import GameObject.GameObject;
 import GameObject.SpriteSheet;
 import NPCs.FancyWalrus;
@@ -473,6 +474,23 @@ public abstract class Player extends GameObject {
 
         }
     }
+
+    public void killPlayer(EnhancedMapTile enhancedMapTile) {
+        if (!isInvincible) {
+            if (enhancedMapTile instanceof DangerousWater) {
+                int damage = Math.min(playerHealth, 3);
+                playerHealth -= damage;
+    
+                if (playerHealth <= 0) {
+                    levelState = LevelState.PLAYER_DEAD;
+                }
+    
+                // Activate invincibility frames
+                isInvincible = true;
+                invFrameCt = 0;
+            }
+        }
+    }    
 
     public void setIfPlayerHasAttacked(Enemy enemy) {
         enemy.hasBeenAttacked = false;

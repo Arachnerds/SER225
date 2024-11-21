@@ -1,7 +1,9 @@
 package Maps;
 
 import Enemies.Fire;
+import EnhancedMapTiles.Anchor;
 import EnhancedMapTiles.Barrier;
+import EnhancedMapTiles.DangerousWater;
 import EnhancedMapTiles.KitchenEndLevelTile;
 import EnhancedMapTiles.PushableBlock;
 import Level.Enemy;
@@ -17,7 +19,7 @@ public class Kitchen extends Map {
 
     public Kitchen() {
         super("kitchen.txt", new KitchenTileset());
-        this.playerStartPosition = getMapTile(90, 13).getLocation();
+        this.playerStartPosition = getMapTile(2, 20).getLocation();
     }
 
     @Override
@@ -43,6 +45,14 @@ public class Kitchen extends Map {
             Barrier barrier = new Barrier(getMapTile(99, y).getLocation());
             enhancedMapTiles.add(barrier);
         }
+
+        for (int x = 34; x >= 27; x--) {
+            DangerousWater dangerousWater = new DangerousWater(getMapTile(x, 12).getLocation());
+            enhancedMapTiles.add(dangerousWater);
+        }
+
+        Anchor anchor1 = new Anchor(getMapTile(28, 6).getLocation());
+        enhancedMapTiles.add(anchor1);
 
         KitchenEndLevelTile kitchenEndLevelTile = new KitchenEndLevelTile(getMapTile(91, 13).getLocation());
         enhancedMapTiles.add(kitchenEndLevelTile);
