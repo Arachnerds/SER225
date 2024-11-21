@@ -21,7 +21,7 @@ public class BasementLevelClearedScreen extends Screen {
 
     public BasementLevelClearedScreen(ScreenCoordinator screenCoordinator) {
         this.isArachnophobiaEnabled = screenCoordinator.getArachnophobiaEnabled();
-        String cutsceneImage = isArachnophobiaEnabled ? "levelTwoCutsceneWalrus.png" : "levelTwoCutscene.png";
+        String cutsceneImage = isArachnophobiaEnabled ? "levelTwoCutsceneWalrus.png" : "levelTwoCutscene_2.png";
         this.cutscene = new Sprite(ImageLoader.load(cutsceneImage), 0, 0);
         initialize();
     }
