@@ -1,6 +1,5 @@
 package Level;
 
-import Enemies.PillbugEnemy;
 import GameObject.GameObject;
 import Utils.Direction;
 import Utils.Point;

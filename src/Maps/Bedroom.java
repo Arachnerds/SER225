@@ -3,7 +3,6 @@ package Maps;
 import Enemies.FireflyEnemy;
 import EnhancedMapTiles.Barrier;
 import EnhancedMapTiles.BedroomEndLevelTile;
-import EnhancedMapTiles.FakeBark;
 import EnhancedMapTiles.FakeDoor;
 import EnhancedMapTiles.FakeDoorknob;
 import EnhancedMapTiles.FireflyJar;

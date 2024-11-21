@@ -11,7 +11,6 @@ import Level.Player;
 import Level.TileType;
 import Utils.Point;
 
-import java.awt.Color;
 import java.util.HashMap;
 
 

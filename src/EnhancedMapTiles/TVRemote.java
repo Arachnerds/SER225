@@ -9,10 +9,9 @@ import Engine.Keyboard;
 import GameObject.Frame;
 import GameObject.SpriteSheet;
 import Level.EnhancedMapTile;
-import Level.NPC;
 import Level.Player;
 import Level.TileType;
-import NPCs.OldSpider;
+import Maps.LivingRoom;
 import Utils.Point;
 import java.util.HashMap;
 
@@ -21,11 +20,12 @@ public class TVRemote extends EnhancedMapTile {
     private TVPuzzle1 tvPuzzle1;
     private TVPuzzle2 tvPuzzle2;
     private TVPuzzle3 tvPuzzle3;
+    private LivingRoom map;
     private KeyLocker keyLocker = new KeyLocker();
 
-    // Constructor that accepts location and puzzles
-    public TVRemote(Point location, TVPuzzle1 tvPuzzle1, TVPuzzle2 tvPuzzle2, TVPuzzle3 tvPuzzle3) {
+    public TVRemote(LivingRoom map, Point location, TVPuzzle1 tvPuzzle1, TVPuzzle2 tvPuzzle2, TVPuzzle3 tvPuzzle3) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("remote.png"), 32, 32), TileType.PASSABLE);
+        this.map = map;
         this.tvPuzzle1 = tvPuzzle1;
         this.tvPuzzle2 = tvPuzzle2;
         this.tvPuzzle3 = tvPuzzle3;
@@ -66,7 +66,7 @@ public class TVRemote extends EnhancedMapTile {
 
             // Check if all three puzzles are on the DEFAULT frame
             if (tvPuzzle1.isOnDefault() && tvPuzzle2.isOnDefault() && tvPuzzle3.isOnDefault()) {
-                player.completeLevel();
+                map.hideDoor();
             }
         }
     }

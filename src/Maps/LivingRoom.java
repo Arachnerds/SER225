@@ -3,7 +3,9 @@ package Maps;
 import Enemies.FlyEnemy;
 import Enemies.RoachEnemy;
 import EnhancedMapTiles.Barrier;
+import EnhancedMapTiles.FakeLivingRoomDoor;
 import EnhancedMapTiles.JumpPoint;
+import EnhancedMapTiles.LivingRoomEndTile;
 import EnhancedMapTiles.TVPuzzle1;
 import EnhancedMapTiles.TVPuzzle2;
 import EnhancedMapTiles.TVPuzzle3;
@@ -52,6 +54,11 @@ public class LivingRoom extends Map {
             enhancedMapTiles.add(barrier);
         }
 
+        for (int y = 19; y >= 0; y--) {
+            FakeLivingRoomDoor fakeLivingRoomDoor = new FakeLivingRoomDoor(getMapTile(79, y).getLocation());
+            enhancedMapTiles.add(fakeLivingRoomDoor);
+        }
+
         // Create puzzles
         TVPuzzle1 tvPuzzle1 = new TVPuzzle1(getMapTile(57, 10).getLocation());
         enhancedMapTiles.add(tvPuzzle1);
@@ -63,13 +70,24 @@ public class LivingRoom extends Map {
         enhancedMapTiles.add(tvPuzzle3);
 
         // Create TVRemote and link puzzles
-        TVRemote tvRemote = new TVRemote(getMapTile(62, 13).getLocation(), tvPuzzle1, tvPuzzle2, tvPuzzle3);
+        TVRemote tvRemote = new TVRemote(this, getMapTile(62, 13).getLocation(), tvPuzzle1, tvPuzzle2, tvPuzzle3);
         enhancedMapTiles.add(tvRemote);
 
         JumpPoint testJumpPoint = new JumpPoint(getMapTile(19, 12).getLocation(),"left");
         enhancedMapTiles.add(testJumpPoint);
 
+        LivingRoomEndTile livingRoomEndTile = new LivingRoomEndTile(getMapTile(97, 18).getLocation());
+        enhancedMapTiles.add(livingRoomEndTile);
+
         return enhancedMapTiles;
+    }
+
+    public void hideDoor() {
+        for (EnhancedMapTile tile : this.getEnhancedMapTiles()) {
+            if (tile instanceof FakeLivingRoomDoor) {
+                ((FakeLivingRoomDoor) tile).setTransparent(true);
+            }
+        }
     }
 
     @Override
@@ -78,13 +96,16 @@ public class LivingRoom extends Map {
 
         // List of messeges that will be displayed in text boxes, IN ORDER
         ArrayList<String> messeges = new ArrayList<String>();
-        messeges.add("There are some weird images on the screen... (T)");
+        messeges.add("The door ahead is locked... (T)");
+        messeges.add("The pictures on the screen might help unlock it. (T)");
         messeges.add("Press 1, 2, and 3 on the remote to move them. (T)");
-        messeges.add("The pictures must have some meaning though... (T)");
-        messeges.add("Try to remember if you saw them before! (T)");
-
-        // TRY TO MAKE ALL MESSEGES THE SAME SIZE AND THEN CHOOSE OFFEST VALUE TO CENTER THE TEXT BOX
-        // Offest value is the last integer parameter in OldSpider Contructor to position the textboxes
+        messeges.add("They must have some meaning though... (T)");
+        messeges.add("Oh and one more thing... (T)");
+        messeges.add("The man you're looking for is in the room ahead. (T)");
+        messeges.add("I wasn't able to get him last time... (T)");
+        messeges.add("but I think you've got the best chance of anyone. (T)");
+        messeges.add("I'll be waiting for you at the front door. (T)");
+        messeges.add("Go get him, my boy. Make me proud. (T)");
 
         OldSpider spiderNPC = new OldSpider(getMapTile(66, 13).getLocation(), "LEFT", messeges, -50);
         npcs.add(spiderNPC);

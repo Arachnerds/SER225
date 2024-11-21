@@ -8,9 +8,6 @@ import GameObject.SpriteSheet;
 import Level.Player;
 import java.util.HashMap;
 
-import Engine.GraphicsHandler;
-import java.awt.Color;
-
 // This is the class for the Spider player character
 // basically just sets some values for physics and then defines animations
 public class WalrusPlayer extends Player {

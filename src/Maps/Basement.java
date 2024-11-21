@@ -1,15 +1,11 @@
 package Maps;
 
-import Enemies.Fire;
 import Enemies.FireflyEnemy;
 import Enemies.FlyEnemy;
-import Enemies.GrasshopperEnemy;
 import Enemies.RoachEnemy;
 import EnhancedMapTiles.Anchor;
 import EnhancedMapTiles.BasementEndLevelTile;
 import EnhancedMapTiles.JumpPoint;
-import EnhancedMapTiles.PushableBlock;
-import GameObject.Rectangle;
 import Level.Enemy;
 import Level.EnhancedMapTile;
 import Level.Map;

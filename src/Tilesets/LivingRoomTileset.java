@@ -3167,6 +3167,78 @@ public class LivingRoomTileset extends Tileset {
 
         mapTiles.add(curtain6T);
 
+        // right 45 degree slope
+        Frame door29 = new FrameBuilder(getSubImage(8, 6))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder door29T = new MapTileBuilder(door29)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(door29T);
+
+        // right 45 degree slope
+        Frame door30 = new FrameBuilder(getSubImage(8, 7))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder door30T = new MapTileBuilder(door30)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(door30T);
+
+        // right 45 degree slope
+        Frame door31= new FrameBuilder(getSubImage(8, 8))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder door31T = new MapTileBuilder(door31)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(door31T);
+
+        // right 45 degree slope
+        Frame door31F = new FrameBuilder(getSubImage(8, 9))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder door31TF = new MapTileBuilder(door31F)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(door31TF);
+
+        // right 45 degree slope
+        Frame door31F2 = new FrameBuilder(getSubImage(8, 10))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder door31TF2 = new MapTileBuilder(door31F2)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(door31TF2);
+
+        // right 45 degree slope
+        Frame door31F3 = new FrameBuilder(getSubImage(8, 10))
+                .withScale(tileScale)
+                .withImageEffect(ImageEffect.FLIP_VERTICAL)
+                .build();
+
+        MapTileBuilder door31TF3 = new MapTileBuilder(door31F3)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(door31TF3);
+
+        // right 45 degree slope
+        Frame door31F3A = new FrameBuilder(getSubImage(15, 4))
+                .withScale(tileScale)
+                .withImageEffect(ImageEffect.FLIP_VERTICAL)
+                .build();
+
+        MapTileBuilder door31TF3A = new MapTileBuilder(door31F3A)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(door31TF3A);
+
         return mapTiles;
     }
 }

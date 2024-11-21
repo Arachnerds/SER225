@@ -1,7 +1,6 @@
 package EnhancedMapTiles;
 
 import Builders.FrameBuilder;
-import Engine.GraphicsHandler;
 import Engine.ImageLoader;
 import Engine.Key;
 import Engine.KeyLocker;
@@ -12,7 +11,6 @@ import Level.EnhancedMapTile;
 import Level.Player;
 import Level.TileType;
 import Utils.Point;
-import java.awt.Color;
 import java.util.HashMap;
 
 public class PuzzleSwitch extends EnhancedMapTile{

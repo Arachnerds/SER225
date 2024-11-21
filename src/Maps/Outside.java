@@ -1,8 +1,6 @@
 package Maps;
 
-import Enemies.PillbugEnemy;
 import Enemies.RoachEnemy;
-import Enemies.BugEnemy;
 import EnhancedMapTiles.Barrier;
 import EnhancedMapTiles.FakeBark;
 import EnhancedMapTiles.JumpPoint;
