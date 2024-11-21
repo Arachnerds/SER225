@@ -3,6 +3,7 @@ package Maps;
 import Enemies.PillbugEnemy;
 import Enemies.RoachEnemy;
 import Enemies.BugEnemy;
+import EnhancedMapTiles.Barrier;
 import EnhancedMapTiles.FakeBark;
 import EnhancedMapTiles.JumpPoint;
 import EnhancedMapTiles.OutsideEndLevelTile;
@@ -89,6 +90,11 @@ public class Outside extends Map {
 
         OutsideEndLevelTile outsideEndLevelTile = new OutsideEndLevelTile(getMapTile(4, 18).getLocation());
         enhancedMapTiles.add(outsideEndLevelTile);
+
+        for (int y = 48; y >= 0; y--) {
+            Barrier barrier = new Barrier(getMapTile(0, y).getLocation());
+            enhancedMapTiles.add(barrier);
+        }
 
         for (int x = 61; x <= 70; x++) {
             for (int y = 15; y <= 48; y++) {

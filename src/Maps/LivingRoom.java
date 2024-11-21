@@ -2,6 +2,7 @@ package Maps;
 
 import Enemies.FlyEnemy;
 import Enemies.RoachEnemy;
+import EnhancedMapTiles.Barrier;
 import EnhancedMapTiles.JumpPoint;
 import EnhancedMapTiles.TVPuzzle1;
 import EnhancedMapTiles.TVPuzzle2;
@@ -45,6 +46,11 @@ public class LivingRoom extends Map {
     @Override
     public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
         ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
+
+        for (int y = 19; y >= 0; y--) {
+            Barrier barrier = new Barrier(getMapTile(0, y).getLocation());
+            enhancedMapTiles.add(barrier);
+        }
 
         // Create puzzles
         TVPuzzle1 tvPuzzle1 = new TVPuzzle1(getMapTile(57, 10).getLocation());

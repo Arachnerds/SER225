@@ -1,6 +1,7 @@
 package Maps;
 
 import Enemies.FireflyEnemy;
+import EnhancedMapTiles.Barrier;
 import EnhancedMapTiles.BedroomEndLevelTile;
 import EnhancedMapTiles.FakeBark;
 import EnhancedMapTiles.FakeDoor;
@@ -40,6 +41,11 @@ public class Bedroom extends Map {
     @Override
     public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
         ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
+
+        for (int y = 19; y >= 0; y--) {
+            Barrier barrier = new Barrier(getMapTile(0, y).getLocation());
+            enhancedMapTiles.add(barrier);
+        }
 
         // Create a JumpPoint with custom hitbox
         float customHitboxX = -100;  // Shift left by 100 pixels

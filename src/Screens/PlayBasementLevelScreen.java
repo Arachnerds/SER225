@@ -2,7 +2,6 @@ package Screens;
 
 import Engine.GraphicsHandler;
 import Engine.Screen;
-import Engine.ScreenManager;
 import Engine.Sound;
 import Game.GameState;
 import Game.ScreenCoordinator;
@@ -13,8 +12,6 @@ import Maps.Basement;
 import Players.Spider;
 import Players.WalrusPlayer;
 
-import java.awt.Color;
-
 public class PlayBasementLevelScreen extends Screen implements PlayerListener {
     protected ScreenCoordinator screenCoordinator;
     protected Map map;
@@ -24,12 +21,6 @@ public class PlayBasementLevelScreen extends Screen implements PlayerListener {
     protected BasementLevelClearedScreen basementLevelClearedScreen;
     protected BasementLevelLoseScreen basementLevelLoseScreen;
     protected boolean levelCompletedStateChangeStart;
-
-    // Fade effect variables
-    protected float fadeValue = 1;
-    protected boolean isFadingIn = true;
-    protected boolean isFadingOut = false;
-    protected boolean isFadeComplete = false;
 
     public PlayBasementLevelScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
@@ -53,38 +44,9 @@ public class PlayBasementLevelScreen extends Screen implements PlayerListener {
         Sound.playMusic(Sound.Level.BASEMENT);
 
         this.playLevelScreenState = PlayLevelScreenState.RUNNING;
-
-        // Initialize fade values
-        fadeValue = 1;
-        isFadingIn = true;
-        isFadingOut = false;
-        isFadeComplete = false;
     }
 
     public void update() {
-        // Handle fade-in and fade-out logic
-        if (isFadingIn) {
-            fadeValue -= 0.02f;
-            if (fadeValue <= 0) {
-                fadeValue = 0;
-                isFadingIn = false;
-                isFadeComplete = true;
-            }
-        }
-
-        if (isFadingOut) {
-            fadeValue += 0.02f;
-            if (fadeValue >= 1) {
-                fadeValue = 1;
-                isFadingOut = false;
-                screenCoordinator.setGameState(GameState.OUTSIDE_LEVEL);
-            }
-        }
-
-        if (!isFadeComplete) {
-            return; // Skip further updates until fade-in is complete
-        }
-
         switch (playLevelScreenState) {
             case RUNNING:
                 player.update();
@@ -98,7 +60,7 @@ public class PlayBasementLevelScreen extends Screen implements PlayerListener {
                     basementLevelClearedScreen.update();
                     screenTimer--;
                     if (screenTimer == 0) {
-                        isFadingOut = true; // Trigger fade-out when transitioning
+                        goToOutsideLevelScreen();
                     }
                 }
                 break;
@@ -120,12 +82,6 @@ public class PlayBasementLevelScreen extends Screen implements PlayerListener {
             case LEVEL_LOSE:
                 basementLevelLoseScreen.draw(graphicsHandler);
                 break;
-        }
-
-        // Draw fade effect overlay
-        if (fadeValue > 0) {
-            Color fadeColor = new Color(0, 0, 0, (int) (fadeValue * 255));
-            graphicsHandler.drawFilledRectangle(0, 0, ScreenManager.getScreenWidth(), ScreenManager.getScreenHeight(), fadeColor);
         }
     }
 

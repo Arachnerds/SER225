@@ -3,6 +3,7 @@ package Maps;
 import java.util.ArrayList;
 
 import Enemies.Fire;
+import EnhancedMapTiles.Barrier;
 import EnhancedMapTiles.KitchenEndLevelTile;
 import EnhancedMapTiles.PushableBlock;
 import Level.Enemy;
@@ -33,6 +34,16 @@ public class Kitchen extends Map {
     @Override
     public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
         ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
+
+        for (int y = 21; y >= 0; y--) {
+            Barrier barrier = new Barrier(getMapTile(0, y).getLocation());
+            enhancedMapTiles.add(barrier);
+        }
+
+        for (int y = 21; y >= 0; y--) {
+            Barrier barrier = new Barrier(getMapTile(99, y).getLocation());
+            enhancedMapTiles.add(barrier);
+        }
 
         KitchenEndLevelTile kitchenEndLevelTile = new KitchenEndLevelTile(getMapTile(91, 13).getLocation());
         enhancedMapTiles.add(kitchenEndLevelTile);
