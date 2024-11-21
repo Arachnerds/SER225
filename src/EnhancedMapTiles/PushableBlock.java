@@ -56,7 +56,7 @@ public class PushableBlock extends EnhancedMapTile{
     hitbox = new PushableBlockHitbox(location,this, fileName,spriteWidth,spriteHeight,withBoundsX-1,withBoundsY+1,withBoundsWidth+2,withBoundsHeight+2);
     isBeingPulled = false;
     originalWalkSpeed = 0;
-    System.out.println(this.getWidth());
+    //System.out.println(this.getWidth());
     this.setBounds(new Rectangle(withBoundsX, withBoundsY, withBoundsWidth, withBoundsHeight));
     canBeMoved = true;
     dragRange = 100;

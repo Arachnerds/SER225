@@ -324,7 +324,7 @@ public abstract class Player extends GameObject {
         //if the player was swinging they are allowed a "double jump"
         if(isSwinging &&  !keyLocker.isKeyLocked(JUMP_KEY)&& Keyboard.isKeyDown(Key.SPACE)){
             isSwinging = false;
-            System.out.println("AHHHHHHHHHHHHHHHHHHHH");
+            //System.out.println("AHHHHHHHHHHHHHHHHHHHH");
             keyLocker.lockKey(Key.SPACE); //Try locking the key in the anchor class instead??
             jumpForce = jumpHeight;
             airGroundState = AirGroundState.AIR;
