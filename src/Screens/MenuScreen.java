@@ -194,7 +194,7 @@ public class MenuScreen extends Screen {
             if (menuItemSelected == 0) {
                 screenCoordinator.setGameState(GameState.BASEMENT_LEVEL);
             } else if (menuItemSelected == 1) {
-                screenCoordinator.setGameState(GameState.FINAL);
+                screenCoordinator.setGameState(GameState.CREDITS);
             } else if (menuItemSelected == 2) {
                 arachnophobiaEnabled = !arachnophobiaEnabled;
                 keyLocker.lockKey(Key.SPACE);

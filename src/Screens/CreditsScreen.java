@@ -23,6 +23,12 @@ public class CreditsScreen extends Screen {
     protected SpriteFont backLabel;
     protected boolean backSelected = true;
 
+    protected float fadeValue = 1;
+    protected boolean isFadingIn = true;
+    protected boolean isFadingOut = false;
+    protected long fadeStartTime;
+    protected long fadeDuration = 2000;
+
     protected float colorTransition = 0;
     protected boolean increasing = true;
 
@@ -62,8 +68,19 @@ public class CreditsScreen extends Screen {
         keyLocker.lockKey(Key.SPACE);
     }
 
+    @Override
     public void update() {
         background.update(null);
+
+        // Handle fade-in
+        if (isFadingIn) {
+            fadeValue -= 0.02f;
+            if (fadeValue <= 0) {
+                fadeValue = 0;
+                isFadingIn = false;
+                fadeStartTime = System.currentTimeMillis();
+            }
+        }
 
         if (increasing) {
             colorTransition += 0.02f;
@@ -91,19 +108,30 @@ public class CreditsScreen extends Screen {
             backLabel.setColor(Color.white);
         }
 
-        if (Keyboard.isKeyUp(Key.SPACE)) {
-            keyLocker.unlockKey(Key.SPACE);
+        if (!isFadingIn && !isFadingOut) {
+            if (Keyboard.isKeyUp(Key.SPACE)) {
+                keyLocker.unlockKey(Key.SPACE);
+            }
+
+            if (!keyLocker.isKeyLocked(Key.SPACE) && Keyboard.isKeyDown(Key.SPACE) && backSelected) {
+                isFadingOut = true;
+            }
         }
 
-        if (!keyLocker.isKeyLocked(Key.SPACE) && Keyboard.isKeyDown(Key.SPACE) && backSelected) {
-            screenCoordinator.setGameState(GameState.MENU);
+        if (isFadingOut) {
+            fadeValue += 0.02f;
+            if (fadeValue >= 1) {
+                fadeValue = 1;
+                screenCoordinator.setGameState(GameState.MENU);
+            }
         }
     }
 
+    @Override
     public void draw(GraphicsHandler graphicsHandler) {
         background.draw(graphicsHandler);
         titleScreen.draw(graphicsHandler);
-        
+
         int centerX = ScreenManager.getScreenWidth();
 
         creditsLabel.centerTextX(centerX, graphicsHandler.getGraphics());
@@ -118,5 +146,11 @@ public class CreditsScreen extends Screen {
         ericLabel.draw(graphicsHandler);
         ryanLabel.draw(graphicsHandler);
         backLabel.draw(graphicsHandler);
+
+        // Draw the fade effect overlay
+        if (fadeValue > 0) {
+            Color fadeColor = new Color(0, 0, 0, (int) (fadeValue * 255));
+            graphicsHandler.drawFilledRectangle(0, 0, ScreenManager.getScreenWidth(), ScreenManager.getScreenHeight(), fadeColor);
+        }
     }
 }
