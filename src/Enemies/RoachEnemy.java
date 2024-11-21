@@ -175,7 +175,7 @@ public class RoachEnemy extends Enemy {
         // if bug is colliding with the ground, change its air ground state to GROUND
         // if it is not colliding with the ground, it means that it's currently in the air, so its air ground state is changed to AIR
 
-        System.out.println("anim: " + currentAnimationName + " state: " + airGroundState + " prev: " +prevAirGroundState + " sinceGround: "+ sinceGround);
+        //System.out.println("anim: " + currentAnimationName + " state: " + airGroundState + " prev: " +prevAirGroundState + " sinceGround: "+ sinceGround);
         prevprevAirGroundState = prevAirGroundState;
         prevAirGroundState = airGroundState;
 
@@ -279,8 +279,8 @@ public class RoachEnemy extends Enemy {
         }};
     }
 
-    public void draw(GraphicsHandler graphicsHandler) {
+    /**public void draw(GraphicsHandler graphicsHandler) {
         super.draw(graphicsHandler);
         drawBounds(graphicsHandler, new Color(255, 0, 0, 100));
-    }
+    }*/
 }

@@ -24,7 +24,7 @@ import java.util.HashMap;
 // if it ends up in the air from walking off a cliff, it will fall down until it hits the ground again, and then will continue walking
 public class PillbugEnemy extends Enemy {
 
-    private float gravity =2f;
+    private float gravity =0f;
     private float movementSpeed = 5f;
     private float originalMovementSpeed = movementSpeed;
     private Direction startFacingDirection;
@@ -34,6 +34,11 @@ public class PillbugEnemy extends Enemy {
     private Map map;
     private boolean stand;
     private int standwait;
+
+
+    private AirGroundState prevAirGroundState;
+    private AirGroundState prevprevAirGroundState;
+    private int sinceGround;
 
     public PillbugEnemy(Point location, Direction facingDirection, Map map) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("PillBugSpriteSheetDraft1.png"), 128, 87), "ROLL_LEFT", 1);
@@ -58,6 +63,11 @@ public class PillbugEnemy extends Enemy {
             currentAnimationName = "ROLL_LEFT";
         }
         airGroundState = AirGroundState.GROUND;
+
+        prevAirGroundState = AirGroundState.GROUND;
+        prevprevAirGroundState = AirGroundState.GROUND;
+
+        sinceGround = 0;
     }
 
     @Override
@@ -131,12 +141,13 @@ public class PillbugEnemy extends Enemy {
                     //currentAnimationName = "WALK_LEFT";
                 }
             }
-            System.out.println(this.getLocation());
+            //System.out.println(this.getLocation());
         }
 
-        // add gravity (if in air, this will cause bug to fall)
-        moveAmountY += gravity;
-
+        if(prevAirGroundState == AirGroundState.AIR){
+            // add gravity (if in air, this will cause bug to fall)
+             moveAmountY += gravity;
+        }
 
         // move bug
         moveYHandleCollision(moveAmountY);
@@ -205,12 +216,25 @@ public class PillbugEnemy extends Enemy {
     public void onEndCollisionCheckY(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
         // if bug is colliding with the ground, change its air ground state to GROUND
         // if it is not colliding with the ground, it means that it's currently in the air, so its air ground state is changed to AIR
+
+        //System.out.println("anim: " + currentAnimationName + " state: " + airGroundState + " sinceGround: "+ sinceGround);
+        prevprevAirGroundState = prevAirGroundState;
+        prevAirGroundState = airGroundState;
+
         if (direction == Direction.DOWN) {
             if (hasCollided) {
-                System.out.println("hit");
+                //System.out.println("hit");
                 airGroundState = AirGroundState.GROUND;
+                gravity = 0;
+                sinceGround = 0;
             } else {
-                airGroundState = AirGroundState.AIR;
+                sinceGround++;
+                if(sinceGround >=20){
+                    gravity = .5f;
+                    airGroundState = AirGroundState.AIR;
+                } else{
+                    airGroundState = AirGroundState.GROUND;
+                }
             }
         }
     }
