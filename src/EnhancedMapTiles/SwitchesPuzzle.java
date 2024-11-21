@@ -14,11 +14,15 @@ public class SwitchesPuzzle {
     public SwitchesPuzzle(Outside map, Point loc1, Point loc2, Point loc3, Point loc4) {
         this.map = map;
         
-        // Assign states to switches based on the randomized list
         s1 = new PuzzleSwitch(this, loc1, 1, Key.ONE);
         s2 = new PuzzleSwitch(this, loc2, 2, Key.TWO);
         s3 = new PuzzleSwitch(this, loc3, 3, Key.THREE);
         s4 = new PuzzleSwitch(this, loc4, 4, Key.FOUR);
+
+        //Setting the initial state of the puzzle
+        s1.flip();
+        s3.flip();
+        
     }
 
     /* public void respond(PuzzleSwitch s) {
