@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 public class Basement extends Map {
 
-    private Fire fire;
+    /* private Fire fire; */
 
     public Basement() {
         super("basement.txt", new CommonTileset());
@@ -54,8 +54,8 @@ public class Basement extends Map {
         /* BugEnemy bugEnemy = new BugEnemy(getMapTile(5, 14).getLocation().subtractY(5), Direction.RIGHT);
         enemies.add(bugEnemy); */
 
-        fire = new Fire(getMapTile(7, 11).getLocation().subtractY(5), Direction.RIGHT);
-        enemies.add(fire);
+        /* fire = new Fire(getMapTile(7, 11).getLocation().subtractY(5), Direction.RIGHT);
+        enemies.add(fire); */
 
         return enemies;
     }
@@ -78,7 +78,7 @@ public class Basement extends Map {
         enhancedMapTiles.add(block);
         enhancedMapTiles.add(block.getExtraHitbox()); */
 
-        PushableBlock fryingPan = new PushableBlock(getMapTile(9, 11).getLocation().subtractY(5), "FryingPan.png", 22, 10, 0, 5, 22, 6);
+        /* PushableBlock fryingPan = new PushableBlock(getMapTile(9, 11).getLocation().subtractY(5), "FryingPan.png", 22, 10, 0, 5, 22, 5);
         enhancedMapTiles.add(fryingPan);
         enhancedMapTiles.add(fryingPan.getExtraHitbox());
         fryingPan.setScale(9);
@@ -87,7 +87,7 @@ public class Basement extends Map {
         fryingPan.setDragRange(200);
         
         
-        fire.setPan(fryingPan);
+        fire.setPan(fryingPan); */
 
         
 

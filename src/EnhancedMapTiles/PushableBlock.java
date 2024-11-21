@@ -164,7 +164,7 @@ public class PushableBlock extends EnhancedMapTile{
   @Override
   public void draw(GraphicsHandler graphicsHandler) {
     super.draw(graphicsHandler);
-    drawBounds(graphicsHandler, new Color(255, 0, 0, 100));
+    //drawBounds(graphicsHandler, new Color(255, 0, 0, 100));
     if(isBeingPulled){
       //The center x and y of th epushable object
         int x1 = (int)((this.getCalibratedXLocation() + this.getWidth()/2 + webAttachmentAdjustmentX));
