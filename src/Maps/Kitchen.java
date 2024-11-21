@@ -1,7 +1,5 @@
 package Maps;
 
-import java.util.ArrayList;
-
 import Enemies.Fire;
 import EnhancedMapTiles.Barrier;
 import EnhancedMapTiles.KitchenEndLevelTile;
@@ -11,6 +9,7 @@ import Level.EnhancedMapTile;
 import Level.Map;
 import Tilesets.KitchenTileset;
 import Utils.Direction;
+import java.util.ArrayList;
 
 public class Kitchen extends Map {
 
@@ -48,7 +47,7 @@ public class Kitchen extends Map {
         KitchenEndLevelTile kitchenEndLevelTile = new KitchenEndLevelTile(getMapTile(91, 13).getLocation());
         enhancedMapTiles.add(kitchenEndLevelTile);
 
-        PushableBlock fryingPan = new PushableBlock(getMapTile(40, 11).getLocation().subtractY(5), "FryingPan.png", 22, 10, 0, 5, 22, 6);
+        PushableBlock fryingPan = new PushableBlock(getMapTile(40, 11).getLocation().subtractY(5), "FryingPan.png", 22, 10, 0, 5, 22, 5);
         enhancedMapTiles.add(fryingPan);
         enhancedMapTiles.add(fryingPan.getExtraHitbox());
         fryingPan.setScale(9);
