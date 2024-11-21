@@ -27,11 +27,13 @@ public class Fire extends Enemy {
     private AirGroundState airGroundState;
     private PushableBlock fryingPan;
     private boolean coveredByPan;
+    private int flickerTimer;
 
     public Fire(Point location, Direction facingDirection) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("Fire.png"), 28, 30), "WALK_LEFT", 1);
         this.startFacingDirection = facingDirection;
         this.initialize();
+        flickerTimer = 40;
     }
 
     @Override
@@ -79,6 +81,19 @@ public class Fire extends Enemy {
         // move bug
         moveYHandleCollision(moveAmountY);
         //moveXHandleCollision(moveAmountX);
+
+        if(flickerTimer == 0){
+            if(this.currentAnimationName.equals("WALK_LEFT")){
+                this.setCurrentAnimationName("WALK_RIGHT");
+            }
+            else{
+                this.setCurrentAnimationName("WALK_LEFT");
+            }
+            flickerTimer = 40;
+        }
+        else{
+            flickerTimer--;
+        }
 
         super.update(player);
     }
