@@ -155,9 +155,9 @@ public abstract class Player extends GameObject {
         }
 
         //A secret test key that completes the current level
-        if(Keyboard.isKeyDown(Key.ZERO)){
+        /* if(Keyboard.isKeyDown(Key.ZERO)){
             this.completeLevel();
-        }
+        } */
     }
 
     // add gravity to player, which is a downward force
